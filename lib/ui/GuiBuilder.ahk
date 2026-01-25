@@ -127,7 +127,7 @@ class GuiBuilder {
 
         ; THE CLICK MASK
         BtnOverlay := this.MainGui.Add("Text", "xp-486 yp-2 w516 h28 BackgroundTrans")
-BtnOverlay.OnEvent("Click", (*) => this.OpenGameList(ConfigManager.GetSortedList()))
+        BtnOverlay.OnEvent("Click", (*) => this.OpenGameList(ConfigManager.GetSortedList()))
 
         this.AddNavBtn("  Clear Row  ", (*) => this.OnDeleteGame(), "yp x+5 Background333333")
 

@@ -252,18 +252,6 @@
     },
     {
       "ApplicationPath":"C:\\TP\\TeknoParrotUi.exe",
-      "ExeName":"racing.exe",
-      "GameApplication":"TeknoParrotUi.exe",
-      "Id":"GAME_TP_SRG_xml",
-      "LastPlayed":"2026-01-25 12:10:02",
-      "LauncherType":"TEKNO",
-      "PlayTimeReadable":"4.1m",
-      "ProfileFile":"SRG.xml",
-      "SavedName":"STORM_RACER_G arcade",
-      "TotalPlayTime":247
-    },
-    {
-      "ApplicationPath":"C:\\TP\\TeknoParrotUi.exe",
       "ExeName":"Play.exe",
       "GameApplication":"TeknoParrotUi.exe",
       "Id":"GAME_TP_tekken51_xml",

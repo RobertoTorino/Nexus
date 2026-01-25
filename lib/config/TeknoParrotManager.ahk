@@ -4,7 +4,7 @@
 ; * @class TeknoParrotManager
 ; * @location lib/config/TeknoParrotManager.ahk
 ; * @author Philip
-; * @version 1.1.06 (Removed TEKNOPARROT_PATH fallback)
+; * @version 1.2.00
 ; ==============================================================================
 
 #Include ..\core\Utilities.ahk
@@ -16,7 +16,6 @@ class TeknoParrotManager {
     static ListView := ""
     static ProfileMap := Map()
 
-    ; Mapping XML <EmulatorType> to Real Executables
     static EmulatorMap := Map(
         "Play", "Play.exe", "ElfLdr2", "elfldr2.exe", "Sdaemon", "sdaemon.exe",
         "TeknoParrot", "TeknoParrot.exe", "ParrotLoader", "parrotloader.exe",
@@ -26,7 +25,6 @@ class TeknoParrotManager {
         "RPCS3", "rpcs3.exe", "CrediarDolphin", "DolphinNoGUI.exe", "Dolphin", "Dolphin.exe"
     )
 
-    ; [STRICT] Only use TEKNO_PATH
     static GetPath() {
         return IniRead(ConfigManager.IniPath, "TEKNO_PATH", "TeknoPath", "")
     }
@@ -134,7 +132,13 @@ class TeknoParrotManager {
         safeTitle := Utilities.SanitizeName(data.Title)
         safeId := "GAME_TP_" RegExReplace(data.File, "[^A-Za-z0-9]", "_")
 
-        friendlyName := DialogsGui.AskForString("Add TeknoParrot Game", "Display Name:", safeTitle)
+        userInput := DialogsGui.AskForString("Add TeknoParrot Game", "Display Name:", safeTitle)
+
+        ; [CRITICAL] Enforce GAME_NAME_STYLE
+        friendlyName := ""
+        if (userInput != "")
+             friendlyName := Utilities.SanitizeName(userInput)
+
         if (friendlyName == "")
             friendlyName := safeTitle
 
