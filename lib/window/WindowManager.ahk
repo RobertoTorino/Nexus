@@ -4,7 +4,7 @@
 ; * @class WindowManager
 ; * @location lib/window/WindowManager.ahk
 ; * @author Philip
-; * @version 1.2.24 (Fixes Fallback Logic & Adds Debug)
+; * @version 1.2.25 (STRICT SAFETY MODE)
 ; ======================================================================
 
 #Include ..\core\Logger.ahk
@@ -101,8 +101,6 @@ class WindowManager {
     static ApplyGameSettings() {
         hwnd := this.GetValidHwnd()
         if !hwnd {
-            ; Suppressed generic warning to reduce spam, but can uncomment for debug
-            ; Logger.Warn("WinMgr: Cannot apply settings, no valid HWND found.")
             return
         }
 
@@ -152,6 +150,17 @@ class WindowManager {
 
     static CloseActiveGame() {
         if (this.ActiveGamePid > 0) {
+
+            ; [SAFETY CHECK] Never kill critical system processes or the IDE
+            try {
+                pName := WinGetProcessName("ahk_pid " this.ActiveGamePid)
+                if (this.IgnoreList.Has(pName)) {
+                    Logger.Error("WinMgr: PREVENTED KILL of protected process: " pName)
+                    this.ActiveGamePid := 0 ; Drop the dangerous lock
+                    return
+                }
+            }
+
             try {
                 exe := this.ActiveGameExe
                 if (exe == "")
@@ -186,6 +195,10 @@ class WindowManager {
     static ForceKillAll() {
         count := 0
         for exeName, _ in this.TeknoLoaders {
+            ; [SAFETY] Ensure we never accidentally added a system app to TeknoLoaders
+            if (this.IgnoreList.Has(exeName))
+                continue
+
             if ProcessExist(exeName) {
                 try {
                     ProcessClose(exeName)
@@ -194,9 +207,16 @@ class WindowManager {
                 }
             }
         }
+
+        ; Kill Active PID only if it's safe
         if (this.ActiveGamePid > 0 && ProcessExist(this.ActiveGamePid)) {
-            ProcessClose(this.ActiveGamePid)
-            count++
+             try {
+                pName := WinGetProcessName("ahk_pid " this.ActiveGamePid)
+                if (!this.IgnoreList.Has(pName)) {
+                    ProcessClose(this.ActiveGamePid)
+                    count++
+                }
+            }
         }
         return count
     }
@@ -419,33 +439,19 @@ class WindowManager {
         return this.ActiveGameHwnd
     }
 
+    ; [CRITICAL FIX] Removed the "Scan Everything" fallback.
+    ; This method now ONLY returns windows that match the requested criteria.
     static FindRealGameWindow(winTitle) {
         prev := A_DetectHiddenWindows
         DetectHiddenWindows(true)
         bestHwnd := 0
         bestScore := -99999
 
-        ; 1. Try to get windows specific to the target
         ids := WinGetList(winTitle)
 
-        ; 2. FALLBACK RESTRICTION:
-        ; Only fallback to "Scan Everything" if we are in "Blind Mode" (searching by Exe Name only, or special TP generic search)
-        ; If we are searching by PID (e.g., ahk_pid 14836) and find 0 windows, DO NOT scan system windows.
-        ; This prevents grabbing "Nexus" windows by accident.
-
-        isTeknoParrotSearch := (this.ActiveGameExe = "TeknoParrotUi.exe" || this.ActiveGameExe = "TeknoParrot.exe")
-        isPidSearch := InStr(winTitle, "ahk_pid")
-
-        if (ids.Length == 0) {
-            if (isPidSearch && !isTeknoParrotSearch) {
-                ; We are looking for a specific PID (e.g. racing.exe) and it has no windows yet.
-                ; Return 0 and wait for it to create one. Don't grab random system windows.
-                DetectHiddenWindows(prev)
-                return 0
-            }
-            ; Otherwise, if searching by generic Exe or Blind, broaden scope
-            ids := WinGetList()
-        }
+        ; Note: We removed the "if ids.Length == 0 -> WinGetList()" block.
+        ; If we can't find the specific game window, we return 0.
+        ; This prevents us from accidentally latching onto the IDE or Explorer.
 
         for this_id in ids {
             currentScore := 0
@@ -455,10 +461,6 @@ class WindowManager {
             style := WinGetStyle(this_id)
             WinGetPos(,, &w, &h, this_id)
             area := w * h
-
-            ; [LOGGING] Uncomment this to debug exactly what racing.exe is producing
-            ; if (InStr(winTitle, "ahk_pid"))
-            ;    Logger.Debug("Window Scan: ID=" this_id " Class=" cls " Title=" title " Size=" w "x" h)
 
             if (InStr(title, "Play!") || InStr(title, "TeknoParrot") || InStr(title, "TK5"))
                 currentScore += 5000
@@ -478,7 +480,7 @@ class WindowManager {
             if (title == "")
                 currentScore -= 500
 
-            ; [NEW] Heuristic: Match Process Name (Explicit Support for racing.exe)
+            ; Heuristic: Match Process Name
             try {
                 procName := WinGetProcessName(this_id)
                 if (this.ActiveGameExe != "" && procName = this.ActiveGameExe)

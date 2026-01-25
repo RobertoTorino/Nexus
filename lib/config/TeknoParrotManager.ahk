@@ -4,7 +4,7 @@
 ; * @class TeknoParrotManager
 ; * @location lib/config/TeknoParrotManager.ahk
 ; * @author Philip
-; * @version 1.1.05 (INI Auto-Fix & Path Unification)
+; * @version 1.1.06 (Removed TEKNOPARROT_PATH fallback)
 ; ==============================================================================
 
 #Include ..\core\Utilities.ahk
@@ -26,28 +26,14 @@ class TeknoParrotManager {
         "RPCS3", "rpcs3.exe", "CrediarDolphin", "DolphinNoGUI.exe", "Dolphin", "Dolphin.exe"
     )
 
-    ; [CRITICAL] Unified Path Getter with Auto-Fix
+    ; [STRICT] Only use TEKNO_PATH
     static GetPath() {
-        ; Check the standard key
-        path := IniRead(ConfigManager.IniPath, "TEKNO_PATH", "TeknoPath", "")
-
-        ; Check the legacy key if standard is missing
-        if (path == "" || !FileExist(path)) {
-            path := IniRead(ConfigManager.IniPath, "TEKNOPARROT_PATH", "TeknoParrotPath", "")
-
-            ; If we found it in legacy, MIGRATE IT to standard
-            if (path != "" && FileExist(path)) {
-                IniWrite(path, ConfigManager.IniPath, "TEKNO_PATH", "TeknoPath")
-                IniDelete(ConfigManager.IniPath, "TEKNOPARROT_PATH") ; Clean up duplicates
-            }
-        }
-        return path
+        return IniRead(ConfigManager.IniPath, "TEKNO_PATH", "TeknoPath", "")
     }
 
     static ShowPicker() {
         tpPath := this.GetPath()
 
-        ; 1. Auto-Detect / Ask
         if (tpPath == "" || !FileExist(tpPath)) {
             tpPath := FileSelect(3 + 4096, , "Select TeknoParrotUi.exe", "TeknoParrotUi.exe")
             if (tpPath == "")
@@ -89,7 +75,6 @@ class TeknoParrotManager {
                 if RegExMatch(xmlContent, "<EmulatorType>(.*?)</EmulatorType>", &match)
                     emuType := match[1]
 
-                ; Resolve Zip/Emulator overrides
                 if (SubStr(gameExe, -4) = ".zip" || SubStr(gameExe, -4) = ".rar") {
                     if (this.EmulatorMap.Has(emuType))
                         gameExe := this.EmulatorMap[emuType]
@@ -153,7 +138,7 @@ class TeknoParrotManager {
         if (friendlyName == "")
             friendlyName := safeTitle
 
-        tpPath := this.GetPath() ; Use unified getter
+        tpPath := this.GetPath()
 
         newGame := {
             ApplicationPath: tpPath,
