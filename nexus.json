@@ -158,13 +158,13 @@
       "GameApplication":"EBOOT.BIN",
       "Id":"GAME_TEKKEN6",
       "IsPatchable":"true",
-      "LastPlayed":"2026-01-25 05:58:28",
+      "LastPlayed":"2026-01-25 16:05:09",
       "LauncherType":"FIGHTER",
       "PatchGroup":"Tekken 6 BR",
-      "PlayTimeReadable":"41.6m",
+      "PlayTimeReadable":"45.1m",
       "SavedName":"TEKKEN6",
       "SnapshotDir":"snapshots/GAME_TEKKEN6",
-      "TotalPlayTime":2493
+      "TotalPlayTime":2707
     },
     {
       "ApplicationPath":"E:/T6/dev_hdd0/game/SCEEXE001/USRDIR/EBOOT.BIN",

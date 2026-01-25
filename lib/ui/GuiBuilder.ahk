@@ -88,43 +88,40 @@ class GuiBuilder {
         this.MainGui.Add("Text", "x+0 yp-4 w30 h30 +0x200 Center Background2A2A2A", "_").OnEvent("Click", (*) => this.MainGui.Minimize())
         this.MainGui.Add("Text", "x+-4 yp+4 w30 h30 +0x200 Center cRed", "✕").OnEvent("Click", (*) => ExitApp())
 
+        ; 1. Separator Line
+        this.MainGui.Add("Text", "x0 y+4 w" guiW " h1 Background333333")
+
         ; ======================================================================
         ; ROW 1
         ; ======================================================================
         this.MainGui.SetFont("s14")
         this.AddNavBtn(" ➕ ", (*) => this.OnAddGame(), "x5 y35 Background006666")
-        this.AddNavBtn(" 🕹️ ", (*) => TeknoParrotManager.ShowPicker(), "x+5 Background006666")
-
-        this.AddNavBtn(" 🛠️ ", (*) => EmulatorConfigGui.Show(), "x+5 Background006666")
-              this.MainGui.SetFont("s10")
-        this.AddNavBtn("  Clear Path  ", (*) => this.OnClearPath(), "x+5 Background333333")
-        this.AddNavBtn("  Fix Path  ", (*) => this.OnRefreshPath(), "x+5 Background333333")
-        this.AddNavBtn("  Window Manager  ", (*) => WindowManagerGui.Show(), "x+5 Background333333")
-        this.AddNavBtn("  Focus  ", (*) => this.OnFocusGame(), "x+5 Background333333")
-        this.MainGui.SetFont("s14")
-        this.AddNavBtn(" 🗄️ ", (*) => GameDatabaseTool.Show(), "x+4 Background006666")
-        this.AddNavBtn(" 📝 ", (*) => this.OnNotes(), "x+5 Background006666")
-        this.AddNavBtn(" 📂 ", (*) => this.OnFileBrowser(), "x+5 Background006666")
-        this.MainGui.SetFont("s10")
+        this.AddNavBtn(" 🕹️ ", (*) => TeknoParrotManager.ShowPicker(), "x+10 Background006666")
+        this.AddNavBtn(" 🛠️ ", (*) => EmulatorConfigGui.Show(), "x+10 Background006666")
+        this.BtnStart := this.AddNavBtn(" ▶️ ", (*) => this.OnStartAction(), "x+10 Background006666")
+        this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10 Background006666")
+        this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10 Background006666")
+        this.AddNavBtn(" 🗑️ ", (*) => this.OnClearPath(), "x+10 Background006666")
+        this.AddNavBtn(" 🔧 ", (*) => this.OnRefreshPath(), "x+10 Background006666")
+        this.AddNavBtn(" 🔲 ", (*) => WindowManagerGui.Show(), "x+10 Background006666")
+        this.AddNavBtn(" 👁️ ", (*) => this.OnFocusGame(), "x+10 Background006666")
+        this.AddNavBtn(" 🗄️ ", (*) => GameDatabaseTool.Show(), "x+10 Background006666")
+        this.AddNavBtn(" 📝 ", (*) => this.OnNotes(), "x+10 Background006666")
+        this.AddNavBtn(" 📂 ", (*) => this.OnFileBrowser(), "x+10 Background006666")
 
         ; ======================================================================
         ; ROW 2
         ; ======================================================================
-        this.MainGui.SetFont("s14 cSilver", "Segoe UI")
-        this.BtnStart := this.AddNavBtn(" ▶️ ", (*) => this.OnStartAction(), "x5 y+8 Background333333")
-        this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+0 Background333333")
-        this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+0 Background333333")
-
         ; Dropdown
         ; 1. GET DATA
         gamesList := ConfigManager.GetSortedList()
-
-        this.MainGui.Add("Text", "x+5 yp w518 h30 Background05FBE4")
+        this.MainGui.Add("Text", "x5 y+8 w518 h30 Background05FBE4")
 
         ; THE DISPLAY (Centered Text)
         ; Added 'Center' to align the text in the middle
         this.GameSelector := this.MainGui.Add("Edit", "xp+1 yp+2 w485 h26 c05FBE4 Background333333 -E0x200 +ReadOnly -VScroll Center", "")
         this.MainGui.SetFont("s10")
+
         ; THE ARROW
         this.MainGui.Add("Text", "x+-1 yp w30 h26 c05FBE4 Background333333 +0x200 +Center", "▼")
 
@@ -132,7 +129,9 @@ class GuiBuilder {
         BtnOverlay := this.MainGui.Add("Text", "xp-486 yp-2 w516 h28 BackgroundTrans")
         BtnOverlay.OnEvent("Click", (*) => this.OpenGameList(ConfigManager.GetSortedList()))
 
-        this.AddNavBtn("  Clear Row  ", (*) => this.OnDeleteGame(), "yp x+5 Background333333")
+        this.MainGui.SetFont("s10")
+
+        this.AddNavBtn(" 🧹 ", (*) => this.OnDeleteGame(), "yp x+5 Background333333")
 
         ; ======================================================================
         ; ROW 3
