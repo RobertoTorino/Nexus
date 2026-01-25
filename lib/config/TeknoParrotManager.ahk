@@ -4,7 +4,7 @@
 ; * @class TeknoParrotManager
 ; * @location lib/config/TeknoParrotManager.ahk
 ; * @author Philip
-; * @version 1.2.01 (Added Profile Counters)
+; * @version 1.2.02 (Added Icon Preview)
 ; ==============================================================================
 
 #Include ..\core\Utilities.ahk
@@ -14,9 +14,10 @@
 class TeknoParrotManager {
     static PickerGui := ""
     static ListView := ""
+    static IconCtrl := ""
     static ProfileMap := Map()
+    static TpRootDir := "" ; Stores the TP Root for icon resolution
 
-    ; [NEW] Counters
     static UserCount := 0
     static SystemCount := 0
 
@@ -44,6 +45,7 @@ class TeknoParrotManager {
         }
 
         SplitPath(tpPath, , &tpDir)
+        this.TpRootDir := tpDir ; Save root for icon path building
 
         userDir := tpDir "\UserProfiles"
         systemDir := tpDir "\GameProfiles"
@@ -53,12 +55,10 @@ class TeknoParrotManager {
             return
         }
 
-        ; 1. RESET COUNTERS & MAP
         this.ProfileMap.Clear()
         this.UserCount := 0
         this.SystemCount := 0
 
-        ; 2. SCAN (Counters update instantly inside here)
         this.ScanProfiles(userDir, "User")
 
         if DirExist(systemDir)
@@ -90,6 +90,11 @@ class TeknoParrotManager {
                 if RegExMatch(xmlContent, "<EmulatorType>(.*?)</EmulatorType>", &match)
                     emuType := match[1]
 
+                ; [NEW] Capture Icon Path
+                iconRelPath := ""
+                if RegExMatch(xmlContent, "i)<IconName>\s*(.*?)\s*</IconName>", &match)
+                    iconRelPath := match[1]
+
                 if (SubStr(gameExe, -4) = ".zip" || SubStr(gameExe, -4) = ".rar") {
                     if (this.EmulatorMap.Has(emuType))
                         gameExe := this.EmulatorMap[emuType]
@@ -102,10 +107,10 @@ class TeknoParrotManager {
                     Exe: gameExe,
                     File: A_LoopFileName,
                     FullPath: A_LoopFileFullPath,
-                    Type: type
+                    Type: type,
+                    IconPath: iconRelPath
                 }
 
-                ; [NEW] Increment Counters on successful add
                 if (type == "User")
                     this.UserCount++
                 else
@@ -118,19 +123,30 @@ class TeknoParrotManager {
         if (this.PickerGui)
             this.PickerGui.Destroy()
 
+        ; Made the GUI wider to accommodate the image preview (w920)
         this.PickerGui := Gui("-Caption +Border +AlwaysOnTop +ToolWindow", "TeknoParrot Profile Explorer")
         this.PickerGui.BackColor := "2A2A2A"
         this.PickerGui.SetFont("s10 q5 cWhite", "Segoe UI")
 
-        ; [NEW] Display the counts in the header
         headerText := "   TeknoParrot Profiles  (User: " this.UserCount " / System: " this.SystemCount ")"
 
-        this.PickerGui.Add("Text", "x0 y0 w680 h30 +0x200 Background2A2A2A", headerText).OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.PickerGui.Hwnd))
+        this.PickerGui.Add("Text", "x0 y0 w900 h30 +0x200 Background2A2A2A", headerText).OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.PickerGui.Hwnd))
         this.PickerGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕").OnEvent("Click", (*) => this.PickerGui.Destroy())
 
+        ; ListView
         this.ListView := this.PickerGui.Add("ListView", "x10 y+5 w690 h400 -Hdr Background202020 cWhite", ["Game Title", "XML File", "Type"])
         this.ListView.OnEvent("DoubleClick", this.OnProfileSelected.Bind(this))
         this.ListView.OnEvent("ItemSelect", this.OnSelectionChanged.Bind(this))
+
+        ; Image Preview Box (Right Side)
+
+        ; [Image of Game Icon]
+
+        this.PickerGui.SetFont("s9 cSilver")
+        this.PickerGui.Add("GroupBox", "x+10 yp w200 h220", " Icon Preview ")
+
+        ; The Picture Control (Starts empty)
+        this.IconCtrl := this.PickerGui.Add("Picture", "xp+10 yp+20 w180 h180 +Background202020 +Border vIconPreview", "")
 
         for path, data in this.ProfileMap {
             this.ListView.Add(, data.Title, data.File, data.Type)
@@ -144,7 +160,7 @@ class TeknoParrotManager {
         this.BtnView := this.BtnAddTheme("  View XML  ", this.OnViewXml.Bind(this), "x+10 yp Background2A2A2A")
         this.BtnAddTheme("  Close  ", (*) => this.PickerGui.Destroy(), "x+10 yp Background660000")
 
-        this.PickerGui.Show("w710")
+        this.PickerGui.Show("w930")
     }
 
     static BtnAddTheme(label, callback, options) {
@@ -158,17 +174,46 @@ class TeknoParrotManager {
         if (row == 0) {
             this.BtnAdd.Opt("Background333333 cGray")
             this.BtnAdd.Enabled := false
+            this.IconCtrl.Value := "" ; Clear Image
             return
         }
 
+        ; 1. Handle Buttons
         type := this.ListView.GetText(row, 3)
-
         if (type == "User") {
             this.BtnAdd.Opt("Background006600 cWhite")
             this.BtnAdd.Enabled := true
         } else {
             this.BtnAdd.Opt("Background333333 cGray")
             this.BtnAdd.Enabled := false
+        }
+
+        ; 2. Handle Image Loading (Lazy Load)
+        targetFile := this.ListView.GetText(row, 2)
+
+        selectedData := ""
+        for path, data in this.ProfileMap {
+            if (data.File == targetFile && data.Type == type) {
+                selectedData := data
+                break
+            }
+        }
+
+        if (selectedData && selectedData.IconPath != "") {
+            ; Construct Full Path: TP_ROOT + Icons/Name.png
+            cleanRel := StrReplace(selectedData.IconPath, "/", "\")
+            fullIconPath := this.TpRootDir . "\" . cleanRel
+
+            try {
+                if FileExist(fullIconPath)
+                    this.IconCtrl.Value := fullIconPath
+                else
+                    this.IconCtrl.Value := "" ; File listed in XML but missing on disk
+            } catch {
+                this.IconCtrl.Value := ""
+            }
+        } else {
+            this.IconCtrl.Value := ""
         }
     }
 
