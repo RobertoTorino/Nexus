@@ -1,0 +1,125 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Common settings.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Arguments passed to any program.
+[Common]
+ver=206
+romver=A81
+;minor=02
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Section Settings.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; TEKKEN 6BR
+
+[Station_1]
+;;romver=A??
+boot=BOOT_202.SELF
+game=GAME_208.SELF offline
+test=TEST_204.SELF   bver=202 gver=208 tver=204 vver=200
+verud=VERUD_200.SELF bver=202 gver=208 tver=204 vver=200
+
+
+[Station_1_test]
+;;romver=A??
+boot=BOOT_202.SELF
+game=GAME_208.SELF                                       testkey
+test=TEST_204.SELF   bver=202 gver=208 tver=204 vver=200 testkey
+verud=VERUD_200.SELF bver=202 gver=208 tver=204 vver=200
+
+[Station_1_dummy_test]
+;;romver=A??
+boot=BOOT_202.SELF
+game=GAME_208.SELF                                       testkey dummyserver
+test=TEST_204.SELF   bver=202 gver=208 tver=204 vver=200 testkey dummyserver
+verud=VERUD_200.SELF bver=202 gver=208 tver=204 vver=200
+
+[Station_2]
+;;romver=A??
+boot=BOOT_202.SELF   spec=2                                     offline
+game=GAME_208.SELF   spec=2                                     offline
+test=TEST_204.SELF   spec=2 bver=202 gver=208 tver=204 vver=200 offline
+verud=VERUD_200.SELF spec=2 bver=202 gver=208 tver=204 vver=200
+
+[Station_3]
+;;romver=A??
+boot=BOOT_202.SELF   spec=3
+game=GAME_208.SELF   spec=3
+test=TEST_204.SELF   spec=3 bver=202 gver=208 tver=204 vver=200
+verud=VERUD_200.SELF spec=3 bver=202 gver=208 tver=204 vver=200
+
+[Station_3_test]
+;;romver=A??
+boot=BOOT_202.SELF   spec=3
+game=GAME_208.SELF   spec=3                                     testkey disableswitch
+test=TEST_204.SELF   spec=3 bver=202 gver=208 tver=204 vver=200 testkey disableswitch
+verud=VERUD_200.SELF spec=3 bver=202 gver=208 tver=204 vver=200
+
+[Station_3_dummy_test]
+;;romver=A??
+boot=BOOT_202.SELF   spec=3
+game=GAME_208.SELF   spec=3                                     testkey dummyserver
+test=TEST_204.SELF   spec=3 bver=202 gver=208 tver=204 vver=200 testkey dummyserver
+verud=VERUD_200.SELF spec=3 bver=202 gver=208 tver=204 vver=200
+
+[Station_4]
+;;romver=A??
+boot=BOOT_202.SELF   spec=4                                     offline
+game=GAME_208.SELF   spec=4                                     offline
+test=TEST_204.SELF   spec=4 bver=202 gver=208 tver=204 vver=200 offline
+verud=VERUD_200.SELF spec=4 bver=202 gver=208 tver=204 vver=200
+
+[LiveMonitor_1]
+;;romver=A??
+boot=BOOT_202.SELF
+game=GAME_208.SELF                                           livemon=1
+test=TESTLIVE_204.SELF   bver=202 gver=208 tver=204 vver=200 livemon=1
+verud=VERUDLIVE_200.SELF bver=202 gver=208 tver=204 vver=200
+
+[LiveMonitor_1_dummy]
+;;romver=A??
+boot=BOOT_202.SELF
+game=GAME_208.SELF                                           livemon=1 dummyserver
+test=TESTLIVE_204.SELF   bver=202 gver=208 tver=204 vver=200 livemon=1 dummyserver
+verud=VERUDLIVE_200.SELF bver=202 gver=208 tver=204 vver=200
+
+; If an unknown command is encountered, this command will be called.
+[Unknown]
+boot=BOOT_202.SELF
+game=GAME_200.SELF  err=8
+test=GAME_200.SELF  err=8
+verud=GAME_200.SELF err=8
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Arguments to pass by type.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; boot program.
+[boot]
+
+; Game program.
+[game]
+;datainfo=DINF_002.BIN
+
+; Test mode.
+[test]
+
+; Downgrade.
+[verud]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Arguments to pass to each program name.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; For example, this version has more data.
+;[GAME_113.SELF]
+;datainfo=DINF_106.BIN
+
+;; For example, you can pass separate arguments to the live monitor test mode.
+;[TESTLIVE_001.SELF]
+;livemonitor_ver=100

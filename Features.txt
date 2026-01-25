@@ -1,0 +1,9 @@
+Pending Todo List (The "Next Steps")
+[FEATURE] Would you like me to look at your ProcessManager to see if we can optimize how it calculates RAM usage to save even more CPU cycles?
+[FEATURE] Would you like me to show you how to add a "Last Played" timestamp to the JSON so you can eventually sort the list by "Most Recent"?
+[FEATURE] Would you like me to show you how to add a "Last Played" timestamp into the JSON so you can eventually see exactly when you last played each specific game?
+[FEATURE] Would you like me to show you how to add a "Backup Database" button to your GUI that creates a timestamped zip of your nexus.ini and nexus.json?
+[FEATURE] Would you like me to add a "Timestamp" button to that notes window so you can quickly mark when you made a change?
+
+F12 in musicplayer
+Teknoparrot profiles

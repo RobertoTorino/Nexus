@@ -1,0 +1,14 @@
+/.idea/
+
+/dist/
+/dist/*/
+
+/dist-lite/
+/dist-lite/*/
+
+!.gitkeep
+
+/*.log
+
+/captures
+/recordings
