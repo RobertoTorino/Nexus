@@ -75,10 +75,16 @@ class GuiBuilder {
         ; TOP TOOLBAR
         ; ======================================================================
         titleText := "Nexus :: " Chr(169) "" A_YYYY ""
-        this.TitleControl := this.MainGui.Add("Text", "x0 y0 w" (guiW - 115) " h30 +0x200 Background2A2A2A", titleText)
+        this.TitleControl := this.MainGui.Add("Text", "x0 y0 w" (guiW - 315) " h30 +0x200 Background2A2A2A", titleText)
+
+        this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", "|  A:")
+        this.TimerAudio := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
+        this.MainGui.Add("Text", "x+10 h30 +0x200 Center -Border", "|  V:")
+        this.TimerVideo := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
+        this.MainGui.Add("Text", "x+10 h30 +0x200 Center -Border", " :: ")
 
         this.MainGui.SetFont("s12 q5 cSilver", "Segoe UI")
-        BtnAppReload := this.MainGui.Add("Text", "x+0 yp-1 h30 +0x200 +Center Background2A2A2A cSilver", "↻")
+        BtnAppReload := this.MainGui.Add("Text", "x+10 yp-1 h30 +0x200 +Center Background2A2A2A cSilver", "↻")
         BtnAppReload.OnEvent("Click", (*) => Reload())
         this.TitleControl.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
 
@@ -101,7 +107,7 @@ class GuiBuilder {
         this.BtnStart := this.AddNavBtn(" ▶️ ", (*) => this.OnStartAction(), "x+10 Background006666")
         this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10 Background006666")
         this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10 Background006666")
-        this.AddNavBtn(" 🧹 ", (*) => this.OnDeleteGame(), "x+10 Background333333")
+        this.AddNavBtn(" 🧹 ", (*) => this.OnDeleteGame(), "x+10 Background006666")
         this.AddNavBtn(" 🗑️ ", (*) => this.OnClearPath(), "x+10 Background006666")
         this.AddNavBtn(" 🔧 ", (*) => this.OnRefreshPath(), "x+10 Background006666")
         this.AddNavBtn(" 🔲 ", (*) => WindowManagerGui.Show(), "x+10 Background006666")
@@ -113,18 +119,19 @@ class GuiBuilder {
         ; ======================================================================
         ; ROW 2
         ; ======================================================================
+        this.MainGui.SetFont("s12")
         ; Dropdown
         ; 1. GET DATA
         gamesList := ConfigManager.GetSortedList()
-        this.MainGui.Add("Text", "x5 y+8 w518 h30 Background05FBE4")
+        this.MainGui.Add("Text", "x5 y+8 w695 h26 Background05FBE4")
 
         ; THE DISPLAY (Centered Text)
         ; Added 'Center' to align the text in the middle
-        this.GameSelector := this.MainGui.Add("Edit", "xp+1 yp+2 w485 h26 c05FBE4 Background333333 -E0x200 +ReadOnly -VScroll Center", "")
+        this.GameSelector := this.MainGui.Add("Edit", "xp+1 yp+2 w663 h22 c05FBE4 Background333333 -E0x200 +ReadOnly -VScroll Center", "")
         this.MainGui.SetFont("s10")
 
         ; THE ARROW
-        this.MainGui.Add("Text", "x+-1 yp w30 h26 c05FBE4 Background333333 +0x200 +Center", "▼")
+        this.MainGui.Add("Text", "x+-1 yp w30 h22 c05FBE4 Background333333 +0x200 +Center", "▼")
 
         ; THE CLICK MASK
         BtnOverlay := this.MainGui.Add("Text", "xp-486 yp-2 w516 h28 BackgroundTrans")
@@ -136,9 +143,9 @@ class GuiBuilder {
          this.MainGui.SetFont("s10")
 
         this.BtnRecAudio := this.AddNavBtn("  Record Audio  ", (*) => CaptureManager.ToggleAudioRecording(), "x5 y+8 Background333333")
-        this.TimerAudio := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
+
         this.BtnRecVideo := this.AddNavBtn("  Record Video  ", (*) => CaptureManager.ToggleVideoRecording(), "x+5 Background333333")
-        this.TimerVideo := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
+
         this.AddNavBtn("  Music Player  ", (*) => MusicPlayer.Show(), "x+5 Background333333")
         this.AddNavBtn("  Video Player  ", (*) => VideoPlayer.Show(), "x+5 Background333333")
         this.AddNavBtn("  Image Viewer  ", (*) => this.OnOpenGallery(), "x+5 Background333333")
