@@ -91,17 +91,20 @@ class GuiBuilder {
         ; ======================================================================
         ; ROW 1
         ; ======================================================================
-        this.AddNavBtn("  Set Launch Path  ", (*) => this.OnAddGame(), "x5 y35 Background333333")
-        this.AddNavBtn("  Profiles  ", (*) => TeknoParrotManager.ShowPicker(), "x+5 Background333333")
-        this.AddNavBtn("  Emulators  ", (*) => EmulatorConfigGui.Show(), "x+5 Background333333")
+        this.MainGui.SetFont("s14")
+        this.AddNavBtn(" ➕ ", (*) => this.OnAddGame(), "x5 y35 Background006666")
+        this.AddNavBtn(" 🕹️ ", (*) => TeknoParrotManager.ShowPicker(), "x+5 Background006666")
+
+        this.AddNavBtn(" 🛠️ ", (*) => EmulatorConfigGui.Show(), "x+5 Background006666")
+              this.MainGui.SetFont("s10")
         this.AddNavBtn("  Clear Path  ", (*) => this.OnClearPath(), "x+5 Background333333")
         this.AddNavBtn("  Fix Path  ", (*) => this.OnRefreshPath(), "x+5 Background333333")
         this.AddNavBtn("  Window Manager  ", (*) => WindowManagerGui.Show(), "x+5 Background333333")
         this.AddNavBtn("  Focus  ", (*) => this.OnFocusGame(), "x+5 Background333333")
-        this.MainGui.SetFont("s16")
-        this.AddNavBtn("🗄️", (*) => GameDatabaseTool.Show(), "x+4 Background006666")
-        this.AddNavBtn("📝", (*) => this.OnNotes(), "x+5 Background006666")
-        this.AddNavBtn("📂", (*) => this.OnFileBrowser(), "x+5 Background006666")
+        this.MainGui.SetFont("s14")
+        this.AddNavBtn(" 🗄️ ", (*) => GameDatabaseTool.Show(), "x+4 Background006666")
+        this.AddNavBtn(" 📝 ", (*) => this.OnNotes(), "x+5 Background006666")
+        this.AddNavBtn(" 📂 ", (*) => this.OnFileBrowser(), "x+5 Background006666")
         this.MainGui.SetFont("s10")
 
         ; ======================================================================
