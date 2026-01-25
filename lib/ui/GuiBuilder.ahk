@@ -89,18 +89,19 @@ class GuiBuilder {
         this.MainGui.Add("Text", "x+-4 yp+4 w30 h30 +0x200 Center cRed", "✕").OnEvent("Click", (*) => ExitApp())
 
         ; 1. Separator Line
-        this.MainGui.Add("Text", "x0 y+4 w" guiW " h1 Background333333")
+        this.MainGui.Add("Text", "x0 y+2 w" guiW " h1 Background333333")
 
         ; ======================================================================
         ; ROW 1
         ; ======================================================================
         this.MainGui.SetFont("s14")
-        this.AddNavBtn(" ➕ ", (*) => this.OnAddGame(), "x5 y35 Background006666")
+        this.AddNavBtn(" ➕ ", (*) => this.OnAddGame(), "x5 y40 Background006666")
         this.AddNavBtn(" 🕹️ ", (*) => TeknoParrotManager.ShowPicker(), "x+10 Background006666")
         this.AddNavBtn(" 🛠️ ", (*) => EmulatorConfigGui.Show(), "x+10 Background006666")
         this.BtnStart := this.AddNavBtn(" ▶️ ", (*) => this.OnStartAction(), "x+10 Background006666")
         this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10 Background006666")
         this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10 Background006666")
+        this.AddNavBtn(" 🧹 ", (*) => this.OnDeleteGame(), "x+10 Background333333")
         this.AddNavBtn(" 🗑️ ", (*) => this.OnClearPath(), "x+10 Background006666")
         this.AddNavBtn(" 🔧 ", (*) => this.OnRefreshPath(), "x+10 Background006666")
         this.AddNavBtn(" 🔲 ", (*) => WindowManagerGui.Show(), "x+10 Background006666")
@@ -129,13 +130,11 @@ class GuiBuilder {
         BtnOverlay := this.MainGui.Add("Text", "xp-486 yp-2 w516 h28 BackgroundTrans")
         BtnOverlay.OnEvent("Click", (*) => this.OpenGameList(ConfigManager.GetSortedList()))
 
-        this.MainGui.SetFont("s10")
-
-        this.AddNavBtn(" 🧹 ", (*) => this.OnDeleteGame(), "yp x+5 Background333333")
-
         ; ======================================================================
         ; ROW 3
         ; ======================================================================
+         this.MainGui.SetFont("s10")
+
         this.BtnRecAudio := this.AddNavBtn("  Record Audio  ", (*) => CaptureManager.ToggleAudioRecording(), "x5 y+8 Background333333")
         this.TimerAudio := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
         this.BtnRecVideo := this.AddNavBtn("  Record Video  ", (*) => CaptureManager.ToggleVideoRecording(), "x+5 Background333333")
