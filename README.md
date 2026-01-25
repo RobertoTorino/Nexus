@@ -1,28 +1,21 @@
 # Nexus (Nexus)
+![NEXUS-rounded-corners.png](media/nexus/NEXUS-rounded-corners.png)
 
-The app was created to get a perfect fitting full screen when running a game and to make it easy switching a game window between monitor 1 and monitor 2.                    
-Most functions can also be used if you work with 1 monitor.                          
-Using my laptop with a large TV monitor connected I wanted to have a simple solution for getting a perfect screen on both monitors.     
-Mainly because for some games running with an emulator I had trouble finding and keeping a perfect screen, same goes for regular games btw.              
-Sometimes you have to play around a bit with the settings to achieve an optimal result.                
-Settings are saved in an .ini file and loaded at startup, no guarantee that will always work, but it looks promising.            
-Check the logs they might contain some useful information, there is a button in the GUI to open the logfile.
+#### The app was created to get a perfect fitting full screen when running a game and to make it easy switching a game window between monitor 1 and monitor 2.                    
 
 
-
-ToDo
-Summary of what happens now
-Boot: Nexus.ahk calls ConfigManager.Init().
-Memory: nexus.json is parsed into a high-speed Map in RAM.
-UI: GuiBuilder asks ConfigManager for the list and displays it instantly.
-Launch: When you click Start, StartGame() gets the full game object from RAM (including IsPatchable: true).
-Patch: If patchable, the PatchService handles the VER.206 files.
+## Summary of the NEXUS logic:
+* Boot: Nexus.ahk calls ConfigManager.Init().
+* Memory: nexus.json is parsed into a high-speed Map in RAM.
+* UI: GuiBuilder asks ConfigManager for the list and displays it instantly.
+* Launch: When you click Start, StartGame() gets the full game object from RAM (including IsPatchable: true).
+* Patch: If patchable, the PatchService handles the VER.206 files.
 
 
 **In Windows:**                 
-Display settings for both monitors should be at 100%.                      
-Resolution should be set to 1920x1080.                     
-Make sure the refresh rate on both monitors is equal, for instance 60Hz.            
+* Display settings for both monitors should be at 100%.                      
+* Resolution should be set to 1920x1080.                     
+* Make sure the refresh rate on both monitors is equal, for instance 60Hz.            
 
 **Game settings:**              
 If in-game display settings are available use borderless (preferred). See examples in the media folder.                     
@@ -30,48 +23,43 @@ If in-game display settings are available use borderless (preferred). See exampl
 _Note: some games launch differently they have their own dedicated screen manager app._
 
 ### Nexus Main Gui
-![gml_main_gui.png](media/gml_main_gui.png)
+![NEXUS-main-ui.png](media/nexus/NEXUS-main-ui.png)
 
 #### Basic instructions:
-Place this .exe in a central location.            
-Then click "Set Path" and when done click "Run Game".       
-You now get an option to give your selected game an alias name which is stored in the ini file.         
-The alias is used for some other logic like the capture folders.                
-It makes it also possible to select the alias from the dropdown list and then run the game.
+Place Nexus in a central location.
 
-Window Features:
-- Window management.
-- True borderless fullscreen window.
-- Reposition the game window.
-- Easy move window between monitors.
+## Game window features:
+* Window management.
+* True borderless fullscreen window.
+* Reposition the game window.
+* Easy move window between monitors.
 
 Game Features:
-- Run all games, .iso. .cso, pbp, eboot.bin, .bat, .xml, .exe.
-- Run RPCS3 games direct in fullscreen mode skipping the frontend.
-- Run PCSX2 games direct in fullscreen mode skipping the frontend.
-- Run PPSSPP games direct in fullscreen mode skipping the frontend.
-- Run DuckStation games direct in fullscreen mode skipping the frontend.
-- Run games that only run through a .bat file.
-- Autodetect TeknoParrot game profiles and run the game in fullscreen.
-- Manage emulator profiles.
-- Patch EBOOT.BIN and clone game.
-- Run Arcade games that need special versions of RPCS3.
-- Save games for quick re-run.
+* Run all games, .iso. .cso, pbp, eboot.bin, .bat, .xml, .exe.
+* Run RPCS3 games direct in fullscreen mode skipping the frontend.
+* Run PCSX2 games direct in fullscreen mode skipping the frontend.
+* Run PPSSPP games direct in fullscreen mode skipping the frontend.
+* Run DuckStation games direct in fullscreen mode skipping the frontend.
+* Run games that only run through a .bat file.
+* Autodetect TeknoParrot game profiles and run the game in fullscreen.
+* Manage emulator profiles.
+* Patch EBOOT.BIN and clone game.
+* Run Arcade games that need special versions of RPCS3.
+* Save games for quick re-run.
 
 Process:
-- Change CPU process priority.
-- RAM usage overview, system, app and game.
-- GPU overclock with Afterburner
+* Change CPU process priority.
+* RAM usage overview, system, app and game.
+* GPU overclock with Afterburner
 
 Media:
-- Take snapshots + burst snapshots (max. 99).
-- Audio recording.
-- Music player (uses legacy Windows Media Player).
-- Video capture.
-- Video player (loads external player).
-- Image viewer.
-
-- And more...
+* Take snapshots + burst snapshots (max. 99).
+* Audio recording.
+* Music player (uses legacy Windows Media Player).
+* Video capture.
+* Video player (loads external player).
+* Image viewer.
+* And more...
 
 
 **Phantom windows, JConfig, Settings**                    
@@ -146,12 +134,12 @@ These styles can be combined to achieve modes like “borderless windowed” or 
 ## Capture audio
 
 We need some additional tools for this:                 
-- Voicemeeter Banana: [voicemeeter](https://vb-audio.com/Voicemeeter/potato.htm)
-- Vgmstream: [vgmstream](https://vgmstream.org/)
-- Ffmpeg: [ffmpeg](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z")
+* Voicemeeter Banana: [voicemeeter](https://vb-audio.com/Voicemeeter/potato.htm)
+* Vgmstream: [vgmstream](https://vgmstream.org/)
+* Ffmpeg: [ffmpeg](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z")
 
 ### Other tools used
-- SoundVolumeView: [SoundVolumeView](https://www.nirsoft.net/utils/sound_volume_view.html)
+* SoundVolumeView: [SoundVolumeView](https://www.nirsoft.net/utils/sound_volume_view.html)
 
 Voicemeeter makes it possible to reroute your audio streams so you can listen to the audio that is being recorded.   
 In Voicemeeter Basic, FFmpeg must record a B-bus (B1/B2/B3), and audio only reaches that bus if you explicitly enable it on the Virtual Input strip.
@@ -159,19 +147,19 @@ That's why I prefer Voicemeeter Banana.
 My settings for Voicemeeter Banana:
 
 #### Hardware Out
-- A1: Mi TV -2 (Intel(R) Display Audio) - This is sound from my 2nd monitor (a TV) connected with my laptop through HDMI.
-- A2: Speakers (Realtek High Definition Audio) - Laptop sound.
-- A3: Headset Microphone (3- Wireless Controller)
+* A1: Mi TV -2 (Intel(R) Display Audio) - This is sound from my 2nd monitor (a TV) connected with my laptop through HDMI.
+* A2: Speakers (Realtek High Definition Audio) - Laptop sound.
+* A3: Headset Microphone (3- Wireless Controller)
 
 #### Virtual Input
-- Voicemeeter Input (left column): A1 - B1
-  - Here you control your output by selecting A1, A2 or A3. A1 is TV, A2 is Speakers and A3 is Headset.
-- Voicemeeter AUX (right column): A1 - B1
+* Voicemeeter Input (left column): A1 - B1 
+* Here you control your output by selecting A1, A2 or A3. A1 is TV, A2 is Speakers and A3 is Headset.
+* Voicemeeter AUX (right column): A1 - B1
 
 #### Windows Sound Settings
 In Windows Go to Settings/System/Sound and set this:              
-- Output: Voicemeeter Input
-- Input: Voicemeeter Out B1
+* Output: Voicemeeter Input
+* Input: Voicemeeter Out B1
 
 #### Example of My Audio devices
 * Mi TV -2 (Intel(R) Display Audio)

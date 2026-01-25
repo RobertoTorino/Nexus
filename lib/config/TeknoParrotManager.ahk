@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0
 ; ==============================================================================
-; * @description Scans TP UserProfiles & GameProfiles for viewing/registering.
+; * @description Scans TP UserProfiles & GameProfiles (XML + JSON Metadata)
 ; * @class TeknoParrotManager
 ; * @location lib/config/TeknoParrotManager.ahk
 ; * @author Philip
-; * @version 1.2.02 (Added Icon Preview)
+; * @version 1.2.07 (Added Logging)
 ; ==============================================================================
 
 #Include ..\core\Utilities.ahk
 #Include ..\ui\DialogsGui.ahk
+#Include ..\core\Logger.ahk
 #Include ConfigManager.ahk
 
 class TeknoParrotManager {
@@ -16,7 +17,12 @@ class TeknoParrotManager {
     static ListView := ""
     static IconCtrl := ""
     static ProfileMap := Map()
-    static TpRootDir := "" ; Stores the TP Root for icon resolution
+    static TpRootDir := ""
+
+    ; Header Buttons
+    static BtnAdd := ""
+    static BtnView := ""
+    static BtnClose := ""
 
     static UserCount := 0
     static SystemCount := 0
@@ -44,13 +50,15 @@ class TeknoParrotManager {
             IniWrite(tpPath, ConfigManager.IniPath, "TEKNO_PATH", "TeknoPath")
         }
 
+        Logger.Info("TP Manager: Opening Picker. TP Path: " tpPath)
         SplitPath(tpPath, , &tpDir)
-        this.TpRootDir := tpDir ; Save root for icon path building
+        this.TpRootDir := tpDir
 
         userDir := tpDir "\UserProfiles"
         systemDir := tpDir "\GameProfiles"
 
         if !DirExist(userDir) {
+            Logger.Error("TP Manager: UserProfiles folder missing at " userDir)
             DialogsGui.CustomTrayTip("UserProfiles folder not found", 3)
             return
         }
@@ -59,10 +67,15 @@ class TeknoParrotManager {
         this.UserCount := 0
         this.SystemCount := 0
 
+        Logger.Info("TP Manager: Scanning User Profiles...")
         this.ScanProfiles(userDir, "User")
 
-        if DirExist(systemDir)
+        if DirExist(systemDir) {
+            Logger.Info("TP Manager: Scanning System Profiles...")
             this.ScanProfiles(systemDir, "System")
+        }
+
+        Logger.Info("TP Manager: Scan Complete. Found " this.UserCount " User, " this.SystemCount " System.")
 
         if (this.ProfileMap.Count == 0) {
             DialogsGui.CustomTrayTip("No XML profiles found", 2)
@@ -90,10 +103,26 @@ class TeknoParrotManager {
                 if RegExMatch(xmlContent, "<EmulatorType>(.*?)</EmulatorType>", &match)
                     emuType := match[1]
 
-                ; [NEW] Capture Icon Path
                 iconRelPath := ""
-                if RegExMatch(xmlContent, "i)<IconName>\s*(.*?)\s*</IconName>", &match)
-                    iconRelPath := match[1]
+
+                if (type == "System") {
+                    jsonName := StrReplace(A_LoopFileName, ".xml", ".json")
+                    jsonPath := this.TpRootDir . "\Metadata\" . jsonName
+                    if FileExist(jsonPath) {
+                        try {
+                            jsonContent := FileRead(jsonPath)
+                            if RegExMatch(jsonContent, 'i)"icon_name"\s*:\s*"(.*?)"', &match) {
+                                iconRelPath := "Icons\" . match[1]
+                                ; Logger.Debug("TP Manager: Found Metadata JSON for " title)
+                            }
+                        }
+                    }
+                }
+
+                if (iconRelPath == "") {
+                    if RegExMatch(xmlContent, "i)<IconName>\s*(.*?)\s*</IconName>", &match)
+                        iconRelPath := Trim(match[1])
+                }
 
                 if (SubStr(gameExe, -4) = ".zip" || SubStr(gameExe, -4) = ".rar") {
                     if (this.EmulatorMap.Has(emuType))
@@ -123,48 +152,41 @@ class TeknoParrotManager {
         if (this.PickerGui)
             this.PickerGui.Destroy()
 
-        ; Made the GUI wider to accommodate the image preview (w920)
         this.PickerGui := Gui("-Caption +Border +AlwaysOnTop +ToolWindow", "TeknoParrot Profile Explorer")
         this.PickerGui.BackColor := "2A2A2A"
         this.PickerGui.SetFont("s10 q5 cWhite", "Segoe UI")
 
         headerText := "   TeknoParrot Profiles  (User: " this.UserCount " / System: " this.SystemCount ")"
 
-        this.PickerGui.Add("Text", "x0 y0 w900 h30 +0x200 Background2A2A2A", headerText).OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.PickerGui.Hwnd))
-        this.PickerGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕").OnEvent("Click", (*) => this.PickerGui.Destroy())
+        ; HEADER BAR (850w)
+        this.PickerGui.Add("Text", "x0 y0 w760 h30 +0x200 Background2A2A2A", headerText).OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.PickerGui.Hwnd))
+
+        ; Header Icons [Add] [View] [Close]
+        this.BtnAdd := this.AddNavBtn(" ➕ ", this.OnProfileSelected.Bind(this), "x+0 yp Background333333") ; Starts Gray
+        this.BtnView := this.AddNavBtn(" 📄 ", this.OnViewXml.Bind(this), "x+0 yp Background333333")
+        this.BtnClose := this.AddNavBtn(" ❌ ", (*) => this.PickerGui.Destroy(), "x+0 yp Background2A2A2A cRed")
 
         ; ListView
-        this.ListView := this.PickerGui.Add("ListView", "x10 y+5 w690 h400 -Hdr Background202020 cWhite", ["Game Title", "XML File", "Type"])
+        this.ListView := this.PickerGui.Add("ListView", "x10 y+5 w600 h450 -Hdr Background202020 cWhite", ["Game Title", "XML File", "Type"])
         this.ListView.OnEvent("DoubleClick", this.OnProfileSelected.Bind(this))
         this.ListView.OnEvent("ItemSelect", this.OnSelectionChanged.Bind(this))
 
-        ; Image Preview Box (Right Side)
-
-        ; [Image of Game Icon]
-
-        this.PickerGui.SetFont("s9 cSilver")
-        this.PickerGui.Add("GroupBox", "x+10 yp w200 h220", " Icon Preview ")
-
-        ; The Picture Control (Starts empty)
-        this.IconCtrl := this.PickerGui.Add("Picture", "xp+10 yp+20 w180 h180 +Background202020 +Border vIconPreview", "")
+        ; Icon Preview
+        this.IconCtrl := this.PickerGui.Add("Picture", "x630 y50 w180 h180 +BackgroundTrans -Border vIconPreview +0x40", "")
 
         for path, data in this.ProfileMap {
             this.ListView.Add(, data.Title, data.File, data.Type)
         }
 
-        this.ListView.ModifyCol(1, 350)
-        this.ListView.ModifyCol(2, 250)
-        this.ListView.ModifyCol(3, 80)
+        this.ListView.ModifyCol(1, 300)
+        this.ListView.ModifyCol(2, 220)
+        this.ListView.ModifyCol(3, 75)
 
-        this.BtnAdd := this.BtnAddTheme("  Add to Launcher  ", this.OnProfileSelected.Bind(this), "x10 y+10 Background006600")
-        this.BtnView := this.BtnAddTheme("  View XML  ", this.OnViewXml.Bind(this), "x+10 yp Background2A2A2A")
-        this.BtnAddTheme("  Close  ", (*) => this.PickerGui.Destroy(), "x+10 yp Background660000")
-
-        this.PickerGui.Show("w930")
+        this.PickerGui.Show("w850")
     }
 
-    static BtnAddTheme(label, callback, options) {
-        btn := this.PickerGui.Add("Text", options " h30 +0x200 +Center +Border", label)
+    static AddNavBtn(label, callback, options) {
+        btn := this.PickerGui.Add("Text", options " w30 h30 +0x200 +Center", label)
         btn.OnEvent("Click", callback)
         return btn
     }
@@ -172,24 +194,20 @@ class TeknoParrotManager {
     static OnSelectionChanged(*) {
         row := this.ListView.GetNext(0, "F")
         if (row == 0) {
-            this.BtnAdd.Opt("Background333333 cGray")
-            this.BtnAdd.Enabled := false
-            this.IconCtrl.Value := "" ; Clear Image
+            this.BtnAdd.Opt("Background333333")
+            this.IconCtrl.Value := ""
             return
         }
 
-        ; 1. Handle Buttons
-        type := this.ListView.GetText(row, 3)
-        if (type == "User") {
-            this.BtnAdd.Opt("Background006600 cWhite")
-            this.BtnAdd.Enabled := true
-        } else {
-            this.BtnAdd.Opt("Background333333 cGray")
-            this.BtnAdd.Enabled := false
-        }
-
-        ; 2. Handle Image Loading (Lazy Load)
         targetFile := this.ListView.GetText(row, 2)
+        type := this.ListView.GetText(row, 3)
+
+        ; Update Add Button State
+        if (type == "User") {
+            this.BtnAdd.Opt("Background006600") ; Green for Go
+        } else {
+            this.BtnAdd.Opt("Background333333") ; Gray for No-Go
+        }
 
         selectedData := ""
         for path, data in this.ProfileMap {
@@ -200,15 +218,22 @@ class TeknoParrotManager {
         }
 
         if (selectedData && selectedData.IconPath != "") {
-            ; Construct Full Path: TP_ROOT + Icons/Name.png
             cleanRel := StrReplace(selectedData.IconPath, "/", "\")
             fullIconPath := this.TpRootDir . "\" . cleanRel
 
+            if !FileExist(fullIconPath) {
+                SplitPath(cleanRel, &fName)
+                fullIconPath := this.TpRootDir . "\Icons\" . fName
+            }
+
             try {
-                if FileExist(fullIconPath)
+                if FileExist(fullIconPath) {
                     this.IconCtrl.Value := fullIconPath
-                else
-                    this.IconCtrl.Value := "" ; File listed in XML but missing on disk
+                    Logger.Debug("TP Manager: Previewing Icon -> " fullIconPath)
+                } else {
+                    this.IconCtrl.Value := ""
+                    Logger.Debug("TP Manager: Icon missing on disk -> " fullIconPath)
+                }
             } catch {
                 this.IconCtrl.Value := ""
             }
@@ -237,7 +262,8 @@ class TeknoParrotManager {
             try {
                 content := FileRead(selectedData.FullPath)
                 DialogsGui.ShowTextViewer(selectedData.Title, content, 600, 500)
-            } catch {
+            } catch as err {
+                Logger.Error("TP Manager: Failed to read XML " err.Message)
                 DialogsGui.CustomStatusPop("Error reading file")
             }
         }
@@ -249,6 +275,8 @@ class TeknoParrotManager {
             return
 
         type := this.ListView.GetText(row, 3)
+
+        ; Block action if it's a System profile
         if (type != "User") {
             DialogsGui.CustomStatusPop("Cannot run System Templates")
             return
@@ -266,6 +294,8 @@ class TeknoParrotManager {
     }
 
     static RegisterTeknoGame(data) {
+        Logger.Info("TP Manager: Starting registration for " data.Title)
+
         safeTitle := Utilities.SanitizeName(data.Title)
         safeId := "GAME_TP_" RegExReplace(data.File, "[^A-Za-z0-9]", "_")
 
@@ -293,6 +323,8 @@ class TeknoParrotManager {
         ConfigManager.RegisterGame(safeId, newGame)
         ConfigManager.CurrentGameId := safeId
         ConfigManager.UpdateLastPlayed(safeId)
+
+        Logger.Info("TP Manager: Successfully registered " safeId)
 
         if IsSet(GuiBuilder) {
             GuiBuilder.RefreshDropdown()
