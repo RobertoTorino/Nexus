@@ -56,7 +56,7 @@ class GuiBuilder {
 
         this.StartGameCallback := startCallback
 
-        guiW := 905  ; Total Target Width
+        guiW := 805  ; Total Target Width
 
         this.TimerStatusObj := ObjBindMethod(this, "UpdateStatusBar")
         this.TimerRecObj := ObjBindMethod(this, "UpdateRecordingTimers")
@@ -76,7 +76,7 @@ class GuiBuilder {
         ; TOP TOOLBAR
         ; ======================================================================
         titleText := "Nexus :: " Chr(169) "" A_YYYY ""
-        this.TitleControl := this.MainGui.Add("Text", "x0 y0 w" (guiW - 315) " h30 +0x200 Background2A2A2A", titleText)
+        this.TitleControl := this.MainGui.Add("Text", "x0 y0 w" (guiW - 345) " h30 +0x200 Background2A2A2A", titleText)
 
         this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", "|  A:")
         this.TimerAudio := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
@@ -109,22 +109,17 @@ class GuiBuilder {
         ; 1. Add Games & Config (Wrapped to flash)
         this.AddNavBtn(" ➕ ", (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 y40")
         this.AddNavBtn(" 🕹️ ", (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10")
+        this.AddNavBtn(" 🧹 ", (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10")
         this.AddNavBtn(" 🛠️ ", (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10")
 
-        ; 2. Playback Controls (Standard)
-        this.BtnStart := this.AddNavBtn(" ▶️ ", (*) => this.OnStartAction(), "x+10")
-        this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10")
-        this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10")
-
         ; 3. Maintenance Tools (Wrapped to flash)
-        this.AddNavBtn(" 🧹 ", (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10")
-        this.AddNavBtn(" 🗑️ ", (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+10")
+        this.AddNavBtn(" 🗑️ ", (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+42")
         this.AddNavBtn(" 🔧 ", (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "x+10")
         this.AddNavBtn(" 🔲 ", (btn, *) => (this.FlashButton(btn), WindowManagerGui.Show()), "x+10")
         this.AddNavBtn(" 👁️ ", (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), "x+10")
 
         ; 4. Media (Wrapped to flash)
-        this.AddNavBtn(" 🎵 ", (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+10 Background333333")
+        this.AddNavBtn(" 🎵 ", (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+42 Background333333")
         this.AddNavBtn(" 🎬 ", (btn, *) => (this.FlashButton(btn), VideoPlayer.Show()), "x+10 Background333333")
         this.AddNavBtn(" 🖼️ ", (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "x+10 Background333333")
 
@@ -136,61 +131,57 @@ class GuiBuilder {
         ; ======================================================================
         ; ROW 2
         ; ======================================================================
+        ; 2. Playback Controls (Standard)
+        this.BtnStart := this.AddNavBtn("  ▶️  ", (*) => this.OnStartAction(), "x5 y+10")
+        this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10")
+        this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10")
+        
         this.MainGui.SetFont("s12")
-        ; Dropdown
+        ; Fake dropdown
         ; 1. GET DATA
         gamesList := ConfigManager.GetSortedList()
-        this.MainGui.Add("Text", "x133 y+8 w439 h26 Background05FBE4")
+
+        this.MainGui.Add("Text", "x+10 yp w476 h35 Background05FBE4")
 
         ; THE DISPLAY (Centered Text)
-        ; Added 'Center' to align the text in the middle
-        this.GameSelector := this.MainGui.Add("Edit", "xp+2 yp+2 w411 h22 c05FBE4 Background333333 -E0x200 +ReadOnly -VScroll Center", "")
+        ; Dropdown width
+        this.GameSelector := this.MainGui.Add("Edit", "xp+3 yp+2 w441 h22 Background02A2A2A -E0x200 +ReadOnly -VScroll Center", "")
 
         ; THE ARROW
-        this.MainGui.Add("Text", "x+-1 yp w25 h22 c05FBE4 Background333333 +0x200 +Center", "▼")
+        this.MainGui.Add("Text", "x+4 yp w25 h22 c05FBE4 Background333333 +0x200 +Center", "▼")
 
         ; THE CLICK MASK
-        BtnOverlay := this.MainGui.Add("Text", "xp-486 yp-2 w500 h28 BackgroundTrans")
+        BtnOverlay := this.MainGui.Add("Text", "xp-521 yp-2 w550 h28 BackgroundTrans")
         BtnOverlay.OnEvent("Click", (*) => this.OpenGameList(ConfigManager.GetSortedList()))
+
+        this.MainGui.SetFont("s16")
+
+        this.AddNavBtn(" 📸 ", (*) => CaptureManager.TakeSnapshot(false), "x+10 Background333333")
+        this.BurstInput := this.MainGui.Add("Edit", "x+10 h35 w42 Number Center +0x200 Limit2 Background02A2A2A", " 5 ")
+        this.BtnBurstStart := this.AddNavBtn("  ▶️  ", (*) => this.OnBurstSnap(), "x+10 Background333333")
 
         ; ======================================================================
         ; ROW 3
         ; ======================================================================
-        this.MainGui.Add("Text", "x5 y+8 h30 +0x200 Border Background333333", "  Burst:  ")
-
-
-        this.BurstInput := this.MainGui.Add("Edit", "x+8 h30 w30 Number Center +0x200 Limit2 Background02A2A2A", "5")
-        this.MainGui.SetFont("s16")
-        this.BtnBurstStart := this.AddNavBtn("  ▶️  ", (*) => this.OnBurstSnap(), "x+8 Background333333")
+        this.BtnRecAudio := this.AddNavBtn(" 🎙️ ", (*) => CaptureManager.ToggleAudioRecording(), "x5 y+10 Background333333")
+        this.BtnRecVideo := this.AddNavBtn(" 🎬 ", (*) => CaptureManager.ToggleVideoRecording(), "x+10 Background333333")
+        this.AddNavBtn(" 🖼️ ", (*) => IconManagerGui.Show(), "x+10 Background333333")
 
         this.MainGui.SetFont("s12")
-        this.AddNavBtn("  Snapshot  ", (*) => CaptureManager.TakeSnapshot(false), "x+8 Background333333")
-
-        this.BtnRecAudio := this.AddNavBtn("  Record Audio  ", (*) => CaptureManager.ToggleAudioRecording(), "x+8 Background333333")
-        this.BtnRecVideo := this.AddNavBtn("  Record Video  ", (*) => CaptureManager.ToggleVideoRecording(), "x+8 Background333333")
-
-        this.AddNavBtn("  AT3 Converter  ", (*) => AtracConverterTool.Show(), "x+8 Background333333")
-        this.AddNavBtn("  Icon Manager  ", (*) => IconManagerGui.Show(), "x+8 Background333333")
-
-        ; ======================================================================
-        ; ROW 4
-        ; ======================================================================
         ; CPU / GPU
-        this.AddNavBtn("  Set Process Priority:  ", (*) => 0, "x5 y+8 Background333333")
-
         ; Define the color variable for consistency
         cBtn := " Background333333"
         this.BtnCpu := []
-        this.BtnCpu.Push(this.AddNavBtn("Idle", (*) => this.OnCpuClick("Low", 1), "x+8" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn("Normal -", (*) => this.OnCpuClick("BelowNormal", 2), "x+8" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn("Normal", (*) => this.OnCpuClick("Normal", 3), "x+8" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn("Normal +", (*) => this.OnCpuClick("AboveNormal", 4), "x+8" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn("High", (*) => this.OnCpuClick("High", 5), "x+8" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn("Realtime", (*) => this.OnCpuClick("Realtime", 6), "x+8" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("  Idle  ", (*) => this.OnCpuClick("Low", 1), "x+110" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("  Normal --  ", (*) => this.OnCpuClick("BelowNormal", 2), "x+10" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("  Normal  ", (*) => this.OnCpuClick("Normal", 3), "x+10" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("  Normal ++  ", (*) => this.OnCpuClick("AboveNormal", 4), "x+10" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("  High  ", (*) => this.OnCpuClick("High", 5), "x+10" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("  Realtime  ", (*) => this.OnCpuClick("Realtime", 6), "x+10" . cBtn))
 
         this.SetBtnHighlight(this.BtnCpu[3], true)
 
-        this.AddNavBtn("  GPU Settings  ", (*) => ProcessManager.OpenOverclock(), "x+8 yp Background333333")
+        this.AddNavBtn("  GPU  ", (*) => ProcessManager.OpenOverclock(), "x+10 yp Background333333")
 
         ; ======================================================================
         ; ADVANCED AREA (Rows 5, 6, 7) - OVERLAY STRATEGY
@@ -198,7 +189,7 @@ class GuiBuilder {
         this.AdvancedControls := []
 
         ; 1. Mark Start Position
-        marker := this.MainGui.Add("Text", "x5 y+8 w0 h0", "")
+        marker := this.MainGui.Add("Text", "x5 y+10 w0 h0", "")
         marker.GetPos(&advX, &advY)
 
         ; Define the color for this section
@@ -215,6 +206,7 @@ class GuiBuilder {
         this.AdvancedControls.Push(this.AddNavBtn("  View System Config  ", (*) => ConfigViewerGui.ShowGui("INI"), "x5 y+5" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  Show Games Config  ", (*) => ConfigViewerGui.ShowGui(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  RPCS3 Audio Fix  ", (*) => AudioManager.ShowGui(), "x+10" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  AT3 Converter  ", (*) => AtracConverterTool.Show(), "x+10 Background333333" . cAdv))
 
         ; Row 7
         this.AdvancedControls.Push(this.AddNavBtn("  Hash Calc / Validator  ", (*) => FileValidatorTool.Show(), "x5 y+5" . cAdv))
@@ -229,14 +221,14 @@ class GuiBuilder {
         totalH := (lastY + lastH) - advY
 
         ; 3. Create BANNER (Height matches total advanced area)
-        this.BannerControl := this.MainGui.Add("Text", "x5 y" advY " w695 h" totalH " Border Right Background333333", "▼ Show Advanced Utilities ▼  ")
+        this.BannerControl := this.MainGui.Add("Text", "x5 y" advY " w796 h" totalH " Border Right Background333333", "▼ Show Advanced Utilities ▼  ")
         this.BannerControl.OnEvent("Click", (*) => this.ToggleAdvanced(true))
 
         ; ======================================================================
         ; FOOTER SECTION (SYMMETRICAL LAYOUT)
         ; ======================================================================
         ; 1. Separator Line
-        this.MainGui.Add("Text", "x0 y+8 w" guiW " h1 Background333333")
+        this.MainGui.Add("Text", "x0 y+10 w" guiW " h1 Background333333")
 
         ; 2. Stats Header (Fake Status Bar) - Height 24
         this.StatsHeader := this.MainGui.Add("Text", "x5 y+0 w" (guiW - 10) " h24 +0x200 vStatsHeader Background333333", "Loading Statistics...")
@@ -250,8 +242,8 @@ class GuiBuilder {
         ; 5. Separator Line
         this.MainGui.Add("Text", "x0 y+0 w" guiW " h1 Background333333")
 
-        ; 6. Bottom Margin (4px buffer)
-        this.MainGui.Add("Text", "x0 y+4 w0 h0", "")
+        ; 6. Bottom Margin
+        this.MainGui.Add("Text", "x0 y+5 w0 h0", "")
 
         ; ======================================================================
         ; FINAL DISPLAY
@@ -374,7 +366,7 @@ class GuiBuilder {
             this.SetBtnHighlight(this.BtnRecAudio, true, "05FBE4")
         } else {
             this.TimerAudio.Text := "   00:00:00  "
-            this.BtnRecAudio.Text := "  Record Audio  "
+            this.BtnRecAudio.Text := " 🎙️ "
             this.SetBtnHighlight(this.BtnRecAudio, false)
         }
 
@@ -385,7 +377,7 @@ class GuiBuilder {
             this.SetBtnHighlight(this.BtnRecVideo, true, "05FBE4")
         } else {
             this.TimerVideo.Text := "  00:00:00  "
-            this.BtnRecVideo.Text := "  Record Video  "
+            this.BtnRecVideo.Text := " 🎬 "
             this.SetBtnHighlight(this.BtnRecVideo, false)
         }
 
