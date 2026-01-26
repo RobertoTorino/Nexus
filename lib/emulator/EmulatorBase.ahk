@@ -4,7 +4,8 @@
 ; * @class EmulatorBase
 ; * @location lib/emulator/EmulatorBase.ahk
 ; * @author Philip
-; * @version 1.0.02 (Added WindowManager Integration)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
@@ -34,8 +35,8 @@ class EmulatorBase {
 
         ; [FIX] Smart Kill for TeknoParrot
         if (this.ExeName = "TeknoParrotUi.exe" || InStr(this.ExeName, "Tekno")) {
-             WindowManager.ForceKillAll()
-             return
+            WindowManager.ForceKillAll()
+            return
         }
 
         if (this.Pid && ProcessExist(this.Pid)) {

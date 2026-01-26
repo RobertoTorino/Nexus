@@ -63,8 +63,8 @@ class TeknoParrotLauncher {
 
         ; Fallback for Tekken if Regex failed
         if (expectedExe == "" && InStr(profileName, "tekken")) {
-             Logger.Warn("TP Launcher: Applying Tekken fallback")
-             expectedExe := "Play.exe"
+            Logger.Warn("TP Launcher: Applying Tekken fallback")
+            expectedExe := "Play.exe"
         }
 
         Logger.Info("TP Launcher: Target Exe Resolved -> [" expectedExe "] (EmuType: " gameInfo.EmuType ")")
@@ -177,13 +177,13 @@ class TeknoParrotLauncher {
                 }
 
                 if (WinGetStyle(this_id) & 0x10000000) {
-                        WinGetPos(, , &w, &h, this_id)
-                        if (w < 600 && h < 450) {
-                            WinActivate(this_id)
-                            Send("{Enter}")
-                        } else {
-                            WinHide(this_id)
-                        }
+                    WinGetPos(, , &w, &h, this_id)
+                    if (w < 600 && h < 450) {
+                        WinActivate(this_id)
+                        Send("{Enter}")
+                    } else {
+                        WinHide(this_id)
+                    }
                 }
             }
         }

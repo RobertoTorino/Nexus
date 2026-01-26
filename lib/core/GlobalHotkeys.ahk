@@ -5,7 +5,7 @@
 ; * @location lib/core/GlobalHotkeys.ahk
 ; * @author Philip
 ; * @date 2026/01/25
-; * @version 1.1.00 (Upgraded Kill Switch)
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
@@ -14,9 +14,7 @@
 #Include ..\core\Logger.ahk
 #Include ..\ui\LoggerGui.ahk
 
-; ==============================================================================
 ; 1. TOOL SHORTCUTS
-; ==============================================================================
 
 ; CTRL + SHIFT + A -> Open Audio Manager
 ^+a:: AudioManager.ShowGui()
@@ -32,9 +30,7 @@
     }
 }
 
-; ==============================================================================
 ; 2. GAME CONTROLS
-; ==============================================================================
 
 #HotIf (WindowManager.ActiveGamePid > 0)
 

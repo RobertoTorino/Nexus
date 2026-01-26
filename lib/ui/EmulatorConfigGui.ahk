@@ -5,7 +5,7 @@
 ; * @location lib/ui/EmulatorConfigGui.ahk
 ; * @author Philip
 ; * @date 2026/01/25
-; * @version 1.0.04 (TeknoParrot Smart Kill)
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---

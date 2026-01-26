@@ -252,10 +252,22 @@
     },
     {
       "ApplicationPath":"C:\\TP\\TeknoParrotUi.exe",
+      "ExeName":"DOA5A.exe",
+      "GameApplication":"TeknoParrotUi.exe",
+      "Id":"GAME_TP_DOA5_xml",
+      "LastPlayed":"2026-01-26 11:59:43",
+      "LauncherType":"TEKNO",
+      "PlayTimeReadable":"2.5m",
+      "ProfileFile":"DOA5.xml",
+      "SavedName":"DEAD_OR_ALIVE_5_ULTIMATE_ARCADE",
+      "TotalPlayTime":149
+    },
+    {
+      "ApplicationPath":"C:\\TP\\TeknoParrotUi.exe",
       "ExeName":"Play.exe",
       "GameApplication":"TeknoParrotUi.exe",
       "Id":"GAME_TP_tekken51_xml",
-      "LastPlayed":"2026-01-25 10:59:38",
+      "LastPlayed":"2026-01-26 11:55:53",
       "LauncherType":"TEKNO",
       "PlayTimeReadable":"30s",
       "ProfileFile":"tekken51.xml",

@@ -4,8 +4,8 @@
 ; * @class CloneGameWizardGui
 ; * @location lib/ui/CloneGameWizardGui.ahk
 ; * @author Philip
-; * @date 2026/01/10
-; * @version 1.0.01
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---

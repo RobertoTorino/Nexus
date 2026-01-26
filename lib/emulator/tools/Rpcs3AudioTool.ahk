@@ -4,8 +4,8 @@
 ; * @class Rpcs3AudioTool
 ; * @location lib/emulator/tools/Rpcs3AudioTool.ahk
 ; * @author Philip
-; * @date 2026/01/06
-; * @version 1.0.01
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---

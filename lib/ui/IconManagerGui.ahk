@@ -4,8 +4,8 @@
 ; * @class IconManagerGui
 ; * @location lib/ui/IconManagerGui.ahk
 ; * @author Philip
-; * @date 2026/01/06
-; * @version 2.5.0 (Fixes Object/String Crashes)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
@@ -25,9 +25,7 @@ class IconManagerGui {
     static TempWavCreated := false
     static LoopTimerFunc := ""
 
-    ; ==========================================================================
     ; 1. GUI CREATION
-    ; ==========================================================================
     static Show() {
         if (this.MainGui) {
             this.MainGui.Show()
@@ -124,9 +122,7 @@ class IconManagerGui {
         try Hotkey "s", "Off"
     }
 
-    ; ==========================================================================
     ; 2. LIST & FILTERING
-    ; ==========================================================================
     static PopulateGameList() {
         this.AllGames := []
         for id, game in ConfigManager.Games {
@@ -164,9 +160,7 @@ class IconManagerGui {
         }
     }
 
-    ; ==========================================================================
     ; 3. BROWSE & ADD
-    ; ==========================================================================
     static BrowseAndAddGame() {
         folder := DirSelect(, 3, "Select Game Folder (containing EBOOT.BIN)")
         if (folder == "")
@@ -224,9 +218,7 @@ class IconManagerGui {
         this.OnGameSelect()
     }
 
-    ; ==========================================================================
     ; 4. ASSET LOADING
-    ; ==========================================================================
     static LoadGameAssets(gameData) {
         this.CurrentGame := gameData
         this.StopSound()
@@ -281,9 +273,7 @@ class IconManagerGui {
         }
     }
 
-    ; ==========================================================================
     ; 5. SOUND LOGIC
-    ; ==========================================================================
     static PlaySnd0() {
         if (!this.CurrentPaths.Snd0)
             return
@@ -347,9 +337,7 @@ class IconManagerGui {
         this.LblSoundStatus.Text := "Stopped."
     }
 
-    ; ==========================================================================
     ; 6. PIC1 & FULLSCREEN
-    ; ==========================================================================
     static ShowPic1Window() {
         if (!this.CurrentPaths.Pic1) {
             DialogsGui.CustomTrayTip("PIC1.PNG not found.", 2)
@@ -407,9 +395,7 @@ class IconManagerGui {
         }
     }
 
-    ; ==========================================================================
     ; 7. PS3 MEDIA LIBRARY
-    ; ==========================================================================
     static CopyAsset(type) {
         gameId := (Type(this.CurrentGame) == "Map") ? this.CurrentGame["Id"] : this.CurrentGame.Id
         if (gameId == "" || gameId == "MANUAL") {

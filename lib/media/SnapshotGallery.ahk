@@ -4,8 +4,8 @@
 ; * @class SnapshotGallery
 ; * @location lib/ui/SnapshotGallery.ahk
 ; * @author Philip
-; * @date 2026/01/06
-; * @version 1.0.03
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 class SnapshotGallery {

@@ -4,7 +4,7 @@
 ; * @class LoggerGui
 ; * @location lib/ui/LoggerGui.ahk
 ; * @author Philip
-; * @date 2026/01/12
+; * @date 2026/01/25
 ; * @version 1.0.00
 ; ======================================================================
 

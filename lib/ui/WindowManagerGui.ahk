@@ -5,7 +5,7 @@
 ; * @location lib/ui/WindowManagerGui.ahk
 ; * @author Philip
 ; * @date 2026/01/25
-; * @version 1.2.06 (Restored Visibility of All Windows)
+; * @version 1.0.00
 ; ======================================================================
 
 ; --- DEPENDENCY IMPORTS ---
@@ -79,7 +79,8 @@ class WindowManagerGui {
         this.BtnAddTheme("  Refresh List  ", (*) => this.RefreshList(), "x+5 Background333333 yp")
 
         ; --- ROW 2: OVERSCAN LOGIC ---
-        this.BtnAddTheme("  FitScreen (Reset)  ", (*) => this.Action("Fit Screen"), "x5 y+5 Background333333")
+        this.BtnAddTheme("  Restore  ", (*) => this.Action("Default"), "x5 y+5 Background333333")
+        this.BtnAddTheme("  Fit Screen  ", (*) => this.Action("FitScreen"), "x+10 yp Background333333")
 
         this.WinGui.SetFont("Bold s11 cBlack")
         this.EditOverscan := this.WinGui.Add("Edit", "x+10 yp h26 w35 Number Center", "0")
@@ -264,7 +265,7 @@ class WindowManagerGui {
         }
 
         if (!foundSelection && realGameHwnd) {
-             Loop this.ListView.GetCount() {
+            Loop this.ListView.GetCount() {
                 txt := this.ListView.GetText(A_Index, 1)
                 if (Integer(txt) == realGameHwnd) {
                     this.ListView.Modify(A_Index, "Select Focus")
@@ -305,7 +306,6 @@ class WindowManagerGui {
                 case "Maximize":
                     WinShow("ahk_id " hwnd)
                     WinMaximize("ahk_id " hwnd)
-                case "Restored": WindowManager.ApplyMode(hwnd, "Restored", 0, {})
                 case "Borderless": WindowManager.ApplyMode(hwnd, "Borderless", 0, {})
                 case "Windowed": WindowManager.ApplyMode(hwnd, "Windowed", 0, {})
                 case "Default": WindowManager.ApplyMode(hwnd, "Restored", 0, {})

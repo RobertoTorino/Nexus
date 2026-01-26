@@ -4,7 +4,7 @@
 ; * @class ConfigManager
 ; * @location lib/config/ConfigManager.ahk
 ; * @author Philip
-; * @date 2026/01/06
+; * @date 2026/01/25
 ; * @version 1.0.00
 ; ==============================================================================
 
@@ -335,7 +335,7 @@ class ConfigManager {
         return this.SaveGames()
     }
 
-static UpdateLastPlayed(gameId) {
+    static UpdateLastPlayed(gameId) {
         if (gameId == "" || !this.Games.Has(gameId))
             return
 

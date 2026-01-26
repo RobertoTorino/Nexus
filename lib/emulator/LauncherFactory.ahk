@@ -4,8 +4,8 @@
 ; * @class LauncherFactory
 ; * @location lib/emulator/LauncherFactory.ahk
 ; * @author Philip
-; * @date 2026/01/06
-; * @version 1.0.01
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; Example: When Nexus.ahk calls: launcher := LauncherFactory.GetLauncher(gameObj.LauncherType)
@@ -36,24 +36,24 @@ class LauncherFactory {
             case "SHOOTER": return Rpcs3UniversalLauncher()
             case "TCRS": return Rpcs3UniversalLauncher()
 
-            ; Added fully qualified names just in case
+                ; Added fully qualified names just in case
             case "RPCS3_FIGHTER": return Rpcs3UniversalLauncher()
             case "RPCS3_SHOOTER": return Rpcs3UniversalLauncher()
             case "RPCS3_TCRS": return Rpcs3UniversalLauncher()
 
-            ; --- Vita3K Builds ---
-            ; Both Standard and 3830 use the same class (handled internally)
+                ; --- Vita3K Builds ---
+                ; Both Standard and 3830 use the same class (handled internally)
             case "VITA3K": return Vita3kLauncher()
             case "VITA3K_3830": return Vita3kLauncher()
 
-            ; --- Dedicated Class Launchers ---
+                ; --- Dedicated Class Launchers ---
             case "PPSSPP": return PpssppLauncher()
             case "PCSX2": return Pcsx2Launcher()
             case "DUCKSTATION": return DuckStationLauncher()
             case "TEKNO": return TeknoParrotLauncher()
             case "DOLPHIN": return DolphinLauncher()
 
-            ; --- Standard Windows ---
+                ; --- Standard Windows ---
             case "NORMAL": return StandardLauncher()
             case "STANDARD": return StandardLauncher()
 

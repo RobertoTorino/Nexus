@@ -1,21 +1,14 @@
-;@Ahk2Exe-SetCopyright    © 2026 Philip
-;@Ahk2Exe-SetDescription  Nexus - Unified Launcher
-;@Ahk2Exe-SetFileVersion  1.0.0.0
-;@Ahk2Exe-SetProductVersion 1.0.0.0
-;@Ahk2Exe-SetCompanyName  @game_play267
-;@Ahk2Exe-SetOrigFilename GameManagerLite.exe
+#Requires AutoHotkey v2.0
+#SingleInstance Force
 
 ; ==============================================================================
 ; * @description Project Entry Point - Unified JSON Architecture
-; * @class Gml
+; * @class Nexus
 ; * @location Nexus.ahk
 ; * @author Philip
-; * @date 2026/01/12
-; * @version 1.0.0
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
-
-#Requires AutoHotkey v2.0
-#SingleInstance Force
 
 ; --- DEPENDENCY IMPORTS ---
 ; lib\capture\

@@ -4,8 +4,8 @@
 ; * @class ConfigViewerGui
 ; * @location lib/ui/ConfigViewerGui.ahk
 ; * @author Philip
-; * @date 2026/01/23
-; * @version 4.4.0 (Thin 1px Border + Black Padding)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 #Include ..\config\ConfigManager.ahk

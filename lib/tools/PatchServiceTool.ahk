@@ -4,7 +4,7 @@
 ; * @class PatchServiceTool
 ; * @location lib/tools/PatchServiceTool.ahk
 ; * @author Philip
-; * @date 2026/01/18
+; * @date 2026/01/25
 ; * @version 1.0.00
 ; ======================================================================
 

@@ -4,8 +4,8 @@
 ; * @class MusicPlayer
 ; * @location lib/media/MusicPlayer.ahk
 ; * @author Philip
-; * @date 2026/01/13
-; * @version 1.5.00 (Repeat Reload Fix + Monitor Center Logic)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 class MusicPlayer {

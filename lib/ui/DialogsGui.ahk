@@ -4,8 +4,8 @@
 ; * @class DialogsGui
 ; * @location lib/ui/DialogsGui.ahk
 ; * @author Philip
-; * @date 2026/01/07
-; * @version 1.0.03 (Modern "Superslick" UI + Flat Buttons)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---

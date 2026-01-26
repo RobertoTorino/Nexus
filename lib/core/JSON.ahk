@@ -4,7 +4,7 @@
 ; * Increased support for true/false/null types, reserved number types
 ; * @author thqby, HotKeyIt
 ; * @date 2025/12/22
-; * @version 1.0.8
+; * @version 1.0.00
 ; ***********************************************************************
 
 class JSON {

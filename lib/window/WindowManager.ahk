@@ -4,7 +4,8 @@
 ; * @class WindowManager
 ; * @location lib/window/WindowManager.ahk
 ; * @author Philip
-; * @version 1.2.25 (STRICT SAFETY MODE)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ======================================================================
 
 #Include ..\core\Logger.ahk
@@ -13,6 +14,7 @@
 #Include ..\ui\DialogsGui.ahk
 
 class WindowManager {
+    ; CONFIGURATION PRESETS
     static Presets := Map(
         "SizeFull", { Mode: "FullScreen" },
         "SizeWindowed", { Mode: "Windowed" },
@@ -21,14 +23,32 @@ class WindowManager {
         "SizeMinimized", { Mode: "Minimized" },
         "SizeMaximized", { Mode: "Maximized" },
         "SizeRestored", { Mode: "Restored" },
+        ; Resolutions - Standard
+        "Size640x480", { Width: 640, Height: 480 },
+        "Size800x600", { Width: 800, Height: 600 },
+        "Size1024x768", { Width: 1024, Height: 768 },
+        "Size1280x720", { Width: 1280, Height: 720 },
+        "Size1366x768", { Width: 1366, Height: 768 },
+        "Size1600x900", { Width: 1600, Height: 900 },
         "Size1920x1080", { Width: 1920, Height: 1080 },
+        ; Resolutions - High / Ultrawide
+        "Size1920x1200", { Width: 1920, Height: 1200 },
+        "Size1920x1440", { Width: 1920, Height: 1440 },
+        "Size2048x1152", { Width: 2048, Height: 1152 },
+        "Size2048x1536", { Width: 2048, Height: 1536 },
         "Size2560x1440", { Width: 2560, Height: 1440 },
+        "Size2560x1600", { Width: 2560, Height: 1600 },
+        "Size2880x1800", { Width: 2880, Height: 1800 },
         "Size3840x2160", { Width: 3840, Height: 2160 },
+        "Size5120x2880", { Width: 5120, Height: 2880 },
+        "Size7680x4320", { Width: 7680, Height: 4320 },
+        ; Complex Presets
         "SizeFakeFull1920", { Width: 1920, Height: 1080, Mode: "Borderless", Topmost: true },
         "SizeFitScreen", { Mode: "FitScreen" },
         "SizeOverscan", { Mode: "Overscan" }
     )
 
+    ; State Tracking
     static IgnoreList := ""
     static TeknoLoaders := ""
     static LastKnownRect := { X: 0, Y: 0, W: 0, H: 0 }
@@ -210,7 +230,7 @@ class WindowManager {
 
         ; Kill Active PID only if it's safe
         if (this.ActiveGamePid > 0 && ProcessExist(this.ActiveGamePid)) {
-             try {
+            try {
                 pName := WinGetProcessName("ahk_pid " this.ActiveGamePid)
                 if (!this.IgnoreList.Has(pName)) {
                     ProcessClose(this.ActiveGamePid)
@@ -227,8 +247,12 @@ class WindowManager {
 
     static ResumeMonitoring() {
         this.IsPaused := false
+        Logger.Debug("WindowManager Resumed")
     }
 
+    ; CORE PUBLIC API
+
+    ; Set the active game context (UPDATED)
     static SetGameContext(identifier, forceTargetMonitor := 0) {
         this.ActiveGameHwnd := 0
         this.ActiveGamePid := 0
@@ -264,27 +288,36 @@ class WindowManager {
         return this.ActiveGameHwnd
     }
 
+    ; [NEW HELPER] Retries finding the window after a delay
     static RetryMove(identifier, targetMonitor) {
         hwnd := this.FindRealGameWindow(identifier)
         if (hwnd) {
             this.ActiveGameHwnd := hwnd
             this.MoveToMonitor(targetMonitor)
+            Logger.Info("Delayed Move Successful.")
         }
     }
 
+    ; Apply a Preset
     static ApplyPreset(presetName, monitorIndex := 0) {
         if !this.Presets.Has(presetName)
             return
+
         hwnd := this.GetValidHwnd()
         if !hwnd
             return
+
         cfg := this.Presets[presetName]
+
         if (monitorIndex == 0)
             monitorIndex := MonitorHelper.GetMonitorIndexFromWindow(hwnd)
-        if cfg.HasOwnProp("Mode")
+
+        if cfg.HasOwnProp("Mode") {
             this.ApplyMode(hwnd, cfg.Mode, monitorIndex, cfg)
-        else if cfg.HasOwnProp("Width") && cfg.HasOwnProp("Height")
+        }
+        else if cfg.HasOwnProp("Width") && cfg.HasOwnProp("Height") {
             this.ApplyFakeFullscreen(hwnd, cfg.Width, cfg.Height, monitorIndex, cfg)
+        }
     }
 
     static Nudge(dx, dy, dw, dh, symmetric := false) {
@@ -310,29 +343,41 @@ class WindowManager {
         this.SaveState(hwnd)
     }
 
+    ; Move to Monitor
     static MoveToMonitor(targetMonitorIndex) {
         hwnd := this.GetValidHwnd()
         if !hwnd
             return
+
         mon := MonitorHelper.GetMonitorGeometry(targetMonitorIndex)
         if !mon
             return
+
         WinGetPos(, , &w, &h, hwnd)
         newX := mon.Left + (mon.Width - w) // 2
         newY := mon.Top + (mon.Height - h) // 2
+
         WinMove(newX, newY, , , hwnd)
         this.SaveState(hwnd)
     }
 
+    ; Force Focus (New Feature)
     static ForceFocus(hwnd) {
         if !WinExist("ahk_id " hwnd)
             return
+
+        ; Restore if minimized
         if WinGetMinMax("ahk_id " hwnd) = -1
             WinRestore("ahk_id " hwnd)
+
         WinActivate("ahk_id " hwnd)
+
+        ; Focus stealing workaround (Toggle AlwaysOnTop)
         WinSetAlwaysOnTop(1, "ahk_id " hwnd)
         Sleep(50)
         WinSetAlwaysOnTop(0, "ahk_id " hwnd)
+
+        Logger.Info("Forced focus on HWND: " hwnd)
     }
 
     static ApplyMode(hwnd, mode, monitorIndex, options) {
@@ -340,18 +385,22 @@ class WindowManager {
             case "FullScreen":
                 WinRestore(hwnd)
                 WinMaximize(hwnd)
+
             case "Windowed":
                 WinSetStyle("+0xC00000", hwnd)
                 WinSetStyle("+0x800000", hwnd)
                 WinRestore(hwnd)
+
             case "Borderless":
                 mon := MonitorHelper.GetMonitorGeometry(monitorIndex)
                 if mon
                     this.ApplyFakeFullscreen(hwnd, mon.Width, mon.Height, monitorIndex, options)
+
             case "FitScreen":
                 mon := MonitorHelper.GetMonitorGeometry(monitorIndex)
                 if mon
                     this.ApplyFakeFullscreen(hwnd, mon.Width, mon.Height, monitorIndex, options)
+
             case "Overscan":
                 mon := MonitorHelper.GetMonitorGeometry(monitorIndex)
                 if mon {
@@ -362,13 +411,17 @@ class WindowManager {
                     this.ApplyFakeFullscreen(hwnd, w, h, monitorIndex, options)
                     WinMove(newX, newY, w, h, "ahk_id " hwnd)
                 }
+
             case "Hidden":
                 WinHide(hwnd)
+
             case "Restored":
                 WinShow(hwnd)
                 WinRestore(hwnd)
+
             case "Minimized":
                 WinMinimize(hwnd)
+
             case "Maximized":
                 WinMaximize(hwnd)
         }
@@ -409,7 +462,7 @@ class WindowManager {
 
     static GetValidHwnd() {
         if (this.ActiveGameHwnd && WinExist(this.ActiveGameHwnd)) {
-            WinGetPos(,, &w, &h, "ahk_id " this.ActiveGameHwnd)
+            WinGetPos(, , &w, &h, "ahk_id " this.ActiveGameHwnd)
             if (w < 50 || h < 50) {
                 Logger.Info("WinMgr: Dropping zombie window (Size: " w "x" h ")")
                 this.ActiveGameHwnd := 0
@@ -417,7 +470,7 @@ class WindowManager {
             else
                 return this.ActiveGameHwnd
         } else {
-             this.ActiveGameHwnd := 0
+            this.ActiveGameHwnd := 0
         }
 
         if (this.ActiveGamePid > 0 && !ProcessExist(this.ActiveGamePid)) {
@@ -430,11 +483,11 @@ class WindowManager {
         }
 
         if (!this.ActiveGameHwnd && this.ActiveGameExe != "") {
-             this.ActiveGameHwnd := this.FindRealGameWindow("ahk_exe " this.ActiveGameExe)
-             if (this.ActiveGameHwnd) {
-                 this.ActiveGamePid := WinGetPID("ahk_id " this.ActiveGameHwnd)
-                 Logger.Info("WinMgr: Re-acquired game via EXE scan -> PID " this.ActiveGamePid)
-             }
+            this.ActiveGameHwnd := this.FindRealGameWindow("ahk_exe " this.ActiveGameExe)
+            if (this.ActiveGameHwnd) {
+                this.ActiveGamePid := WinGetPID("ahk_id " this.ActiveGameHwnd)
+                Logger.Info("WinMgr: Re-acquired game via EXE scan -> PID " this.ActiveGamePid)
+            }
         }
         return this.ActiveGameHwnd
     }
@@ -459,7 +512,7 @@ class WindowManager {
             title := WinGetTitle(this_id)
             cls := WinGetClass(this_id)
             style := WinGetStyle(this_id)
-            WinGetPos(,, &w, &h, this_id)
+            WinGetPos(, , &w, &h, this_id)
             area := w * h
 
             if (InStr(title, "Play!") || InStr(title, "TeknoParrot") || InStr(title, "TK5"))
@@ -551,18 +604,36 @@ class WindowStabilizer {
         OnMessage(msgNum, this.OnShellMessage.Bind(this))
         this.HookActive := true
     }
+
     static OnShellMessage(wParam, lParam, msg, hwnd) {
-        if (wParam == 4 || wParam == 32772)
+        ; wParam 4 = HSHELL_WINDOWACTIVATED
+        ; wParam 32772 = HSHELL_RUDEAPPACTIVATED (Fullscreen apps)
+        if (wParam == 4 || wParam == 32772) {
+            ; lParam contains the HWND of the activated window
             this.Reapply(lParam)
+        }
     }
+
     static Reapply(hwnd) {
-        if (WindowManager.IsPaused || hwnd != WindowManager.ActiveGameHwnd)
+        if (WindowManager.IsPaused)
             return
+
+        ; Verify the activated window is actually our target game
+        if (hwnd != WindowManager.ActiveGameHwnd)
+            return
+
+        ; Logic remains the same...
         rect := WindowManager.LastKnownRect
         if (rect.W == 0)
             return
+
         WinGetPos(&cX, &cY, &cW, &cH, hwnd)
-        if (Abs(cX - rect.X) > 10 || Abs(cY - rect.Y) > 10)
+
+        ; Added a tolerance check to prevent infinite loops
+        if (Abs(cX - rect.X) > 10 || Abs(cY - rect.Y) > 10) {
+            Logger.Debug("Window Snapback Detected. Correcting...")
+            ; Use a bound function for the timer to ensure passing params works
             SetTimer(() => WinMove(rect.X, rect.Y, rect.W, rect.H, hwnd), -50)
+        }
     }
 }

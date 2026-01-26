@@ -4,7 +4,8 @@
 ; * @class TeknoParrotManager
 ; * @location lib/config/TeknoParrotManager.ahk
 ; * @author Philip
-; * @version 1.2.07 (Added Logging)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 #Include ..\core\Utilities.ahk
@@ -128,7 +129,7 @@ class TeknoParrotManager {
                     if (this.EmulatorMap.Has(emuType))
                         gameExe := this.EmulatorMap[emuType]
                     else if (emuType = "Play")
-                         gameExe := "Play.exe"
+                        gameExe := "Play.exe"
                 }
 
                 this.ProfileMap[A_LoopFileFullPath] := {
@@ -303,7 +304,7 @@ class TeknoParrotManager {
 
         friendlyName := ""
         if (userInput != "")
-             friendlyName := Utilities.SanitizeName(userInput)
+            friendlyName := Utilities.SanitizeName(userInput)
 
         if (friendlyName == "")
             friendlyName := safeTitle

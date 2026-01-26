@@ -4,8 +4,8 @@
 ; * @class GameDatabaseTool
 ; * @location lib/tools/GameDatabaseTool.ahk
 ; * @author Philip
-; * @date 2026/01/08
-; * @version 1.12.0 (Fixed: Context Menu Crash, Restored Maximize Btn)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---

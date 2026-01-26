@@ -4,8 +4,8 @@
 ; * @class AtracConverterTool
 ; * @location lib/tools/AtracConverterTool.ahk
 ; * @author Philip
-; * @date 2026/01/06
-; * @version 1.0.02 (Dark Theme & Auto-Install)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---

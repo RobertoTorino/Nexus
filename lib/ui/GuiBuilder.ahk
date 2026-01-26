@@ -4,8 +4,8 @@
 ; * @class GuiBuilder
 ; * @location lib/ui/GuiBuilder.ahk
 ; * @author Philip
-; * @date 2026/01/23
-; * @version 1.5.6 (Perfect Footer Alignment)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
@@ -55,7 +55,8 @@ class GuiBuilder {
         Logger.Debug("GUI creation started...")
 
         this.StartGameCallback := startCallback
-        guiW := 705  ; Total Target Width
+
+        guiW := 905  ; Total Target Width
 
         this.TimerStatusObj := ObjBindMethod(this, "UpdateStatusBar")
         this.TimerRecObj := ObjBindMethod(this, "UpdateRecordingTimers")
@@ -68,7 +69,7 @@ class GuiBuilder {
 
         this.MainGui.Add("Button", "x-100 y-100 w0 h0 Default", "")
         this.MainGui.OnEvent("Close", (*) => ExitApp())
-        this.MainGui.SetFont("s10 q5 cSilver", "Segoe UI")
+        this.MainGui.SetFont("s12 q5 cSilver", "Segoe UI")
         this.MainGui.BackColor := "2A2A2A"
 
         ; ======================================================================
@@ -79,20 +80,23 @@ class GuiBuilder {
 
         this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", "|  A:")
         this.TimerAudio := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
+
         this.MainGui.Add("Text", "x+10 h30 +0x200 Center -Border", "|  V:")
         this.TimerVideo := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
+
         this.MainGui.Add("Text", "x+10 h30 +0x200 Center -Border", " :: ")
 
-        this.MainGui.SetFont("s12 q5 cSilver", "Segoe UI")
-        BtnAppReload := this.MainGui.Add("Text", "x+10 yp-1 h30 +0x200 +Center Background2A2A2A cSilver", "↻")
+        BtnAppReload := this.MainGui.Add("Text", "x+10 yp h30 +0x200 +Center Background2A2A2A cSilver", "↻")
         BtnAppReload.OnEvent("Click", (*) => Reload())
         this.TitleControl.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
 
-        this.MainGui.SetFont("s10")
-        this.AddNavBtn("  ?  ", (*) => this.ShowHelp(), "x+3 yp+1 -Border")
-        this.AddNavBtn("  i  ", (*) => SystemInfoTool.Show(), "x+0 -Border")
-        this.MainGui.Add("Text", "x+0 yp-4 w30 h30 +0x200 Center Background2A2A2A", "_").OnEvent("Click", (*) => this.MainGui.Minimize())
-        this.MainGui.Add("Text", "x+-4 yp+4 w30 h30 +0x200 Center cRed", "✕").OnEvent("Click", (*) => ExitApp())
+        this.AddNavBtn("  ?  ", (*) => this.ShowHelp(), "x+3 yp-3 -Border")
+
+        this.AddNavBtn("  i  ", (*) => SystemInfoTool.Show(), "x+0 yp -Border")
+
+        this.MainGui.Add("Text", "x+0 yp-3 w30 h30 +0x200 Center Background2A2A2A", "_").OnEvent("Click", (*) => this.MainGui.Minimize())
+
+        this.MainGui.Add("Text", "x+-4 yp+5 w30 h30 +0x200 Center cRed", "✕").OnEvent("Click", (*) => ExitApp())
 
         ; 1. Separator Line
         this.MainGui.Add("Text", "x0 y+2 w" guiW " h1 Background333333")
@@ -100,24 +104,34 @@ class GuiBuilder {
         ; ======================================================================
         ; ROW 1
         ; ======================================================================
-        this.MainGui.SetFont("s14")
-        this.AddNavBtn(" ➕ ", (*) => this.OnAddGame(), "x10 y40")
-        this.AddNavBtn(" 🕹️ ", (*) => TeknoParrotManager.ShowPicker(), "x+8")
-        this.AddNavBtn(" 🛠️ ", (*) => EmulatorConfigGui.Show(), "x+8")
-        this.BtnStart := this.AddNavBtn(" ▶️ ", (*) => this.OnStartAction(), "x+8")
-        this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+8")
-        this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+8")
-        this.AddNavBtn(" 🧹 ", (*) => this.OnDeleteGame(), "x+8")
-        this.AddNavBtn(" 🗑️ ", (*) => this.OnClearPath(), "x+8")
-        this.AddNavBtn(" 🔧 ", (*) => this.OnRefreshPath(), "x+8")
-        this.AddNavBtn(" 🔲 ", (*) => WindowManagerGui.Show(), "x+8")
-        this.AddNavBtn(" 👁️ ", (*) => this.OnFocusGame(), "x+8")
-        this.AddNavBtn(" 🎵 ", (*) => MusicPlayer.Show(), "x+8 Background333333")
-        this.AddNavBtn(" 🎬 ", (*) => VideoPlayer.Show(), "x+8 Background333333")
-        this.AddNavBtn(" 🖼️ ", (*) => this.OnOpenGallery(), "x+8 Background333333")
-        this.AddNavBtn(" 🗄️ ", (*) => GameDatabaseTool.Show(), "x+8")
-        this.AddNavBtn(" 📝 ", (*) => this.OnNotes(), "x+8")
-        this.AddNavBtn(" 📂 ", (*) => this.OnFileBrowser(), "x+8")
+        this.MainGui.SetFont("s16")
+
+        ; 1. Add Games & Config (Wrapped to flash)
+        this.AddNavBtn(" ➕ ", (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 y40")
+        this.AddNavBtn(" 🕹️ ", (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10")
+        this.AddNavBtn(" 🛠️ ", (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10")
+
+        ; 2. Playback Controls (Standard)
+        this.BtnStart := this.AddNavBtn(" ▶️ ", (*) => this.OnStartAction(), "x+10")
+        this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10")
+        this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10")
+
+        ; 3. Maintenance Tools (Wrapped to flash)
+        this.AddNavBtn(" 🧹 ", (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10")
+        this.AddNavBtn(" 🗑️ ", (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+10")
+        this.AddNavBtn(" 🔧 ", (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "x+10")
+        this.AddNavBtn(" 🔲 ", (btn, *) => (this.FlashButton(btn), WindowManagerGui.Show()), "x+10")
+        this.AddNavBtn(" 👁️ ", (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), "x+10")
+
+        ; 4. Media (Wrapped to flash)
+        this.AddNavBtn(" 🎵 ", (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+10 Background333333")
+        this.AddNavBtn(" 🎬 ", (btn, *) => (this.FlashButton(btn), VideoPlayer.Show()), "x+10 Background333333")
+        this.AddNavBtn(" 🖼️ ", (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "x+10 Background333333")
+
+        ; 5. Database & Files (Wrapped to flash)
+        this.AddNavBtn(" 🗄️ ", (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "x+10")
+        this.AddNavBtn(" 📝 ", (btn, *) => (this.FlashButton(btn), this.OnNotes()), "x+10")
+        this.AddNavBtn(" 📁 ", (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10")
 
         ; ======================================================================
         ; ROW 2
@@ -131,7 +145,6 @@ class GuiBuilder {
         ; THE DISPLAY (Centered Text)
         ; Added 'Center' to align the text in the middle
         this.GameSelector := this.MainGui.Add("Edit", "xp+2 yp+2 w411 h22 c05FBE4 Background333333 -E0x200 +ReadOnly -VScroll Center", "")
-        this.MainGui.SetFont("s10")
 
         ; THE ARROW
         this.MainGui.Add("Text", "x+-1 yp w25 h22 c05FBE4 Background333333 +0x200 +Center", "▼")
@@ -143,38 +156,37 @@ class GuiBuilder {
         ; ======================================================================
         ; ROW 3
         ; ======================================================================
-        this.MainGui.Add("Text", "x10 y+8 h30 +0x200 Border Background333333", "  Burst:  ")
+        this.MainGui.Add("Text", "x5 y+8 h30 +0x200 Border Background333333", "  Burst:  ")
 
-        this.MainGui.SetFont("s12")
 
         this.BurstInput := this.MainGui.Add("Edit", "x+8 h30 w30 Number Center +0x200 Limit2 Background02A2A2A", "5")
+        this.MainGui.SetFont("s16")
         this.BtnBurstStart := this.AddNavBtn("  ▶️  ", (*) => this.OnBurstSnap(), "x+8 Background333333")
 
-        this.MainGui.SetFont("s10")
-
+        this.MainGui.SetFont("s12")
         this.AddNavBtn("  Snapshot  ", (*) => CaptureManager.TakeSnapshot(false), "x+8 Background333333")
 
-        this.BtnRecAudio := this.AddNavBtn("  Record Audio  ", (*) => CaptureManager.ToggleAudioRecording(), "x+32 Background333333")
+        this.BtnRecAudio := this.AddNavBtn("  Record Audio  ", (*) => CaptureManager.ToggleAudioRecording(), "x+8 Background333333")
         this.BtnRecVideo := this.AddNavBtn("  Record Video  ", (*) => CaptureManager.ToggleVideoRecording(), "x+8 Background333333")
 
-        this.AddNavBtn("  AT3 Converter  ", (*) => AtracConverterTool.Show(), "x+32 Background333333")
+        this.AddNavBtn("  AT3 Converter  ", (*) => AtracConverterTool.Show(), "x+8 Background333333")
         this.AddNavBtn("  Icon Manager  ", (*) => IconManagerGui.Show(), "x+8 Background333333")
 
         ; ======================================================================
         ; ROW 4
         ; ======================================================================
         ; CPU / GPU
-        this.AddNavBtn("  Set Process Priority:  ", (*) => 0, "x10 y+8 Background333333")
+        this.AddNavBtn("  Set Process Priority:  ", (*) => 0, "x5 y+8 Background333333")
 
         ; Define the color variable for consistency
         cBtn := " Background333333"
         this.BtnCpu := []
-        this.BtnCpu.Push(this.AddNavBtn("Idle", (*) => this.OnCpuClick("Low", 1), "x+8 w67" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn("Normal -", (*) => this.OnCpuClick("BelowNormal", 2), "x+8 w67" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn("Normal", (*) => this.OnCpuClick("Normal", 3), "x+8 w67" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn("Normal +", (*) => this.OnCpuClick("AboveNormal", 4), "x+8 w67" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn("High", (*) => this.OnCpuClick("High", 5), "x+8 w67" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn("Realtime", (*) => this.OnCpuClick("Realtime", 6), "x+8 w67" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("Idle", (*) => this.OnCpuClick("Low", 1), "x+8" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("Normal -", (*) => this.OnCpuClick("BelowNormal", 2), "x+8" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("Normal", (*) => this.OnCpuClick("Normal", 3), "x+8" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("Normal +", (*) => this.OnCpuClick("AboveNormal", 4), "x+8" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("High", (*) => this.OnCpuClick("High", 5), "x+8" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("Realtime", (*) => this.OnCpuClick("Realtime", 6), "x+8" . cBtn))
 
         this.SetBtnHighlight(this.BtnCpu[3], true)
 
@@ -186,7 +198,7 @@ class GuiBuilder {
         this.AdvancedControls := []
 
         ; 1. Mark Start Position
-        marker := this.MainGui.Add("Text", "x10 y+8 w0 h0", "")
+        marker := this.MainGui.Add("Text", "x5 y+8 w0 h0", "")
         marker.GetPos(&advX, &advY)
 
         ; Define the color for this section
@@ -194,22 +206,22 @@ class GuiBuilder {
 
         ; Row 5
         this.AdvancedControls.Push(this.AddNavBtn("  Clone Wizard  ", (*) => CloneGameWizardGui.Show(), "x5 y" advY . cAdv))
-        this.AdvancedControls.Push(this.AddNavBtn("  Patch Manager  ", (*) => PatchManagerGui.Show(), "x+5" . cAdv))
-        this.AdvancedControls.Push(this.AddNavBtn("  Purge Logs  ", (*) => this.OnClearLogs(), "x+5" . cAdv))
-        this.AdvancedControls.Push(this.AddNavBtn("  Purge List  ", (*) => this.OnClearAllGames(), "x+5" . cAdv))
-        this.AdvancedControls.Push(this.AddNavBtn("  View Logs  ", (*) => this.OnViewLogs(), "x+5" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  Patch Manager  ", (*) => PatchManagerGui.Show(), "x+10" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  Purge Logs  ", (*) => this.OnClearLogs(), "x+10" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  Purge List  ", (*) => this.OnClearAllGames(), "x+10" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  View Logs  ", (*) => this.OnViewLogs(), "x+10" . cAdv))
 
         ; Row 6
         this.AdvancedControls.Push(this.AddNavBtn("  View System Config  ", (*) => ConfigViewerGui.ShowGui("INI"), "x5 y+5" . cAdv))
-        this.AdvancedControls.Push(this.AddNavBtn("  Show Games Config  ", (*) => ConfigViewerGui.ShowGui(), "x+5" . cAdv))
-        this.AdvancedControls.Push(this.AddNavBtn("  RPCS3 Audio Fix  ", (*) => AudioManager.ShowGui(), "x+5" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  Show Games Config  ", (*) => ConfigViewerGui.ShowGui(), "x+10" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  RPCS3 Audio Fix  ", (*) => AudioManager.ShowGui(), "x+10" . cAdv))
 
         ; Row 7
         this.AdvancedControls.Push(this.AddNavBtn("  Hash Calc / Validator  ", (*) => FileValidatorTool.Show(), "x5 y+5" . cAdv))
 
         ; The "Hide" button can match the theme (333333) or stay distinct.
         ; Here I applied the same background but kept your cyan text color.
-        this.BtnHideAdvanced := this.AddNavBtn("  ▲ Hide Advanced  ", (*) => this.ToggleAdvanced(false), "x+5 c05FBE4" . cAdv)
+        this.BtnHideAdvanced := this.AddNavBtn("  ▲ Hide Advanced  ", (*) => this.ToggleAdvanced(false), "x+10 c05FBE4" . cAdv)
         this.AdvancedControls.Push(this.BtnHideAdvanced)
 
         ; 2. Measure Total Height
@@ -263,6 +275,48 @@ class GuiBuilder {
         Logger.Info("Main GUI loaded in " . loadTime . " ms")
         DialogsGui.CustomStatusPop("GUI Load Time: " . loadTime . "ms")
     }
+
+        static SetBtnHighlight(btnObj, isHighlighted := true, activeColor := "05FBE4") {
+            if (isHighlighted) {
+                btnObj.Opt("Background3A3A3A")
+                btnObj.SetFont("c" . activeColor)
+            } else {
+                btnObj.Opt("Background333333")
+                btnObj.SetFont("cSilver")
+            }
+            btnObj.Redraw()
+        }
+
+        ; --- HANDLERS (UPDATED TO FLASH) ---
+
+        static OnClearPath(btnCtrl := "") {
+            if (btnCtrl)
+                this.FlashButton(btnCtrl)
+
+            if (ConfigManager.CurrentGameId == "")
+                return
+            ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, "")
+            this.RefreshDropdown()
+        }
+
+        static OnRefreshPath(btnCtrl := "") {
+            if (btnCtrl)
+                this.FlashButton(btnCtrl)
+
+            if (ConfigManager.CurrentGameId == "")
+                return
+
+            gameObj := ConfigManager.Games[ConfigManager.CurrentGameId]
+            current := (gameObj.Has("ApplicationPath")) ? gameObj["ApplicationPath"] : ""
+            newPath := FileSelect(3, current, "Select New Executable")
+
+            if (newPath != "") {
+                ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, newPath)
+                if (this.StatusText)
+                    this.StatusText.Text := "Updated path: " . newPath
+                DialogsGui.CustomTrayTip("Game path updated successfully!")
+            }
+        }
 
     ; --- TOGGLE LOGIC ---
     static ToggleAdvanced(show) {
@@ -393,8 +447,8 @@ class GuiBuilder {
         }
     }
 
-    static AddNavBtn(label, callback, options := "x+5 yp") {
-        btn := this.MainGui.Add("Text", "h30 +0x200 +Center +Border " options, label)
+    static AddNavBtn(label, callback, options := "x+10 yp") {
+        btn := this.MainGui.Add("Text", "h35 +0x200 +Center +Border " options, label)
         btn.OnEvent("Click", callback)
         return btn
     }
@@ -543,32 +597,32 @@ class GuiBuilder {
         }
     }
 
-    static OnRefreshPath(*) {
-        if (ConfigManager.CurrentGameId == "")
-            return
+;    static OnRefreshPath(*) {
+;        if (ConfigManager.CurrentGameId == "")
+;            return
+;
+;        gameObj := ConfigManager.Games[ConfigManager.CurrentGameId]
+;
+;        current := ""
+;        if (gameObj.Has("ApplicationPath"))
+;            current := gameObj["ApplicationPath"]
+;
+;        newPath := FileSelect(3, current, "Select New Executable")
+;
+;        if (newPath != "") {
+;            ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, newPath)
+;            if (this.StatusText)
+;                this.StatusText.Text := "Updated path: " . newPath
+;            DialogsGui.CustomTrayTip("Game path updated successfully!")
+;        }
+;    }
 
-        gameObj := ConfigManager.Games[ConfigManager.CurrentGameId]
-
-        current := ""
-        if (gameObj.Has("ApplicationPath"))
-            current := gameObj["ApplicationPath"]
-
-        newPath := FileSelect(3, current, "Select New Executable")
-
-        if (newPath != "") {
-            ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, newPath)
-            if (this.StatusText)
-                this.StatusText.Text := "Updated path: " . newPath
-            DialogsGui.CustomTrayTip("Game path updated successfully!")
-        }
-    }
-
-    static OnClearPath() {
-        if (ConfigManager.CurrentGameId == "")
-            return
-        ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, "")
-        this.RefreshDropdown()
-    }
+;    static OnClearPath() {
+;        if (ConfigManager.CurrentGameId == "")
+;            return
+;        ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, "")
+;        this.RefreshDropdown()
+;    }
 
 static RefreshDropdown() {
         if !this.GameSelector
@@ -756,7 +810,7 @@ static RefreshDropdown() {
         if (count < 1)
             return
 
-        ; 2. Visual Feedback ON (Green)
+        ; 2. Visual Feedback ON
         this.SetBtnHighlight(this.BtnBurstStart, true, "c05FBE4")
 
         ; Force a quick sleep to let the UI redraw the green color before processing starts
@@ -811,13 +865,12 @@ static RefreshDropdown() {
         notesGui.BackColor := "1a1a1a"
 
         ; Draggable Header
-        notesGui.SetFont("s10 Bold cSilver")
+        notesGui.SetFont("s12 Bold cSilver")
         hdr := notesGui.Add("Text", "x15 y10 w470 h25 +0x200", "NOTES: " . StrUpper(cleanName))
         hdr.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, notesGui.Hwnd))
 
         ; Edit Box (No Scrollbars) and set the text fontsize here
-        notesGui.SetFont("s14 Norm cSilver", "Segoe UI")
-        notesGui.SetFont("s14 Norm cSilver", "Segoe UI")
+        notesGui.SetFont("s16 Norm cSilver", "Segoe UI")
         existingNotes := ""
         try {
             existingNotes := (Type(game) == "Map") ? (game.Has("Notes") ? game["Notes"] : "") : (game.HasProp("Notes") ? game.Notes : "")
@@ -825,7 +878,7 @@ static RefreshDropdown() {
         editCtrl := notesGui.Add("Edit", "x15 y+10 w500 h300 Background333333 cSilver -E0x200 -VScroll -HScroll", existingNotes)
 
         ; Button Row (2A2A2A / Silver)
-        notesGui.SetFont("s9 cSilver")
+        notesGui.SetFont("s11 cSilver")
 
         ; STAMP
         btnStamp := notesGui.Add("Text", "x15 y+15 w70 h30 +0x200 Center Background333333", "Stamp")
@@ -862,24 +915,24 @@ static RefreshDropdown() {
         SetTimer(this.TimerTitleObj, state ? 10000 : 0)
     }
 
-    static SetBtnHighlight(btnObj, isHighlighted := true, activeColor := "05FBE4") {
-        if (isHighlighted) {
-            ; Background: Slightly lighter grey (Subtle 3D effect)
-            btnObj.Opt("Background3A3A3A")
-
-            ; Text: Neon Cyan (The "Glow")
-            ; We add the 'c' here manually
-            btnObj.SetFont("c" . activeColor)
-
-        } else {
-            ; Reset to app background (Invisible)
-            btnObj.Opt("Background333333")
-
-            ; Reset text to standard Silver
-            btnObj.SetFont("cSilver")
-        }
-        btnObj.Redraw()
-    }
+;    static SetBtnHighlight(btnObj, isHighlighted := true, activeColor := "05FBE4") {
+;        if (isHighlighted) {
+;            ; Background: Slightly lighter grey (Subtle 3D effect)
+;            btnObj.Opt("Background3A3A3A")
+;
+;            ; Text: Neon Cyan (The "Glow")
+;            ; We add the 'c' here manually
+;            btnObj.SetFont("c" . activeColor)
+;
+;        } else {
+;            ; Reset to app background (Invisible)
+;            btnObj.Opt("Background333333")
+;
+;            ; Reset text to standard Silver
+;            btnObj.SetFont("cSilver")
+;        }
+;        btnObj.Redraw()
+;    }
 
     ; --- The State Cleanup Helper ---
     static ClearGameGroup() {
@@ -994,7 +1047,7 @@ static RefreshDropdown() {
 
         PopupGui := Gui("-Caption +ToolWindow +AlwaysOnTop +Owner" this.MainGui.Hwnd, "NexusGameListPopup")
         PopupGui.BackColor := "05FBE4"
-        PopupGui.SetFont("s10", "Segoe UI")
+        PopupGui.SetFont("s12", "Segoe UI")
         PopupGui.MarginX := 1, PopupGui.MarginY := 1
 
         ; Add ListBox
@@ -1041,6 +1094,12 @@ static RefreshDropdown() {
         ; Trigger the original logic (Load images, configs, etc.)
         this.OnGameChanged(this.GameSelector)
     }
+
+            static FlashButton(btnCtrl, color := "05FBE4") {
+            this.SetBtnHighlight(btnCtrl, true, color)
+            SetTimer(() => this.SetBtnHighlight(btnCtrl, false), -200)
+            }
+
 
 
     ;    static ShowHelp() {

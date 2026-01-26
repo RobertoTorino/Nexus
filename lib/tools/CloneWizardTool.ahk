@@ -4,8 +4,8 @@
 ; * @class CloneWizardTool
 ; * @location lib/tools/CloneWizardTool.ahk
 ; * @author Philip
-; * @date 2026/01/10
-; * @version 1.0.03 (Integrated Utilities.SanitizeName)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; ---- DEPENDENCY IMPORTS ----

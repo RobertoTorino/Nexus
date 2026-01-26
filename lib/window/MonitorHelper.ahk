@@ -4,8 +4,8 @@
 ; * @class MonitorHelper
 ; * @location lib/window/MonitorHelper.ahk
 ; * @author Philip
-; * @date 2026/01/05
-; * @version 1.0.02 (Fixed Timers)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ======================================================================
 
 ; --- DEPENDENCY IMPORTS ---

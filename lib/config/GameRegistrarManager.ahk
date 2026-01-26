@@ -4,7 +4,7 @@
 ; * @class GameRegistrarManager
 ; * @location lib/config/GameRegistrarManager.ahk
 ; * @author Philip
-; * @date 2026/01/06
+; * @date 2026/01/25
 ; * @version 1.0.00
 ; ==============================================================================
 

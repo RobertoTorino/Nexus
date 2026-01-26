@@ -4,8 +4,8 @@
 ; * @class VideoPlayer
 ; * @location lib/media/VideoPlayer.ahk
 ; * @author Philip
-; * @date 2026/01/06
-; * @version 1.0.02 (Dark Theme & Responsive Layout)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---

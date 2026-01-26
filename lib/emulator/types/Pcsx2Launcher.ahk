@@ -4,8 +4,8 @@
 ; * @class Pcsx2Launcher
 ; * @location lib/emulator/types/Pcsx2Launcher.ahk
 ; * @author Philip
-; * @date 2026/01/06
-; * @version 1.0.02 (Fixed Monitor Logic)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---

@@ -4,8 +4,8 @@
 ; * @class PatchManagerGui
 ; * @location lib/ui/PatchManagerGui.ahk
 ; * @author Philip
-; * @date 2026/01/18
-; * @version 1.0.02 (Matched LoggerGui Pattern)
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ======================================================================
 
 ; --- DEPENDENCY IMPORTS ---

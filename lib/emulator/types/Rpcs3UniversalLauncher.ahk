@@ -4,8 +4,8 @@
 ; * @class Rpcs3UniversalLauncher
 ; * @location lib/emulator/types/Rpcs3Launcher.ahk
 ; * @author Philip
-; * @date 2026/01/17
-; * @version 1.0.01
+; * @date 2026/01/25
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
