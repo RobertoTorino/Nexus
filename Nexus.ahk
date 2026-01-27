@@ -17,6 +17,7 @@
 ; lib\config\
 #Include lib\config\ConfigManager.ahk
 #Include lib\config\GameRegistrarManager.ahk
+#Include lib\config\TranslationManager.ahk
 #Include lib\config\TeknoParrotManager.ahk
 ; lib\core\
 #Include lib\core\JSON.ahk

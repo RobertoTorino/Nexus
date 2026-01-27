@@ -8,6 +8,7 @@
 ; * @version 1.0.00
 ; ==============================================================================
 
+; --- DEPENDENCY IMPORTS ---
 #Include ..\config\ConfigManager.ahk
 #Include DialogsGui.ahk
 

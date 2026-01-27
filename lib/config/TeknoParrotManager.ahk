@@ -8,6 +8,7 @@
 ; * @version 1.0.00
 ; ==============================================================================
 
+; --- DEPENDENCY IMPORTS ---
 #Include ..\core\Utilities.ahk
 #Include ..\ui\DialogsGui.ahk
 #Include ..\core\Logger.ahk
