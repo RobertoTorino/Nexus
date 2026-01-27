@@ -112,18 +112,18 @@ class GuiBuilder {
         this.AddNavBtn(" 🧹 ", (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background333333")
         this.AddNavBtn(" 🛠️ ", (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10 Background333333")
 
-        ; 3. Maintenance Tools (Wrapped to flash)
-        this.AddNavBtn(" 🗑️ ", (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+42 Background333333")
+        ; 2. Maintenance Tools (Wrapped to flash)
+        this.AddNavBtn(" 🗑️ ", (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+10 Background333333")
         this.AddNavBtn(" 🔧 ", (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "x+10 Background333333")
         this.AddNavBtn(" 🔲 ", (btn, *) => (this.FlashButton(btn), WindowManagerGui.Show()), "x+10 Background333333")
         this.AddNavBtn(" 👁️ ", (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), "x+10 Background333333")
 
-        ; 4. Media (Wrapped to flash)
-        this.AddNavBtn(" 🎵 ", (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+42 Background333333")
+        ; 3. Media (Wrapped to flash)
+        this.AddNavBtn(" 🎵 ", (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+10 Background333333")
         this.AddNavBtn(" 🎬 ", (btn, *) => (this.FlashButton(btn), VideoPlayer.Show()), "x+10 Background333333")
         this.AddNavBtn(" 🖼️ ", (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "x+10 Background333333")
 
-        ; 5. Database & Files (Wrapped to flash)
+        ; 4. Database & Files (Wrapped to flash)
         this.AddNavBtn(" 🗄️ ", (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "x+10 Background0x0C660C")
         this.AddNavBtn(" 📝 ", (btn, *) => (this.FlashButton(btn), this.OnNotes()), "x+10 Background0x0C660C")
         this.AddNavBtn(" 📁 ", (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10 Background0x0C660C")
@@ -131,13 +131,12 @@ class GuiBuilder {
         ; ======================================================================
         ; ROW 2
         ; ======================================================================
-        ; 2. Playback Controls (Standard)
         this.BtnStart := this.AddNavBtn("  ▶️  ", (*) => this.OnStartAction(), "x5 y+10")
         this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10")
         this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10")
-        
+
         this.MainGui.SetFont("s12")
-        ; Fake dropdown
+        ; Fake dropdown list
         ; 1. GET DATA
         gamesList := ConfigManager.GetSortedList()
 
@@ -172,7 +171,7 @@ class GuiBuilder {
         ; Define the color variable for consistency
         cBtn := " Background333333"
         this.BtnCpu := []
-        this.BtnCpu.Push(this.AddNavBtn("  Idle  ", (*) => this.OnCpuClick("Low", 1), "x+110" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn("  Idle  ", (*) => this.OnCpuClick("Low", 1), "x+10" . cBtn))
         this.BtnCpu.Push(this.AddNavBtn("  Normal --  ", (*) => this.OnCpuClick("BelowNormal", 2), "x+10" . cBtn))
         this.BtnCpu.Push(this.AddNavBtn("  Normal  ", (*) => this.OnCpuClick("Normal", 3), "x+10" . cBtn))
         this.BtnCpu.Push(this.AddNavBtn("  Normal ++  ", (*) => this.OnCpuClick("AboveNormal", 4), "x+10" . cBtn))
@@ -184,7 +183,7 @@ class GuiBuilder {
         this.AddNavBtn("  GPU  ", (*) => ProcessManager.OpenOverclock(), "x+10 yp Background333333")
 
         ; ======================================================================
-        ; ADVANCED AREA (Rows 5, 6, 7) - OVERLAY STRATEGY
+        ; ADVANCED AREA (Rows 4, 5, 6) - OVERLAY STRATEGY
         ; ======================================================================
         this.AdvancedControls := []
 
@@ -195,20 +194,20 @@ class GuiBuilder {
         ; Define the color for this section
         cAdv := " Background333333"
 
-        ; Row 5
+        ; Row 4
         this.AdvancedControls.Push(this.AddNavBtn("  Clone Wizard  ", (*) => CloneGameWizardGui.Show(), "x5 y" advY . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  Patch Manager  ", (*) => PatchManagerGui.Show(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  Purge Logs  ", (*) => this.OnClearLogs(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  Purge List  ", (*) => this.OnClearAllGames(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  View Logs  ", (*) => this.OnViewLogs(), "x+10" . cAdv))
 
-        ; Row 6
+        ; Row 5
         this.AdvancedControls.Push(this.AddNavBtn("  View System Config  ", (*) => ConfigViewerGui.ShowGui("INI"), "x5 y+5" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  Show Games Config  ", (*) => ConfigViewerGui.ShowGui(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  RPCS3 Audio Fix  ", (*) => AudioManager.ShowGui(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  AT3 Converter  ", (*) => AtracConverterTool.Show(), "x+10 Background333333" . cAdv))
 
-        ; Row 7
+        ; Row 6
         this.AdvancedControls.Push(this.AddNavBtn("  Hash Calc / Validator  ", (*) => FileValidatorTool.Show(), "x5 y+5" . cAdv))
 
         ; The "Hide" button can match the theme (333333) or stay distinct.
@@ -266,47 +265,47 @@ class GuiBuilder {
         DialogsGui.CustomStatusPop("GUI Load Time: " . loadTime . "ms")
     }
 
-        static SetBtnHighlight(btnObj, isHighlighted := true, activeColor := "05FBE4") {
-            if (isHighlighted) {
-                btnObj.Opt("Background3A3A3A")
-                btnObj.SetFont("c" . activeColor)
-            } else {
-                btnObj.Opt("Background333333")
-                btnObj.SetFont("cSilver")
-            }
-            btnObj.Redraw()
+    static SetBtnHighlight(btnObj, isHighlighted := true, activeColor := "05FBE4") {
+        if (isHighlighted) {
+            btnObj.Opt("Background3A3A3A")
+            btnObj.SetFont("c" . activeColor)
+        } else {
+            btnObj.Opt("Background333333")
+            btnObj.SetFont("cSilver")
         }
+        btnObj.Redraw()
+    }
 
-        ; --- HANDLERS (UPDATED TO FLASH) ---
+    ; --- HANDLERS (UPDATED TO FLASH) ---
 
-        static OnClearPath(btnCtrl := "") {
-            if (btnCtrl)
-                this.FlashButton(btnCtrl)
+    static OnClearPath(btnCtrl := "") {
+        if (btnCtrl)
+            this.FlashButton(btnCtrl)
 
-            if (ConfigManager.CurrentGameId == "")
-                return
-            ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, "")
-            this.RefreshDropdown()
+        if (ConfigManager.CurrentGameId == "")
+            return
+        ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, "")
+        this.RefreshDropdown()
+    }
+
+    static OnRefreshPath(btnCtrl := "") {
+        if (btnCtrl)
+            this.FlashButton(btnCtrl)
+
+        if (ConfigManager.CurrentGameId == "")
+            return
+
+        gameObj := ConfigManager.Games[ConfigManager.CurrentGameId]
+        current := (gameObj.Has("ApplicationPath")) ? gameObj["ApplicationPath"] : ""
+        newPath := FileSelect(3, current, "Select New Executable")
+
+        if (newPath != "") {
+            ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, newPath)
+            if (this.StatusText)
+                this.StatusText.Text := "Updated path: " . newPath
+            DialogsGui.CustomTrayTip("Game path updated successfully!")
         }
-
-        static OnRefreshPath(btnCtrl := "") {
-            if (btnCtrl)
-                this.FlashButton(btnCtrl)
-
-            if (ConfigManager.CurrentGameId == "")
-                return
-
-            gameObj := ConfigManager.Games[ConfigManager.CurrentGameId]
-            current := (gameObj.Has("ApplicationPath")) ? gameObj["ApplicationPath"] : ""
-            newPath := FileSelect(3, current, "Select New Executable")
-
-            if (newPath != "") {
-                ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, newPath)
-                if (this.StatusText)
-                    this.StatusText.Text := "Updated path: " . newPath
-                DialogsGui.CustomTrayTip("Game path updated successfully!")
-            }
-        }
+    }
 
     ; --- TOGGLE LOGIC ---
     static ToggleAdvanced(show) {
@@ -343,16 +342,16 @@ class GuiBuilder {
         statusText := isRecording ? "   ⏺ RECORDING ACTIVE" : "   Ready"
 
         if (this.HasProp("StatusText") && this.StatusText) {
-             this.StatusText.Text := statusText
-             ;this.StatusText.Opt(isRecording ? "cSilver" : "cSilver")
+            this.StatusText.Text := statusText
+            ;this.StatusText.Opt(isRecording ? "cSilver" : "cSilver")
         }
 
         ; 2. Update Debug Row (Shows the EXE/Path for debugging)
         if (this.HasProp("DebugText") && this.DebugText) {
-             if (activeExe != "")
-                 this.DebugText.Text := "Target: " . activeExe
-             else
-                 this.DebugText.Text := "Debug: Ready"
+            if (activeExe != "")
+                this.DebugText.Text := "Target: " . activeExe
+            else
+                this.DebugText.Text := "Debug: Ready"
         }
     }
 
@@ -587,34 +586,34 @@ class GuiBuilder {
         }
     }
 
-;    static OnRefreshPath(*) {
-;        if (ConfigManager.CurrentGameId == "")
-;            return
-;
-;        gameObj := ConfigManager.Games[ConfigManager.CurrentGameId]
-;
-;        current := ""
-;        if (gameObj.Has("ApplicationPath"))
-;            current := gameObj["ApplicationPath"]
-;
-;        newPath := FileSelect(3, current, "Select New Executable")
-;
-;        if (newPath != "") {
-;            ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, newPath)
-;            if (this.StatusText)
-;                this.StatusText.Text := "Updated path: " . newPath
-;            DialogsGui.CustomTrayTip("Game path updated successfully!")
-;        }
-;    }
+    ;    static OnRefreshPath(*) {
+    ;        if (ConfigManager.CurrentGameId == "")
+    ;            return
+    ;
+    ;        gameObj := ConfigManager.Games[ConfigManager.CurrentGameId]
+    ;
+    ;        current := ""
+    ;        if (gameObj.Has("ApplicationPath"))
+    ;            current := gameObj["ApplicationPath"]
+    ;
+    ;        newPath := FileSelect(3, current, "Select New Executable")
+    ;
+    ;        if (newPath != "") {
+    ;            ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, newPath)
+    ;            if (this.StatusText)
+    ;                this.StatusText.Text := "Updated path: " . newPath
+    ;            DialogsGui.CustomTrayTip("Game path updated successfully!")
+    ;        }
+    ;    }
 
-;    static OnClearPath() {
-;        if (ConfigManager.CurrentGameId == "")
-;            return
-;        ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, "")
-;        this.RefreshDropdown()
-;    }
+    ;    static OnClearPath() {
+    ;        if (ConfigManager.CurrentGameId == "")
+    ;            return
+    ;        ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, "")
+    ;        this.RefreshDropdown()
+    ;    }
 
-static RefreshDropdown() {
+    static RefreshDropdown() {
         if !this.GameSelector
             return
 
@@ -905,24 +904,24 @@ static RefreshDropdown() {
         SetTimer(this.TimerTitleObj, state ? 10000 : 0)
     }
 
-;    static SetBtnHighlight(btnObj, isHighlighted := true, activeColor := "05FBE4") {
-;        if (isHighlighted) {
-;            ; Background: Slightly lighter grey (Subtle 3D effect)
-;            btnObj.Opt("Background3A3A3A")
-;
-;            ; Text: Neon Cyan (The "Glow")
-;            ; We add the 'c' here manually
-;            btnObj.SetFont("c" . activeColor)
-;
-;        } else {
-;            ; Reset to app background (Invisible)
-;            btnObj.Opt("Background333333")
-;
-;            ; Reset text to standard Silver
-;            btnObj.SetFont("cSilver")
-;        }
-;        btnObj.Redraw()
-;    }
+    ;    static SetBtnHighlight(btnObj, isHighlighted := true, activeColor := "05FBE4") {
+    ;        if (isHighlighted) {
+    ;            ; Background: Slightly lighter grey (Subtle 3D effect)
+    ;            btnObj.Opt("Background3A3A3A")
+    ;
+    ;            ; Text: Neon Cyan (The "Glow")
+    ;            ; We add the 'c' here manually
+    ;            btnObj.SetFont("c" . activeColor)
+    ;
+    ;        } else {
+    ;            ; Reset to app background (Invisible)
+    ;            btnObj.Opt("Background333333")
+    ;
+    ;            ; Reset text to standard Silver
+    ;            btnObj.SetFont("cSilver")
+    ;        }
+    ;        btnObj.Redraw()
+    ;    }
 
     ; --- The State Cleanup Helper ---
     static ClearGameGroup() {
@@ -1085,11 +1084,10 @@ static RefreshDropdown() {
         this.OnGameChanged(this.GameSelector)
     }
 
-            static FlashButton(btnCtrl, color := "05FBE4") {
-            this.SetBtnHighlight(btnCtrl, true, color)
-            SetTimer(() => this.SetBtnHighlight(btnCtrl, false), -200)
-            }
-
+    static FlashButton(btnCtrl, color := "05FBE4") {
+        this.SetBtnHighlight(btnCtrl, true, color)
+        SetTimer(() => this.SetBtnHighlight(btnCtrl, false), -200)
+    }
 
 
     ;    static ShowHelp() {
