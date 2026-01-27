@@ -107,16 +107,16 @@ class GuiBuilder {
         this.MainGui.SetFont("s16")
 
         ; 1. Add Games & Config (Wrapped to flash)
-        this.AddNavBtn(" ➕ ", (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 y40")
-        this.AddNavBtn(" 🕹️ ", (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10")
-        this.AddNavBtn(" 🧹 ", (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10")
-        this.AddNavBtn(" 🛠️ ", (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10")
+        this.AddNavBtn(" ➕ ", (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 y40 Background0x0C660C")
+        this.AddNavBtn(" 🕹️ ", (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10 Background333333")
+        this.AddNavBtn(" 🧹 ", (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background333333")
+        this.AddNavBtn(" 🛠️ ", (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10 Background333333")
 
         ; 3. Maintenance Tools (Wrapped to flash)
-        this.AddNavBtn(" 🗑️ ", (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+42")
-        this.AddNavBtn(" 🔧 ", (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "x+10")
-        this.AddNavBtn(" 🔲 ", (btn, *) => (this.FlashButton(btn), WindowManagerGui.Show()), "x+10")
-        this.AddNavBtn(" 👁️ ", (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), "x+10")
+        this.AddNavBtn(" 🗑️ ", (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+42 Background333333")
+        this.AddNavBtn(" 🔧 ", (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "x+10 Background333333")
+        this.AddNavBtn(" 🔲 ", (btn, *) => (this.FlashButton(btn), WindowManagerGui.Show()), "x+10 Background333333")
+        this.AddNavBtn(" 👁️ ", (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), "x+10 Background333333")
 
         ; 4. Media (Wrapped to flash)
         this.AddNavBtn(" 🎵 ", (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+42 Background333333")
@@ -124,9 +124,9 @@ class GuiBuilder {
         this.AddNavBtn(" 🖼️ ", (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "x+10 Background333333")
 
         ; 5. Database & Files (Wrapped to flash)
-        this.AddNavBtn(" 🗄️ ", (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "x+10")
-        this.AddNavBtn(" 📝 ", (btn, *) => (this.FlashButton(btn), this.OnNotes()), "x+10")
-        this.AddNavBtn(" 📁 ", (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10")
+        this.AddNavBtn(" 🗄️ ", (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "x+10 Background0x0C660C")
+        this.AddNavBtn(" 📝 ", (btn, *) => (this.FlashButton(btn), this.OnNotes()), "x+10 Background0x0C660C")
+        this.AddNavBtn(" 📁 ", (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10 Background0x0C660C")
 
         ; ======================================================================
         ; ROW 2
@@ -141,14 +141,14 @@ class GuiBuilder {
         ; 1. GET DATA
         gamesList := ConfigManager.GetSortedList()
 
-        this.MainGui.Add("Text", "x+10 yp w476 h35 Background05FBE4")
+        this.MainGui.Add("Text", "x+10 yp w476 h35 Background333333")
 
         ; THE DISPLAY (Centered Text)
         ; Dropdown width
         this.GameSelector := this.MainGui.Add("Edit", "xp+3 yp+2 w441 h22 Background02A2A2A -E0x200 +ReadOnly -VScroll Center", "")
 
         ; THE ARROW
-        this.MainGui.Add("Text", "x+4 yp w25 h22 c05FBE4 Background333333 +0x200 +Center", "▼")
+        this.MainGui.Add("Text", "x+4 yp w25 h22 cSilver Background333333 +0x200 +Center", "▼")
 
         ; THE CLICK MASK
         BtnOverlay := this.MainGui.Add("Text", "xp-521 yp-2 w550 h28 BackgroundTrans")
@@ -237,10 +237,8 @@ class GuiBuilder {
         this.MainGui.Add("Text", "x0 y+0 w" guiW " h1 Background333333")
 
         ; 4. Real Status Bar - Height 22
-        this.StatusText := this.MainGui.Add("Text", "x5 y+2 w" (guiW - 10) " h20 +0x200 BackgroundTrans", "Ready")
-
-        ; 5. Separator Line
-        this.MainGui.Add("Text", "x0 y+0 w" guiW " h1 Background333333")
+        ; this.StatusText := this.MainGui.Add("Text", "x5 y+2 w" (guiW - 10) " h22 +0x200 c05FBE4 BackgroundTrans", "Ready")
+        this.StatusText := this.MainGui.Add("Text", "x5 y+2 w" (guiW - 10) " h22 +0x200 BackgroundTrans", "Ready")
 
         ; 6. Bottom Margin
         this.MainGui.Add("Text", "x0 y+5 w0 h0", "")
@@ -1038,12 +1036,12 @@ static RefreshDropdown() {
         screenY := NumGet(pt, 4, "int")
 
         PopupGui := Gui("-Caption +ToolWindow +AlwaysOnTop +Owner" this.MainGui.Hwnd, "NexusGameListPopup")
-        PopupGui.BackColor := "05FBE4"
+        PopupGui.BackColor := "Silver"
         PopupGui.SetFont("s12", "Segoe UI")
         PopupGui.MarginX := 1, PopupGui.MarginY := 1
 
         ; Add ListBox
-        LB := PopupGui.Add("ListBox", "w" (gw + 30) " r15 Background333333 c05FBE4 -E0x200", items)
+        LB := PopupGui.Add("ListBox", "w" (gw + 30) " r15 Background333333 cSilver -E0x200", items)
 
         ; [FIX] Apply Dark Mode to Scrollbar
         ; This turns the ugly white scrollbar into a sleek dark grey one

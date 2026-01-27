@@ -39,9 +39,9 @@ class EmulatorConfigGui {
         WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
         this.MainGui.BackColor := "2A2A2A"
-        this.MainGui.SetFont("s9 q5 cWhite", "Segoe UI")
+        this.MainGui.SetFont("s12 q5 cWhite", "Segoe UI")
 
-        guiW := 705
+        guiW := 805
         title := this.MainGui.Add("Text", "x0 y0 w" (guiW - 30) " h30 +0x200 Background2A2A2A", "  Nexus :: Configure Emulators")
         title.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
         this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕").OnEvent("Click", (*) => this.MainGui.Destroy())
@@ -54,8 +54,8 @@ class EmulatorConfigGui {
             this.MainGui.Add("Text", "x10 y" y " w120 h26 Right", emu.Name ":")
             edt := this.MainGui.Add("Edit", "x+10 yp h26 w465 +0x200 ReadOnly Background2A2A2A", currentPath)
 
-            this.BtnAddTheme("  📂  ", this.OnBrowse.Bind(this, emu, edt), "x+5 yp +0x200 Background2B3B45")
-            this.BtnAddTheme("  ▶️  ", this.OnRun.Bind(this, edt), "x+5 yp Background0C660C")
+            this.BtnAddTheme(" 📂 ", this.OnBrowse.Bind(this, emu, edt), "x+5 yp +0x200 Background2B3B45")
+            this.BtnAddTheme(" ▶️ ", this.OnRun.Bind(this, edt), "x+5 yp Background0C660C")
             this.BtnAddTheme(" ❌ ", this.OnKill.Bind(this, edt), "x+5 yp Background6E0000")
             y += 35
         }
