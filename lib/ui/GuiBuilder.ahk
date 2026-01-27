@@ -3,9 +3,7 @@
 ; * @description Main GUI. Modern "Superslick" UI.
 ; * @class GuiBuilder
 ; * @location lib/ui/GuiBuilder.ahk
-; * @author Philip
-; * @date 2026/01/25
-; * @version 1.0.00
+; * @version 1.6.00 (Restored StandardLauncher + Native Crop Scrolling)
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
@@ -28,48 +26,39 @@
 #Include ..\ui\ConfigViewerGui.ahk
 #Include ..\ui\IconManagerGui.ahk
 #Include ..\ui\PatchManagerGui.ahk
+#Include ..\emulator\types\StandardLauncher.ahk
 
 class GuiBuilder {
     static MainGui := ""
 
     ; --- STATE ---
-    static UseIcons := true  ; Default: true (Icons), false (Text)
+    static UseIcons := true
 
-    ; --- HELPER: Returns Icon or Text based on mode ---
     static Label(icon, text) {
         return this.UseIcons ? " " icon " " : "  " text "  "
     }
 
-    ; --- TOGGLE ACTION ---
     static ToggleUiMode() {
         if HasProp(this, "ToggleTimers")
             this.ToggleTimers(false)
-
         this.UseIcons := !this.UseIcons
-
         if (this.MainGui)
             this.MainGui.GetPos(&x, &y)
-
         this.MainGui.Destroy()
         this.MainGui := ""
-
         this.Create(this.StartGameCallback)
-
         if IsSet(x)
             this.MainGui.Show("x" x " y" y " AutoSize")
     }
 
-    ; --- CONTROL GROUPS ---
     static AdvancedControls := []
     static BannerControl := ""
     static BtnHideAdvanced := ""
-
     static StartGameCallback := ""
     static LastAudioState := -1
     static LastVideoState := -1
     static TimerStatusObj := "", TimerRecObj := "", TimerTitleObj := ""
 
-    ; --- CONTROLS ---
     static GameSelector := ""
     static TimerAudio := "", TimerVideo := "", BurstInput := ""
     static StatsHeader := 0
@@ -79,18 +68,13 @@ class GuiBuilder {
     static BtnRecAudio := 0, BtnRecVideo := 0
     static BtnBurstStart := 0
     static BtnCpu := []
-
-    ; --- Data Cache ---
     static CachedGameCount := 0
     static CachedTotalTime := "0h"
 
     static Create(startCallback := "") {
         loadStart := A_TickCount
-
-        ; RESET STATES
         this.LastAudioState := -1
         this.LastVideoState := -1
-
         Logger.Debug("GUI creation started...")
 
         if (startCallback)
@@ -103,18 +87,14 @@ class GuiBuilder {
         this.TimerTitleObj := ObjBindMethod(this, "UpdateTitle")
 
         this.MainGui := Gui("-Caption +AlwaysOnTop +LastFound +Border", "Nexus")
-
         this.MainGui.MarginX := 0
         this.MainGui.MarginY := 0
-
         this.MainGui.Add("Button", "x-100 y-100 w0 h0 Default", "")
         this.MainGui.OnEvent("Close", (*) => ExitApp())
         this.MainGui.SetFont("s12 q5 cSilver", "Segoe UI")
         this.MainGui.BackColor := "2A2A2A"
 
-        ; ======================================================================
-        ; TOP TOOLBAR
-        ; ======================================================================
+        ; TOOLBAR
         titleText := "Nexus :: " Chr(169) "" A_YYYY ""
         DragWin := (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd)
         ToggleMode := (*) => this.ToggleUiMode()
@@ -140,14 +120,10 @@ class GuiBuilder {
         this.AddNavBtn("  i  ", (*) => SystemInfoTool.Show(), "x+0 yp h35 -Border")
         this.MainGui.Add("Text", "x+0 yp-3 w30 h35 +0x200 Center Background2A2A2A", "_").OnEvent("Click", (*) => this.MainGui.Minimize())
         this.MainGui.Add("Text", "x+-4 yp+5 w30 h30 +0x200 Center cRed", "✕").OnEvent("Click", (*) => ExitApp())
-
         this.MainGui.Add("Text", "x0 y+2 w" guiW " h1 Background333333")
 
-        ; ======================================================================
         ; ROW 1
-        ; ======================================================================
         this.MainGui.SetFont(this.UseIcons ? "s16" : "s12")
-
         this.AddNavBtn(this.Label("➕", "Set Launch Path"), (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 y40 Background006666")
         this.AddNavBtn(this.Label("🕹️", "Profiles"), (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10 Background333333")
         this.AddNavBtn(this.Label("🧹", "Delete Game"), (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background333333")
@@ -158,20 +134,15 @@ class GuiBuilder {
 
         NextX := this.UseIcons ? "x+10" : "x5"
         NextY := this.UseIcons ? "yp"   : "y+10"
-
         this.AddNavBtn(this.Label("👁️", "Focus"), (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), NextX " " NextY " Background333333")
-
         this.AddNavBtn(this.Label("🎵", "Music"), (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+10 Background333333")
         this.AddNavBtn(this.Label("🎬", "Video"), (btn, *) => (this.FlashButton(btn), VideoPlayer.Show()), "x+10 Background333333")
         this.AddNavBtn(this.Label("🖼️", "Gallery"), (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "x+10 Background333333")
-
         this.AddNavBtn(this.Label("🗄️", "Database"), (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "x+10 Background006666")
         this.AddNavBtn(this.Label("📝", "Notes"), (btn, *) => (this.FlashButton(btn), this.OnNotes()), "x+10 Background006666")
         this.AddNavBtn(this.Label("📁", "Browser"), (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10 Background006666")
 
-        ; ======================================================================
         ; ROW 2
-        ; ======================================================================
         this.MainGui.SetFont("s16", "Segoe UI")
         this.BtnStart := this.AddNavBtn("  ▶️  ", (*) => this.OnStartAction(), "x5 y+10 h35")
         this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10 h35")
@@ -179,8 +150,6 @@ class GuiBuilder {
 
         this.MainGui.SetFont("s12", "Segoe UI")
         this.MainGui.Add("Text", "x+10 yp w476 h35 Background333333")
-
-        ; CUSTOM LISTBOX DISPLAY
         this.GameSelector := this.MainGui.Add("Edit", "xp+3 yp+2 w441 h22 Background02A2A2A -E0x200 +ReadOnly -VScroll Center", "")
         this.MainGui.Add("Text", "x+4 yp w25 h22 cSilver Background333333 +0x200 +Center", "▼")
         BtnOverlay := this.MainGui.Add("Text", "xp-521 yp-2 w550 h28 BackgroundTrans")
@@ -191,15 +160,11 @@ class GuiBuilder {
         this.BurstInput := this.MainGui.Add("Edit", "x+10 h35 w42 Number Center +0x200 Limit2 Background02A2A2A", " 5 ")
         this.BtnBurstStart := this.AddNavBtn("  ▶️  ", (*) => this.OnBurstSnap(), "x+10 Background333333 h35")
 
-        ; ======================================================================
         ; ROW 3
-        ; ======================================================================
         size := this.UseIcons ? "s16" : "s12"
         this.MainGui.SetFont(size, "Segoe UI")
-
         this.BtnRecAudio := this.AddNavBtn(this.Label("🎙️", "Rec Audio"), (btn, *) => this.OnRecAudioClick(btn), "x5 y+10 Background333333")
         this.BtnRecVideo := this.AddNavBtn(this.Label("🎬", "Rec Video"), (btn, *) => this.OnRecVideoClick(btn), "x+10 Background333333")
-
         this.AddNavBtn(this.Label("🖼️", "Icon Manager"), (*) => IconManagerGui.Show(), "x+10 Background333333")
 
         this.MainGui.SetFont("s12", "Segoe UI")
@@ -207,7 +172,6 @@ class GuiBuilder {
         NextY := this.UseIcons ? "yp"   : "y+10"
         cBtn := " Background333333"
         this.BtnCpu := []
-
         this.BtnCpu.Push(this.AddNavBtn("  Idle  ", (*) => this.OnCpuClick("Low", 1), NextX " " NextY . cBtn))
         this.BtnCpu.Push(this.AddNavBtn("  Normal --  ", (*) => this.OnCpuClick("BelowNormal", 2), "x+10" . cBtn))
         this.BtnCpu.Push(this.AddNavBtn("  Normal  ", (*) => this.OnCpuClick("Normal", 3), "x+10" . cBtn))
@@ -215,56 +179,42 @@ class GuiBuilder {
         this.BtnCpu.Push(this.AddNavBtn("  High  ", (*) => this.OnCpuClick("High", 5), "x+10" . cBtn))
         this.BtnCpu.Push(this.AddNavBtn("  Realtime  ", (*) => this.OnCpuClick("Realtime", 6), "x+10" . cBtn))
         this.BtnCpu[3].SetFont("c05FBE4")
-
         this.AddNavBtn("  GPU  ", (*) => ProcessManager.OpenOverclock(), "x+10 yp Background333333")
 
-        ; ======================================================================
-        ; ADVANCED AREA
-        ; ======================================================================
+        ; ADVANCED
         this.AdvancedControls := []
         marker := this.MainGui.Add("Text", "x5 y+10 w0 h0", "")
         marker.GetPos(&advX, &advY)
         cAdv := " Background333333"
-
         this.AdvancedControls.Push(this.AddNavBtn("  Clone Wizard  ", (*) => CloneGameWizardGui.Show(), "x5 y" advY . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  Patch Manager  ", (*) => PatchManagerGui.Show(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  Purge Logs  ", (*) => this.OnClearLogs(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  Purge List  ", (*) => this.OnClearAllGames(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  View Logs  ", (*) => this.OnViewLogs(), "x+10" . cAdv))
-
         this.AdvancedControls.Push(this.AddNavBtn("  View System Config  ", (*) => ConfigViewerGui.ShowGui("INI"), "x5 y+5" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  Show Games Config  ", (*) => ConfigViewerGui.ShowGui(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  RPCS3 Audio Fix  ", (*) => AudioManager.ShowGui(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  AT3 Converter  ", (*) => AtracConverterTool.Show(), "x+10 Background333333" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  Hash Calc / Validator  ", (*) => FileValidatorTool.Show(), "x5 y+5" . cAdv))
-
         this.BtnHideAdvanced := this.AddNavBtn("  ▲ Hide Advanced  ", (*) => this.ToggleAdvanced(false), "x+10 c05FBE4" . cAdv)
         this.AdvancedControls.Push(this.BtnHideAdvanced)
         this.BtnHideAdvanced.GetPos(, &lastY, , &lastH)
         totalH := (lastY + lastH) - advY
-
         this.BannerControl := this.MainGui.Add("Text", "x5 y" advY " w" (guiW - 10) " h" totalH " Border Right Background333333", "▼ Show Advanced Utilities ▼  ")
         this.BannerControl.OnEvent("Click", (*) => this.ToggleAdvanced(true))
 
-        ; ======================================================================
         ; FOOTER
-        ; ======================================================================
+        this.MainGui.SetFont("s10", "Segoe UI")
         this.MainGui.Add("Text", "x0 y+10 w" guiW " h1 Background333333")
         this.StatsHeader := this.MainGui.Add("Text", "x5 y+0 w" (guiW - 10) " h24 +0x200 vStatsHeader Background333333", "Loading Statistics...")
         this.MainGui.Add("Text", "x0 y+0 w" guiW " h1 Background333333")
         this.StatusText := this.MainGui.Add("Text", "x5 y+2 w" (guiW - 10) " h22 +0x200 BackgroundTrans", "Ready")
         this.MainGui.Add("Text", "x0 y+5 w0 h0", "")
-
-        ; ======================================================================
-        ; FINAL DISPLAY
-        ; ======================================================================
+        this.MainGui.SetFont("s12", "Segoe UI")
+        ; DISPLAY
         this.ToggleAdvanced(false)
-
         this.MainGui.Show("AutoSize w" guiW)
         this.MainGui.Opt("+AlwaysOnTop")
-
-        ; [FIX] Initialize Wheel Scroll Listener for invisible scrolling
-        this.InitScrollHandler()
 
         if (HasProp(this, "ToggleTimers"))
             this.ToggleTimers(true)
@@ -280,46 +230,16 @@ class GuiBuilder {
         DialogsGui.CustomStatusPop("GUI Load Time: " . loadTime . "ms")
     }
 
-    ; --- [NEW] SCROLL HANDLER (Enables Wheel on No-VScroll Controls) ---
-    static InitScrollHandler() {
-        ; 0x020A is WM_MOUSEWHEEL
-        OnMessage(0x020A, this.HandleScrollMsg.Bind(this))
-    }
-
-    static HandleScrollMsg(wParam, lParam, msg, hwnd) {
-        ; 1. Get Control under mouse
-        MouseGetPos(,, &id, &ctl, 2)
-
-        try {
-            ; Check if it's one of ours (ListBox or Edit)
-            cls := WinGetClass("ahk_id " ctl)
-            if (cls == "ListBox" || cls == "Edit") {
-
-                ; 2. Calculate Direction
-                delta := (wParam >> 16)
-                ; Standard scroll amount: 3 lines per wheel notch
-                loop 3 {
-                    ; 0x115 = WM_VSCROLL. 0=LineUp, 1=LineDown
-                    PostMessage(0x115, (delta > 0 ? 0 : 1), 0, , "ahk_id " ctl)
-                }
-            }
-        }
-    }
-
-    ; --- HANDLERS (UPDATED TO FLASH) ---
-
+    ; --- HANDLERS ---
     static OnClearPath(btnCtrl := "") {
         if (btnCtrl)
             this.FlashButton(btnCtrl)
-
         if (ConfigManager.CurrentGameId == "") {
             DialogsGui.CustomStatusPop("No game selected")
             return
         }
-
         if (DialogsGui.CustomMsgBox("Clear Path", "Remove the executable path for this game?", 300) != "Yes")
             return
-
         ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, "")
         this.RefreshDropdown()
         DialogsGui.CustomStatusPop("Path cleared")
@@ -328,20 +248,17 @@ class GuiBuilder {
     static OnRefreshPath(btnCtrl := "") {
         if (btnCtrl)
             this.FlashButton(btnCtrl)
-
         id := ConfigManager.CurrentGameId
         if (id == "") {
             DialogsGui.CustomStatusPop("No game selected")
             return
         }
-
         if (!ConfigManager.Games.Has(id)) {
             DialogsGui.CustomStatusPop("Error: Game ID not found")
             ConfigManager.CurrentGameId := ""
             this.RefreshDropdown()
             return
         }
-
         gameObj := ConfigManager.Games[id]
         current := (Type(gameObj) == "Map") ? gameObj["ApplicationPath"] : gameObj.ApplicationPath
         newPath := FileSelect(3, current, "Select New Executable")
@@ -367,26 +284,21 @@ class GuiBuilder {
         this.MainGui.Opt("+AlwaysOnTop")
     }
 
-    ; --- LOGIC METHODS ---
-
     static UpdateTitle() {
         status := Utilities.IsInternetAvailable() ? "online" : "offline"
         timestamp := FormatTime(, "MM-dd hh:mm:ss tt")
         statsPart := " :: " . this.CachedGameCount . " Games (" . this.CachedTotalTime . ")"
         this.UpdateButtonState()
-        if this.TitleControl
+        if (this.TitleControl)
             this.TitleControl.Text := "  Nexus :: " Chr(169) "" A_YYYY " :: " status . statsPart . " :: " timestamp
     }
 
     static SetRecordingStatus(isRecording, activeExe := "") {
         if !this.MainGui
             return
-
         statusText := isRecording ? "   ⏺ RECORDING ACTIVE" : "   Ready"
-
-        if (this.HasProp("StatusText") && this.StatusText) {
+        if (this.HasProp("StatusText") && this.StatusText)
             this.StatusText.Text := statusText
-        }
     }
 
     static OnRecAudioClick(btnCtrl) {
@@ -410,10 +322,8 @@ class GuiBuilder {
     static UpdateRecordingTimers() {
         if CaptureManager.IsRecordingAudio
             this.TimerAudio.Text := "   " . CaptureManager.GetDuration("Audio") . "  "
-
         if CaptureManager.IsRecordingVideo
             this.TimerVideo.Text := "  " . CaptureManager.GetDuration("Video") . "  "
-
         if (!CaptureManager.IsRecordingAudio && !CaptureManager.IsRecordingVideo) {
             if (this.TimerRecObj)
                 SetTimer(this.TimerRecObj, 0)
@@ -425,12 +335,9 @@ class GuiBuilder {
     static UpdateButtonState() {
         if !this.HasProp("MainGui") || !this.MainGui
             return
-
         game := ConfigManager.GetCurrentGame()
         isActive := IsObject(game)
-
         controls := ["BtnSnap", "BtnIdle", "BtnNormalMin", "BtnNormal", "BtnNormalPlus", "BtnHigh", "BtnRealtime"]
-
         for ctrlName in controls {
             if (this.HasProp(ctrlName) && this.%ctrlName%) {
                 ctrl := this.%ctrlName%
@@ -461,49 +368,28 @@ class GuiBuilder {
         return btn
     }
 
-    ; ======================================================================
-    ; MAIN HEARTBEAT (New Active Process Logic)
-    ; ======================================================================
     static UpdateStatusBar() {
         if !this.MainGui
             return
-
-        ; 1. GET TARGET (From Global Variable)
         procName := ConfigManager.ActiveProcessName
-
-        ; 2. CHECK STATUS
         if (procName != "" && ProcessExist(procName)) {
-
-            ; --- GAME IS RUNNING ---
             if (ConfigManager.CurrentGameId != "")
                 ConfigManager.AddPlayTime(ConfigManager.CurrentGameId, 1)
-
-            ; Update Stats Bar
             if (this.StatusText) {
                 stats := ProcessManager.GetMonitorText(procName)
                 this.StatusText.Text := stats
             }
-
         } else {
-
-            ; --- GAME IS STOPPED ---
             if (ConfigManager.ActiveProcessName != "") {
-
-                ; Session Cleanup
                 report := ProcessManager.EndSession()
                 if (report != "")
                     DialogsGui.CustomStatusPop("Session Ended`n" . report)
-
                 ConfigManager.ActiveProcessName := ""
-
                 this.ClearGameGroup()
                 this.RefreshTopPlayed()
             }
-
-            ; Show System Stats when idle
-            if (this.StatusText) {
+            if (this.StatusText)
                 this.StatusText.Text := ProcessManager.GetMonitorText()
-            }
         }
     }
 
@@ -512,7 +398,6 @@ class GuiBuilder {
         this.CachedTotalTime := ConfigManager.GetTotalLibraryTime()
         topList := ConfigManager.GetTopGames(2)
         topLine := ""
-
         if (topList.Length == 0) {
             topLine .= "None"
         } else {
@@ -520,7 +405,6 @@ class GuiBuilder {
                 safeName := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
                 timeStr := (Type(game) == "Map") ? (game.Has("PlayTimeReadable") ? game["PlayTimeReadable"] : "0s")
                     : (game.HasProp("PlayTimeReadable") ? game.PlayTimeReadable : "0s")
-
                 topLine .= index . ". " . safeName . " (" . timeStr . ")  "
                 if (index < topList.Length)
                     topLine .= "| "
@@ -536,10 +420,8 @@ class GuiBuilder {
             this.GameSelector.Value := ""
             return
         }
-
         game := ConfigManager.Games[lastId]
         nameToSelect := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
-
         try {
             if (this.GameSelector)
                 this.GameSelector.Value := nameToSelect
@@ -553,11 +435,9 @@ class GuiBuilder {
     static GetGameList() {
         if (ConfigManager.Games.Count == 0)
             ConfigManager.Init()
-
         list := ["- List Games -"]
-        for name in ConfigManager.GetGameList() {
+        for name in ConfigManager.GetGameList()
             list.Push(name)
-        }
         if (list.Length == 1)
             list.Push("ERROR: No games found in JSON")
         list.Push("Available Games...")
@@ -577,10 +457,8 @@ class GuiBuilder {
     static RefreshDropdown() {
         if !this.GameSelector
             return
-
         targetId := ConfigManager.CurrentGameId
         nameToDisplay := ""
-
         if (targetId != "" && ConfigManager.Games.Has(targetId)) {
             game := ConfigManager.Games[targetId]
             nameToDisplay := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
@@ -588,11 +466,8 @@ class GuiBuilder {
         this.GameSelector.Value := nameToDisplay
     }
 
-    ; ---- ACTION HANDLERS ----
-
     static OnGameChanged(ctrl, *) {
-        selectedName := ctrl.Value ; Use .Value for Edit controls
-
+        selectedName := ctrl.Value
         if (selectedName == "" || selectedName == "No Games Found" || selectedName == "- Select Game -") {
             if (this.HasProp("BtnPatch") && this.BtnPatch)
                 this.BtnPatch.Enabled := false
@@ -600,7 +475,6 @@ class GuiBuilder {
             this.UpdateButtonState()
             return
         }
-
         foundId := ""
         for id, game in ConfigManager.Games {
             name := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
@@ -609,11 +483,9 @@ class GuiBuilder {
                 break
             }
         }
-
         if (foundId != "") {
             ConfigManager.CurrentGameId := foundId
             IniWrite(foundId, ConfigManager.IniPath, "LAST_PLAYED", "GameID")
-
             game := ConfigManager.Games[foundId]
             appFile := ""
             if (Type(game) == "Map") {
@@ -623,7 +495,6 @@ class GuiBuilder {
                 if game.HasProp("GameApplication")
                     appFile := game.GameApplication
             }
-
             if (this.HasProp("BtnPatch") && this.BtnPatch) {
                 this.BtnPatch.Enabled := PatchServiceTool.KnownPatches.Has(appFile)
             }
@@ -648,7 +519,7 @@ class GuiBuilder {
         }
     }
 
-    ; [CRITICAL FIX] New Launch Logic
+    ; [CRITICAL FIX] Delegate Launch to StandardLauncher for .bat compatibility
     static OnStartAction() {
         if (ConfigManager.CurrentGameId == "") {
             DialogsGui.CustomStatusPop("No game selected")
@@ -676,37 +547,44 @@ class GuiBuilder {
 
         try {
             targetExe := ""
+
             if (launcher == "PPSSPP") {
                 emuPath := IniRead(ConfigManager.IniPath, "PPSSPP_PATH", "PpssppPath", "")
                 Run(emuPath . ' "' . appPath . '"')
                 SplitPath(emuPath, &targetExe)
+                ConfigManager.ActiveProcessName := targetExe
             }
             else if (launcher == "PCSX2") {
                 emuPath := IniRead(ConfigManager.IniPath, "PCSX2_PATH", "Pcsx2Path", "")
                 Run(emuPath . ' -batch -- "' . appPath . '"')
                 SplitPath(emuPath, &targetExe)
+                ConfigManager.ActiveProcessName := targetExe
             }
             else if (launcher == "DUCKSTATION") {
                 emuPath := IniRead(ConfigManager.IniPath, "DUCKSTATION_PATH", "DuckStationPath", "")
                 Run(emuPath . ' -batch "' . appPath . '"')
                 SplitPath(emuPath, &targetExe)
+                ConfigManager.ActiveProcessName := targetExe
             }
             else if (launcher == "DOLPHIN") {
                 emuPath := IniRead(ConfigManager.IniPath, "DOLPHIN_PATH", "DolphinPath", "")
                 Run(emuPath . ' -b -e "' . appPath . '"')
                 SplitPath(emuPath, &targetExe)
+                ConfigManager.ActiveProcessName := targetExe
             }
             else if (launcher == "TEKNO") {
-                targetExe := "TeknoParrotUi.exe"
                 SplitPath(appPath, , &dir)
                 Run(appPath, dir)
+                ConfigManager.ActiveProcessName := "TeknoParrotUi.exe"
             }
             else {
-                SplitPath(appPath, &targetExe, &dir)
-                Run(appPath, dir)
+                ; [DELEGATE] Use StandardLauncher to handle .bat environment
+                sl := StandardLauncher()
+                if (sl.Launch(game)) {
+                    ; Success, StandardLauncher handled ConfigManager.ActiveProcessName
+                }
             }
 
-            ConfigManager.ActiveProcessName := targetExe
             ProcessManager.StartSession(GetProp("SavedName"))
             ConfigManager.UpdateLastPlayed(ConfigManager.CurrentGameId)
             this.UpdateButtonState()
@@ -717,7 +595,6 @@ class GuiBuilder {
         }
     }
 
-    ; [CRITICAL FIX] New Restart Logic
     static OnRestartAction() {
         this.ClearGameGroup()
         this.SetBtnHighlight(this.BtnRestart, true)
@@ -726,7 +603,6 @@ class GuiBuilder {
         this.OnStartAction()
     }
 
-    ; [CRITICAL FIX] New Kill Logic
     static OnKillGame(resetUI := true) {
         targetExe := ConfigManager.ActiveProcessName
         if (targetExe != "") {
@@ -786,7 +662,6 @@ class GuiBuilder {
     }
 
     static OnOpenGallery() => SnapshotGallery.Show("")
-
     static OnViewLogs() => Run(Logger.GetLogFilePath())
 
     static OnBurstSnap() {
@@ -826,36 +701,30 @@ class GuiBuilder {
             DialogsGui.CustomStatusPop("Select a game first")
             return
         }
-
         if !ConfigManager.Games.Has(id)
             return
-
         game := ConfigManager.Games[id]
         cleanName := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
-
         notesGui := Gui("-Caption +Border +Owner" . this.MainGui.Hwnd, "Notes: " . cleanName)
         notesGui.BackColor := "1a1a1a"
         notesGui.SetFont("s10 Bold cGray")
         hdr := notesGui.Add("Text", "x15 y10 w470 h25 +0x200", "NOTES: " . StrUpper(cleanName))
         hdr.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, notesGui.Hwnd))
-
         notesGui.SetFont("s14 Norm cWhite", "Segoe UI")
         existingNotes := (Type(game) == "Map") ? (game.Has("Notes") ? game["Notes"] : "") : (game.HasProp("Notes") ? game.Notes : "")
 
-        ; [FIX] Keep style -0x200000 (No Visual Scrollbar) -> OnScroll handles it now
-        editCtrl := notesGui.Add("Edit", "x15 y+10 w500 h300 Background333333 cWhite -E0x200 -VScroll -HScroll -0x200000", existingNotes)
+        ; [SCROLL FIX] Removed -0x200000 style. We use native Windows scrolling now.
+        editCtrl := notesGui.Add("Edit", "x15 y+10 w500 h300 Background333333 cWhite -E0x200 -VScroll -HScroll", existingNotes)
 
         notesGui.SetFont("s9 cSilver")
         btnStamp := notesGui.Add("Text", "x15 y+15 w70 h30 +0x200 Center Background333333", "Stamp")
         btnStamp.OnEvent("Click", (*) => EditPaste(FormatTime(, "MM-dd hh:mm tt") . ": ", editCtrl))
-
         btnSave := notesGui.Add("Text", "x+10 yp w110 h30 +0x200 Center Background333333", "Save & Close")
         btnSave.OnEvent("Click", (*) => (
             ConfigManager.UpdateGameNotes(id, editCtrl.Value),
             DialogsGui.CustomStatusPop("Notes Saved"),
             notesGui.Destroy()
         ))
-
         btnCancel := notesGui.Add("Text", "x+10 yp w70 h30 +0x200 Center Background333333", "Cancel")
         btnCancel.OnEvent("Click", (*) => notesGui.Destroy())
         notesGui.OnEvent("Escape", (*) => notesGui.Destroy())
@@ -895,7 +764,6 @@ class GuiBuilder {
             this.SetBtnHighlight(btn, false)
         }
         this.SetBtnHighlight(this.BtnCpu[index], true)
-
         try {
             ProcessManager.SetPriority(priorityName)
             DialogsGui.CustomStatusPop("CPU: " . priorityName)
@@ -926,14 +794,12 @@ class GuiBuilder {
         }
     }
 
-    ; --- CUSTOM DROPDOWN LOGIC ---
+    ; [SCROLL FIX] "Crop Technique" - ListBox 25px Wider to hide bar, keep native scroll
     static OpenGameList(items) {
         if !items
             return
-
         if WinExist("NexusGameListPopup")
             return
-
         this.GameSelector.GetPos(&gx, &gy, &gw, &gh)
         pt := Buffer(8)
         NumPut("int", gx, "int", gy + gh, pt)
@@ -946,16 +812,17 @@ class GuiBuilder {
         PopupGui.SetFont("s12", "Segoe UI")
         PopupGui.MarginX := 1, PopupGui.MarginY := 1
 
-        ; [FIX] Crop Technique: ListBox is 20px wider than Container to hide Scrollbar
+        ; [FIX] Widen the ListBox (gw + 50) to push the scrollbar off-screen
         LB := PopupGui.Add("ListBox", "w" (gw + 50) " r15 Background333333 cSilver -E0x200", items)
         try DllCall("uxtheme\SetWindowTheme", "Ptr", LB.Hwnd, "Str", "DarkMode_Explorer", "Str", 0)
 
         LB.OnEvent("Change", (*) => this.SelectGame(LB, PopupGui))
         PopupGui.OnEvent("Escape", (*) => PopupGui.Destroy())
 
-        PopupGui.Show("x" screenX " y" screenY " w" (gw + 30)) ; Show window slightly smaller than ListBox
-        SetTimer(CloseIfInactive, 200)
+        ; [FIX] Show window narrower than ListBox to crop the bar
+        PopupGui.Show("x" screenX " y" screenY " w" (gw + 30))
 
+        SetTimer(CloseIfInactive, 200)
         CloseIfInactive() {
             try {
                 if WinExist("ahk_id " PopupGui.Hwnd) {

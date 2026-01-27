@@ -190,7 +190,6 @@ class WindowManagerGui {
         if !this.WinGui
             return
 
-        ; 1. SAVE SELECTION
         selectedHwnd := 0
         row := this.ListView.GetNext(0)
         if (row > 0)
@@ -198,21 +197,24 @@ class WindowManagerGui {
 
         this.ListView.Delete()
 
-        ; 2. IDENTIFY PIDs TO SCAN
         targetPids := Map()
 
-        ; A. Add Launcher PID
-        if (IsSet(WindowManager) && WindowManager.ActiveGamePid > 0)
-            targetPids[WindowManager.ActiveGamePid] := true
+        ; --- [FIX START] ---
+        ; 1. Check ConfigManager for the REAL active process (e.g. PPSSPPWindows64.exe)
+        activeExe := ConfigManager.ActiveProcessName
 
-        ; B. Add Game PID (if different)
-        realGameHwnd := WindowManager.GetValidHwnd()
-        if (realGameHwnd) {
+        if (activeExe != "") {
             try {
-                realPid := WinGetPID("ahk_id " realGameHwnd)
-                targetPids[realPid] := true
+                pid := ProcessExist(activeExe)
+                if (pid)
+                    targetPids[pid] := true
             }
         }
+
+        ; 2. Fallback to WindowManager internal tracking
+        if (IsSet(WindowManager) && WindowManager.ActiveGamePid > 0)
+            targetPids[WindowManager.ActiveGamePid] := true
+        ; --- [FIX END] ---
 
         if (targetPids.Count == 0) {
             this.ListView.Add("", "", "No active game tracked", "", "")
@@ -223,9 +225,7 @@ class WindowManagerGui {
         DetectHiddenWindows(true)
 
         try {
-            ; 3. AGGREGATE WINDOWS FROM ALL PIDS
             uniqueIds := Map()
-
             for pid, _ in targetPids {
                 try {
                     ids := WinGetList("ahk_pid " pid)
@@ -239,40 +239,12 @@ class WindowManagerGui {
                 cls := WinGetClass(this_id)
                 style := WinGetStyle(this_id)
                 status := (style & 0x10000000) ? "Visible" : "Hidden"
-
-                ; [VISUAL AID] Mark the detected "Real" Game Window
-                if (this_id == realGameHwnd)
-                    title := "⭐⭐ " . title
-
-                ; [UNFILTERED] Showing ALL windows for debugging purposes
                 this.ListView.Add("", this_id, title, cls, status)
             }
         } catch {
             this.ListView.Add("", "Error", "Could not list windows", "", "")
         }
         DetectHiddenWindows(prevDetect)
-
-        ; 4. RESTORE SELECTION
-        foundSelection := false
-        if (selectedHwnd != 0) {
-            Loop this.ListView.GetCount() {
-                if (this.ListView.GetText(A_Index, 1) == selectedHwnd) {
-                    this.ListView.Modify(A_Index, "Select Focus")
-                    foundSelection := true
-                    break
-                }
-            }
-        }
-
-        if (!foundSelection && realGameHwnd) {
-            Loop this.ListView.GetCount() {
-                txt := this.ListView.GetText(A_Index, 1)
-                if (Integer(txt) == realGameHwnd) {
-                    this.ListView.Modify(A_Index, "Select Focus")
-                    break
-                }
-            }
-        }
     }
 
     static Action(type) {

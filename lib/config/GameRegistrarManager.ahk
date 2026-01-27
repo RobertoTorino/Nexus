@@ -26,6 +26,7 @@ class GameRegistrarManager {
 
         SplitPath(path, &fileName, &dir, &ext, &nameNoExt)
 
+        ; Use a Map for the temporary config to keep things consistent
         config := Map("Path", path, "Dir", dir, "Name", nameNoExt, "Ext", ext, "Launcher", "NORMAL", "App", fileName)
 
         ; Better Naming for EBOOTs
@@ -59,8 +60,8 @@ class GameRegistrarManager {
     ; HANDLERS
     static HandleStandard(config) {
         if (config["App"] ~= "i)TeknoParrotUi\.exe") {
-            if (DialogsGui.AskForConfirmation("TeknoParrot Detected",
-                "You selected the TeknoParrot Launcher.`nTo play TeknoParrot games, use the Profile Manager.`nOpen it now?")) {
+            if (DialogsGui.CustomMsgBox("TeknoParrot Detected",
+                "You selected the TeknoParrot Launcher.`nTo play TeknoParrot games, use the Profile Manager.`nOpen it now?", 0, 4) == "Yes") {
                 TeknoParrotManager.ShowPicker()
             }
             return false
@@ -70,7 +71,7 @@ class GameRegistrarManager {
     }
 
     static HandleEboot(config) {
-        ; --- VITA3K ---
+        ; --- VITA3K DETECTION ---
         if (config["Path"] ~= "i)(app|ux0|mai)") {
             choice := DialogsGui.AskForChoice("Select Vita3K Build", "Which emulator version?",
                 ["Standard Vita3K", "Vita3K Build 3830"])
@@ -85,7 +86,7 @@ class GameRegistrarManager {
             }
         }
 
-        ; --- RPCS3 ---
+        ; --- RPCS3 DETECTION ---
         choice := DialogsGui.AskForChoice("Select RPCS3 Build", "Which specialized build is this for?",
             ["Standard RPCS3", "Fighter Build", "Shooter Build", "TCRS Build"])
 
@@ -113,6 +114,7 @@ class GameRegistrarManager {
         if (choice == "")
             return false
 
+        ; [FIX] Manual mapping to avoid "StrTitle is not a function" error
         iniKey := ""
         switch choice {
             case "PCSX2":       iniKey := "Pcsx2Path"
@@ -139,17 +141,18 @@ class GameRegistrarManager {
 
     ; REGISTRATION FINALIZATION
     static FinalizeRegistration(config) {
-        ; [FIX] Define helper function OUTSIDE the loop to avoid scope errors
-        ; We pass 'target' explicitly instead of relying on closure capture
-        GetVal := (target, key) => (Type(target) == "Map" ? (target.Has(key) ? target[key] : "") : (target.HasOwnProp(key) ? target.%key% : ""))
 
-        ; CHECK FOR DUPLICATES
+        ; 1. DUPLICATE CHECK
         for id, game in ConfigManager.Games {
-            ; [FIX] Call helper with 'game' as first argument
-            existingPath := GetVal(game, "ApplicationPath")
+            ; Robust property extraction (works for Map or Object)
+            existingPath := (Type(game) == "Map") ? (game.Has("ApplicationPath") ? game["ApplicationPath"] : "") : (game.HasOwnProp("ApplicationPath") ? game.ApplicationPath : "")
 
+            ; Normalize checks (Backslashes can match Forward slashes)
             if (StrReplace(existingPath, "/", "\") == StrReplace(config["Path"], "/", "\")) {
-                if (DialogsGui.CustomMsgBox("Game Exists", "The game '" . GetVal(game, "SavedName") . "' is already in your library.`nPlay it now?", 4) == "Yes") {
+
+                gameName := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
+
+                if (DialogsGui.CustomMsgBox("Game Exists", "The game '" . gameName . "' is already in your library.`nPlay it now?", 0, 4) == "Yes") {
                     ConfigManager.CurrentGameId := id
                     if IsSet(GuiBuilder) {
                         GuiBuilder.RefreshDropdown()
@@ -161,7 +164,7 @@ class GameRegistrarManager {
             }
         }
 
-        ; SANITIZE & NAME
+        ; 2. SANITIZE & NAME
         cleanDef := Utilities.SanitizeName(config["Name"])
         if (config["Launcher"] != "STANDARD") {
             suffix := "_" . config["Launcher"]
@@ -178,13 +181,11 @@ class GameRegistrarManager {
         if (friendlyName == "")
             friendlyName := defName
 
-        ; GENERATE ID
+        ; 3. GENERATE ID & PATHS
         uniqueId := Utilities.GenerateUniqueId(friendlyName, ConfigManager.Games)
-
-        ; Path Normalization
         safePath := StrReplace(config["Path"], "\", "/")
 
-        ; BUILD MAP
+        ; 4. BUILD MAP (Use Map, NOT Object, for better JSON/ConfigManager compatibility)
         newGame := Map()
         newGame["Id"] := uniqueId
         newGame["SavedName"] := friendlyName
@@ -195,29 +196,34 @@ class GameRegistrarManager {
         newGame["CaptureDir"] := "captures/" . uniqueId
         newGame["EbootIsoPath"] := safePath
 
-        ; Patch Logic
-        if IsSet(PatchServiceTool) {
-             patchInfo := PatchServiceTool.IdentifyPatchableGame(config["App"], config["Path"])
-             if (patchInfo != "") {
-                newGame["IsPatchable"] := "true"
-                newGame["PatchGroup"] := patchInfo.Name
-             } else {
-                newGame["IsPatchable"] := "false"
-                newGame["PatchGroup"] := ""
-             }
+        ; Transfer Patch flags if detected earlier
+        if (config.Has("IsPatchable"))
+            newGame["IsPatchable"] := config["IsPatchable"]
+        else
+            newGame["IsPatchable"] := "false"
+
+        if (config.Has("PatchGroup"))
+            newGame["PatchGroup"] := config["PatchGroup"]
+        else {
+            ; Check patch tool just in case
+            if IsSet(PatchServiceTool) {
+                patchInfo := PatchServiceTool.IdentifyPatchableGame(config["App"], config["Path"])
+                if (patchInfo != "") {
+                    newGame["IsPatchable"] := "true"
+                    newGame["PatchGroup"] := patchInfo.Name
+                }
+            }
         }
 
-        ; SAVE
+        ; 5. SAVE AND REFRESH
         ConfigManager.RegisterGame(uniqueId, newGame)
-
-        ; SMART START
         ConfigManager.CurrentGameId := uniqueId
         IniWrite(uniqueId, ConfigManager.IniPath, "LAST_PLAYED", "GameID")
 
         if IsSet(GuiBuilder) {
             GuiBuilder.RefreshDropdown()
             GuiBuilder.SelectLastPlayed()
-            DialogsGui.CustomTrayTip("Added: " . friendlyName, 1)
+            DialogsGui.CustomStatusPop("Added: " . friendlyName)
         }
 
         return true

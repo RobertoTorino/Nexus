@@ -4,11 +4,11 @@
       "AddedDate":"2026-01-27 17:24:44",
       "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\101-in-1 Megamix (NPEH-00068).iso",
       "Id":"GAME_PPSSPP_101_IN_1_MEGAMIX_NPEH_00068",
-      "LastPlayed":"2026-01-27 19:24:01",
+      "LastPlayed":"2026-01-27 21:06:08",
       "LauncherType":"PPSSPP",
-      "PlayTimeReadable":"2.1m",
+      "PlayTimeReadable":"3.1m",
       "SavedName":"[PSP] 101-in-1 Megamix (NPEH-00068)",
-      "TotalPlayTime":128
+      "TotalPlayTime":185
     },
     {
       "AddedDate":"2026-01-27 17:24:44",
@@ -793,6 +793,58 @@
       "Id":"GAME_PPSSPP_萌え萌え大戦争☆げんだいばーん_＋_ぷらす_ULJS_00411",
       "LauncherType":"PPSSPP",
       "SavedName":"[PSP] 萌え萌え大戦争☆げんだいばーん ＋(ぷらす) (ULJS-00411)"
+    },
+    {
+      "ApplicationPath":"D:/PC_GAMES/Silent Hill f/SHf_BonusContent.exe",
+      "CaptureDir":"captures/GAME_SHF_BONUSCONTENT",
+      "EbootIsoPath":"D:/PC_GAMES/Silent Hill f/SHf_BonusContent.exe",
+      "GameApplication":"SHf_BonusContent.exe",
+      "Id":"GAME_SHF_BONUSCONTENT",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-27 21:36:12",
+      "LauncherType":"STANDARD",
+      "PatchGroup":"",
+      "SavedName":"SHF_BONUSCONTENT",
+      "SnapshotDir":"snapshots/GAME_SHF_BONUSCONTENT"
+    },
+    {
+      "ApplicationPath":"D:/PC_GAMES/Silent Hill f/SILENT HILL f.bat",
+      "CaptureDir":"captures/GAME_SILENT_HILL_F",
+      "EbootIsoPath":"D:/PC_GAMES/Silent Hill f/SILENT HILL f.bat",
+      "GameApplication":"SILENT HILL f.bat",
+      "Id":"GAME_SILENT_HILL_F",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-27 22:23:33",
+      "LauncherType":"STANDARD",
+      "PlayTimeReadable":"42s",
+      "SavedName":"SILENT_HILL_F",
+      "SnapshotDir":"snapshots/GAME_SILENT_HILL_F",
+      "TotalPlayTime":42
+    },
+    {
+      "ApplicationPath":"D:/PC_GAMES/Silent Hill f/SILENT HILL f Bonus Content.bat",
+      "CaptureDir":"captures/GAME_SILENT_HILL_F_BONUS_CONTENT",
+      "EbootIsoPath":"D:/PC_GAMES/Silent Hill f/SILENT HILL f Bonus Content.bat",
+      "GameApplication":"SILENT HILL f Bonus Content.bat",
+      "Id":"GAME_SILENT_HILL_F_BONUS_CONTENT",
+      "IsPatchable":"false",
+      "LauncherType":"STANDARD",
+      "SavedName":"SILENT_HILL_F_BONUS_CONTENT",
+      "SnapshotDir":"snapshots/GAME_SILENT_HILL_F_BONUS_CONTENT"
+    },
+    {
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES TRANSLATED/[PSP] Sol Trigger [J] [TRAD-E] [ULJM-06093] [v0.9]/Sol Trigger (Japan) [T-En by GareJei & JamRules v0.9] [i].iso",
+      "CaptureDir":"captures/GAME_SOL_TRIGGER_JAPAN_T_EN_BY_GAREJEI_JAMRULES_V0_9_I_PPSSPP",
+      "EbootIsoPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES TRANSLATED/[PSP] Sol Trigger [J] [TRAD-E] [ULJM-06093] [v0.9]/Sol Trigger (Japan) [T-En by GareJei & JamRules v0.9] [i].iso",
+      "GameApplication":"Sol Trigger (Japan) [T-En by GareJei & JamRules v0.9] [i].iso",
+      "Id":"GAME_SOL_TRIGGER_JAPAN_T_EN_BY_GAREJEI_JAMRULES_V0_9_I_PPSSPP",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-27 22:16:57",
+      "LauncherType":"PPSSPP",
+      "PlayTimeReadable":"7s",
+      "SavedName":"SOL_TRIGGER_JAPAN_T_EN_BY_GAREJEI_JAMRULES_V0_9_I_PPSSPP",
+      "SnapshotDir":"snapshots/GAME_SOL_TRIGGER_JAPAN_T_EN_BY_GAREJEI_JAMRULES_V0_9_I_PPSSPP",
+      "TotalPlayTime":7
     },
     {
       "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES TRANSLATED/[PSP] DotHack-Link [J] [TRAD-E] [ULJS-00266] [v1.0.2]/ULJS-00266-DotHackLink-ENG.iso",

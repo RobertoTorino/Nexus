@@ -4,14 +4,15 @@
 ; * @class StandardLauncher
 ; * @location lib/emulator/types/StandardLauncher.ahk
 ; * @author Philip
-; * @date 2026/01/25
+; * @date 2026/01/17
 ; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
+
 #Include ..\EmulatorBase.ahk
 #Include ..\..\window\WindowManager.ahk
-#Include ..\..\capture\CaptureManager.ahk
+#Include ..\..\config\ConfigManager.ahk
 #Include ..\..\ui\DialogsGui.ahk
 
 class StandardLauncher extends EmulatorBase {
@@ -23,81 +24,87 @@ class StandardLauncher extends EmulatorBase {
     SearchTimer := ""
     ScanStartTime := 0
     ScanDuration := 15000 ; Scan for 15 seconds
+    OldPids := Map()
 
     Launch(gameObj) {
-        this.GameId := gameObj.HasProp("Id") ? gameObj.Id : ""
-
         ; 1. Resolve Path
         rawPath := ""
-        if (gameObj.HasProp("ApplicationPath") && gameObj.ApplicationPath != "")
-            rawPath := gameObj.ApplicationPath
-        else if (gameObj.HasProp("Path") && gameObj.Path != "")
-            rawPath := gameObj.Path
+        if (Type(gameObj) == "Map") {
+            if gameObj.Has("ApplicationPath")
+                rawPath := gameObj["ApplicationPath"]
+            else if gameObj.Has("Path")
+                rawPath := gameObj["Path"]
+        } else {
+            if gameObj.HasProp("ApplicationPath")
+                rawPath := gameObj.ApplicationPath
+            else if gameObj.HasProp("Path")
+                rawPath := gameObj.Path
+        }
 
-        ; 2. NORMALIZE PATH (The Critical Fix)
-        ; Replace forward slashes (/) with backslashes (\) so SplitPath works correctly.
+        ; 2. Normalize
         gamePath := StrReplace(rawPath, "/", "\")
-
-        ; Remove quotes
         gamePath := StrReplace(gamePath, '"', "")
 
         if (gamePath == "" || !FileExist(gamePath)) {
-            DialogsGui.CustomMsgBox("Launch Error", "Game file not found:`n" . gamePath, 0x10)
+            DialogsGui.CustomMsgBox("Launch Error", "File not found:`n" . gamePath)
             return false
         }
 
-        ; 3. Setup Context
+        ; 3. Context
         SplitPath(gamePath, &exeName, &dir, &ext)
         this.ExeName := exeName
 
-        ; SNAPSHOT: Record running processes BEFORE we launch
-        oldPids := this.GetProcessList()
+        ; [CRITICAL] Snapshot running processes BEFORE launch
+        this.OldPids := this.GetProcessList()
 
-        Logger.Info("Launching Standard: " . gamePath)
-
-        if IsSet(GuiBuilder)
-            GuiBuilder.StatusText.Text := "Launching: " . exeName
+        if IsSet(Logger)
+            Logger.Info("StandardLauncher: Starting " . exeName)
 
         try {
             ; 4. EXECUTE
+            oldDir := A_WorkingDir
+            SetWorkingDir(dir)
 
-            if (ext = "bat" || ext = "cmd") {
-                ; FORCE ENVIRONMENT CHANGE
-                ; Now that 'dir' is correct (e.g. D:\PC_GAMES\...), this will work.
+            try {
+                if (ext = "bat" || ext = "cmd") {
+                    ; Run batch files
+                    Run('"' . exeName . '"', dir, "Min", &launchPid)
 
-                savedDir := A_WorkingDir
-                SetWorkingDir(dir)
-
-                Run(exeName, , "Min", &launchPid)
-
-                SetWorkingDir(savedDir)
-            } else {
-                ; Standard EXE
-                Run(gamePath, dir, "UseErrorLevel", &launchPid)
-
-                if (launchPid > 0) {
-                    this.Pid := launchPid
-                    WindowManager.SetGameContext("ahk_pid " this.Pid, 1)
+                    ; Don't track the batch PID directly, use the Watcher to find the child EXE
+                    ConfigManager.ActiveProcessName := ""
                 }
+                else {
+                    ; Run Executables normally
+                    Run('"' . exeName . '"', dir, "UseErrorLevel", &launchPid)
+
+                    if (launchPid > 0) {
+                        this.Pid := launchPid
+                        ConfigManager.ActiveProcessName := exeName
+                        WindowManager.SetGameContext("ahk_pid " launchPid, 1)
+                    }
+                }
+            } finally {
+                SetWorkingDir(oldDir)
             }
 
-            ; 5. START SMART WATCHER
+            ; 5. START SMART WATCHER (Finds the real game exe)
             this.ScanStartTime := A_TickCount
-            this.SearchTimer := this.DetectNewProcess.Bind(this, oldPids)
+            this.SearchTimer := this.DetectNewProcess.Bind(this)
             SetTimer(this.SearchTimer, 1000)
 
             return true
 
         } catch as err {
-            DialogsGui.CustomMsgBox("Launch Failed", "Could not run file.`n" . err.Message, 0x10)
+            DialogsGui.CustomMsgBox("Launch Failed", err.Message)
             return false
         }
     }
 
     ; --- SMART PROCESS DETECTION ---
-    DetectNewProcess(oldPids) {
+    DetectNewProcess() {
         elapsed := A_TickCount - this.ScanStartTime
 
+        ; Stop scanning after timeout
         if (elapsed > this.ScanDuration) {
             SetTimer(this.SearchTimer, 0)
             return
@@ -108,39 +115,57 @@ class StandardLauncher extends EmulatorBase {
         bestName := ""
         hasWindow := false
 
+        ; Compare New List vs Old List
         for pid, name in newPids {
-            if !oldPids.Has(pid) {
-                if (name = "cmd.exe" || name = "conhost.exe" || name = "werfault.exe" || name = "taskhostw.exe" || name = "git.exe")
+            if !this.OldPids.Has(pid) {
+
+                ; Ignore System/Console noise
+                if (name = "cmd.exe" || name = "conhost.exe" || name = "werfault.exe" || name = "taskhostw.exe" || name = "git.exe" || name = "timeout.exe")
                     continue
 
                 thisWindow := WinExist("ahk_pid " pid)
 
                 if (thisWindow) {
+                    ; Preference 1: New Process with a Visible Window
                     bestPid := pid
                     bestName := name
                     hasWindow := true
                     break
                 } else if (bestPid == 0) {
+                    ; Preference 2: New Process (Background) - keep looking for a better one
                     bestPid := pid
                     bestName := name
                 }
             }
         }
 
-        if (bestPid > 0 && bestPid != this.Pid) {
-            currentHasWindow := (this.Pid > 0 && WinExist("ahk_pid " this.Pid))
+        ; If we found a candidate
+        if (bestPid > 0) {
+            ; Logic:
+            ; 1. If we have NO active game tracked yet -> Take this one.
+            ; 2. If we found a windowed process -> Override whatever we had.
 
-            if (this.Pid == 0 || (hasWindow && !currentHasWindow) || (hasWindow && currentHasWindow)) {
-                Logger.Info("Launcher: Locked Process: " bestName " (" bestPid ")")
+            if (ConfigManager.ActiveProcessName == "" || (hasWindow && this.Pid != bestPid)) {
+
+                if IsSet(Logger)
+                    Logger.Info("StandardLauncher: Detected Child Process -> " bestName " (" bestPid ")")
 
                 this.Pid := bestPid
                 this.ExeName := bestName
 
+                ; [CRITICAL] Update Global State so WindowManager & Kill Switch work
+                ConfigManager.ActiveProcessName := bestName
                 WindowManager.SetGameContext("ahk_pid " bestPid, 1)
-                CaptureManager.CurrentProcessName := bestName
 
-                if IsSet(GuiBuilder)
-                    GuiBuilder.StatusText.Text := "Running: " . bestName
+                if IsSet(CaptureManager)
+                    CaptureManager.CurrentProcessName := bestName
+
+                if IsSet(GuiBuilder) && GuiBuilder.HasProp("StatusText")
+                    GuiBuilder.StatusText.Text := " Active: " . bestName
+
+                ; If we found a window, we are done scanning.
+                if (hasWindow)
+                    SetTimer(this.SearchTimer, 0)
             }
         }
     }
@@ -153,18 +178,5 @@ class StandardLauncher extends EmulatorBase {
             }
         }
         return pids
-    }
-
-    Stop() {
-        if (this.SearchTimer)
-            SetTimer(this.SearchTimer, 0)
-
-        if (this.Pid > 0) {
-            try ProcessClose(this.Pid)
-            this.Pid := 0
-
-            if IsSet(GuiBuilder)
-                GuiBuilder.StatusText.Text := "Game Stopped"
-        }
     }
 }

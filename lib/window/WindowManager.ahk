@@ -461,34 +461,27 @@ class WindowManager {
     }
 
     static GetValidHwnd() {
+        ; 1. Try existing Handle
         if (this.ActiveGameHwnd && WinExist(this.ActiveGameHwnd)) {
-            WinGetPos(, , &w, &h, "ahk_id " this.ActiveGameHwnd)
-            if (w < 50 || h < 50) {
-                Logger.Info("WinMgr: Dropping zombie window (Size: " w "x" h ")")
-                this.ActiveGameHwnd := 0
+            return this.ActiveGameHwnd
+        }
+
+        ; 2. Try Global Active Process Name (The most reliable source)
+        exeName := ConfigManager.ActiveProcessName
+        if (exeName != "") {
+            hwnd := this.FindRealGameWindow("ahk_exe " . exeName)
+            if (hwnd) {
+                this.ActiveGameHwnd := hwnd
+                this.ActiveGamePid := WinGetPID("ahk_id " hwnd)
+                return hwnd
             }
-            else
-                return this.ActiveGameHwnd
-        } else {
-            this.ActiveGameHwnd := 0
         }
 
-        if (this.ActiveGamePid > 0 && !ProcessExist(this.ActiveGamePid)) {
-            Logger.Warn("WinMgr: Tracked PID died: " this.ActiveGamePid)
-            this.ActiveGamePid := 0
-        }
-
+        ; 3. Fallback to internal PID
         if (this.ActiveGamePid > 0) {
             this.ActiveGameHwnd := this.FindRealGameWindow("ahk_pid " this.ActiveGamePid)
         }
 
-        if (!this.ActiveGameHwnd && this.ActiveGameExe != "") {
-            this.ActiveGameHwnd := this.FindRealGameWindow("ahk_exe " this.ActiveGameExe)
-            if (this.ActiveGameHwnd) {
-                this.ActiveGamePid := WinGetPID("ahk_id " this.ActiveGameHwnd)
-                Logger.Info("WinMgr: Re-acquired game via EXE scan -> PID " this.ActiveGamePid)
-            }
-        }
         return this.ActiveGameHwnd
     }
 
