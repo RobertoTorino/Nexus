@@ -1,32 +1,6 @@
 ﻿{
   "GAMES":[
     {
-      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/EXIT 2 (ULES-00620).iso",
-      "CaptureDir":"captures/GAME_EXIT_2_ULES_00620_PPSSPP",
-      "EbootIsoPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/EXIT 2 (ULES-00620).iso",
-      "GameApplication":"EXIT 2 (ULES-00620).iso",
-      "Id":"GAME_EXIT_2_ULES_00620_PPSSPP",
-      "LastPlayed":"2026-01-17 05:52:28",
-      "LauncherType":"PPSSPP",
-      "PlayTimeReadable":"46s",
-      "SavedName":"EXIT_2_ULES_00620_PPSSPP",
-      "SnapshotDir":"snapshots/GAME_EXIT_2_ULES_00620_PPSSPP",
-      "TotalPlayTime":46
-    },
-    {
-      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/LUMINES II (ULES-00553).iso",
-      "CaptureDir":"captures/GAME_LUMINES_II_ULES_00553_PPSSPP",
-      "EbootIsoPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/LUMINES II (ULES-00553).iso",
-      "GameApplication":"LUMINES II (ULES-00553).iso",
-      "Id":"GAME_LUMINES_II_ULES_00553_PPSSPP",
-      "LastPlayed":"2026-01-23 21:47:12",
-      "LauncherType":"PPSSPP",
-      "PlayTimeReadable":"2.5m",
-      "SavedName":"LUMINES_II_ULES_00553_PPSSPP",
-      "SnapshotDir":"snapshots/GAME_LUMINES_II_ULES_00553_PPSSPP",
-      "TotalPlayTime":149
-    },
-    {
       "ApplicationPath":"E:/VITA3K-3830/ux0/app/PCSE00009/eboot.bin",
       "CaptureDir":"captures/GAME_PCSE00009_VITA3K_3830",
       "EbootIsoPath":"E:/VITA3K-3830/ux0/app/PCSE00009/eboot.bin",
@@ -249,18 +223,6 @@
       "SavedName":"TEKKEN_8_PC",
       "SnapshotDir":"snapshots/GAME_TEKKEN_8_PC",
       "TotalPlayTime":220
-    },
-    {
-      "ApplicationPath":"C:\\TP\\TeknoParrotUi.exe",
-      "ExeName":"DOA5A.exe",
-      "GameApplication":"TeknoParrotUi.exe",
-      "Id":"GAME_TP_DOA5_xml",
-      "LastPlayed":"2026-01-26 11:59:43",
-      "LauncherType":"TEKNO",
-      "PlayTimeReadable":"2.5m",
-      "ProfileFile":"DOA5.xml",
-      "SavedName":"DEAD_OR_ALIVE_5_ULTIMATE_ARCADE",
-      "TotalPlayTime":149
     },
     {
       "ApplicationPath":"C:\\TP\\TeknoParrotUi.exe",
