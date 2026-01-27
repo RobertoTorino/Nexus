@@ -32,6 +32,37 @@
 class GuiBuilder {
     static MainGui := ""
 
+    ; --- STATE ---
+    static UseIcons := true  ; Default: true (Icons), false (Text)
+
+    ; --- HELPER: Returns Icon or Text based on mode ---
+    static Label(icon, text) {
+        ; Adds spaces for padding so buttons aren't too thin
+        return this.UseIcons ? " " icon " " : "  " text "  "
+    }
+
+    ; --- TOGGLE ACTION ---
+    static ToggleUiMode() {
+        ; 1. STOP TIMERS CRITICAL FIX
+        ; Prevents "Control is destroyed" error by stopping updates immediately
+        if HasProp(this, "ToggleTimers")
+            this.ToggleTimers(false)
+
+        this.UseIcons := !this.UseIcons
+
+        if (this.MainGui)
+            this.MainGui.GetPos(&x, &y)
+
+        this.MainGui.Destroy()
+        this.MainGui := "" ; Clear reference
+
+        ; Rebuild
+        this.Create(this.StartGameCallback)
+
+        if IsSet(x)
+            this.MainGui.Show("x" x " y" y " AutoSize")
+    }
+
     ; --- CONTROL GROUPS ---
     static AdvancedControls := []
     static BannerControl := ""
@@ -50,13 +81,17 @@ class GuiBuilder {
     static BtnRecAudio := 0, BtnRecVideo := 0
     static BtnCpu := []
 
-    static Create(startCallback) {
+    ; Added := "" to startCallback to prevent potential reload crashes
+    static Create(startCallback := "") {
         loadStart := A_TickCount
         Logger.Debug("GUI creation started...")
 
-        this.StartGameCallback := startCallback
+        ; Keep existing callback if we are just toggling the view
+        if (startCallback)
+            this.StartGameCallback := startCallback
 
-        guiW := 805  ; Total Target Width
+        ; DYNAMIC WIDTH: 805 for Icons, 1150 for Text Mode
+        guiW := 805
 
         this.TimerStatusObj := ObjBindMethod(this, "UpdateStatusBar")
         this.TimerRecObj := ObjBindMethod(this, "UpdateRecordingTimers")
@@ -88,45 +123,49 @@ class GuiBuilder {
 
         BtnAppReload := this.MainGui.Add("Text", "x+10 yp h30 +0x200 +Center Background2A2A2A cSilver", "↻")
         BtnAppReload.OnEvent("Click", (*) => Reload())
-        this.TitleControl.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
+
+        ; [UPDATED] Double-Click Title to Toggle Mode
+        this.TitleControl.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd)) ; Drag
+        this.TitleControl.OnEvent("DoubleClick", (*) => this.ToggleUiMode())
 
         this.AddNavBtn("  ?  ", (*) => this.ShowHelp(), "x+3 yp-3 -Border")
-
         this.AddNavBtn("  i  ", (*) => SystemInfoTool.Show(), "x+0 yp -Border")
-
         this.MainGui.Add("Text", "x+0 yp-3 w30 h30 +0x200 Center Background2A2A2A", "_").OnEvent("Click", (*) => this.MainGui.Minimize())
-
         this.MainGui.Add("Text", "x+-4 yp+5 w30 h30 +0x200 Center cRed", "✕").OnEvent("Click", (*) => ExitApp())
 
         ; 1. Separator Line
         this.MainGui.Add("Text", "x0 y+2 w" guiW " h1 Background333333")
 
         ; ======================================================================
-        ; ROW 1
+        ; ROW 1 (Adaptive Font & Layout)
         ; ======================================================================
-        this.MainGui.SetFont("s16")
+        ; [UPDATED] s16 for Icons (Big), s12 for Text (Compact)
+        this.MainGui.SetFont(this.UseIcons ? "s16" : "s12")
 
-        ; 1. Add Games & Config (Wrapped to flash)
-        this.AddNavBtn(" ➕ ", (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 y40 Background0x0C660C")
-        this.AddNavBtn(" 🕹️ ", (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10 Background333333")
-        this.AddNavBtn(" 🧹 ", (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background333333")
-        this.AddNavBtn(" 🛠️ ", (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10 Background333333")
+        ; --- GROUP A (Top Line in Text Mode) ---
+        this.AddNavBtn(this.Label("➕", "Set Launch Path"), (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 y40 Background0x0C660C")
+        this.AddNavBtn(this.Label("🕹️", "Profiles"), (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10 Background333333")
+        this.AddNavBtn(this.Label("🧹", "Delete Row"), (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background333333")
+        this.AddNavBtn(this.Label("🛠️", "Emulators"), (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10 Background333333")
+        this.AddNavBtn(this.Label("🗑️", "Clear Path"), (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+10 Background333333")
+        this.AddNavBtn(this.Label("🔧", "Fix Path"), (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "x+10 Background333333")
+        this.AddNavBtn(this.Label("🔲", "Window Manager"), (btn, *) => (this.FlashButton(btn), WindowManagerGui.Show()), "x+10 Background333333")
 
-        ; 2. Maintenance Tools (Wrapped to flash)
-        this.AddNavBtn(" 🗑️ ", (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+10 Background333333")
-        this.AddNavBtn(" 🔧 ", (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "x+10 Background333333")
-        this.AddNavBtn(" 🔲 ", (btn, *) => (this.FlashButton(btn), WindowManagerGui.Show()), "x+10 Background333333")
-        this.AddNavBtn(" 👁️ ", (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), "x+10 Background333333")
+        ; --- SPLIT LOGIC ---
+        ; Icons: Continue Right (x+10) | Text: New Line Below (x5 y+10)
+        NextX := this.UseIcons ? "x+10" : "x5"
+        NextY := this.UseIcons ? "yp"   : "y+10"
 
-        ; 3. Media (Wrapped to flash)
-        this.AddNavBtn(" 🎵 ", (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+10 Background333333")
-        this.AddNavBtn(" 🎬 ", (btn, *) => (this.FlashButton(btn), VideoPlayer.Show()), "x+10 Background333333")
-        this.AddNavBtn(" 🖼️ ", (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "x+10 Background333333")
+        ; --- GROUP B (Bottom Line in Text Mode) ---
+        this.AddNavBtn(this.Label("👁️", "Focus"), (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), NextX " " NextY " Background333333")
 
-        ; 4. Database & Files (Wrapped to flash)
-        this.AddNavBtn(" 🗄️ ", (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "x+10 Background0x0C660C")
-        this.AddNavBtn(" 📝 ", (btn, *) => (this.FlashButton(btn), this.OnNotes()), "x+10 Background0x0C660C")
-        this.AddNavBtn(" 📁 ", (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10 Background0x0C660C")
+        this.AddNavBtn(this.Label("🎵", "Music"), (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+10 Background333333")
+        this.AddNavBtn(this.Label("🎬", "Video"), (btn, *) => (this.FlashButton(btn), VideoPlayer.Show()), "x+10 Background333333")
+        this.AddNavBtn(this.Label("🖼️", "Gallery"), (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "x+10 Background333333")
+
+        this.AddNavBtn(this.Label("🗄️", "Database"), (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "x+10 Background0x0C660C")
+        this.AddNavBtn(this.Label("📝", "Notes"), (btn, *) => (this.FlashButton(btn), this.OnNotes()), "x+10 Background0x0C660C")
+        this.AddNavBtn(this.Label("📁", "Browser"), (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10 Background0x0C660C")
 
         ; ======================================================================
         ; ROW 2
@@ -160,18 +199,28 @@ class GuiBuilder {
         this.BtnBurstStart := this.AddNavBtn("  ▶️  ", (*) => this.OnBurstSnap(), "x+10 Background333333")
 
         ; ======================================================================
-        ; ROW 3
+        ; ROW 3 (Adaptive Font & Layout)
         ; ======================================================================
-        this.BtnRecAudio := this.AddNavBtn(" 🎙️ ", (*) => CaptureManager.ToggleAudioRecording(), "x5 y+10 Background333333")
-        this.BtnRecVideo := this.AddNavBtn(" 🎬 ", (*) => CaptureManager.ToggleVideoRecording(), "x+10 Background333333")
-        this.AddNavBtn(" 🖼️ ", (*) => IconManagerGui.Show(), "x+10 Background333333")
+        ; [UPDATED] Apply Dynamic Font here too (s16 vs s12)
+        this.MainGui.SetFont(this.UseIcons ? "s16" : "s12")
 
-        this.MainGui.SetFont("s12")
-        ; CPU / GPU
-        ; Define the color variable for consistency
+        this.BtnRecAudio := this.AddNavBtn(this.Label("🎙️", "Rec Audio"), (*) => CaptureManager.ToggleAudioRecording(), "x5 y+10 Background333333")
+        this.BtnRecVideo := this.AddNavBtn(this.Label("🎬", "Rec Video"), (*) => CaptureManager.ToggleVideoRecording(), "x+10 Background333333")
+        this.AddNavBtn(this.Label("🖼️", "Icon Manager"), (*) => IconManagerGui.Show(), "x+10 Background333333")
+
+        this.MainGui.SetFont("s12") ; Reset to s12 for CPU buttons
+
+        ; --- SPLIT LOGIC ---
+        ; Icons: Continue Right | Text: New Line Below
+        NextX := this.UseIcons ? "x+10" : "x5"
+        NextY := this.UseIcons ? "yp"   : "y+10"
+
         cBtn := " Background333333"
         this.BtnCpu := []
-        this.BtnCpu.Push(this.AddNavBtn("  Idle  ", (*) => this.OnCpuClick("Low", 1), "x+10" . cBtn))
+
+        ; First CPU button uses the Split Logic coordinates
+        this.BtnCpu.Push(this.AddNavBtn("  Idle  ", (*) => this.OnCpuClick("Low", 1), NextX " " NextY . cBtn))
+
         this.BtnCpu.Push(this.AddNavBtn("  Normal --  ", (*) => this.OnCpuClick("BelowNormal", 2), "x+10" . cBtn))
         this.BtnCpu.Push(this.AddNavBtn("  Normal  ", (*) => this.OnCpuClick("Normal", 3), "x+10" . cBtn))
         this.BtnCpu.Push(this.AddNavBtn("  Normal ++  ", (*) => this.OnCpuClick("AboveNormal", 4), "x+10" . cBtn))
@@ -179,7 +228,6 @@ class GuiBuilder {
         this.BtnCpu.Push(this.AddNavBtn("  Realtime  ", (*) => this.OnCpuClick("Realtime", 6), "x+10" . cBtn))
 
         this.SetBtnHighlight(this.BtnCpu[3], true)
-
         this.AddNavBtn("  GPU  ", (*) => ProcessManager.OpenOverclock(), "x+10 yp Background333333")
 
         ; ======================================================================
@@ -220,7 +268,8 @@ class GuiBuilder {
         totalH := (lastY + lastH) - advY
 
         ; 3. Create BANNER (Height matches total advanced area)
-        this.BannerControl := this.MainGui.Add("Text", "x5 y" advY " w796 h" totalH " Border Right Background333333", "▼ Show Advanced Utilities ▼  ")
+        ; DYNAMIC BANNER WIDTH
+        this.BannerControl := this.MainGui.Add("Text", "x5 y" advY " w" (guiW - 10) " h" totalH " Border Right Background333333", "▼ Show Advanced Utilities ▼  ")
         this.BannerControl.OnEvent("Click", (*) => this.ToggleAdvanced(true))
 
         ; ======================================================================
@@ -359,22 +408,22 @@ class GuiBuilder {
         ; --- AUDIO ---
         if CaptureManager.IsRecordingAudio {
             this.TimerAudio.Text := "   " . CaptureManager.GetDuration("Audio") . "  "
-            this.BtnRecAudio.Text := "  Stop Audio  "
-            this.SetBtnHighlight(this.BtnRecAudio, true, "05FBE4")
+            ;this.BtnRecAudio.Text := "  Stop Audio  "
+            ;this.SetBtnHighlight(this.BtnRecAudio, true, "05FBE4")
         } else {
-            this.TimerAudio.Text := "   00:00:00  "
-            this.BtnRecAudio.Text := " 🎙️ "
+            ;this.TimerAudio.Text := "   00:00:00  "
+            ;this.BtnRecAudio.Text := " 🎙️ "
             this.SetBtnHighlight(this.BtnRecAudio, false)
         }
 
         ; --- VIDEO ---
         if CaptureManager.IsRecordingVideo {
             this.TimerVideo.Text := "  " . CaptureManager.GetDuration("Video") . "  "
-            this.BtnRecVideo.Text := "  Stop Video  "
-            this.SetBtnHighlight(this.BtnRecVideo, true, "05FBE4")
+            ;this.BtnRecVideo.Text := "  Stop Video  "
+            ;this.SetBtnHighlight(this.BtnRecVideo, true, "05FBE4")
         } else {
-            this.TimerVideo.Text := "  00:00:00  "
-            this.BtnRecVideo.Text := " 🎬 "
+            ;this.TimerVideo.Text := "  00:00:00  "
+            ;this.BtnRecVideo.Text := " 🎬 "
             this.SetBtnHighlight(this.BtnRecVideo, false)
         }
 
