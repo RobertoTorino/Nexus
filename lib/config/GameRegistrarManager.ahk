@@ -18,7 +18,6 @@ class GameRegistrarManager {
 
     ; MAIN ENTRY POINT
     static AddGame() {
-        ; FIX 1: Add rvz, wbfs, gcm to the file filter
         path := FileSelect(3, , "Select Game Executable, ISO, or EBOOT",
             "All Supported (*.exe; *.bat; *.lnk; *.iso; *.cso; *.bin; *.cue; *.chd; *.pbp; *.elf; *.rvz; *.wbfs; *.gcm)")
 
@@ -27,16 +26,16 @@ class GameRegistrarManager {
 
         SplitPath(path, &fileName, &dir, &ext, &nameNoExt)
 
-        config := { Path: path, Dir: dir, Name: nameNoExt, Ext: ext, Launcher: "NORMAL", App: fileName }
+        config := Map("Path", path, "Dir", dir, "Name", nameNoExt, "Ext", ext, "Launcher", "NORMAL", "App", fileName)
 
         ; Better Naming for EBOOTs
         if (fileName ~= "i)^eboot\.(bin|elf)$") {
             SplitPath(dir, &parentFolder)
             if (parentFolder ~= "i)^USRDIR$") {
                 SplitPath(dir . "\..", &grandParent)
-                config.Name := grandParent
+                config["Name"] := grandParent
             } else {
-                config.Name := parentFolder
+                config["Name"] := parentFolder
             }
         }
 
@@ -45,7 +44,6 @@ class GameRegistrarManager {
             if !this.HandleEboot(config)
                 return false
         }
-        ; FIX 2: Add rvz, wbfs, gcm to the detection regex
         else if (ext ~= "i)^(iso|cso|bin|cue|chd|pbp|rvz|wbfs|gcm)$") {
             if !this.HandleIso(config)
                 return false
@@ -60,23 +58,20 @@ class GameRegistrarManager {
 
     ; HANDLERS
     static HandleStandard(config) {
-        if (config.App ~= "i)TeknoParrotUi\.exe") {
+        if (config["App"] ~= "i)TeknoParrotUi\.exe") {
             if (DialogsGui.AskForConfirmation("TeknoParrot Detected",
                 "You selected the TeknoParrot Launcher.`nTo play TeknoParrot games, use the Profile Manager.`nOpen it now?")) {
                 TeknoParrotManager.ShowPicker()
             }
             return false
         }
-        config.Launcher := "STANDARD"
+        config["Launcher"] := "STANDARD"
         return true
     }
 
     static HandleEboot(config) {
-        ; --- VITA3K DETECTION ---
-        ; Looks for keywords common in Vita folder structures
-        if (config.Path ~= "i)(app|ux0|mai)") {
-
-            ; NEW: Ask which Vita3K build to use
+        ; --- VITA3K ---
+        if (config["Path"] ~= "i)(app|ux0|mai)") {
             choice := DialogsGui.AskForChoice("Select Vita3K Build", "Which emulator version?",
                 ["Standard Vita3K", "Vita3K Build 3830"])
 
@@ -84,14 +79,13 @@ class GameRegistrarManager {
                 return false
 
             if (choice == "Vita3K Build 3830") {
-                ; Matches the key in your EmulatorConfigGui
                 return this.ConfigureEmulator(config, "VITA3K_3830", "VITA3K_3830", "Vita3k3830Path")
             } else {
                 return this.ConfigureEmulator(config, "VITA3K", "VITA3K_PATH", "Vita3kPath")
             }
         }
 
-        ; --- RPCS3 DETECTION ---
+        ; --- RPCS3 ---
         choice := DialogsGui.AskForChoice("Select RPCS3 Build", "Which specialized build is this for?",
             ["Standard RPCS3", "Fighter Build", "Shooter Build", "TCRS Build"])
 
@@ -102,11 +96,11 @@ class GameRegistrarManager {
             case "Standard RPCS3":
                 return this.ConfigureEmulator(config, "RPCS3", "RPCS3_PATH", "Rpcs3Path")
             case "Fighter Build":
-                config.PatchGroup := "T6BR"
-                config.IsPatchable := true
+                config["PatchGroup"] := "T6BR"
+                config["IsPatchable"] := true
                 return this.ConfigureEmulator(config, "FIGHTER", "RPCS3_FIGHTER", "Rpcs3FighterPath")
             case "Shooter Build":
-                config.IsPatchable := true
+                config["IsPatchable"] := true
                 return this.ConfigureEmulator(config, "SHOOTER", "RPCS3_SHOOTER", "Rpcs3ShooterPath")
             case "TCRS Build":
                 return this.ConfigureEmulator(config, "TCRS", "RPCS3_TCRS", "Rpcs3TcrsPath")
@@ -118,11 +112,20 @@ class GameRegistrarManager {
         choice := DialogsGui.AskForChoice("Select Platform", "Select Emulator:", ["PCSX2", "DUCKSTATION", "PPSSPP", "DOLPHIN"])
         if (choice == "")
             return false
-        return this.ConfigureEmulator(config, choice, choice "_PATH", StrTitle(choice) "Path")
+
+        iniKey := ""
+        switch choice {
+            case "PCSX2":       iniKey := "Pcsx2Path"
+            case "DUCKSTATION": iniKey := "DuckStationPath"
+            case "PPSSPP":      iniKey := "PpssppPath"
+            case "DOLPHIN":     iniKey := "DolphinPath"
+        }
+
+        return this.ConfigureEmulator(config, choice, choice "_PATH", iniKey)
     }
 
     static ConfigureEmulator(config, type, iniSec, iniKey) {
-        config.Launcher := type
+        config["Launcher"] := type
         emuPath := IniRead(ConfigManager.IniPath, iniSec, iniKey, "")
 
         if (!FileExist(emuPath)) {
@@ -136,14 +139,17 @@ class GameRegistrarManager {
 
     ; REGISTRATION FINALIZATION
     static FinalizeRegistration(config) {
+        ; [FIX] Define helper function OUTSIDE the loop to avoid scope errors
+        ; We pass 'target' explicitly instead of relying on closure capture
+        GetVal := (target, key) => (Type(target) == "Map" ? (target.Has(key) ? target[key] : "") : (target.HasOwnProp(key) ? target.%key% : ""))
+
         ; CHECK FOR DUPLICATES
         for id, game in ConfigManager.Games {
-            existingPath := (Type(game) == "Map") ? (game.Has("ApplicationPath") ? game["ApplicationPath"] : "") : (game.HasOwnProp("ApplicationPath") ? game.ApplicationPath : "")
+            ; [FIX] Call helper with 'game' as first argument
+            existingPath := GetVal(game, "ApplicationPath")
 
-            ; Normalize checks (Backslashes can match Forward slashes)
-            if (StrReplace(existingPath, "/", "\") == StrReplace(config.Path, "/", "\")) {
-                gameName := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
-                if (DialogsGui.CustomMsgBox("Game Exists", "The game '" . gameName . "' is already in your library.`nPlay it now?", 4) == "Yes") {
+            if (StrReplace(existingPath, "/", "\") == StrReplace(config["Path"], "/", "\")) {
+                if (DialogsGui.CustomMsgBox("Game Exists", "The game '" . GetVal(game, "SavedName") . "' is already in your library.`nPlay it now?", 4) == "Yes") {
                     ConfigManager.CurrentGameId := id
                     if IsSet(GuiBuilder) {
                         GuiBuilder.RefreshDropdown()
@@ -156,9 +162,9 @@ class GameRegistrarManager {
         }
 
         ; SANITIZE & NAME
-        cleanDef := Utilities.SanitizeName(config.Name)
-        if (config.Launcher != "STANDARD") {
-            suffix := "_" . config.Launcher
+        cleanDef := Utilities.SanitizeName(config["Name"])
+        if (config["Launcher"] != "STANDARD") {
+            suffix := "_" . config["Launcher"]
             defName := !InStr(cleanDef, suffix) ? cleanDef . suffix : cleanDef
         } else {
             defName := cleanDef
@@ -176,37 +182,29 @@ class GameRegistrarManager {
         uniqueId := Utilities.GenerateUniqueId(friendlyName, ConfigManager.Games)
 
         ; Path Normalization
-        safePath := StrReplace(config.Path, "\", "/")
+        safePath := StrReplace(config["Path"], "\", "/")
 
-        ; BUILD OBJECT
-        newGame := {
-            Id: uniqueId,
-            SavedName: friendlyName,
-            ApplicationPath: safePath,
-            LauncherType: config.Launcher,
-            GameApplication: config.App,
-            SnapshotDir: "snapshots/" . uniqueId,
-            CaptureDir: "captures/" . uniqueId,
-            EbootIsoPath: safePath
-        }
+        ; BUILD MAP
+        newGame := Map()
+        newGame["Id"] := uniqueId
+        newGame["SavedName"] := friendlyName
+        newGame["ApplicationPath"] := safePath
+        newGame["LauncherType"] := config["Launcher"]
+        newGame["GameApplication"] := config["App"]
+        newGame["SnapshotDir"] := "snapshots/" . uniqueId
+        newGame["CaptureDir"] := "captures/" . uniqueId
+        newGame["EbootIsoPath"] := safePath
 
-        ; --- NEW: Auto-Detect Patchable Status ---
-        ; We ask the Patch Service if this file is in its database
-        patchInfo := PatchServiceTool.IdentifyPatchableGame(config.App, config.Path)
-
-        if (patchInfo != "") {
-            newGame.IsPatchable := "true"
-            newGame.PatchGroup := patchInfo.Name ; Stores friendly name for debugging
-            Logger.Info("Registrar: Detected Patchable Game (" . patchInfo.Name . ")")
-        } else {
-            newGame.IsPatchable := "false"
-            newGame.PatchGroup := ""
-        }
-
-        ; VALIDATION
-        if (newGame.ApplicationPath == "") {
-            DialogsGui.CustomMsgBox("Error", "Invalid Game Path.", 16)
-            return false
+        ; Patch Logic
+        if IsSet(PatchServiceTool) {
+             patchInfo := PatchServiceTool.IdentifyPatchableGame(config["App"], config["Path"])
+             if (patchInfo != "") {
+                newGame["IsPatchable"] := "true"
+                newGame["PatchGroup"] := patchInfo.Name
+             } else {
+                newGame["IsPatchable"] := "false"
+                newGame["PatchGroup"] := ""
+             }
         }
 
         ; SAVE

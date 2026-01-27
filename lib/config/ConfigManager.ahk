@@ -16,6 +16,7 @@ class ConfigManager {
     static RootDir := StrReplace(A_ScriptDir, "\lib\config", "")
     static JsonPath := this.RootDir . "\nexus.json"
     static IniPath := this.RootDir . "\nexus.ini"
+    static ActiveProcessName := ""
     static Games := Map()
     static WasLoaded := false
     static CurrentGameId := ""

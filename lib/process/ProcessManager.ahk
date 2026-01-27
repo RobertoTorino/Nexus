@@ -9,20 +9,19 @@
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
-; None
+#Include ..\config\ConfigManager.ahk ; [NEW] Required to read ActiveProcessName
 
 class ProcessManager {
     static _wmi := ""
 
-    ; --- NEW: Session Stats State ---
+    ; Session Stats State
     static SessionStart := 0
     static PeakRAM := 0
     static GameName := ""
 
-    ; INITIALIZATION (Call this in Nexus.ahk start)
+    ; INITIALIZATION
     static InitMonitor() {
         try {
-            ; Connect to WMI root\cimv2 (Standard Windows metrics)
             this._wmi := ComObject("WbemScripting.SWbemLocator").ConnectServer(".", "root\cimv2")
         } catch as err {
             if IsSet(Logger)
@@ -30,24 +29,21 @@ class ProcessManager {
         }
     }
 
-    ; SESSION TRACKING (New Methods)
+    ; SESSION TRACKING
     static StartSession(name) {
         this.SessionStart := A_TickCount
         this.PeakRAM := 0
         this.GameName := (name != "") ? name : "Unknown Game"
 
-        ; LOGGING START
         if IsSet(Logger)
             Logger.Info("ProcessManager: Session Started for '" this.GameName "'")
     }
 
     static EndSession() {
-        if (this.SessionStart == 0) {
+        if (this.SessionStart == 0)
             return ""
-        }
 
         duration := A_TickCount - this.SessionStart
-
         seconds := Round(duration / 1000)
         h := Floor(seconds / 3600)
         m := Floor(Mod(seconds, 3600) / 60)
@@ -59,7 +55,6 @@ class ProcessManager {
         report .= "Duration:  " . timeStr . "`n"
         report .= "Peak RAM:  " . this.PeakRAM . " MB"
 
-        ; LOGGING END
         if IsSet(Logger)
             Logger.Info("ProcessManager: Session Ended. Duration: " timeStr " | Peak RAM: " this.PeakRAM "MB")
 
@@ -67,8 +62,11 @@ class ProcessManager {
         return report
     }
 
-    ; MONITORING (Updated)
+    ; MONITORING (Updated for Compact Display)
     static GetMonitorText(gameExeName := "") {
+        if (gameExeName == "")
+            gameExeName := ConfigManager.ActiveProcessName
+
         mem := this.GetSystemMemoryInfo()
         msg := ""
 
@@ -87,8 +85,6 @@ class ProcessManager {
             mbScript := Round(kbScript / 1024, 1)
             percScript := (mem.HasOwnProp("total")) ? Round((kbScript / mem.total) * 100, 1) : "0"
             msg .= " | App: " mbScript "MB (" percScript "%)"
-        } else {
-            msg .= " | App: no-data"
         }
 
         ; GAME
@@ -96,24 +92,25 @@ class ProcessManager {
             pid := ProcessExist(gameExeName)
             if (pid) {
                 kbGame := this.GetProcessMemoryKB(pid)
-                actualName := ProcessGetName(pid)
 
                 if (kbGame > 0) {
                     mbGame := Round(kbGame / 1024, 1)
-                    percGame := (mem.HasOwnProp("total")) ? Round((kbGame / mem.total) * 100, 1) : "0"
 
-                    ; --- NEW: Track Peak RAM ---
+                    ; Calculate Percentage (1 decimal place)
+                    percGame := (mem.HasOwnProp("total") && mem.total > 0) ? Round((kbGame / mem.total) * 100, 1) : "0.0"
+
+                    ; Still track Peak in background for the end report, but don't show it live
                     if (mbGame > this.PeakRAM) {
                         this.PeakRAM := mbGame
                     }
 
-                    ; Show current + Peak
-                    msg .= " | Game: " mbGame "MB (Peak: " this.PeakRAM "MB | " actualName ")"
+                    ; [COMPACT FORMAT] "Game: 150.5MB (1.2%)"
+                    msg .= " | Game: " mbGame "MB (" percGame "%)"
                 } else {
-                    msg .= " | Game: no-data (" actualName ")"
+                    msg .= " | Game: no-data"
                 }
             } else {
-                msg .= " | Game: " gameExeName " [waiting]"
+                msg .= " | Game: [waiting]"
             }
         } else {
             msg .= " | Game: waiting"
@@ -124,21 +121,18 @@ class ProcessManager {
 
     ; PRIORITY MANAGEMENT
     static SetPriority(level) {
-        targetPid := 0
-        if (IsSet(WindowManager) && WindowManager.HasProp("ActiveGamePid") && WindowManager.ActiveGamePid > 0) {
-            targetPid := WindowManager.ActiveGamePid
-        }
+        targetExe := ConfigManager.ActiveProcessName
 
-        if (targetPid == 0) {
+        if (targetExe == "" || !ProcessExist(targetExe)) {
             if IsSet(DialogsGui)
-                DialogsGui.CustomTrayTip("No active game to set priority", 2)
+                DialogsGui.CustomTrayTip("No active game process found", 2)
             return
         }
 
         try {
-            ProcessSetPriority(level, targetPid)
+            ProcessSetPriority(level, targetExe)
             if IsSet(Logger)
-                Logger.Info("Priority set to [" level "] for PID: " targetPid)
+                Logger.Info("Priority set to [" level "] for: " targetExe)
             if IsSet(DialogsGui)
                 DialogsGui.CustomTrayTip("Priority: " level, 1)
         } catch as err {
@@ -166,22 +160,19 @@ class ProcessManager {
 
     ; KILL SWITCH
     static KillProcessTree(pid) {
-        if !pid {
+        if !pid
             return
-        }
         if IsSet(Logger)
             Logger.Info("Kill Switch Activated for PID: " pid)
-        if ProcessExist(pid)
-            RunWait(A_ComSpec " /c taskkill /PID " pid " /F /T", , "Hide")
+        try RunWait(A_ComSpec " /c taskkill /PID " pid " /F /T", , "Hide")
     }
 
     static KillProcessByName(exeName) {
-        if (exeName == "") {
+        if (exeName == "")
             return
-        }
         if IsSet(Logger)
             Logger.Info("Kill Switch Activated for EXE: " exeName)
-        RunWait(A_ComSpec " /c taskkill /IM " exeName " /F /T", , "Hide")
+        try RunWait(A_ComSpec " /c taskkill /IM " exeName " /F /T", , "Hide")
     }
 
     ; HELPERS
@@ -190,21 +181,22 @@ class ProcessManager {
         NumPut("UInt", 64, ms, 0)
         if !DllCall("kernel32\GlobalMemoryStatusEx", "ptr", ms)
             return {}
+
+        ; Return KB for consistency with GetProcessMemoryKB
         total := NumGet(ms, 8, "UInt64") / 1024
         avail := NumGet(ms, 16, "UInt64") / 1024
         used := total - avail
         load := Round((used / total) * 100, 1)
+
         return { total: total, available: avail, used: used, load: load }
     }
 
     static GetProcessMemoryKB(pid) {
-        if !pid {
+        if !pid
             return -1
-        }
         hProcess := DllCall("OpenProcess", "uint", 0x400 | 0x10, "int", 0, "uint", pid, "ptr")
-        if !hProcess {
+        if !hProcess
             return -1
-        }
         size := (A_PtrSize = 8) ? 72 : 40
         pm := Buffer(size, 0)
         NumPut("UInt", size, pm, 0)

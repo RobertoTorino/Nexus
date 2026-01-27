@@ -8,10 +8,10 @@
 ; * @version 1.0.00
 ; ==============================================================================
 
-; --- DEPENDENCY IMPORTS ---
-; None
-
 class DialogsGui {
+
+    ; [FIX] Define the property so 'this.PopGui' works
+    static PopGui := ""
 
     ; CustomMsgBox: Modern, Borderless, Dark
     static CustomMsgBox(title, text, options := 0) {
@@ -49,15 +49,11 @@ class DialogsGui {
 
     ; --- COMPATIBILITY FIXES ---
 
-    ; Fixes "Expected 1-2 parameters, but got 3" error in GuiBuilder
-    ; Maps the generic .Show() call to your specific .CustomMsgBox()
     static Show(text, title := "Nexus", options := 0) {
         return this.CustomMsgBox(title, text, options)
     }
 
-    ; Fixes "Class might not have member 'AskForConfirmation'"
     static AskForConfirmation(text, title := "Confirm Action") {
-        ; Option 4 triggers the Yes/No buttons in your CustomMsgBox logic
         result := this.CustomMsgBox(title, text, 4)
         return (result == "Yes")
     }
@@ -74,9 +70,6 @@ class DialogsGui {
         myGui.Add("Text", "x20 y50 w" (guiW - 40) " +Wrap BackgroundTrans", prompt)
 
         ; Edit Box (Styled Dark & Flat)
-        ; Background2A2A2A = Slightly lighter than bg
-        ; -E0x200 = Removes 3D sunken edge for flat look
-        ; +Border = Adds simple 1px border
         edt := myGui.Add("Edit", "x20 y+15 w" (guiW - 40) " h30 cWhite Background2A2A2A -E0x200 +Border", defaultText)
 
         ; Buttons
@@ -92,7 +85,7 @@ class DialogsGui {
         return Result
     }
 
-    ; AskForChoice: Modern Button Stack (The "GameSearch" Style)
+    ; AskForChoice: Modern Button Stack
     static AskForChoice(title, prompt, options) {
         result := ""
         guiW := 350
@@ -106,12 +99,11 @@ class DialogsGui {
         ; Option Buttons (Stacked)
         yPos := "y+20"
         for opt in options {
-            ; Uses the helper to create a flat clickable text box
             this._AddFlatButton(myGui, opt, "x35 " yPos " w" (guiW - 70) " h40", (ctrl, *) => (result := ctrl.Text, myGui.Destroy()))
             yPos := "y+10"
         }
 
-        ; Cancel Link (Subtle style for Cancel)
+        ; Cancel Link
         myGui.SetFont("s9 c999999 Underline")
         cancelBtn := myGui.Add("Text", "x35 y+15 w" (guiW - 70) " h20 Center BackgroundTrans", "Cancel")
         cancelBtn.OnEvent("Click", (*) => (result := "", myGui.Destroy()))
@@ -127,11 +119,8 @@ class DialogsGui {
     ; ShowTextViewer: Modern, Read-Only
     static ShowTextViewer(title, content, w := 600, h := 600) {
         viewer := this._CreateModernGui(title, w)
-
-        ; Content
         viewer.SetFont("s10 Norm")
         viewer.Add("Text", "x12 y50 w" (w - 24) " h" (h - 60) " BackgroundTrans", content)
-
         viewer.Show("w" w " h" h)
     }
 
@@ -143,7 +132,7 @@ class DialogsGui {
 
         ; Custom Header (Draggable)
         hdr := myGui.Add("Text", "x12 y10 w" (w - 40) " h24 +0x200 BackgroundTrans", title)
-        hdr.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, myGui.Hwnd)) ; WM_NCLBUTTONDOWN
+        hdr.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, myGui.Hwnd))
 
         ; Custom Close Button (X)
         BtnClose := myGui.Add("Text", "x" (w - 32) " y10 w24 h24 +0x200 +Center BackgroundTrans cRed", "✕")
@@ -154,19 +143,9 @@ class DialogsGui {
 
     ; HELPER: Adds a Flat "Button" (Text Control)
     static _AddFlatButton(guiObj, text, options, callback) {
-        ; 1. Create the Text Control
-        ; Background2A2A2A = Dark Grey (Normal State)
-        ; +0x200 = Centers text vertically inside the control
         guiObj.SetFont("s10 Norm cWhite")
         btn := guiObj.Add("Text", options " +0x200 Center Background2A2A2A", text)
-
-        ; 2. Bind the Click Event
         btn.OnEvent("Click", callback)
-
-        ; REMOVED: btn.OnEvent("MouseMove"...) -> This caused the crash.
-        ; AHK v2 Text controls do not natively support MouseMove events
-        ; without complex OnMessage(0x200) handling.
-
         return btn
     }
 
@@ -182,34 +161,49 @@ class DialogsGui {
         this.CustomMsgBox("About", "NEXUS`nVersion: Phase 2.1`n`n© " A_YYYY, 0)
     }
 
-    ; CustomStatusPop: Small, Dark, Non-blocking notification with Fade
+    ; --- [UPDATED] Smart Centering Status Popup ---
     static CustomStatusPop(text, duration := 2000) {
-        ; 1. Create the Pop
-        pop := Gui("-Caption +AlwaysOnTop +ToolWindow +Border")
-        pop.BackColor := "202020"
-        pop.SetFont("s10 q5 cSilver", "Segoe UI")
-        pop.Add("Text", "x15 y5 Center +200", text)
+        ; 1. Reuse existing GUI to prevent stacking
+        if (this.PopGui)
+            this.PopGui.Destroy()
 
-        ; 2. Show it (Start fully opaque)
-        pop.Show("xCenter yCenter NoActivate")
+        ; 2. Create modern popup
+        this.PopGui := Gui("-Caption +AlwaysOnTop +ToolWindow +Border")
+        this.PopGui.BackColor := "202020"
+        this.PopGui.SetFont("s11 c05FBE4", "Segoe UI") ; Cyan text for visibility
+        this.PopGui.Add("Text", "x15 y10 Center", text)
 
-        ; 3. Schedule the Fade (Wait 'duration', then start fading)
-        SetTimer(() => this._FadeAndDestroy(pop), -duration)
+        ; 3. Calculate Size (Hidden)
+        this.PopGui.Show("NoActivate AutoSize Hide")
+
+        ; 4. SMART CENTERING LOGIC
+        ; Try to find the Main Window to center against
+        targetHwnd := WinExist("Nexus Main Window") ; Or use your window title
+
+        ; If we have access to the Global GuiBuilder, use that HWND (Most reliable)
+        if IsSet(GuiBuilder) && GuiBuilder.MainGui
+            targetHwnd := GuiBuilder.MainGui.Hwnd
+
+        if (targetHwnd && WinExist("ahk_id " . targetHwnd)) {
+            WinGetPos(&mX, &mY, &mW, &mH, "ahk_id " . targetHwnd)
+            WinGetPos(,, &pW, &pH, this.PopGui.Hwnd)
+
+            ; Math: Center = MainX + (MainWidth/2) - (PopupWidth/2)
+            finalX := mX + (mW / 2) - (pW / 2)
+            finalY := mY + (mH / 2) - (pH / 2)
+
+            this.PopGui.Show("x" . finalX . " y" . finalY . " NoActivate")
+        } else {
+            ; Fallback: Center on Screen
+            this.PopGui.Show("Center NoActivate")
+        }
+
+        ; 5. Auto-Destroy
+        SetTimer(() => (this.PopGui ? this.PopGui.Destroy() : ""), -duration)
     }
 
+    ; Legacy fade helper (kept if needed, but unused by new popup for snappiness)
     static _FadeAndDestroy(guiObj) {
-        try {
-            ; Simple loop to drop transparency from 255 (solid) to 0 (invisible)
-            ; Doing this in steps of 15 is fast enough to look smooth but slow enough to be seen
-            loop 17 {
-                trans := 255 - (A_Index * 15)
-                WinSetTransparent(Max(0, trans), "ahk_id " guiObj.Hwnd)
-                Sleep(10) ; 10ms is the "sweet spot" for 60fps animations
-            }
-            guiObj.Destroy()
-        } catch {
-            ; If the user closed the app or window manually, just ensure it's gone
-            try guiObj.Destroy()
-        }
+        try guiObj.Destroy()
     }
 }

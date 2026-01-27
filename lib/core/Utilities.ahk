@@ -9,21 +9,23 @@
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
-; None
+#Include Logger.ahk ; [RESTORED] Required for GetCommandOutput logging
 
 class Utilities {
 
     ; SanitizeName(str)
-    ; Removes invalid characters, ensures single underscores, no spaces.
+    ; Removes invalid characters, ensures single underscores.
+    ; [UPDATED] Now supports Unicode (Japanese, Chinese, etc.)
     static SanitizeName(str) {
         if (str == "")
             return ""
 
-        ; 1. Replace common separators (Space, Dash, Dot, Colon) with Underscore first
+        ; 1. Replace common separators (Space, Dash, Dot, Colon, Brackets) with Underscore
         Clean := RegExReplace(str, "[ \-\.\:\[\]\(\)]", "_")
 
-        ; 2. Remove anything that is NOT Alphanumeric or Underscore
-        Clean := RegExReplace(Clean, "[^A-Za-z0-9_]", "")
+        ; 2. Remove anything that is NOT Alphanumeric, Underscore, or Unicode (\x{0080}-\x{FFFF})
+        ; This ensures we don't delete Japanese characters
+        Clean := RegExReplace(Clean, "[^a-zA-Z0-9_\x{0080}-\x{FFFF}]", "")
 
         ; 3. Collapse multiple underscores into one
         Clean := RegExReplace(Clean, "_+", "_")
@@ -53,7 +55,9 @@ class Utilities {
         ; Wrap the entire cmd in double-quotes to preserve quoted paths inside
         fullCmd := A_ComSpec . " /c `"" . cmd . " > `"" . tmpFile . "`" 2>&1`""
 
-        Logger.Debug("Running command: " . fullCmd)
+        ; [RESTORED] Logging logic
+        if IsSet(Logger)
+            Logger.Debug("Utilities: Running command: " . fullCmd)
 
         try {
             RunWait(fullCmd, , "Hide")
@@ -61,11 +65,15 @@ class Utilities {
             if FileExist(tmpFile) {
                 output := FileRead(tmpFile)
                 FileDelete(tmpFile)
-                Logger.Debug("Command output: " . output)
+
+                if IsSet(Logger)
+                    Logger.Debug("Utilities: Command output: " . output)
+
                 return Trim(output)
             }
         } catch as err {
-            Logger.Error("GetCommandOutput failed: " . err.Message)
+            if IsSet(Logger)
+                Logger.Error("Utilities: GetCommandOutput failed: " . err.Message)
         }
         return ""
     }
@@ -103,29 +111,22 @@ class Utilities {
     ; IsValidExePath(path)
     ; Validates that path points to a real executable file
     static IsValidExePath(path) {
-        if (path = "")
+        if (path = "" || !FileExist(path))
             return false
-        if (!FileExist(path))
-            return false
-        if (SubStr(path, -4) != ".exe") ; -4 checks last 4 chars (.exe)
-            return false
-        return true
+
+        ; Optimized check
+        return (SubStr(path, -4) = ".exe")
     }
 
     ; IsValidIsoPath(path)
-    ; Validates that path points to an ISO/CSO file
+    ; Validates that path points to an ISO/CSO/RVZ etc
     static IsValidIsoPath(path) {
-        if (path = "")
-            return false
-        if (!FileExist(path))
+        if (path = "" || !FileExist(path))
             return false
 
-        ext := SubStr(path, -3) ; Check last 3 (.iso / .cso)
+        ext := SubStr(path, -3)
         ; V2 string comparison is case-insensitive by default
-        if (ext != "iso" && ext != "cso" && SubStr(path, -4) != ".iso" && SubStr(path, -4) != ".cso")
-            return false
-
-        return true
+        return (ext = "iso" || ext = "cso" || ext = "rvz" || SubStr(path, -4) = ".iso" || SubStr(path, -4) = ".cso")
     }
 
     ; FormatFileSize(bytes)
@@ -142,14 +143,11 @@ class Utilities {
     }
 
     ; GetCurrentTimestamp()
-    ; Returns current date/time in standard format
     static GetCurrentTimestamp() {
         return FormatTime(, "yyyy-MM-dd HH:mm:ss")
     }
 
     ; GetDateTimestampShort()
-    ; Returns current date/time in file-safe format
-    ;
     static GetDateTimestampShort() {
         return FormatTime(, "yyyy-MM-dd_HH-mm-ss")
     }
@@ -158,28 +156,28 @@ class Utilities {
     ; Wrapper for TrayTip with consistent titling
     ; iconType: 1=Info, 2=Warning, 3=Error
     static CustomTrayTip(text, iconType := 1) {
-        title := "Game Screen Manager Lite"
+        title := "Nexus"
         options := (iconType == 2) ? 2 : (iconType == 3) ? 3 : 1
-        TrayTip(text, title, options)
-        ; Hide tray tip after 3 seconds (V2 doesn't have a built-in timeout)
-        SetTimer(() => TrayTip(), -3000)
+        try {
+            TrayTip(text, title, options)
+            SetTimer(() => TrayTip(), -3000)
+        }
     }
 
     ; IsInternetAvailable()
-    ; Checks local network adapter status via WinAPI (Instant, Non-blocking).
-    ; Returns: 1 (True) or 0 (False)
+    ; Checks local network adapter status via WinAPI
     static IsInternetAvailable() {
-        ; 0x40 = INTERNET_CONNECTION_CONFIGURED
-        ; This checks if the OS "thinks" it has internet. It does not ping a server.
-        ; This prevents the UI from freezing for seconds if the internet is down.
         return DllCall("Wininet.dll\InternetGetConnectedState", "UInt*", 0, "UInt", 0)
     }
 
     ; GenerateUniqueId(friendlyName, existingGamesMap)
-    ; Generates a strictly unique ID (e.g., GAME_DOOM, GAME_DOOM_2)
+    ; Generates a strictly unique ID
     static GenerateUniqueId(friendlyName, existingGamesMap) {
-        ; 1. Get the clean base (e.g., "STREET_FIGHTER")
+        ; 1. Get the clean base (Uses the new Unicode-Safe logic)
         clean := this.SanitizeName(friendlyName)
+
+        if (clean == "")
+            clean := "GAME"
 
         ; 2. Form the base ID
         baseId := "GAME_" . clean

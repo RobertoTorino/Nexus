@@ -28,6 +28,7 @@
 #Include lib\emulator\LauncherFactory.ahk
 ; lib\emulator\tools\
 #Include lib\emulator\tools\DuckStationAudioTool.ahk
+#Include lib\emulator\tools\RomScanner.ahk
 #Include lib\emulator\tools\Rpcs3AudioTool.ahk
 ; lib\emulator\types\
 #Include lib\emulator\types\DolphinLauncher.ahk
