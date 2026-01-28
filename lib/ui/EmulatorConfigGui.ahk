@@ -38,6 +38,7 @@ class EmulatorConfigGui {
             this.MainGui.Destroy()
         this.MainGui := Gui("-Caption +Border +ToolWindow +AlwaysOnTop", "Nexus :: Configure Emulators")
 
+        ; snap logic
         WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
         this.MainGui.BackColor := "2A2A2A"

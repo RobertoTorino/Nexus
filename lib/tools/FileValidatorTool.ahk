@@ -54,7 +54,6 @@ class FileValidatorTool {
         ; --- TITLE BAR ---
         this.TitleText := this.MainGui.Add("Text", "x0 y0 w" (guiW - 60) " h30 +0x200 Background2A2A2A", "   Nexus :: File Validator")
         this.TitleText.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
-        WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
         this.MainGui.SetFont("s10 Norm")
         this.BtnMin := this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cWhite", "_")

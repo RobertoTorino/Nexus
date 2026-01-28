@@ -228,14 +228,13 @@ class GuiBuilder {
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Purge Logs") "  ", (*) => this.OnClearLogs(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Purge List") "  ", (*) => this.OnClearAllGames(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("View Logs") "  ", (*) => this.OnViewLogs(), "x+10" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("View System Config") "  ", (*) => ConfigViewerGui.ShowGui("INI"), "x+10" . cAdv))
 
-        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("View System Config") "  ", (*) => ConfigViewerGui.ShowGui("INI"), "x5 y+5" . cAdv))
-        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Show Games Config") "  ", (*) => ConfigViewerGui.ShowGui(), "x+10" . cAdv))
-
+        ; ROW 2 ADVANCED
+        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Show Games Config") "  ", (*) => ConfigViewerGui.ShowGui(), "x5 y+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  RPCS3 Audio Fix  ", (*) => AudioManager.ShowGui(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  AT3 Converter  ", (*) => AtracConverterTool.Show(), "x+10 Background333333" . cAdv))
-        this.AdvancedControls.Push(this.AddNavBtn("  Hash Calc / Validator  ", (*) => FileValidatorTool.Show(), "x5 y+5" . cAdv))
-
+        this.AdvancedControls.Push(this.AddNavBtn("  Hash Calc / Validator  ", (*) => FileValidatorTool.Show(), "x+10" . cAdv))
         this.BtnHideAdvanced := this.AddNavBtn("  ▲ " this.T("Hide Advanced") "  ", (*) => this.ToggleAdvanced(false), "x+10 c05FBE4" . cAdv)
         this.AdvancedControls.Push(this.BtnHideAdvanced)
 
