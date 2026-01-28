@@ -5,5 +5,246 @@ Pending Todo List (The "Next Steps")
 [FEATURE] Would you like me to show you how to add a "Backup Database" button to your GUI that creates a timestamped zip of your nexus.ini and nexus.json?
 [FEATURE] Would you like me to add a "Timestamp" button to that notes window so you can quickly mark when you made a change?
 
-F12 in musicplayer
-Teknoparrot profiles
+
+global MonitorCount    := 1
+global Monitor1        := ""
+global Monitor2        := ""
+
+; ======================================================================
+;  DPI AWARENESS
+; ======================================================================
+try DllCall("shcore\SetProcessDpiAwareness", "int", 2)
+try DllCall("user32\SetProcessDPIAware")
+
+; ======================================================================
+;  UTILITY FUNCTIONS (TOP-LEVEL SAFE)
+; ======================================================================
+GetMonitorCount() {
+    SysGet, cnt, MonitorCount
+    return cnt ? cnt : 1
+}
+
+GetMonitorGeometry(index) {
+    SysGet, monCount, MonitorCount
+    if (index > monCount)
+        return false
+
+    SysGet, Mon, Monitor, %index%
+    obj := {}
+    obj.Left   := MonLeft
+    obj.Top    := MonTop
+    obj.Right  := MonRight
+    obj.Bottom := MonBottom
+    obj.Width  := MonRight - MonLeft
+    obj.Height := MonBottom - MonTop
+
+    ; Safety: ensure width and height are positive.
+    if (obj.Width <= 0 || obj.Height <= 0)
+        return false
+
+    return obj
+}
+
+; Returns the monitor index where the point (x,y) falls, or 1 if not found.
+GetMonitorIndexFromPoint(x, y) {
+    SysGet, cnt, MonitorCount
+    Loop, %cnt% {
+        SysGet, L, Monitor, %A_Index%, Left
+        SysGet, T, Monitor, %A_Index%, Top
+        SysGet, R, Monitor, %A_Index%, Right
+        SysGet, B, Monitor, %A_Index%, Bottom
+        if (x >= L && x < R && y >= T && y < B)
+            return A_Index
+    }
+    return 1
+}
+
+Log("DEBUG", "Monitor Count: " . MonitorCount)
+Log("DEBUG", "Monitor1: " . Monitor1.Left "," Monitor1.Top " w=" Monitor1.Width " h=" Monitor1.Height)
+
+    Log("DEBUG", "Screen size is set to: " . SizeChoice)
+    Log("DEBUG", "Nudge step is set to: " . NudgeStep)
+    Log("DEBUG", "Window position X is set to: " . X)
+    Log("DEBUG", "Window position Y is set to: " . Y)
+    Log("DEBUG", "Window width is set to: " . Width)
+    Log("DEBUG", "Window height is set to: " . Height)
+
+    if (ApplicationPath != "" && FileExist(ApplicationPath)) {
+        Log("DEBUG", "ApplicationPath is set to: " . ApplicationPath)
+    } else {
+        Log("WARN", "Application Path Not Found in INI: " . ConfigFile)
+}
+
+; Monitor initialization and monitorIndex / monitor2 safely.
+MonitorCount    := GetMonitorCount()
+monitorIndex    := 1
+monitor2        := 2
+
+mon1 := GetMonitorGeometry(monitorIndex)
+if (!mon1) {
+    Log("WARN", "monitorIndex " . monitorIndex . " invalid, using primary monitor 1.")
+    mon1 := GetMonitorGeometry(1)
+}
+
+mon2 := GetMonitorGeometry(monitor2)
+if (!mon2) {
+    ; if user expects a second monitor but not present, keep mon2 false and handle later.
+    Log("INFO", "monitor2 (" . monitor2 . ") not available. MonitorCount=" . MonitorCount)
+}
+
+; Debug log.
+msg := "Monitor Count: " . MonitorCount . "`n"
+    . "Monitor 1: Left=" . mon1.Left . " Top=" . mon1.Top . " W=" . mon1.Width . " H=" . mon1.Height . "`n"
+if (mon2)
+    msg .= "Monitor 2: Left=" . mon2.Left . " Top=" . mon2.Top . " W=" . mon2.Width . " H=" . mon2.Height . "`n"
+Log("DEBUG", msg)
+
+
+; ─── system info. ────────────────────────────────────────────────────────────
+monitorIndex := 1  ; Change this to 2 for your second monitor
+
+SysGet, MonitorCount, MonitorCount
+if (monitorIndex > MonitorCount || monitorIndex < 1) {
+    MsgBox, Invalid monitor index: %monitorIndex% - app will continue
+    ;ExitApp
+}
+
+
+SysGet, monLeft, Monitor, %monitorIndex%
+SysGet, monTop, Monitor, %monitorIndex%
+SysGet, monRight, Monitor, %monitorIndex%
+SysGet, monBottom, Monitor, %monitorIndex%
+
+; ─── Get real screen dimensions. ────────────────────────────────────────────────────────────
+SysGet, Monitor, Monitor, %monitorIndex%
+monLeft := MonitorLeft
+monTop := MonitorTop
+monRight := MonitorRight
+monBottom := MonitorBottom
+
+monWidth := monRight - monLeft
+monHeight := monBottom - monTop
+
+msg := "Monitor Count: " . MonitorCount . "`n`n"
+    . "Monitor  " . monitorIndex    . ":" . "`n"
+    . "Left:    " . monLeft         . "`n"
+    . "Top:     " . monTop          . "`n"
+    . "Right:   " . monRight        . "`n"
+    . "Bottom:  " . monBottom       . "`n"
+    . "Width:   " . monWidth        . "`n"
+    . "Height:  " . monHeight
+
+Log("DEBUG", msg)
+
+monitorIndex := 2  ; Change this to 2 for your second monitor
+
+SysGet, MonitorCount, MonitorCount
+if (monitorIndex > MonitorCount || monitorIndex < 2) {
+    MsgBox, Invalid monitor index: %monitorIndex% - app will continue
+    ;ExitApp
+}
+
+
+SysGet, monLeft, Monitor, %monitorIndex%
+SysGet, monTop, Monitor, %monitorIndex%
+SysGet, monRight, Monitor, %monitorIndex%
+SysGet, monBottom, Monitor, %monitorIndex%
+
+; ─── Get real screen dimensions. ────────────────────────────────────────────────────────────
+SysGet, Monitor, Monitor, %monitorIndex%
+monLeft := MonitorLeft
+monTop := MonitorTop
+monRight := MonitorRight
+monBottom := MonitorBottom
+
+monWidth := monRight - monLeft
+monHeight := monBottom - monTop
+
+msg := "Monitor Count: " . MonitorCount . "`n`n"
+    . "Monitor  " . monitorIndex    . ":" . "`n"
+    . "Left:    " . monLeft         . "`n"
+    . "Top:     " . monTop          . "`n"
+    . "Right:   " . monRight        . "`n"
+    . "Bottom:  " . monBottom       . "`n"
+    . "Width:   " . monWidth        . "`n"
+    . "Height:  " . monHeight
+
+Log("DEBUG", msg)
+
+
+
+; Standard modes
+WindowConfigs["SizeFull"]       := {Mode:"FullScreen"}
+WindowConfigs["SizeWindowed"]   := {Mode:"Windowed"}
+WindowConfigs["SizeBorderless"] := {Mode:"Borderless"}
+WindowConfigs["SizeHidden"]     := {Mode:"Hidden"}
+WindowConfigs["SizeMinimized"]  := {Mode:"Minimized"}
+WindowConfigs["SizeMaximized"]  := {Mode:"Maximized"}
+WindowConfigs["SizeRestored"]   := {Mode:"Restored"}
+WindowConfigs["SizeTopmost"]    := {Mode:"Topmost"}
+WindowConfigs["SizeTool"]       := {Mode:"ToolWindow"}
+WindowConfigs["SizeLayered"]    := {Mode:"Layered"}
+WindowConfigs["SizeNoActivate"] := {Mode:"NoActivate"}
+
+; Resolutions
+WindowConfigs["Size1920x1080"] := {Width:1920, Height:1080}
+WindowConfigs["Size1920x1200"] := {Width:1920, Height:1200}
+WindowConfigs["Size1920x1440"] := {Width:1920, Height:1440}
+WindowConfigs["Size2048x1152"] := {Width:2048, Height:1152}
+WindowConfigs["Size2048x1536"] := {Width:2048, Height:1536}
+WindowConfigs["Size2560x1440"] := {Width:2560, Height:1440}
+WindowConfigs["Size2560x1600"] := {Width:2560, Height:1600}
+WindowConfigs["Size2880x1800"] := {Width:2880, Height:1800}
+WindowConfigs["Size3840x2160"] := {Width:3840, Height:2160}
+WindowConfigs["Size5120x2880"] := {Width:5120, Height:2880}
+WindowConfigs["Size6016x3384"] := {Width:6016, Height:3384}
+WindowConfigs["Size7680x4320"] := {Width:7680, Height:4320}
+
+; Combined examples
+WindowConfigs["SizeBorderlessTopmost2560"] := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true}
+; Basic Borderless variants─
+WindowConfigs["SizeBorderless1920"]          := {Width:1920, Height:1080, Mode:"Borderless"}
+WindowConfigs["SizeBorderlessTopmost1920"]   := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true}
+WindowConfigs["SizeBorderlessTool1920"]      := {Width:1920, Height:1080, Mode:"Borderless", ToolWindow:true}
+WindowConfigs["SizeBorderlessLayered1920"]   := {Width:1920, Height:1080, Mode:"Borderless", Layered:true, NoActivate:true}
+WindowConfigs["SizeBorderlessTopLayered1920"]:= {Width:1920, Height:1080, Mode:"Borderless", Topmost:true, Layered:true}
+WindowConfigs["SizeBorderlessNoAct1920"]     := {Width:1920, Height:1080, Mode:"Borderless", NoActivate:true}
+
+; Windowed variants
+WindowConfigs["SizeWindowed1920"]            := {Width:1920, Height:1080, Mode:"Windowed"}
+WindowConfigs["SizeWindowedTopmost1920"]     := {Width:1920, Height:1080, Mode:"Windowed", Topmost:true}
+WindowConfigs["SizeWindowedTool1920"]        := {Width:1920, Height:1080, Mode:"Windowed", ToolWindow:true}
+WindowConfigs["SizeWindowedLayered1920"]     := {Width:1920, Height:1080, Mode:"Windowed", Layered:true}
+WindowConfigs["SizeWindowedNoAct1920"]       := {Width:1920, Height:1080, Mode:"Windowed", NoActivate:true}
+WindowConfigs["SizeWindowedTopLayered1920"]  := {Width:1920, Height:1080, Mode:"Windowed", Topmost:true, Layered:true}
+
+; Fake fullscreen & other utility modes
+WindowConfigs["SizeFakeFull1920"]            := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true}
+WindowConfigs["SizeFakeFullLayered1920"]     := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true, Layered:true}
+WindowConfigs["SizeFakeFullTool1920"]        := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true, ToolWindow:true}
+WindowConfigs["SizeFakeFullNoAct1920"]       := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true, NoActivate:true}
+WindowConfigs["SizeFakeFullAll1920"]         := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true, Layered:true, ToolWindow:true, NoActivate:true}
+
+; Basic Borderless variants─
+WindowConfigs["SizeBorderless2560"]          := {Width:2560, Height:1440, Mode:"Borderless"}
+WindowConfigs["SizeBorderlessTopmost2560"]   := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true}
+WindowConfigs["SizeBorderlessTool2560"]      := {Width:2560, Height:1440, Mode:"Borderless", ToolWindow:true}
+WindowConfigs["SizeBorderlessLayered2560"]   := {Width:2560, Height:1440, Mode:"Borderless", Layered:true, NoActivate:true}
+WindowConfigs["SizeBorderlessTopLayered2560"]:= {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, Layered:true}
+WindowConfigs["SizeBorderlessNoAct2560"]     := {Width:2560, Height:1440, Mode:"Borderless", NoActivate:true}
+
+; Windowed variants
+WindowConfigs["SizeWindowed2560"]            := {Width:2560, Height:1440, Mode:"Windowed"}
+WindowConfigs["SizeWindowedTopmost2560"]     := {Width:2560, Height:1440, Mode:"Windowed", Topmost:true}
+WindowConfigs["SizeWindowedTool2560"]        := {Width:2560, Height:1440, Mode:"Windowed", ToolWindow:true}
+WindowConfigs["SizeWindowedLayered2560"]     := {Width:2560, Height:1440, Mode:"Windowed", Layered:true}
+WindowConfigs["SizeWindowedNoAct2560"]       := {Width:2560, Height:1440, Mode:"Windowed", NoActivate:true}
+WindowConfigs["SizeWindowedTopLayered2560"]  := {Width:2560, Height:1440, Mode:"Windowed", Topmost:true, Layered:true}
+
+; Fake fullscreen & other utility modes
+WindowConfigs["SizeFakeFull2560"]            := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true}
+WindowConfigs["SizeFakeFullLayered2560"]     := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, Layered:true}
+WindowConfigs["SizeFakeFullTool2560"]        := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, ToolWindow:true}
+WindowConfigs["SizeFakeFullNoAct2560"]       := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, NoActivate:true}
+WindowConfigs["SizeFakeFullAll2560"]         := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, Layered:true, ToolWindow:true, NoActivate:true}
+

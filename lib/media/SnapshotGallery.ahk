@@ -8,6 +8,9 @@
 ; * @version 1.0.00
 ; ==============================================================================
 
+; --- DEPENDENCY IMPORTS ---
+; None
+
 class SnapshotGallery {
     ; -- State --
     static ImageList := []
@@ -16,12 +19,12 @@ class SnapshotGallery {
     static ActiveMonitor := 1
     static SlideshowTimer := ""
     static LastActionTime := 0
-    static ConfirmResult := "" ; Stores result from custom dialog
+    static ConfirmResult := ""
 
     ; -- GUIs --
     static WinGui := ""
     static FullGui := ""
-    static DialogGui := ""     ; New Custom Dialog
+    static DialogGui := ""
 
     ; -- Controls --
     static WinPic := "", WinInfo := ""
@@ -33,6 +36,7 @@ class SnapshotGallery {
     ; WINDOWED MODE (Main Entry)
     static Show(startPath := "") {
         this.Close()
+
         ; 1. RESOLVE PATH
         if (startPath == "") {
             try {
@@ -44,41 +48,46 @@ class SnapshotGallery {
         this.CurrentIndex := 1
 
         ; 2. CREATE GUI
-        this.WinGui := Gui("-Caption +ToolWindow +AlwaysOnTop +Owner +Border +MinSize600x500", "Nexus :: Image Viewer")
+        this.WinGui := Gui("-Caption +ToolWindow +AlwaysOnTop +Owner +Border +MinSize600x500", "NEXUS :: Image Viewer")
         this.WinGui.BackColor := "2A2A2A"
-        this.WinGui.SetFont("s10 q5 cWhite", "Segoe UI")
+        this.WinGui.SetFont("s12 cSilver", "Segoe UI")
 
         this.WinGui.OnEvent("Close", (*) => this.Close())
         this.WinGui.OnEvent("Size", (guiObj, minMax, w, h) => this.OnWinResize(minMax, w, h))
         this.WinGui.OnEvent("DropFiles", (guiObj, ctrl, fileArray, *) => this.LoadImages(fileArray[1]))
 
+        ; Initialize Magnetic Snapping
+        this.InitSnapping()
+
         ; --- CUSTOM TITLE BAR ---
-        this.TitleText := this.WinGui.Add("Text", "x0 y0 w800 h30 +0x200 Background2A2A2A", "  Nexus :: Image Viewer")
+        this.TitleText := this.WinGui.Add("Text", "x0 y0 w800 h30 +0x200 Background2A2A2A", "  NEXUS :: Image Viewer")
         this.TitleText.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.WinGui.Hwnd))
 
         this.WinGui.SetFont("s10 Norm")
-        this.BtnMin := this.WinGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cWhite", "_")
+        this.BtnMin := this.WinGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cSilver", "_")
         this.BtnMin.OnEvent("Click", (*) => this.WinGui.Minimize())
 
-        this.BtnMax := this.WinGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cWhite", "□")
+        this.BtnMax := this.WinGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cSilver", "□")
         this.BtnMax.OnEvent("Click", (*) => this.ToggleMaximize())
 
-        this.BtnClose := this.WinGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cWhite", "✕")
+        this.BtnClose := this.WinGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕")
         this.BtnClose.OnEvent("Click", (*) => this.Close())
-        this.WinGui.SetFont("s10 cWhite")
+        this.WinGui.SetFont("s12 cSilver")
 
         ; --- PICTURE CONTROL ---
-        this.WinPic := this.WinGui.Add("Picture", "x0 y30 w800 h400 +0x100 BackgroundBlack")
+        this.WinPic := this.WinGui.Add("Picture", "x0 y30 w900 h400 +0x100 BackgroundBlack")
         this.WinPic.OnEvent("DoubleClick", (*) => this.StartFullscreen())
 
-        ; --- FLAT BUTTONS ---
-        this.BtnPrev := this.BtnAddTheme("Previous", (*) => this.ShowPrev(), "x10 y0 w70")
-        this.BtnNext := this.BtnAddTheme("Next", (*) => this.ShowNext(), "x10 y0 w70")
-        this.BtnSlide := this.BtnAddTheme("Slideshow", (*) => this.StartSlideshow(), "x10 y0 w70")
-        this.BtnBrowse := this.BtnAddTheme("Browse", (*) => this.BrowseFolder(), "x10 y0 w70")
-        this.BtnDelete := this.BtnAddTheme("Delete", (*) => this.DeleteCurrentImage(), "x10 y0 w70")
+        ; --- BUTTONS (Positions managed by OnWinResize) ---
+        ; Note: x/y/w/h are dummy values here, resized immediately by OnWinResize
+        this.BtnPrev   := this.BtnAddTheme("Previous",  (*) => this.ShowPrev(), "x0 y0 w0")
+        this.BtnNext   := this.BtnAddTheme("Next",      (*) => this.ShowNext(), "x0 y0 w0")
+        this.BtnSlide  := this.BtnAddTheme("Slideshow", (*) => this.StartSlideshow(), "x0 y0 w0")
+        this.BtnBrowse := this.BtnAddTheme("Browse",    (*) => this.BrowseFolder(), "x0 y0 w0")
+        this.BtnDelete := this.BtnAddTheme("Delete",    (*) => this.DeleteCurrentImage(), "x0 y0 w0")
 
-        this.WinInfo := this.WinGui.Add("Text", "x0 y0 w400 h140 Background2A2A2A cWhite", "Initializing...")
+        ; --- INFO TEXT ---
+        this.WinInfo := this.WinGui.Add("Text", "x10 y+10 w800 h120 Background2A2A2A cSilver Left", "")
 
         ; Hotkeys
         HotIfWinActive("ahk_id " this.WinGui.Hwnd)
@@ -89,10 +98,128 @@ class SnapshotGallery {
         Hotkey("Delete", (*) => this.DeleteCurrentImage(), "On")
         HotIf()
 
-        this.WinGui.Show("w900 h680")
+        ; [FIX] Increased height to 720 to prevent text cutoff
+        this.WinGui.Show("w900 h720")
 
         ; ---- LOAD ----
         this.LoadImages(this.CurrentFolder)
+    }
+
+    ; ---- FULLY DYNAMIC LAYOUT LOGIC ----
+    static OnWinResize(minMax, w, h) {
+        if (minMax == -1)
+            return
+
+        ; 1. Title Bar
+        try {
+            this.TitleText.Move(0, 0, w - 90, 30)
+            xPos := w - 90
+            this.BtnMin.Move(xPos, 0)
+            this.BtnMax.Move(xPos + 30, 0)
+            this.BtnClose.Move(xPos + 60, 0)
+        }
+
+        ; --- DYNAMIC CALCULATIONS ---
+
+        ; Height: Buttons are 5% of window height (Min 30px, Max 60px)
+        btnH := h // 20
+        if (btnH < 30)
+            btnH := 30
+        if (btnH > 60)
+            btnH := 60
+
+        ; Width: Available width divided by 5 buttons (accounting for gaps)
+        gap := 10
+        margin := 10
+        totalGapSpace := (gap * 4) + (margin * 2)
+        btnW := (w - totalGapSpace) // 5
+
+        ; [FIX] Increased text height allocation for s12 font
+        textH := 145
+
+        ; Calculate Bottom Area Height
+        bottomAreaH := gap + btnH + gap + textH + gap
+
+        ; 2. Resize Picture (Takes remaining vertical space)
+        imgH := h - 30 - bottomAreaH
+        if (imgH < 50)
+            imgH := 50
+
+        try this.WinPic.Move(0, 30, w, imgH)
+
+        ; 3. Position Buttons (Row 1)
+        btnY := 30 + imgH + gap
+        currX := margin
+
+        try {
+            this.BtnPrev.Move(currX, btnY, btnW, btnH)
+            currX += btnW + gap
+
+            this.BtnNext.Move(currX, btnY, btnW, btnH)
+            currX += btnW + gap
+
+            this.BtnSlide.Move(currX, btnY, btnW, btnH)
+            currX += btnW + gap
+
+            this.BtnBrowse.Move(currX, btnY, btnW, btnH)
+            currX += btnW + gap
+
+            this.BtnDelete.Move(currX, btnY, btnW, btnH)
+        }
+
+        ; 4. Position Text (Row 2)
+        textY := btnY + btnH + gap
+        try this.WinInfo.Move(margin, textY, w - (margin * 2), textH)
+
+        this.UpdateWindowedImage()
+    }
+
+    ; --- MAGNETIC SNAPPING LOGIC ---
+    static InitSnapping() {
+        OnMessage(0x0216, this.OnWindowMove.Bind(this))
+    }
+
+    static OnWindowMove(wParam, lParam, msg, hwnd) {
+        if (!this.WinGui || hwnd != this.WinGui.Hwnd)
+            return
+        if (!IsSet(GuiBuilder) || !GuiBuilder.MainGui)
+            return
+
+        try {
+            if (WinGetMinMax("ahk_id " GuiBuilder.MainGui.Hwnd) == -1)
+                return
+            WinGetPos(&mX, &mY, &mW, &mH, "ahk_id " GuiBuilder.MainGui.Hwnd)
+        } catch {
+            return
+        }
+
+        curX := NumGet(lParam, 0, "Int")
+        curY := NumGet(lParam, 4, "Int")
+        curR := NumGet(lParam, 8, "Int")
+        curB := NumGet(lParam, 12, "Int")
+
+        width := curR - curX
+        height := curB - curY
+        snapDist := 20
+
+        if (Abs(curX - (mX + mW)) < snapDist)
+            curX := mX + mW
+        else if (Abs((curX + width) - mX) < snapDist)
+            curX := mX - width
+        else if (Abs(curX - mX) < snapDist)
+            curX := mX
+
+        if (Abs(curY - (mY + mH)) < snapDist)
+            curY := mY + mH
+        else if (Abs((curY + height) - mY) < snapDist)
+            curY := mY - height
+        else if (Abs(curY - mY) < snapDist)
+            curY := mY
+
+        NumPut("Int", curX, lParam, 0)
+        NumPut("Int", curY, lParam, 4)
+        NumPut("Int", curX + width, lParam, 8)
+        NumPut("Int", curY + height, lParam, 12)
     }
 
     static Close() {
@@ -120,7 +247,6 @@ class SnapshotGallery {
         this.ImageList := []
     }
 
-    ; Helper for Flat Buttons
     static BtnAddTheme(label, callback, options) {
         btn := this.WinGui.Add("Text", options " h30 +0x200 +Center +Border", label)
         btn.OnEvent("Click", callback)
@@ -137,55 +263,6 @@ class SnapshotGallery {
             this.WinGui.Maximize()
     }
 
-    ; ---- LAYOUT LOGIC ----
-    static OnWinResize(minMax, w, h) {
-        if (minMax == -1)
-            return
-
-        ; Resize Title Bar
-        try {
-            this.TitleText.Move(0, 0, w - 90, 30)
-            xPos := w - 90
-            this.BtnMin.Move(xPos, 0)
-            this.BtnMax.Move(xPos + 30, 0)
-            this.BtnClose.Move(xPos + 60, 0)
-        }
-
-        ; Calculate Image Height
-        bottomSpace := 155
-        imgH := h - 30 - bottomSpace
-        if (imgH < 100)
-            imgH := 100
-
-        ; Resize Picture
-        try this.WinPic.Move(0, 30, w, imgH)
-
-        ; Button Placement
-        btnX := 10
-        btnW := 90
-        btnH := 30
-        gap := 5
-        startY := 30 + imgH + 10
-
-        try {
-            this.BtnPrev.Move(btnX, startY, btnW, btnH)
-            this.BtnNext.Move(btnX, startY + (btnH + gap), btnW, btnH)
-            this.BtnSlide.Move(btnX, startY + (btnH + gap) * 2, btnW, btnH)
-
-            yRow4 := startY + (btnH + gap) * 3
-            this.BtnBrowse.Move(btnX, yRow4, btnW, btnH)
-            this.BtnDelete.Move(btnX + btnW + gap, yRow4, btnW, btnH)
-
-            textX := btnX + (btnW * 2) + (gap * 2) + 10
-            textW := w - textX - 10
-            totalBtnHeight := (btnH * 4) + (gap * 3)
-
-            this.WinInfo.Move(textX, startY, textW, totalBtnHeight)
-        }
-
-        this.UpdateWindowedImage()
-    }
-
     ; ---- CUSTOM DIALOG & SILENT DELETE ----
     static DeleteCurrentImage() {
         if (this.ImageList.Length == 0)
@@ -194,17 +271,13 @@ class SnapshotGallery {
         currentPath := this.ImageList[this.CurrentIndex]
         parentHwnd := (this.FullGui) ? this.FullGui.Hwnd : this.WinGui.Hwnd
 
-        ; Show OUR Custom Dark Dialog
         response := this.ShowCustomConfirm(parentHwnd, "Delete Image?", "Are you sure you want to recycle:`n" currentPath)
 
         if (response != "Yes")
             return
 
         try {
-            ; ---- SILENT RECYCLE (DllCall to bypass Windows Confirmation Popup) ----
             this.RecycleSilently(currentPath)
-
-            ; Update UI
             this.ImageList.RemoveAt(this.CurrentIndex)
 
             if (this.ImageList.Length == 0) {
@@ -223,65 +296,47 @@ class SnapshotGallery {
         }
     }
 
-    ; Helper: Uses Windows API to recycle without Sound or "Are you sure?" popup
     static RecycleSilently(path) {
-        ; Ensure path is double-null terminated (Required by SHFileOperation)
-        ; UTF-16 strings use 2 bytes per char. We need extra nulls at the end.
         strBuf := Buffer(StrPut(path, "UTF-16") + 2, 0)
         StrPut(path, strBuf, "UTF-16")
 
-        ; SHFILEOPSTRUCT Structure
-        ; FO_DELETE (3) | FOF_ALLOWUNDO (0x40) | FOF_NOCONFIRMATION (0x10) | FOF_SILENT (0x04)
-        ; Total Flags: 0x54
-
-        if (A_PtrSize == 8) { ; 64-bit Structure
+        if (A_PtrSize == 8) {
             shOp := Buffer(56, 0)
-            NumPut("UInt", 3, shOp, 8)       ; wFunc = FO_DELETE
-            NumPut("Ptr", strBuf.Ptr, shOp, 16) ; pFrom
-            NumPut("UShort", 0x54, shOp, 32) ; fFlags
-        } else { ; 32-bit Structure
+            NumPut("UInt", 3, shOp, 8)
+            NumPut("Ptr", strBuf.Ptr, shOp, 16)
+            NumPut("UShort", 0x54, shOp, 32)
+        } else {
             shOp := Buffer(32, 0)
-            NumPut("UInt", 3, shOp, 4)       ; wFunc
-            NumPut("Ptr", strBuf.Ptr, shOp, 8)  ; pFrom
-            NumPut("UShort", 0x54, shOp, 16) ; fFlags
+            NumPut("UInt", 3, shOp, 4)
+            NumPut("Ptr", strBuf.Ptr, shOp, 8)
+            NumPut("UShort", 0x54, shOp, 16)
         }
-
         DllCall("shell32\SHFileOperation", "Ptr", shOp)
     }
 
     static ShowCustomConfirm(hOwner, title, msg) {
         this.ConfirmResult := "No"
-
         this.DialogGui := Gui("-Caption +ToolWindow +AlwaysOnTop +Owner" hOwner, title)
         this.DialogGui.BackColor := "2A2A2A"
-        this.DialogGui.SetFont("s10 cWhite", "Segoe UI")
+        this.DialogGui.SetFont("s10 cSilver", "Segoe UI")
 
-        ; Border Frame
         this.DialogGui.Add("Text", "x0 y0 w400 h160 +Border BackgroundTrans")
-
-        ; Title
         this.DialogGui.SetFont("s11 w700")
         this.DialogGui.Add("Text", "x20 y20 w360 h30 BackgroundTrans", title)
-
-        ; Message
         this.DialogGui.SetFont("s10 w400")
         this.DialogGui.Add("Text", "x20 y60 w360 h50 BackgroundTrans", msg)
 
-        ; Buttons
-        btnYes := this.DialogGui.Add("Text", "x200 y120 w80 h30 +0x200 +Center +Border cWhite", "YES")
+        btnYes := this.DialogGui.Add("Text", "x200 y120 w80 h30 +0x200 +Center +Border cSilver", "YES")
         btnYes.OnEvent("Click", (*) => (this.ConfirmResult := "Yes", this.DialogGui.Destroy()))
 
-        btnNo := this.DialogGui.Add("Text", "x290 y120 w80 h30 +0x200 +Center +Border cWhite", "NO")
+        btnNo := this.DialogGui.Add("Text", "x290 y120 w80 h30 +0x200 +Center +Border cSilver", "NO")
         btnNo.OnEvent("Click", (*) => (this.DialogGui.Destroy()))
 
-        ; Center on Owner
         WinGetPos(&oX, &oY, &oW, &oH, "ahk_id " hOwner)
         dX := oX + (oW - 400) // 2
         dY := oY + (oH - 160) // 2
 
         this.DialogGui.Show("x" dX " y" dY " w400 h160")
-
-        ; Disable parent window interaction (Modal behavior)
         WinSetEnabled(0, "ahk_id " hOwner)
         WinWaitClose("ahk_id " this.DialogGui.Hwnd)
         WinSetEnabled(1, "ahk_id " hOwner)
@@ -326,11 +381,10 @@ class SnapshotGallery {
         this.FullGui.OnEvent("Escape", (*) => this.StopFullscreen())
 
         currentPath := this.ImageList[this.CurrentIndex]
-
         this.FullGui.Add("Picture", "x0 y0 w" MonW " h" MonH " BackgroundBlack +Center vFullPic", currentPath)
 
         info := "Image " this.CurrentIndex "/" this.ImageList.Length " | ESC: Close | M: Monitor | Space: Toggle Slideshow | DEL: Delete"
-        this.FullGui.SetFont("s12 cWhite w700")
+        this.FullGui.SetFont("s12 cSilver w700")
         this.FullGui.Add("Text", "x20 y20 w800 h40 BackgroundTrans", info)
 
         this.FullGui.Show("x" L " y" T " w" MonW " h" MonH " NoActivate")
@@ -385,10 +439,9 @@ class SnapshotGallery {
         }
     }
 
-    ; ---- SHARED NAVIGATION & PERSISTENCE ----
+    ; ---- SHARED NAVIGATION ----
     static LoadImages(folderPath) {
         this.ImageList := []
-
         if (FileExist(folderPath) && !InStr(FileExist(folderPath), "D"))
             SplitPath(folderPath, , &folderPath)
 
@@ -404,9 +457,7 @@ class SnapshotGallery {
         Sleep(50)
 
         if (ConfigManager.IniPath != "") {
-            try {
-                IniWrite(folderPath, ConfigManager.IniPath, "SETTINGS", "LastGalleryPath")
-            }
+            try IniWrite(folderPath, ConfigManager.IniPath, "SETTINGS", "LastGalleryPath")
         }
 
         searchPattern := folderPath . "\*.*"
