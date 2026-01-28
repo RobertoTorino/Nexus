@@ -115,7 +115,6 @@ class TeknoParrotManager {
                             jsonContent := FileRead(jsonPath)
                             if RegExMatch(jsonContent, 'i)"icon_name"\s*:\s*"(.*?)"', &match) {
                                 iconRelPath := "Icons\" . match[1]
-                                ; Logger.Debug("TP Manager: Found Metadata JSON for " title)
                             }
                         }
                     }
@@ -156,17 +155,20 @@ class TeknoParrotManager {
 
         this.PickerGui := Gui("-Caption +Border +AlwaysOnTop +ToolWindow", "TeknoParrot Profile Explorer")
         this.PickerGui.BackColor := "2A2A2A"
-        this.PickerGui.SetFont("s10 q5 cWhite", "Segoe UI")
+        this.PickerGui.SetFont("s10 cWhite", "Segoe UI")
 
-        headerText := "   TeknoParrot Profiles  (User: " this.UserCount " / System: " this.SystemCount ")"
+        ; ---- [FIX] Snap Logic ----
+        this.InitSnapping()
+
+        headerText := "   NEXUS :: TeknoParrot Profiles  (User: " this.UserCount " / System: " this.SystemCount ")"
 
         ; HEADER BAR (850w)
-        this.PickerGui.Add("Text", "x0 y0 w760 h30 +0x200 Background2A2A2A", headerText).OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.PickerGui.Hwnd))
+        this.PickerGui.Add("Text", "x0 y0 w715 h30 +0x200 Background2A2A2A", headerText).OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.PickerGui.Hwnd))
 
         ; Header Icons [Add] [View] [Close]
-        this.BtnAdd := this.AddNavBtn(" ➕ ", this.OnProfileSelected.Bind(this), "x+0 yp Background333333") ; Starts Gray
-        this.BtnView := this.AddNavBtn(" 📄 ", this.OnViewXml.Bind(this), "x+0 yp Background333333")
-        this.BtnClose := this.AddNavBtn(" ❌ ", (*) => this.PickerGui.Destroy(), "x+0 yp Background2A2A2A cRed")
+        this.BtnAdd := this.AddNavBtn(" ➕ ", this.OnProfileSelected.Bind(this), "x+0 yp ") ; Starts Gray
+        this.BtnView := this.AddNavBtn(" 📄 ", this.OnViewXml.Bind(this), "x+0 yp ")
+        this.BtnClose := this.AddNavBtn(" ❌ ", (*) => this.PickerGui.Destroy(), "x+0 yp  cRed")
 
         ; ListView
         this.ListView := this.PickerGui.Add("ListView", "x10 y+5 w600 h450 -Hdr Background202020 cWhite", ["Game Title", "XML File", "Type"])
@@ -174,7 +176,7 @@ class TeknoParrotManager {
         this.ListView.OnEvent("ItemSelect", this.OnSelectionChanged.Bind(this))
 
         ; Icon Preview
-        this.IconCtrl := this.PickerGui.Add("Picture", "x630 y50 w180 h180 +BackgroundTrans -Border vIconPreview +0x40", "")
+        this.IconCtrl := this.PickerGui.Add("Picture", "x615 y50 w180 h180 +BackgroundTrans -Border vIconPreview +0x40", "")
 
         for path, data in this.ProfileMap {
             this.ListView.Add(, data.Title, data.File, data.Type)
@@ -184,7 +186,69 @@ class TeknoParrotManager {
         this.ListView.ModifyCol(2, 220)
         this.ListView.ModifyCol(3, 75)
 
-        this.PickerGui.Show("w850")
+        this.PickerGui.Show("w805")
+    }
+
+    ; --- [NEW] SNAPPING LOGIC ---
+    static InitSnapping() {
+        ; Register the Windows Message Hook for Moving (0x216 = WM_MOVING)
+        OnMessage(0x0216, this.OnWindowMove.Bind(this))
+    }
+
+    static OnWindowMove(wParam, lParam, msg, hwnd) {
+        ; 1. Ensure we only affect the Picker Window
+        if (!this.PickerGui || hwnd != this.PickerGui.Hwnd)
+            return
+
+        ; 2. Ensure Main Window exists to snap TO
+        if (!IsSet(GuiBuilder) || !GuiBuilder.MainGui)
+            return
+
+        ; 3. Get Main Window Position
+        try {
+            WinGetPos(&mX, &mY, &mW, &mH, "ahk_id " GuiBuilder.MainGui.Hwnd)
+        } catch {
+            return ; Main window might be hidden or closed
+        }
+
+        ; 4. Get Current Drag Coordinates from lParam pointer
+        ; Struct RECT { int left; int top; int right; int bottom; }
+        curX := NumGet(lParam, 0, "Int")
+        curY := NumGet(lParam, 4, "Int")
+        curR := NumGet(lParam, 8, "Int")
+        curB := NumGet(lParam, 12, "Int")
+
+        width := curR - curX
+        height := curB - curY
+        snapDist := 20 ; Pixels
+
+        ; --- X AXIS SNAP ---
+        ; Snap Left side to Main Right
+        if (Abs(curX - (mX + mW)) < snapDist)
+            curX := mX + mW
+        ; Snap Right side to Main Left
+        else if (Abs((curX + width) - mX) < snapDist)
+            curX := mX - width
+        ; Snap Left to Main Left (Align)
+        else if (Abs(curX - mX) < snapDist)
+            curX := mX
+
+        ; --- Y AXIS SNAP ---
+        ; Snap Top to Main Bottom
+        if (Abs(curY - (mY + mH)) < snapDist)
+            curY := mY + mH
+        ; Snap Bottom to Main Top
+        else if (Abs((curY + height) - mY) < snapDist)
+            curY := mY - height
+        ; Snap Top to Main Top (Align)
+        else if (Abs(curY - mY) < snapDist)
+            curY := mY
+
+        ; 5. Write back new coordinates
+        NumPut("Int", curX, lParam, 0)
+        NumPut("Int", curY, lParam, 4)
+        NumPut("Int", curX + width, lParam, 8)
+        NumPut("Int", curY + height, lParam, 12)
     }
 
     static AddNavBtn(label, callback, options) {

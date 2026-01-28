@@ -116,7 +116,7 @@ class GuiBuilder {
         this.MainGui.MarginY := 0
         this.MainGui.Add("Button", "x-100 y-100 w0 h0 Default", "")
         this.MainGui.OnEvent("Close", (*) => ExitApp())
-        this.MainGui.SetFont("s12 q5 cSilver", "Segoe UI")
+        this.MainGui.SetFont("s11 cSilver", "Segoe UI")
         this.MainGui.BackColor := "2A2A2A"
 
         ; [HOTKEY] F9 Translation Toggle
@@ -131,7 +131,7 @@ class GuiBuilder {
         this.TitleControl.OnEvent("Click", DragWin)
         this.TitleControl.OnEvent("DoubleClick", ToggleMode)
 
-        this.MainGui.Add("Text", "x+20 h30 +0x200 Center -Border", "{ A:").OnEvent("Click", DragWin)
+        this.MainGui.Add("Text", "x+20 h30 +0x200 Center -Border", "- A:").OnEvent("Click", DragWin)
         this.TimerAudio := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
         this.TimerAudio.OnEvent("Click", DragWin)
         this.TimerAudio.OnEvent("DoubleClick", ToggleMode)
@@ -140,9 +140,11 @@ class GuiBuilder {
         this.TimerVideo := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
         this.TimerVideo.OnEvent("Click", DragWin)
         this.TimerVideo.OnEvent("DoubleClick", ToggleMode)
-        this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", "} ").OnEvent("Click", DragWin)
+        this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " - ").OnEvent("Click", DragWin)
 
         ; --- TOOLBAR BUTTONS ---
+        this.MainGui.SetFont("s12 cSilver", "Segoe UI")
+
         BtnAppReload := this.MainGui.Add("Text", "x+10 yp h30 +0x200 +Center Background2A2A2A cSilver", "↻")
         BtnAppReload.OnEvent("Click", (*) => Reload())
 
