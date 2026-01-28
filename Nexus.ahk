@@ -79,6 +79,15 @@ global JsonFilePath := A_ScriptDir . "\nexus.json"
 ConfigManager.Init()
 ProcessManager.InitMonitor()
 
+; --- HIGH DPI SETTINGS (Prevents Blurry Text) ---
+try {
+    ; Windows 8.1+ (Per-Monitor DPI Aware - The best setting)
+    DllCall("shcore\SetProcessDpiAwareness", "Int", 2)
+} catch {
+    ; Windows Vista/7 Fallback (System DPI Aware)
+    try DllCall("user32\SetProcessDPIAware")
+}
+
 ; ---- CHECKS ----
 if !FileExist(ConfigFilePath) {
     MsgBox("FATAL: nexus.ini not found at:`n" ConfigFilePath)
