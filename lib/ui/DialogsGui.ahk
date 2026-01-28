@@ -109,14 +109,14 @@ class DialogsGui {
     ; NOTIFICATIONS
     ; --------------------------------------------------------------------------
 
-    static CustomStatusPop(text, color := "05FBE4", duration := 2000) {
+    static CustomStatusPop(text, color := "05FBE4", duration := 2200) {
         if (this.PopGui)
             try this.PopGui.Destroy()
 
         this.PopGui := Gui("-Caption +AlwaysOnTop +ToolWindow +Border")
         this.PopGui.BackColor := "202020"
         this.PopGui.SetFont("s12 c" . color, "Segoe UI")
-        this.PopGui.Add("Text", "x20 y15 Center", text)
+        this.PopGui.Add("Text", "x15 y10 Center", text)
         this.PopGui.Show("NoActivate AutoSize Hide")
 
         this._CenterOnOwner(this.PopGui)

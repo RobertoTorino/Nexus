@@ -29,7 +29,7 @@ class PatchManagerGui {
         ; CREATE GUI (Matches LoggerGui Style: No +Owner)
         this.MainGui := Gui("-Caption +Border +ToolWindow +AlwaysOnTop", "Nexus :: Patch Manager")
 
-        ; REGISTER FOR SNAPPING (Done ONCE upon creation)
+        ; ---- Snap Gui ----
         WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
         this.MainGui.BackColor := "2A2A2A"

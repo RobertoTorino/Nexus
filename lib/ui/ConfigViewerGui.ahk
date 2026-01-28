@@ -73,6 +73,7 @@ class ConfigViewerGui {
         this.MainGui.OnEvent("Escape", (*) => this.Close())
 
         if IsSet(WindowManagerGui)
+            ; ---- Snap Gui ----
             WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
         ; ======================================================================
