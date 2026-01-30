@@ -28,6 +28,7 @@ class EmulatorConfigGui {
     { Name: "RPCS3_FIGHTER", Section: "RPCS3_FIGHTER_PATH", Key: "Rpcs3FighterPath" },
     { Name: "RPCS3_SHOOTER", Section: "RPCS3_SHOOTER_PATH", Key: "Rpcs3ShooterPath" },
     { Name: "RPCS3_TCRS", Section: "RPCS3_TCRS_PATH",       Key: "Rpcs3TcrsPath" },
+    { Name: "SHADPS4", Section: "SHADPS4_PATH",             Key: "ShadPs4Path" },
     { Name: "TEKNO", Section: "TEKNO_PATH",                 Key: "TeknoPath" },
     { Name: "VITA3K", Section: "VITA3K_PATH",               Key: "Vita3kPath" },
     { Name: "VITA3K_3830", Section: "VITA3K_3830_PATH",     Key: "Vita3k3830Path" },
