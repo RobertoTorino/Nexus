@@ -67,7 +67,7 @@ class MusicPlayer {
         this.UIControls := []
 
         ; ---- TITLE BAR ----
-        this.TitleText := this.MainGui.Add("Text", "x0 y0 w" (guiW - 120) " h30 +0x200 Background252523", "  Nexus :: Music Player")
+        this.TitleText := this.MainGui.Add("Text", "x0 y0 w" (guiW - 120) " h30 +0x200 Background252523", "  Nexus :: Music Player :: In fullscreen mode use F12 to switch between monitors")
         this.TitleText.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
         this.UIControls.Push(this.TitleText)
 
@@ -141,7 +141,7 @@ class MusicPlayer {
 
         this.LoadPlaylist()
         this.TimerObj := ObjBindMethod(this, "UpdateUI")
-        SetTimer(this.TimerObj, 500)
+        SetTimer(this.TimerObj, 100)
     }
 
     static Hide() {
@@ -431,6 +431,9 @@ class MusicPlayer {
             this.Player.URL := path
             this.Player.controls.play()
 
+            ; This prevents the next song from starting quietly if previous one was fading out
+            this.Player.settings.volume := this.SliderVol.Value
+
             this.BtnPlay.Text := "  Play  "
             this.BtnPlay.Opt("cLime")
 
@@ -474,25 +477,27 @@ class MusicPlayer {
         }
     }
 
-    static Next() {
+static Next() {
         if (this.Playlist.Length == 0)
             return
 
-        ; FIXED REPEAT LOGIC: The only way to guarantee a replay is to set the URL again.
+        ; If Repeating (Manual Click), just restart the song cleanly.
         if (this.IsRepeating) {
             if (this.CurrentIndex == 0)
                 this.CurrentIndex := 1
 
-            ; Re-read the path
-            path := this.TrackList.GetText(this.CurrentIndex, 8)
-
-            ; Explicitly set URL to trigger a full reload
-            this.Player.URL := path
-            this.Player.controls.play()
+            ; Seek to 0 is faster than reloading the URL
+            if (this.Player.playState == 3) {
+                this.Player.controls.currentPosition := 0
+            } else {
+                ; If stopped, we must reload
+                path := this.TrackList.GetText(this.CurrentIndex, 8)
+                this.PlayFile(path)
+            }
             return
         }
 
-        ; Normal Advance Logic
+        ; Normal Advance Logic (Next Song)
         count := this.TrackList.GetCount()
         this.CurrentIndex++
         if (this.CurrentIndex > count)
@@ -534,7 +539,7 @@ class MusicPlayer {
         }
     }
 
-    static UpdateUI() {
+static UpdateUI() {
         if (!this.MainGui || !IsObject(this.Player))
             return
 
@@ -544,8 +549,52 @@ class MusicPlayer {
         try {
             state := this.Player.playState
 
+            ; --- SEAMLESS CROSSFADE LOOP ---
+            if (this.IsRepeating && state == 3) { ; 3 = Playing
+                try {
+                    dur := this.Player.currentMedia.duration
+                    pos := this.Player.controls.currentPosition
+
+                    ; CONFIGURATION
+                    fadeStart    := 2.5   ; Start fading 2.5s before end
+                    rewindPoint  := 0.5   ; Cut off last 0.5s (Volume is 0 here anyway)
+                    userVol      := this.SliderVol.Value
+
+                    remaining := dur - pos
+
+                    ; 1. FADE ZONE
+                    if (dur > 0 && remaining < fadeStart && remaining > rewindPoint) {
+                        ; Map the remaining time to 0-100% volume
+                        ; As remaining gets closer to rewindPoint, progress goes 1 -> 0
+                        progress := (remaining - rewindPoint) / (fadeStart - rewindPoint)
+
+                        ; Apply volume
+                        newVol := Integer(userVol * progress)
+                        this.Player.settings.volume := newVol
+                    }
+
+                    ; 2. JUMP ZONE (Rewind before song ends)
+                    else if (dur > 0 && remaining <= rewindPoint) {
+                        this.Player.controls.currentPosition := 0
+                        this.Player.settings.volume := userVol ; Restore full volume immediately
+                        return
+                    }
+
+                    ; 3. NORMAL ZONE (Ensure volume is correct if we seeked back manually)
+                    else if (remaining >= fadeStart) {
+                        currentEngineVol := this.Player.settings.volume
+                        if (currentEngineVol != userVol)
+                             this.Player.settings.volume := userVol
+                    }
+                }
+            }
+            ; -------------------------------
+
             ; 8 = MediaEnded.
+            ; If we are repeating, we should have caught it above.
+            ; If we ended up here, the timer missed the window (lag), so we force a Next() call which handles restart.
             if (state == 8) {
+                this.Player.settings.volume := this.SliderVol.Value ; Ensure volume is back up
                 this.Next()
                 return
             }

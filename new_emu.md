@@ -89,7 +89,8 @@ this.AddPathRow(gui, "RetroArch:", "RETROARCH_PATH", "RetroArchPath")
 1. Reload the App.
 2. Go to Configure Emulators -> Set the path to your new emulator.
 3. Click Set Game Path -> Select a ROM file (e.g., Mario.sfc).
-4. Launch!
+4. Select Game Folder (Optional). 
+4. Check: Run Emulator!
 
 ### Summary Checklist
 [ ] Created [Name]Launcher.ahk in lib/emulator/types/.

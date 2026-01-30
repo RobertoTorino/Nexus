@@ -19,18 +19,20 @@ class EmulatorConfigGui {
 
     ; [UPDATED] Added 'RomExts' to define supported file types
     static Emulators := [
-    { Name: "RPCS3", Section: "RPCS3_PATH", Key: "Rpcs3Path" },
+    { Name: "DOLPHIN", Section: "DOLPHIN_PATH",             Key: "DolphinPath",         RomExts: ["gcm", "iso", "rvz", "wbfs"] },
+    { Name: "DUCKSTATION", Section: "DUCKSTATION_PATH",     Key: "DuckStationPath",     RomExts: ["bin", "chd", "cue", "iso"] },
+    { Name: "PCSX2", Section: "PCSX2_PATH",                 Key: "Pcsx2Path",           RomExts: ["bin", "chd", "gz", "iso"] },
+    { Name: "PPSSPP", Section: "PPSSPP_PATH",               Key: "PpssppPath",          RomExts: ["cso", "elf", "iso", "pbp"] },
+    { Name: "REDREAM", Section: "REDREAM_PATH",             Key: "RedreamPath" },
+    { Name: "RPCS3", Section: "RPCS3_PATH",                 Key: "Rpcs3Path" },
     { Name: "RPCS3_FIGHTER", Section: "RPCS3_FIGHTER_PATH", Key: "Rpcs3FighterPath" },
     { Name: "RPCS3_SHOOTER", Section: "RPCS3_SHOOTER_PATH", Key: "Rpcs3ShooterPath" },
-    { Name: "RPCS3_TCRS", Section: "RPCS3_TCRS_PATH", Key: "Rpcs3TcrsPath" },
-    { Name: "VITA3K", Section: "VITA3K_PATH", Key: "Vita3kPath" },
-    { Name: "VITA3K_3830", Section: "VITA3K_3830_PATH", Key: "Vita3k3830Path" },
-    { Name: "PPSSPP", Section: "PPSSPP_PATH", Key: "PpssppPath", RomExts: ["iso", "cso", "pbp", "elf"] },
-    { Name: "PCSX2", Section: "PCSX2_PATH", Key: "Pcsx2Path", RomExts: ["iso", "bin", "gz", "chd"] },
-    { Name: "DUCKSTATION", Section: "DUCKSTATION_PATH", Key: "DuckStationPath", RomExts: ["bin", "cue", "iso", "chd", "m3u"] },
-    { Name: "TEKNO", Section: "TEKNO_PATH", Key: "TeknoPath" },
-    { Name: "DOLPHIN", Section: "DOLPHIN_PATH", Key: "DolphinPath", RomExts: ["iso", "rvz", "wbfs", "gcm"] },
-    { Name: "VIVANONNO", Section: "VIVANONNO_PATH", Key: "VivaNonnoPath" }
+    { Name: "RPCS3_TCRS", Section: "RPCS3_TCRS_PATH",       Key: "Rpcs3TcrsPath" },
+    { Name: "TEKNO", Section: "TEKNO_PATH",                 Key: "TeknoPath" },
+    { Name: "VITA3K", Section: "VITA3K_PATH",               Key: "Vita3kPath" },
+    { Name: "VITA3K_3830", Section: "VITA3K_3830_PATH",     Key: "Vita3k3830Path" },
+    { Name: "VIVANONNO", Section: "VIVANONNO_PATH",         Key: "VivaNonnoPath" },
+    { Name: "YUZU", Section: "YUZU_PATH",                   Key: "YuzuPath" }
     ]
 
     static Show() {

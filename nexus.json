@@ -25,11 +25,11 @@
       "AddedDate":"2026-01-28 00:28:58",
       "ApplicationPath":"E:\\GAMECUBE GAMES\\Soulcalibur II (USA).rvz",
       "Id":"GAME_DOLPHIN_SOULCALIBUR_II_USA",
-      "LastPlayed":"2026-01-28 00:33:29",
+      "LastPlayed":"2026-01-28 17:54:31",
       "LauncherType":"DOLPHIN",
-      "PlayTimeReadable":"7.1m",
+      "PlayTimeReadable":"27.3m",
       "SavedName":"[GC/WII] Soulcalibur II (USA)",
-      "TotalPlayTime":428
+      "TotalPlayTime":1639
     },
     {
       "AddedDate":"2026-01-28 00:28:58",
@@ -1330,8 +1330,11 @@
       "AddedDate":"2026-01-28 00:28:41",
       "ApplicationPath":"E:\\PSX GAMES\\Soul Edge (Japan)\\Soul Edge (Japan).bin",
       "Id":"GAME_DUCKSTATION_SOUL_EDGE_JAPAN",
+      "LastPlayed":"2026-01-28 18:30:03",
       "LauncherType":"DUCKSTATION",
-      "SavedName":"[PS1] Soul Edge (Japan)"
+      "PlayTimeReadable":"1.3h",
+      "SavedName":"[PS1] Soul Edge (Japan)",
+      "TotalPlayTime":4758
     },
     {
       "AddedDate":"2026-01-28 00:28:41",

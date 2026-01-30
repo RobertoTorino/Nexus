@@ -9,7 +9,7 @@
 * Memory: nexus.json is parsed into a high-speed Map in RAM.
 * UI: GuiBuilder asks ConfigManager for the list and displays it instantly.
 * Launch: When you click Start, StartGame() gets the full game object from RAM (including IsPatchable: true).
-* Patch: If patchable, the PatchService handles the VER.206 files.
+* Patch: If patchable, the PatchService handles this.
 
 
 **In Windows:**                 
@@ -21,6 +21,9 @@
 If in-game display settings are available use borderless (preferred). See examples in the media folder.                     
 
 _Note: some games launch differently they have their own dedicated screen manager app._
+
+**Statistics**
+Number of games, play time, total played time and top3 played data are collected to be able to show them in the main UI. Basic system info is collected. Personal data is never collected. Data is only stored locally within the users app environment.
 
 ### Nexus Main Gui
 ![NEXUS-main-ui.png](media/nexus/NEXUS-main-ui.png)
@@ -66,7 +69,7 @@ Media:
 With the combination of positioning and resizing you can achieve a perfect full screen window.                                                  
 Check the settings folder for some of the (JConfig) screen settings that gave me the basis for a perfect screen.                                           
 Some games have phantom windows (sometimes more than one, good examples are Dead or Alive 5 and Tekken 7).
-"Manage All Windows" shows an overview which can be managed.  
+"Manage All Windows" shows an overview of windows which can be managed.  
 
 Other sizes available for test purposes, examples:                    
 
@@ -133,7 +136,7 @@ These styles can be combined to achieve modes like “borderless windowed” or 
 
 ## Capture audio
 
-We need some additional tools for this:                 
+I used some additional tools for this:                 
 * Voicemeeter Banana: [voicemeeter](https://vb-audio.com/Voicemeeter/potato.htm)
 * Vgmstream: [vgmstream](https://vgmstream.org/)
 * Ffmpeg: [ffmpeg](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z")
@@ -182,7 +185,7 @@ In Windows Go to Settings/System/Sound and set this:
 ```
 
 ## Overclock GPU
-For use in this app MSI Afterburner is used: [MSI Afterburner](https://www.msi.com/Landing/afterburner/graphics-cards)      
+For use in this app, MSI Afterburner is used: [MSI Afterburner](https://www.msi.com/Landing/afterburner/graphics-cards)      
 
 ## Game ID's
 
@@ -237,3 +240,64 @@ dev_hdd0\game\SCEEXE001
 **RobertoTorino**      
 
 ![qrcode_gh.png](media/qrcode-gh.png)
+
+ToDo
+These values represent the Virtual Desktop Coordinates of your screens. Windows treats all your monitors as one giant, continuous canvas.Here is the breakdown of your specific layout:Monitor 1 (Primary)L=0, T=0: This is the anchor point. Windows almost always defines the top-left corner of your Main Display as 0,0.W=1920, H=1080: This is a standard 1080p resolution screen.Monitor 2 (Secondary)L=-296: The left edge starts at X coordinate -296.T=-1440: The top edge starts at Y coordinate -1440.Meaning: This monitor is physically or logically positioned Above and slightly to the Left of your main monitor in Windows Display Settings.W=1707, H=960: This is an unusual resolution.Diagnosis: This is almost certainly a 1440p monitor (2560x1440) that has 150% Scaling enabled in Windows settings.Math: $2560 / 1.5 = 1706.66$ (rounded to 1707) and $1440 / 1.5 = 960$.Visualizing Your LayoutIn Windows, your screens are arranged roughly like this:Why this matters for your code:If you try to move a window to Monitor 2 using standard coordinates (like 0,0), it will land on Monitor 1. To move a window to Monitor 2, you must send it to x: -296, y: -1440.
+
+
+
+
+
+---
+
+The Layout: Vertical Stack
+Your monitors are now perfectly aligned effectively "on top" of each other.
+
+Monitor 1 (Bottom/Primary): Starts at 0, 0.
+
+Monitor 2 (Top): Starts at 0, -1080.
+
+Because its height is 1080, its bottom edge (-1080 + 1080 = 0) touches the top edge of Monitor 1 perfectly.
+
+Why this is better
+No Scaling Weirdness: Both monitors report exactly 1920 x 1080. This means either your Windows Scaling is set to 100%, or our DPI Awareness code from earlier is working perfectly. This ensures your GUI won't look blurry or sized incorrectly.
+
+Perfect Alignment: Both Left values are 0. This makes calculating window positions incredibly easy math-wise.
+These values represent the Virtual Desktop Coordinates of your screens. Windows treats all your monitors as one giant, continuous canvas.
+
+Here is the breakdown of your specific layout:
+
+Monitor 1 (Primary)
+L=0, T=0: This is the anchor point. Windows almost always defines the top-left corner of your Main Display as 0,0.
+
+W=1920, H=1080: This is a standard 1080p resolution screen.
+
+Monitor 2 (Secondary)
+L=-296: The left edge starts at X coordinate -296.
+
+T=-1440: The top edge starts at Y coordinate -1440.
+
+Meaning: This monitor is physically or logically positioned Above and slightly to the Left of your main monitor in Windows Display Settings.
+
+W=1707, H=960: This is an unusual resolution.
+
+Diagnosis: This is almost certainly a 1440p monitor (2560x1440) that has 150% Scaling enabled in Windows settings.
+
+Math: 2560/1.5=1706.66 (rounded to 1707) and 1440/1.5=960.
+
+Visualizing Your Layout
+In Windows, your screens are arranged roughly like this:
+
+Why this matters for your code: If you try to move a window to Monitor 2 using standard coordinates (like 0,0), it will land on Monitor 1. To move a window to Monitor 2, you must send it to x: -296, y: -1440.
+How to target Monitor 2 now
+If you want to send a window (like a game or the emulator config) to the top monitor, you simply move it to negative Y coordinates.
+
+Move to Monitor 1: x: 0, y: 0
+
+Move to Monitor 2: x: 0, y: -1080
+
+If you ever need to "hardcode" a position for the top screen in your scripts, use:
+
+AutoHotkey
+; Example: Move active window to Top Monitor
+WinMove(0, -1080, 1920, 1080, "A")

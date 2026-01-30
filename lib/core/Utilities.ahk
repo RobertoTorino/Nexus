@@ -194,4 +194,72 @@ class Utilities {
 
         return finalId
     }
-}
+
+    ; --- MONITOR & GEOMETRY HELPERS ---
+
+        static GetMonitorCount() {
+            return MonitorGetCount()
+        }
+
+        static GetMonitorGeometry(index) {
+            if (index > MonitorGetCount())
+                return false
+
+            try {
+                MonitorGet(index, &L, &T, &R, &B)
+                width := R - L
+                height := B - T
+
+                ; Safety check
+                if (width <= 0 || height <= 0)
+                    return false
+
+                return {Left: L, Top: T, Right: R, Bottom: B, Width: width, Height: height}
+            } catch {
+                return false
+            }
+        }
+
+        static GetMonitorIndexFromPoint(x, y) {
+            count := MonitorGetCount()
+            Loop count {
+                try {
+                    MonitorGet(A_Index, &L, &T, &R, &B)
+                    if (x >= L && x < R && y >= T && y < B)
+                        return A_Index
+                }
+            }
+            return 1 ; Default to Primary
+        }
+
+        ; --- LOGGING ROUTINE ---
+        ; Call this method from Nexus.ahk at startup
+        static LogMonitorStats() {
+            if !IsSet(Logger)
+                return
+
+            count := this.GetMonitorCount()
+            Logger.Debug("--------------------------------------------------")
+            Logger.Debug("SYSTEM MONITOR INFO")
+            Logger.Debug("Monitor Count: " . count)
+
+            Loop count {
+                m := this.GetMonitorGeometry(A_Index)
+                if (m) {
+                    msg := "Monitor " . A_Index . ": "
+                         . "L=" . m.Left . " T=" . m.Top . " "
+                         . "W=" . m.Width . " H=" . m.Height
+                    Logger.Debug(msg)
+                } else {
+                    Logger.Warn("Monitor " . A_Index . " geometry could not be read.")
+                }
+            }
+
+            ; Specific check for Monitor 2 (as per your legacy code)
+            if (count < 2) {
+                Logger.Info("Monitor 2 not available (Single Monitor Setup).")
+            }
+
+            Logger.Debug("--------------------------------------------------")
+        }
+    }

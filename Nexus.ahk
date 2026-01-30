@@ -79,6 +79,8 @@ global JsonFilePath := A_ScriptDir . "\nexus.json"
 ConfigManager.Init()
 ProcessManager.InitMonitor()
 
+Utilities.LogMonitorStats()
+
 ; --- HIGH DPI SETTINGS (Prevents Blurry Text) ---
 try {
     ; Windows 8.1+ (Per-Monitor DPI Aware - The best setting)

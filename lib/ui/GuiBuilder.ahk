@@ -166,7 +166,7 @@ class GuiBuilder {
         this.AddNavBtn(this.Label("🔲", "Window Manager"), (btn, *) => (this.FlashButton(btn), WindowManagerGui.Show()), "x+10 Background333333")
 
         NextX := this.UseIcons ? "x+10" : "x5"
-        NextY := this.UseIcons ? "yp"   : "y+10"
+        NextY := this.UseIcons ? "yp" : "y+10"
         this.AddNavBtn(this.Label("👁️", "Focus"), (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), NextX " " NextY " Background333333")
         this.AddNavBtn(this.Label("🎵", "Music"), (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+10 Background333333")
         this.AddNavBtn(this.Label("🎬", "Video"), (btn, *) => (this.FlashButton(btn), VideoPlayer.Show()), "x+10 Background333333")
@@ -202,7 +202,7 @@ class GuiBuilder {
 
         this.MainGui.SetFont("s12", "Segoe UI")
         NextX := this.UseIcons ? "x+10" : "x5"
-        NextY := this.UseIcons ? "yp"   : "y+10"
+        NextY := this.UseIcons ? "yp" : "y+10"
         cBtn := " Background333333"
         this.BtnCpu := []
 
@@ -281,7 +281,47 @@ class GuiBuilder {
         DialogsGui.CustomStatusPop("GUI Load Time: " . loadTime . "ms")
     }
 
-    ; --- [METHOD RESTORED] ToggleAdvanced ---
+    ; --- HANDLERS ---
+    static OnClearPath(btnCtrl := "") {
+        if (btnCtrl)
+            this.FlashButton(btnCtrl)
+        if (ConfigManager.CurrentGameId == "") {
+            DialogsGui.CustomStatusPop("No game selected")
+            return
+        }
+        if (DialogsGui.CustomMsgBox("Clear Path", "Remove the executable path for this game?", 300) != "Yes")
+            return
+        ConfigManager.UpdateGamePath(ConfigManager.CurrentGameId, "")
+        this.RefreshDropdown()
+        DialogsGui.CustomStatusPop("Path cleared")
+    }
+
+    static OnRefreshPath(btnCtrl := "") {
+        if (btnCtrl)
+            this.FlashButton(btnCtrl)
+        id := ConfigManager.CurrentGameId
+        if (id == "") {
+            DialogsGui.CustomStatusPop("No game selected")
+            return
+        }
+        if (!ConfigManager.Games.Has(id)) {
+            DialogsGui.CustomStatusPop("Error: Game ID not found")
+            ConfigManager.CurrentGameId := ""
+            this.RefreshDropdown()
+            return
+        }
+        gameObj := ConfigManager.Games[id]
+        current := (Type(gameObj) == "Map") ? gameObj["ApplicationPath"] : gameObj.ApplicationPath
+        newPath := FileSelect(3, current, "Select New Executable")
+
+        if (newPath != "") {
+            ConfigManager.UpdateGamePath(id, newPath)
+            if (this.StatusText)
+                this.StatusText.Text := "Updated path: " . newPath
+            DialogsGui.CustomStatusPop("Path updated")
+        }
+    }
+
     static ToggleAdvanced(show) {
         if (show) {
             this.BannerControl.Visible := false
@@ -565,7 +605,7 @@ class GuiBuilder {
         GetProp := (key) => (Type(game) == "Map" ? (game.Has(key) ? game[key] : "") : (game.HasOwnProp(key) ? game.%key% : ""))
 
         launcher := GetProp("LauncherType")
-        appPath  := GetProp("ApplicationPath")
+        appPath := GetProp("ApplicationPath")
         if (appPath == "")
             appPath := GetProp("EbootIsoPath")
 
@@ -637,15 +677,15 @@ class GuiBuilder {
     static OnKillGame(resetUI := true) {
         targetExe := ConfigManager.ActiveProcessName
         if (targetExe != "") {
-             if IsSet(Logger)
+            if IsSet(Logger)
                 Logger.Info("Terminating: " . targetExe)
-             if ProcessExist(targetExe) {
+            if ProcessExist(targetExe) {
                 ProcessClose(targetExe)
                 DialogsGui.CustomStatusPop("Terminated: " . targetExe)
-             }
-             WindowManager.ForceKillAll()
+            }
+            WindowManager.ForceKillAll()
         } else {
-             WindowManager.ForceKillAll()
+            WindowManager.ForceKillAll()
         }
         if (resetUI) {
             this.ClearGameGroup()
@@ -887,24 +927,24 @@ class GuiBuilder {
         helpText := "
         (
     1. ADDING GAME PATHS:
-       - Click 'Set Launch Path' to add the main game excutable.
-       - For TeknoParrot select a game profile in "Profiles".
+       - Click Set Launch Path to add the main game excutable.
+       - For TeknoParrot select a game profile in Profiles.
 
     2. EMULATORS:
-       - Click 'Emulator Profiles' to set the paths.
+       - Click Emulator to set the paths.
 
     3. RUNNING GAMES:
        - Selecting an .ISO/'EBOOT.BIN will ask you which emulator to use.
-       - Or select a game from the list and click 'Start Game'.
+       - Or select a game from the list and click ▶️
 
     4. WHEN THE GAME IS ACTIVE:
-       - Use 'Window Manager' to identify, resize and position the window.
-       - Use 'CPU' buttons to fix lag/stutter.
-       - 'Burst' takes rapid screenshots (max. 99).
+       - Use Window Manager to identify, resize and position the window.
+       - Use CPU buttons to fix lag/stutter.
+       - Burst takes rapid screenshots (max. 99).
 
     5. RECORDING:
        - Record only the audio or record a video including sound.
-       - Recordings are saved in 'Captures' or 'Recordings' folder.
+       - Recordings are saved in Captures or Recordings folder.
 
     6. TOOLS:
        - Game Notes: Create/Edit specific notes for each game.
@@ -919,17 +959,19 @@ class GuiBuilder {
 
     8. QUICK LAUNCH
        - Right click on the tray icon for quick launch.
+       - Double click on the title bar to switch to text mode.
+       - To change language, click the language icon. 
 
     9. MAGNETIC WINDOWS
-       - hOLD "Control" on the Main UI to detach it.
+       - hOLD Control on the Main UI to detach it.
 
     T. TROUBLESHOOTING:
        - If a game does not respond, use Exit Game (X).
-       - To reboot a game use 'Restart Game'.
-       - Use 'View Logs' to look for errors.
+       - To reboot a game use Restart Game.
+       - Use View Logs to look for errors.
        - The statusbar shows the RAM usage.
-       - Audio related, check 'Audio Manager'.
+       - Audio related, check Audio Manager.
     )"
-        DialogsGui.ShowTextViewer(" GML :: Quick Start", helpText, 450, 810)
+        DialogsGui.ShowTextViewer("NEXUS :: Quick Start", helpText, 550, 820)
     }
 }
