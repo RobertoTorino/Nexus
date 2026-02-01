@@ -1,6 +1,20 @@
 ﻿{
   "GAMES":[
     {
+      "ApplicationPath":"D:/PC_GAMES/DEAD TO RIGHTS/DTRPC_WS.EXE",
+      "CaptureDir":"captures/GAME_DETROIT_BECOME_HUMAN_PC_WS",
+      "EbootIsoPath":"D:/PC_GAMES/DEAD TO RIGHTS/DTRPC_WS.EXE",
+      "GameApplication":"DTRPC_WS.EXE",
+      "Id":"GAME_DETROIT_BECOME_HUMAN_PC_WS",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-30 20:10:13",
+      "LauncherType":"STANDARD",
+      "PlayTimeReadable":"54s",
+      "SavedName":"DETROIT_BECOME_HUMAN_PC_WS",
+      "SnapshotDir":"snapshots/GAME_DETROIT_BECOME_HUMAN_PC_WS",
+      "TotalPlayTime":54
+    },
+    {
       "AddedDate":"2026-01-28 00:28:58",
       "ApplicationPath":"E:\\GAMECUBE GAMES\\Capcom vs. SNK 2 EO - Millionaire Fighting 2001 (Europe).rvz",
       "Id":"GAME_DOLPHIN_CAPCOM_VS_SNK_2_EO_MILLIONAIRE_FIGHTING_2001_EUROPE",
@@ -25,11 +39,11 @@
       "AddedDate":"2026-01-28 00:28:58",
       "ApplicationPath":"E:\\GAMECUBE GAMES\\Soulcalibur II (USA).rvz",
       "Id":"GAME_DOLPHIN_SOULCALIBUR_II_USA",
-      "LastPlayed":"2026-01-28 17:54:31",
+      "LastPlayed":"2026-02-01 21:00:21",
       "LauncherType":"DOLPHIN",
-      "PlayTimeReadable":"27.3m",
+      "PlayTimeReadable":"32.9m",
       "SavedName":"[GC/WII] Soulcalibur II (USA)",
-      "TotalPlayTime":1639
+      "TotalPlayTime":1975
     },
     {
       "AddedDate":"2026-01-28 00:28:58",
@@ -1330,11 +1344,11 @@
       "AddedDate":"2026-01-28 00:28:41",
       "ApplicationPath":"E:\\PSX GAMES\\Soul Edge (Japan)\\Soul Edge (Japan).bin",
       "Id":"GAME_DUCKSTATION_SOUL_EDGE_JAPAN",
-      "LastPlayed":"2026-01-28 18:30:03",
+      "LastPlayed":"2026-01-30 18:13:19",
       "LauncherType":"DUCKSTATION",
       "PlayTimeReadable":"1.3h",
       "SavedName":"[PS1] Soul Edge (Japan)",
-      "TotalPlayTime":4758
+      "TotalPlayTime":4767
     },
     {
       "AddedDate":"2026-01-28 00:28:41",
@@ -1881,6 +1895,20 @@
       "Id":"GAME_DUCKSTATION_UNKNOWN_VARIABLE_2_RAVENS_RIDGE_USA",
       "LauncherType":"DUCKSTATION",
       "SavedName":"[PS1] Unknown Variable 2 - Raven's Ridge (USA)"
+    },
+    {
+      "ApplicationPath":"D:/PC_GAMES/Manhunt 2/Manhunt2.exe",
+      "CaptureDir":"captures/GAME_MANHUNT2",
+      "EbootIsoPath":"D:/PC_GAMES/Manhunt 2/Manhunt2.exe",
+      "GameApplication":"Manhunt2.exe",
+      "Id":"GAME_MANHUNT2",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-30 20:45:48",
+      "LauncherType":"STANDARD",
+      "PlayTimeReadable":"2.4m",
+      "SavedName":"MANHUNT2",
+      "SnapshotDir":"snapshots/GAME_MANHUNT2",
+      "TotalPlayTime":146
     },
     {
       "AddedDate":"2026-01-28 00:28:52",
@@ -3501,9 +3529,12 @@
       "GameApplication":"SILENT HILL f Bonus Content.bat",
       "Id":"GAME_SILENT_HILL_F_BONUS_CONTENT",
       "IsPatchable":"false",
+      "LastPlayed":"2026-01-30 18:13:38",
       "LauncherType":"STANDARD",
+      "PlayTimeReadable":"21s",
       "SavedName":"SILENT_HILL_F_BONUS_CONTENT",
-      "SnapshotDir":"snapshots/GAME_SILENT_HILL_F_BONUS_CONTENT"
+      "SnapshotDir":"snapshots/GAME_SILENT_HILL_F_BONUS_CONTENT",
+      "TotalPlayTime":21
     },
     {
       "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES TRANSLATED/[PSP] Sol Trigger [J] [TRAD-E] [ULJM-06093] [v0.9]/Sol Trigger (Japan) [T-En by GareJei & JamRules v0.9] [i].iso",

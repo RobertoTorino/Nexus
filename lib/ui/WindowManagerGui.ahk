@@ -82,12 +82,12 @@ class WindowManagerGui {
         this.BtnAddTheme("  Restore  ", (*) => this.Action("Default"), "x5 y+10 Background333333")
         this.BtnAddTheme("  Fit Screen  ", (*) => this.Action("FitScreen"), "x+10 Background333333")
 
+        this.BtnAddTheme("  Apply H-Overscan  ", (*) => WindowManager.ApplyHorizontalOverscan(this.OverscanVal), "x+10 Background006666")
         this.WinGui.SetFont("Bold s11 cBlack")
         this.EditOverscan := this.WinGui.Add("Edit", "x+10 h26 w35 Number Center", "0")
         this.EditOverscan.OnEvent("Change", (ctrl, *) => this.OverscanVal := ctrl.Value)
         this.WinGui.SetFont("Norm s12 cSilver")
-
-        this.BtnAddTheme("  Apply Horizontal Overscan  ", (*) => WindowManager.ApplyHorizontalOverscan(this.OverscanVal), "x+8 Background006666")
+        this.BtnAddTheme("  Apply V-Overscan  ", (*) => WindowManager.ApplyVerticalOverscan(this.OverscanVal), "x+10 Background006666")
 
         ; POSITION & MONITOR
         this.BtnAddTheme("Up", (*) => WindowManager.Nudge(0, -this.NudgeStep, 0, 0), "x6 y+10 w35 Background333333")

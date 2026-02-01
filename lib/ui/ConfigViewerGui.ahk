@@ -29,7 +29,7 @@ class ConfigViewerGui {
 
     ; Config
     static BorderThick := 1
-    static RightBorderWidth := 15
+    static RightBorderWidth := -17
     static BorderColor := "008000"
 
     ; Color Constants
@@ -60,25 +60,24 @@ class ConfigViewerGui {
     }
 
     static BuildGui(title) {
-        guiW := 900
+        guiW := 1400
         guiH := 650
         this.IsEditing := false
 
         this.MainGui := Gui("-Caption +ToolWindow +AlwaysOnTop", title)
         this.MainGui.BackColor := "1E1E1E"
-        this.MainGui.SetFont("s10 cWhite", "Segoe UI")
+        this.MainGui.SetFont("s12 cWhite", "Segoe UI")
         this.MainGui.Add("Button", "x-100 y-100 w0 h0 Default", "") ; Focus Trap
+
+        ; ---- Snap Gui ----
+        WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
         this.MainGui.OnEvent("Close", (*) => this.Close())
         this.MainGui.OnEvent("Escape", (*) => this.Close())
 
         if IsSet(WindowManagerGui)
-            ; ---- Snap Gui ----
-            WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
-        ; ======================================================================
         ; 1. BORDERS (4 Thin Lines - 1px)
-        ; ======================================================================
         t := this.BorderThick
         c := this.BorderColor
 
@@ -90,15 +89,13 @@ class ConfigViewerGui {
         this.BorderLeft := this.MainGui.Add("Text", "x0 y0 w" t " h" guiH " Background" c, "")
         this.BorderRight := this.MainGui.Add("Text", "x" (guiW - t) " y0 w" t " h" guiH " Background" c, "")
 
-        ; ======================================================================
         ; 2. HEADER & TOOLBAR
-        ; ======================================================================
         headerW := guiW - 100
         HeaderBg := this.MainGui.Add("Text", "x" t " y" t " w" headerW " h32 Background1E1E1E", "")
         HeaderBg.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
 
-        this.MainGui.SetFont("s10 Bold cSilver")
-        this.TitleText := this.MainGui.Add("Text", "x15 y" t " w500 h32 +0x200 BackgroundTrans cSilver", title)
+        this.MainGui.SetFont("s12 Bold cSilver")
+        this.TitleText := this.MainGui.Add("Text", "x10 y" t " w500 h32 +0x200 BackgroundTrans cSilver", title)
         this.TitleText.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
 
         ; Window Buttons
@@ -109,27 +106,25 @@ class ConfigViewerGui {
 
         this.MainGui.SetFont("s12 cRed")
         xClose := guiW - 40 - t
-        this.BtnClose := this.MainGui.Add("Text", "x" xClose " y" t " w40 h32 +0x200 Center Background1E1E1E", "✕")
+        this.BtnClose := this.MainGui.Add("Text", "x" xClose " y" t " w40 h35 +0x200 Center Background1E1E1E", "✕")
         this.BtnClose.OnEvent("Click", (*) => this.Close())
 
         ; Toolbar
-        this.MainGui.SetFont("s10 Norm cWhite")
+        this.MainGui.SetFont("s12 Norm cWhite")
         toolY := 35 + t
 
-        this.MainGui.Add("Text", "x10 y" toolY " h26 +0x200 Center Border", "  ♻️  ")
+        this.MainGui.Add("Text", "x10 y" toolY " h35 +0x200 Center Border", "  ♻️  ")
             .OnEvent("Click", (*) => this.RefreshContent())
-        this.MainGui.Add("Text", "x+5 yp h26 +0x200 Center Border", "  📋  ")
+        this.MainGui.Add("Text", "x+5 yp h35 +0x200 Center Border", "  📋  ")
             .OnEvent("Click", (*) => this.CopyToClipboard())
 
-        this.BtnEdit := this.MainGui.Add("Text", "x+5 yp h26 +0x200 Center Border Background0x333333", "  🔒 Unlock  ")
+        this.BtnEdit := this.MainGui.Add("Text", "x+5 yp h35 +0x200 Center Border Background0x333333", "  🔒 Unlock  ")
         this.BtnEdit.OnEvent("Click", (*) => this.ToggleEditMode())
 
-        this.BtnSave := this.MainGui.Add("Text", "x+5 yp h26 +0x200 Center Border Background0x990000 cWhite Hidden", "  💾 SAVE  ")
+        this.BtnSave := this.MainGui.Add("Text", "x+5 yp h35 +0x200 Center Border Background0x990000 cWhite Hidden", "  💾 SAVE  ")
         this.BtnSave.OnEvent("Click", (*) => this.SaveChanges())
 
-        ; ======================================================================
         ; 3. EDIT AREA (Black Background + Padded Control)
-        ; ======================================================================
         outerY := 75
         outerH := guiH - 75 - t ; Height remaining minus bottom border
 
@@ -146,7 +141,7 @@ class ConfigViewerGui {
         innerW := guiW - t * 2 - padX - this.RightBorderWidth
         innerH := outerH - padY * 2 ; Pad top and bottom
 
-        this.MainGui.SetFont("s10", "Consolas")
+        this.MainGui.SetFont("s12", "Consolas")
         textColor := (this.CurrentMode == "INI") ? "c" this.ColorIni : "c" this.ColorJson
 
         this.EditCtrl := this.MainGui.Add("Edit", "x" innerX " y" innerY " w" innerW " h" innerH " +Multi +ReadOnly +VScroll -HScroll -Border -E0x200 Background101010 " . textColor)

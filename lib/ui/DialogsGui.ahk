@@ -15,9 +15,7 @@ class DialogsGui {
 
     static PopGui := ""
 
-    ; --------------------------------------------------------------------------
     ; MAIN DIALOGS
-    ; --------------------------------------------------------------------------
 
     static CustomMsgBox(title, message, timeout := 0, options := 0) {
         Result := "Cancel"
@@ -105,9 +103,7 @@ class DialogsGui {
         this._ShowCentered(myGui, w, h)
     }
 
-    ; --------------------------------------------------------------------------
     ; NOTIFICATIONS
-    ; --------------------------------------------------------------------------
 
     static CustomStatusPop(text, color := "05FBE4", duration := 2200) {
         if (this.PopGui)
@@ -143,9 +139,7 @@ class DialogsGui {
         return (result == "Yes")
     }
 
-    ; --------------------------------------------------------------------------
     ; INTERNAL HELPERS
-    ; --------------------------------------------------------------------------
 
     static _CreateModernGui(title, w) {
         ownerOpt := (IsSet(GuiBuilder) && GuiBuilder.MainGui) ? " +Owner" . GuiBuilder.MainGui.Hwnd : ""

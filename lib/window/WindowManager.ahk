@@ -585,6 +585,63 @@ class WindowManager {
             Logger.Error("WinMgr: Overscan Failed")
         }
     }
+
+    static ApplyVerticalOverscan(extraPixels) {
+        hwnd := this.GetValidHwnd()
+        if !hwnd
+            return
+
+        monIdx := MonitorHelper.GetMonitorIndexFromWindow(hwnd)
+        mon := MonitorHelper.GetMonitorGeometry(monIdx)
+        if (!mon)
+            return
+
+        ; Keep current width, but expand height
+        WinGetPos(,, &w,, "ahk_id " hwnd)
+
+        newW := w
+        newH := mon.Height + extraPixels
+        newX := mon.Left + (mon.Width - w) // 2 ; Keep centered horizontally
+        newY := mon.Top - (extraPixels // 2)    ; Offset Y upward by half the overscan
+
+        try {
+            WinSetStyle("-0xC00000", "ahk_id " hwnd)
+            WinSetStyle("-0x800000", "ahk_id " hwnd)
+            WinMove(newX, newY, newW, newH, "ahk_id " hwnd)
+            WinSetAlwaysOnTop(1, "ahk_id " hwnd)
+            WinSetAlwaysOnTop(0, "ahk_id " hwnd)
+            this.SaveState(hwnd)
+            Logger.Info("WinMgr: Applied V-Overscan: " extraPixels "px")
+            if IsSet(DialogsGui)
+                DialogsGui.CustomStatusPop("V-Overscan: +" . extraPixels . "px")
+        } catch {
+            Logger.Error("WinMgr: Vertical Overscan Failed")
+        }
+    }
+
+    ; Private helper to handle the actual movement and JSON persistence
+    static _ExecuteOverscan(hwnd, x, y, w, h, type, val) {
+        try {
+            WinSetStyle("-0xC00000", "ahk_id " hwnd)
+            WinSetStyle("-0x800000", "ahk_id " hwnd)
+            WinMove(x, y, w, h, "ahk_id " hwnd)
+            WinSetAlwaysOnTop(1, "ahk_id " hwnd)
+            WinSetAlwaysOnTop(0, "ahk_id " hwnd)
+
+            this.SaveState(hwnd)
+
+            ; PERSISTENCE: Update the JSON profile via ConfigManager
+            if (this.ActiveGameId != "") {
+                ConfigManager.UpdateGameWindowProfile(this.ActiveGameId, x, y, w, h)
+                Logger.Info("WinMgr: Applied " type "-Overscan (" val "px) and saved to profile.")
+            }
+
+            if IsSet(DialogsGui)
+                DialogsGui.CustomStatusPop(type "-Overscan: +" . val . "px (Saved)")
+        } catch as err {
+            Logger.Error("WinMgr: Overscan Failed: " err.Message)
+        }
+    }
 }
 
 class WindowStabilizer {

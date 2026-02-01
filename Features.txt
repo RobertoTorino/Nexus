@@ -82,3 +82,8 @@ WindowConfigs["SizeFakeFullTool2560"]        := {Width:2560, Height:1440, Mode:"
 WindowConfigs["SizeFakeFullNoAct2560"]       := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, NoActivate:true}
 WindowConfigs["SizeFakeFullAll2560"]         := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, Layered:true, ToolWindow:true, NoActivate:true}
 
+--------------------------------
+
+Test
+Bat, game is already in the list, but still have to select it first to play
+.EXE Select but no confirmation after name is filled in DETROIT_BECOME_HUMAN
