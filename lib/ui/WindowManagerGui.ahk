@@ -382,36 +382,56 @@ class WindowManagerGui {
         }
     }
 
-    static OnMainMove(wParam, lParam, msg, hwnd) {
-        if !IsSet(GuiBuilder) || hwnd != GuiBuilder.MainGui.Hwnd
+static OnMainMove(wParam, lParam, msg, hwnd) {
+        ; 1. Safety check: Is the GuiBuilder even initialized?
+        if !IsSet(GuiBuilder) || !HasProp(GuiBuilder, "MainGui")
             return
 
-        GuiBuilder.MainGui.GetPos(&nX, &nY)
-
-        if !WindowManagerGui.HasProp("LastMainPos") || !IsObject(WindowManagerGui.LastMainPos) {
-            WindowManagerGui.LastMainPos := { x: nX, y: nY }
-            return
-        }
-
-        dX := nX - WindowManagerGui.LastMainPos.x
-        dY := nY - WindowManagerGui.LastMainPos.y
-
-        if (dX == 0 && dY == 0)
+        ; 2. Safety check: Is MainGui an object and does it have a valid Hwnd?
+        if !IsObject(GuiBuilder.MainGui) || !HasProp(GuiBuilder.MainGui, "Hwnd")
             return
 
-        if GetKeyState("Ctrl", "P") {
-            WindowManagerGui.LastMainPos := { x: nX, y: nY }
+        ; 3. Ignore messages that aren't for the MainGui
+        if (hwnd != GuiBuilder.MainGui.Hwnd)
             return
-        }
 
-        if WindowManagerGui.HasProp("RegisteredGuis") {
-            for cHwnd, _ in WindowManagerGui.RegisteredGuis {
-                if WinExist("ahk_id " cHwnd) {
-                    WinGetPos(&cX, &cY, , , "ahk_id " cHwnd)
-                    WinMove(cX + dX, cY + dY, , , "ahk_id " cHwnd)
+        try {
+            ; Get current position safely
+            GuiBuilder.MainGui.GetPos(&nX, &nY)
+
+            ; Initialize LastMainPos if it's missing to avoid "Unassigned Variable" errors
+            if !WindowManagerGui.HasProp("LastMainPos") || !IsObject(WindowManagerGui.LastMainPos) {
+                WindowManagerGui.LastMainPos := { x: nX, y: nY }
+                return
+            }
+
+            dX := nX - WindowManagerGui.LastMainPos.x
+            dY := nY - WindowManagerGui.LastMainPos.y
+
+            ; If no movement, exit
+            if (dX == 0 && dY == 0)
+                return
+
+            ; Hold Ctrl to move Main UI without moving attached windows
+            if GetKeyState("Ctrl", "P") {
+                WindowManagerGui.LastMainPos := { x: nX, y: nY }
+                return
+            }
+
+            ; Move registered child GUIs (like the Window Manager itself)
+            if WindowManagerGui.HasProp("RegisteredGuis") {
+                for cHwnd, _ in WindowManagerGui.RegisteredGuis {
+                    if WinExist("ahk_id " cHwnd) {
+                        try {
+                            WinGetPos(&cX, &cY, , , "ahk_id " cHwnd)
+                            WinMove(cX + dX, cY + dY, , , "ahk_id " cHwnd)
+                        }
+                    }
                 }
             }
+
+            ; Update reference point for next move
+            WindowManagerGui.LastMainPos := { x: nX, y: nY }
         }
-        WindowManagerGui.LastMainPos := { x: nX, y: nY }
     }
-}
+    }
