@@ -8,6 +8,9 @@
 ; * @version 1.0.00
 ; ==============================================================================
 
+; --- DEPENDENCY IMPORTS ---
+; None
+
 class MusicPlayer {
     static MainGui := ""
     static Player := ""

@@ -24,7 +24,10 @@ class ConfigManager {
     ; INITIALIZATION & LOADING
     static Init() {
         Logger.Info("Initializing ConfigManager...", "ConfigManager")
+        this.BackupConfig()
+
         this.LoadSettings()
+
         success := this.LoadGamesFromJson()
 
         if (success) {
@@ -250,7 +253,8 @@ class ConfigManager {
         return false
     }
 
-    static RegisterGame(gameId, dataObj) {
+
+static RegisterGame(gameId, dataObj, saveToDisk := true) {
         try {
             this.ValidateGameData(dataObj)
         } catch as err {
@@ -259,17 +263,19 @@ class ConfigManager {
             return false
         }
 
-        Logger.Info("ConfigMgr: Attempting to save data for " . gameId, "ConfigManager")
         this.Games[gameId] := dataObj
 
-        if (this.SaveGames()) {
-            Logger.Info("ConfigMgr: JSON Write Successful.", "ConfigManager")
-            return true
-        } else {
-            Logger.Error("ConfigMgr: JSON Write FAILED!", "ConfigManager")
-            return false
+        if (saveToDisk) {
+            return this.SaveGames()
         }
+        return true
     }
+
+    ; Helper for when you are done with a bulk scan
+    static CommitToDisk() {
+        return this.SaveGames()
+    }
+
 
     ; Legacy alias for compatibility
     static AddOrUpdateGame(name, path, launcherType) {
@@ -427,9 +433,7 @@ class ConfigManager {
         return nameArray
     }
 
-    ; ==========================================================================
-    ; DASHBOARD UI HELPERS (Restored)
-    ; ==========================================================================
+    ; DASHBOARD UI HELPERS
 
     static GetTotalLibraryTime() {
         totalSeconds := 0
@@ -545,4 +549,16 @@ class ConfigManager {
 
         return this.SaveGames()
     }
+
+    static BackupConfig() {
+            try {
+                if FileExist(this.JsonPath)
+                    FileCopy(this.JsonPath, StrReplace(this.JsonPath, ".json", ".bak.json"), true)
+
+                if FileExist(this.IniPath)
+                    FileCopy(this.IniPath, StrReplace(this.IniPath, ".ini", ".bak.ini"), true)
+
+                Logger.Info("ConfigMgr: Safety backups created.", "ConfigManager")
+            }
+        }
 }

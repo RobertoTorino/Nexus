@@ -1,0 +1,3613 @@
+﻿{
+  "GAMES":[
+    {
+      "ApplicationPath":"D:/PC_GAMES/DEAD TO RIGHTS/DTRPC_WS.EXE",
+      "CaptureDir":"captures/GAME_DETROIT_BECOME_HUMAN_PC_WS",
+      "EbootIsoPath":"D:/PC_GAMES/DEAD TO RIGHTS/DTRPC_WS.EXE",
+      "GameApplication":"DTRPC_WS.EXE",
+      "Id":"GAME_DETROIT_BECOME_HUMAN_PC_WS",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-30 20:10:13",
+      "LauncherType":"STANDARD",
+      "PlayTimeReadable":"54s",
+      "SavedName":"DETROIT_BECOME_HUMAN_PC_WS",
+      "SnapshotDir":"snapshots/GAME_DETROIT_BECOME_HUMAN_PC_WS",
+      "TotalPlayTime":54
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:58",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Capcom vs. SNK 2 EO - Millionaire Fighting 2001 (Europe).rvz",
+      "Id":"GAME_DOLPHIN_CAPCOM_VS_SNK_2_EO_MILLIONAIRE_FIGHTING_2001_EUROPE",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Capcom vs. SNK 2 EO - Millionaire Fighting 2001 (Europe)"
+    },
+    {
+      "AddedDate":"2026-02-02 16:33:44",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Crash Nitro Kart (USA).rvz",
+      "Id":"GAME_DOLPHIN_CRASH_NITRO_KART_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Crash Nitro Kart (USA)"
+    },
+    {
+      "AddedDate":"2026-02-02 16:33:44",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Def Jam - Fight for NY (USA).rvz",
+      "Id":"GAME_DOLPHIN_DEF_JAM_FIGHT_FOR_NY_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Def Jam - Fight for NY (USA)"
+    },
+    {
+      "AddedDate":"2026-02-02 16:33:44",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Die Hard - Vendetta (USA).rvz",
+      "Id":"GAME_DOLPHIN_DIE_HARD_VENDETTA_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Die Hard - Vendetta (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:58",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Mario Kart - Double Dash!! (USA).rvz",
+      "Id":"GAME_DOLPHIN_MARIO_KART_DOUBLE_DASH_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Mario Kart - Double Dash!! (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:58",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\R-Racing Evolution (USA).rvz",
+      "Id":"GAME_DOLPHIN_R_RACING_EVOLUTION_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] R-Racing Evolution (USA)"
+    },
+    {
+      "AddedDate":"2026-02-02 16:33:44",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Soulcalibur II (USA).rvz",
+      "Id":"GAME_DOLPHIN_SOULCALIBUR_II_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Soulcalibur II (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:58",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\SSX 3 (USA).rvz",
+      "Id":"GAME_DOLPHIN_SSX_3_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] SSX 3 (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:58",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Super Mario Sunshine (USA, Canada).rvz",
+      "Id":"GAME_DOLPHIN_SUPER_MARIO_SUNSHINE_USA_CANADA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Super Mario Sunshine (USA, Canada)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:58",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Super Smash Bros. Melee (USA) (En,Ja) (Rev 2).rvz",
+      "Id":"GAME_DOLPHIN_SUPER_SMASH_BROS_MELEE_USA_ENJA_REV_2",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Super Smash Bros. Melee (USA) (En,Ja) (Rev 2)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:58",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Super Smash Bros. Melee (v1.01)(USA).iso",
+      "Id":"GAME_DOLPHIN_SUPER_SMASH_BROS_MELEE_V1_01_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Super Smash Bros. Melee (v1.01)(USA)"
+    },
+    {
+      "AddedDate":"2026-02-02 16:33:44",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Tetris Worlds (USA).rvz",
+      "Id":"GAME_DOLPHIN_TETRIS_WORLDS_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Tetris Worlds (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:58",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Wario World (USA).rvz",
+      "Id":"GAME_DOLPHIN_WARIO_WORLD_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Wario World (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:58",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Wave Race - Blue Storm (USA).iso",
+      "Id":"GAME_DOLPHIN_WAVE_RACE_BLUE_STORM_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Wave Race - Blue Storm (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\BIOS.BIN",
+      "Id":"GAME_DUCKSTATION_BIOS",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] BIOS"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Capcom vs. SNK Pro (USA)\\Capcom vs. SNK Pro (USA).bin",
+      "Id":"GAME_DUCKSTATION_CAPCOM_VS_SNK_PRO_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Capcom vs. SNK Pro (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Castlevania-Symphony of the Night[U] [SLUS-00067]\\Castlevania - Symphony of the Night (USA).cue",
+      "Id":"GAME_DUCKSTATION_CASTLEVANIA_SYMPHONY_OF_THE_NIGHT_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Castlevania - Symphony of the Night (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Castlevania-Symphony of the Night[U] [SLUS-00067]\\Castlevania - Symphony of the Night (USA) (Track 1).bin",
+      "Id":"GAME_DUCKSTATION_CASTLEVANIA_SYMPHONY_OF_THE_NIGHT_USA_TRACK_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Castlevania - Symphony of the Night (USA) (Track 1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Castlevania-Symphony of the Night[U] [SLUS-00067]\\Castlevania - Symphony of the Night (USA) (Track 2).bin",
+      "Id":"GAME_DUCKSTATION_CASTLEVANIA_SYMPHONY_OF_THE_NIGHT_USA_TRACK_2",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Castlevania - Symphony of the Night (USA) (Track 2)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Codename - Tenka (USA)\\Codename - Tenka (USA).bin",
+      "Id":"GAME_DUCKSTATION_CODENAME_TENKA_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Codename - Tenka (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Crash Bandicoot 2 - Cortex Strikes Back (USA)\\Crash Bandicoot 2 - Cortex Strikes Back (USA).bin",
+      "Id":"GAME_DUCKSTATION_CRASH_BANDICOOT_2_CORTEX_STRIKES_BACK_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Crash Bandicoot 2 - Cortex Strikes Back (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Crash Bandicoot (USA)\\Crash Bandicoot (USA).bin",
+      "Id":"GAME_DUCKSTATION_CRASH_BANDICOOT_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Crash Bandicoot (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Crash Bandicoot - Warped (USA)\\Crash Bandicoot - Warped (USA).bin",
+      "Id":"GAME_DUCKSTATION_CRASH_BANDICOOT_WARPED_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Crash Bandicoot - Warped (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\CTR - Crash Team Racing (USA)\\CTR - Crash Team Racing (USA).bin",
+      "Id":"GAME_DUCKSTATION_CTR_CRASH_TEAM_RACING_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] CTR - Crash Team Racing (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA).cue",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 01).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_01",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 01)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 02).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_02",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 02)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 03).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_03",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 03)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 04).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_04",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 04)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 05).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_05",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 05)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 06).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_06",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 06)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 07).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_07",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 07)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 08).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_08",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 08)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 09).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_09",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 09)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 10).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_10",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 10)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 11).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_11",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 11)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 12).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_12",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 12)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 13).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_13",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 13)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 14).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_14",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 14)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 15).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_15",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 15)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 16).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_16",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 16)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 17).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_17",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 17)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 18).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_18",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 18)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 19).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_19",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 19)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 20).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_20",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 20)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 21).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_21",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 21)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 22).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_22",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 22)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 23).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_23",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 23)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 24).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_24",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 24)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 25).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_25",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 25)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 26).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_26",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 26)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 27).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_27",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 27)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 28).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_28",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 28)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Dead or Alive (USA)\\Dead or Alive (USA) (Track 29).bin",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA_TRACK_29",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA) (Track 29)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0).cue",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 01).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_01",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 01)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 02).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_02",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 02)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 03).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_03",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 03)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 04).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_04",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 04)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 05).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_05",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 05)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 06).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_06",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 06)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 07).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_07",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 07)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 08).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_08",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 08)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 09).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_09",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 09)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 10).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_10",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 10)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 11).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_11",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 11)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 12).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_12",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 12)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 13).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_13",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 13)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 14).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_14",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 14)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 15).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_15",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 15)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 16).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_16",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 16)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 17).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_17",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 17)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 18).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_18",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 18)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 19).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_19",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 19)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 20).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_20",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 20)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Die Hard Trilogy (USA) (v1.0)\\Die Hard Trilogy (USA) (v1.0) (Track 21).bin",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0_TRACK_21",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0) (Track 21)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Galaga - Destination Earth (USA)\\Galaga - Destination Earth (USA).cue",
+      "Id":"GAME_DUCKSTATION_GALAGA_DESTINATION_EARTH_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Galaga - Destination Earth (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Galaga - Destination Earth (USA)\\Galaga - Destination Earth (USA) (Track 1).bin",
+      "Id":"GAME_DUCKSTATION_GALAGA_DESTINATION_EARTH_USA_TRACK_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Galaga - Destination Earth (USA) (Track 1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Galaga - Destination Earth (USA)\\Galaga - Destination Earth (USA) (Track 2).bin",
+      "Id":"GAME_DUCKSTATION_GALAGA_DESTINATION_EARTH_USA_TRACK_2",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Galaga - Destination Earth (USA) (Track 2)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Galaga - Destination Earth (USA)\\Galaga - Destination Earth (USA) (Track 3).bin",
+      "Id":"GAME_DUCKSTATION_GALAGA_DESTINATION_EARTH_USA_TRACK_3",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Galaga - Destination Earth (USA) (Track 3)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Galaga - Destination Earth (USA)\\Galaga - Destination Earth (USA) (Track 4).bin",
+      "Id":"GAME_DUCKSTATION_GALAGA_DESTINATION_EARTH_USA_TRACK_4",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Galaga - Destination Earth (USA) (Track 4)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Galaga - Destination Earth (USA)\\Galaga - Destination Earth (USA) (Track 5).bin",
+      "Id":"GAME_DUCKSTATION_GALAGA_DESTINATION_EARTH_USA_TRACK_5",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Galaga - Destination Earth (USA) (Track 5)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Galaga - Destination Earth (USA)\\Galaga - Destination Earth (USA) (Track 6).bin",
+      "Id":"GAME_DUCKSTATION_GALAGA_DESTINATION_EARTH_USA_TRACK_6",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Galaga - Destination Earth (USA) (Track 6)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Galaga - Destination Earth (USA)\\Galaga - Destination Earth (USA) (Track 7).bin",
+      "Id":"GAME_DUCKSTATION_GALAGA_DESTINATION_EARTH_USA_TRACK_7",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Galaga - Destination Earth (USA) (Track 7)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Galaga - Destination Earth (USA)\\Galaga - Destination Earth (USA) (Track 8).bin",
+      "Id":"GAME_DUCKSTATION_GALAGA_DESTINATION_EARTH_USA_TRACK_8",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Galaga - Destination Earth (USA) (Track 8)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Gran Turismo 2 (USA) (Arcade Mode) (v1.0)\\Gran Turismo 2 (USA) (Arcade Mode) (v1.0).bin",
+      "Id":"GAME_DUCKSTATION_GRAN_TURISMO_2_USA_ARCADE_MODE_V1_0",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Gran Turismo 2 (USA) (Arcade Mode) (v1.0)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Gran Turismo (USA) (v1.1)\\Gran Turismo (USA) (v1.1).bin",
+      "Id":"GAME_DUCKSTATION_GRAN_TURISMO_USA_V1_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Gran Turismo (USA) (v1.1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Gunbalina (NTSC-J) (SLPS-03100)\\Gunbalina [NTSC-J] [SLPS-03100] by HNK.bin",
+      "Id":"GAME_DUCKSTATION_GUNBALINA_NTSC_J_SLPS_03100_BY_HNK",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Gunbalina [NTSC-J] [SLPS-03100] by HNK"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\GunBarl (NTSC-J) (SLPS-01500)\\GunBarl SLPS-01500.bin",
+      "Id":"GAME_DUCKSTATION_GUNBARL_SLPS_01500",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] GunBarl SLPS-01500"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Gunbullet (with Guncon) (NTSC-J) (SLPS-00929)\\Gunbullet [with Guncon] [NTSC-J] [SLPS-00929].bin",
+      "Id":"GAME_DUCKSTATION_GUNBULLET_WITH_GUNCON_NTSC_J_SLPS_00929",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Gunbullet [with Guncon] [NTSC-J] [SLPS-00929]"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\LSD - Dream Emulator (English v1)\\LSD - Dream Emulator (English v1).bin",
+      "Id":"GAME_DUCKSTATION_LSD_DREAM_EMULATOR_ENGLISH_V1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] LSD - Dream Emulator (English v1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA).cue",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA) (Track 01).bin",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA_TRACK_01",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA) (Track 01)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA) (Track 02).bin",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA_TRACK_02",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA) (Track 02)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA) (Track 03).bin",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA_TRACK_03",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA) (Track 03)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA) (Track 04).bin",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA_TRACK_04",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA) (Track 04)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA) (Track 05).bin",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA_TRACK_05",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA) (Track 05)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA) (Track 06).bin",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA_TRACK_06",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA) (Track 06)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA) (Track 07).bin",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA_TRACK_07",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA) (Track 07)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA) (Track 08).bin",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA_TRACK_08",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA) (Track 08)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA) (Track 09).bin",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA_TRACK_09",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA) (Track 09)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA) (Track 10).bin",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA_TRACK_10",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA) (Track 10)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\N2O - Nitrous Oxide (USA)\\N2O - Nitrous Oxide (USA) (Track 11).bin",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA_TRACK_11",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA) (Track 11)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\IGR_Behaviour_Modifiers\\PATCH_0.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_0",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 0"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\Compatibility_Modes\\PATCH_1.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 1"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\Compatibility_Modes\\PATCH_2.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_2",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 2"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\Compatibility_Modes\\PATCH_3.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_3",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 3"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\Compatibility_Modes\\PATCH_4.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_4",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 4"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\Compatibility_Modes\\PATCH_5.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_5",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 5"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\Compatibility_Modes\\PATCH_6.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_6",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 6"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\Compatibility_Modes\\PATCH_7.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_7",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 7"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\$FORCEPAL_PATCH\\PATCH_8.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_8",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 8"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\$NOPAL_PATCH\\PATCH_9.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_9",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 9"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Pepsiman\\Pepsiman (Japan).cue",
+      "Id":"GAME_DUCKSTATION_PEPSIMAN_JAPAN",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Pepsiman (Japan)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Pepsiman\\Pepsiman (Japan) (Track 1).bin",
+      "Id":"GAME_DUCKSTATION_PEPSIMAN_JAPAN_TRACK_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Pepsiman (Japan) (Track 1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Pepsiman\\Pepsiman (Japan) (Track 2).bin",
+      "Id":"GAME_DUCKSTATION_PEPSIMAN_JAPAN_TRACK_2",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Pepsiman (Japan) (Track 2)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Pepsiman\\Pepsiman (Japan) (Track 3).bin",
+      "Id":"GAME_DUCKSTATION_PEPSIMAN_JAPAN_TRACK_3",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Pepsiman (Japan) (Track 3)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Pepsiman\\Pepsiman (Japan) (Track 4).bin",
+      "Id":"GAME_DUCKSTATION_PEPSIMAN_JAPAN_TRACK_4",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Pepsiman (Japan) (Track 4)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Pepsiman\\Pepsiman (Japan) (Track 5).bin",
+      "Id":"GAME_DUCKSTATION_PEPSIMAN_JAPAN_TRACK_5",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Pepsiman (Japan) (Track 5)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Pepsiman\\Pepsiman (Japan) (Track 6).bin",
+      "Id":"GAME_DUCKSTATION_PEPSIMAN_JAPAN_TRACK_6",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Pepsiman (Japan) (Track 6)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Pepsiman\\Pepsiman (Japan) (Track 7).bin",
+      "Id":"GAME_DUCKSTATION_PEPSIMAN_JAPAN_TRACK_7",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Pepsiman (Japan) (Track 7)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Pepsiman\\Pepsiman (Japan) (Track 8).bin",
+      "Id":"GAME_DUCKSTATION_PEPSIMAN_JAPAN_TRACK_8",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Pepsiman (Japan) (Track 8)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Point Blank 2 (NTSC-U) (SLUS-00796)\\Point Blank 2 (USA).bin",
+      "Id":"GAME_DUCKSTATION_POINT_BLANK_2_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Point Blank 2 (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Point Blank 3 (NTSC-U) (SLUS-01354)\\Point Blank 3 [SLUS-01354].bin",
+      "Id":"GAME_DUCKSTATION_POINT_BLANK_3_SLUS_01354",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Point Blank 3 [SLUS-01354]"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\R4 - Ridge Racer Type 4 (USA)\\R4 - Ridge Racer Type 4 (USA).bin",
+      "Id":"GAME_DUCKSTATION_R4_RIDGE_RACER_TYPE_4_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] R4 - Ridge Racer Type 4 (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA).cue",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 01).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_01",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 01)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 02).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_02",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 02)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 03).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_03",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 03)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 04).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_04",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 04)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 05).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_05",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 05)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 06).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_06",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 06)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 07).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_07",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 07)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 08).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_08",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 08)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 09).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_09",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 09)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 10).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_10",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 10)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 11).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_11",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 11)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 12).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_12",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 12)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 13).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_13",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 13)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 14).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_14",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 14)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 15).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_15",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 15)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 16).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_16",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 16)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Rage Racer (USA)\\Rage Racer (USA) (Track 17).bin",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA_TRACK_17",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA) (Track 17)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Bonus Turbo Mode Disc (USA)\\Ridge Racer Bonus Turbo Mode Disc (USA).cue",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_BONUS_TURBO_MODE_DISC_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Bonus Turbo Mode Disc (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Bonus Turbo Mode Disc (USA)\\Ridge Racer Bonus Turbo Mode Disc (USA) (Track 1).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_BONUS_TURBO_MODE_DISC_USA_TRACK_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Bonus Turbo Mode Disc (USA) (Track 1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Bonus Turbo Mode Disc (USA)\\Ridge Racer Bonus Turbo Mode Disc (USA) (Track 2).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_BONUS_TURBO_MODE_DISC_USA_TRACK_2",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Bonus Turbo Mode Disc (USA) (Track 2)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Bonus Turbo Mode Disc (USA)\\Ridge Racer Bonus Turbo Mode Disc (USA) (Track 3).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_BONUS_TURBO_MODE_DISC_USA_TRACK_3",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Bonus Turbo Mode Disc (USA) (Track 3)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Bonus Turbo Mode Disc (USA)\\Ridge Racer Bonus Turbo Mode Disc (USA) (Track 4).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_BONUS_TURBO_MODE_DISC_USA_TRACK_4",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Bonus Turbo Mode Disc (USA) (Track 4)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Bonus Turbo Mode Disc (USA)\\Ridge Racer Bonus Turbo Mode Disc (USA) (Track 5).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_BONUS_TURBO_MODE_DISC_USA_TRACK_5",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Bonus Turbo Mode Disc (USA) (Track 5)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Bonus Turbo Mode Disc (USA)\\Ridge Racer Bonus Turbo Mode Disc (USA) (Track 6).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_BONUS_TURBO_MODE_DISC_USA_TRACK_6",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Bonus Turbo Mode Disc (USA) (Track 6)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Bonus Turbo Mode Disc (USA)\\Ridge Racer Bonus Turbo Mode Disc (USA) (Track 7).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_BONUS_TURBO_MODE_DISC_USA_TRACK_7",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Bonus Turbo Mode Disc (USA) (Track 7)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Bonus Turbo Mode Disc (USA)\\Ridge Racer Bonus Turbo Mode Disc (USA) (Track 8).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_BONUS_TURBO_MODE_DISC_USA_TRACK_8",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Bonus Turbo Mode Disc (USA) (Track 8)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Bonus Turbo Mode Disc (USA)\\Ridge Racer Bonus Turbo Mode Disc (USA) (Track 9).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_BONUS_TURBO_MODE_DISC_USA_TRACK_9",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Bonus Turbo Mode Disc (USA) (Track 9)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA).cue",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 01).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_01",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 01)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 02).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_02",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 02)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 03).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_03",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 03)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 04).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_04",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 04)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 05).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_05",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 05)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 06).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_06",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 06)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 07).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_07",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 07)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 08).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_08",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 08)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 09).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_09",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 09)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 10).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_10",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 10)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 11).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_11",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 11)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 12).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_12",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 12)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 13).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_13",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 13)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 14).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_14",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 14)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 15).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_15",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 15)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 16).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_16",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 16)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 17).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_17",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 17)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 18).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_18",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 18)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 19).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_19",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 19)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer Revolution (USA)\\Ridge Racer Revolution (USA) (Track 20).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA_TRACK_20",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA) (Track 20)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA).cue",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 01).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_01",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 01)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 02).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_02",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 02)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 03).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_03",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 03)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 04).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_04",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 04)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 05).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_05",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 05)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 06).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_06",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 06)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 07).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_07",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 07)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 08).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_08",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 08)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 09).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_09",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 09)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 10).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_10",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 10)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 11).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_11",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 11)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 12).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_12",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 12)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 13).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_13",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 13)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Ridge Racer (USA)\\Ridge Racer (USA) (Track 14).bin",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA_TRACK_14",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA) (Track 14)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Point Blank (NTSC-U) (SLUS-00481)\\SLUS-00481.cue",
+      "Id":"GAME_DUCKSTATION_SLUS_00481",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] SLUS-00481"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Snobow Kids Plus (Japan)\\Snobow Kids Plus (Japan).bin",
+      "Id":"GAME_DUCKSTATION_SNOBOW_KIDS_PLUS_JAPAN",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Snobow Kids Plus (Japan)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Soul Blade (USA) (v1.0)\\Soul Blade (USA) (v1.0).bin",
+      "Id":"GAME_DUCKSTATION_SOUL_BLADE_USA_V1_0",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Soul Blade (USA) (v1.0)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Soul Blade (USA) (v1.1)\\Soul Blade (USA) (v1.1).bin",
+      "Id":"GAME_DUCKSTATION_SOUL_BLADE_USA_V1_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Soul Blade (USA) (v1.1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Soul Edge (Japan)\\Soul Edge (Japan).bin",
+      "Id":"GAME_DUCKSTATION_SOUL_EDGE_JAPAN",
+      "LastPlayed":"2026-01-30 18:13:19",
+      "LauncherType":"DUCKSTATION",
+      "PlayTimeReadable":"1.3h",
+      "SavedName":"[PS1] Soul Edge (Japan)",
+      "TotalPlayTime":4767
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 2 (Japan)\\Tekken 2 (Japan) (Track 1).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_2_JAPAN_TRACK_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 2 (Japan) (Track 1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 2 (Japan)\\Tekken 2 (Japan) (Track 2).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_2_JAPAN_TRACK_2",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 2 (Japan) (Track 2)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 2 (Japan)\\Tekken 2 (Japan) (Track 3).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_2_JAPAN_TRACK_3",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 2 (Japan) (Track 3)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 2 (USA) (v1.0)\\Tekken 2 (USA) (v1.0) (Track 1).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_2_USA_V1_0_TRACK_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 2 (USA) (v1.0) (Track 1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 2 (v1.1)\\Tekken 2 (v1.1).cue",
+      "Id":"GAME_DUCKSTATION_TEKKEN_2_V1_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 2 (v1.1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 2 (v1.1)\\Tekken 2 (v1.1) (Track 1).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_2_V1_1_TRACK_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 2 (v1.1) (Track 1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 2 (v1.1)\\Tekken 2 (v1.1) (Track 2).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_2_V1_1_TRACK_2",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 2 (v1.1) (Track 2)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 2 (v1.1)\\Tekken 2 (v1.1) (Track 3).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_2_V1_1_TRACK_3",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 2 (v1.1) (Track 3)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 3 (USA)\\Tekken 3 (USA).cue",
+      "Id":"GAME_DUCKSTATION_TEKKEN_3_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 3 (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 3 (USA)\\Tekken 3 (USA) (Track 1).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_3_USA_TRACK_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 3 (USA) (Track 1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 3 (USA)\\Tekken 3 (USA) (Track 2).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_3_USA_TRACK_2",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 3 (USA) (Track 2)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken 3 (USA)\\Tekken 3 (USA) (Track 3).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_3_USA_TRACK_3",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 3 (USA) (Track 3)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 01).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_01",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 01)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 02).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_02",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 02)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 03).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_03",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 03)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 04).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_04",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 04)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 05).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_05",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 05)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 06).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_06",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 06)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 07).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_07",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 07)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 08).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_08",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 08)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 09).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_09",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 09)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 10).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_10",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 10)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 11).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_11",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 11)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 12).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_12",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 12)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 13).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_13",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 13)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 14).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_14",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 14)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 15).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_15",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 15)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 16).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_16",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 16)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 17).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_17",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 17)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 18).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_18",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 18)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 19).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_19",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 19)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 20).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_20",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 20)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 21).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_21",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 21)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 22).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_22",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 22)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 23).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_23",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 23)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 24).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_24",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 24)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 25).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_25",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 25)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 26).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_26",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 26)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (Japan)\\Tekken (Japan) (Track 27).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_27",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 27)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA).cue",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 01).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_01",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 01)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 02).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_02",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 02)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 03).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_03",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 03)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 04).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_04",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 04)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 05).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_05",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 05)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 06).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_06",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 06)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 07).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_07",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 07)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 08).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_08",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 08)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 09).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_09",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 09)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 10).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_10",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 10)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 11).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_11",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 11)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 12).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_12",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 12)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 13).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_13",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 13)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 14).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_14",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 14)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 15).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_15",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 15)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 16).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_16",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 16)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 17).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_17",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 17)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 18).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_18",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 18)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 19).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_19",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 19)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 20).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_20",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 20)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 21).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_21",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 21)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 22).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_22",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 22)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 23).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_23",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 23)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 24).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_24",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 24)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 25).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_25",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 25)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 26).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_26",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 26)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 27).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_27",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 27)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tekken (USA)\\Tekken (USA) (Track 28).bin",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA_TRACK_28",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA) (Track 28)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Tobal 2 (Japan) (1997) (Fighting) (PS1)\\Tobal 2 (Japan) (1997) (Fighting) (PS1).bin",
+      "Id":"GAME_DUCKSTATION_TOBAL_2_JAPAN_1997_FIGHTING_PS1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tobal 2 (Japan) (1997) (Fighting) (PS1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\IGR_Behaviour_Modifiers\\TROJAN_0.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_0",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 0"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\IGR_Behaviour_Modifiers\\TROJAN_1.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 1"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\IGR_Behaviour_Modifiers\\TROJAN_2.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_2",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 2"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\IGR_Behaviour_Modifiers\\TROJAN_3.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_3",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 3"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\IGR_Behaviour_Modifiers\\TROJAN_4.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_4",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 4"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\IGR_Behaviour_Modifiers\\TROJAN_5.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_5",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 5"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Capcom vs. SNK Pro (USA)\\TROJAN_7.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_7",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 7"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\_POPSTARTER\\HDD\\__common\\POPS\\PATCHES\\IGR_Behaviour_Modifiers\\No 2nd Pad in IGR\\TROJAN_9.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_9",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 9"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:41",
+      "ApplicationPath":"E:\\PSX GAMES\\Unknown Variable 2 - Raven's Ridge (USA)\\Unknown Variable 2 - Raven's Ridge (USA).bin",
+      "Id":"GAME_DUCKSTATION_UNKNOWN_VARIABLE_2_RAVENS_RIDGE_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Unknown Variable 2 - Raven's Ridge (USA)"
+    },
+    {
+      "ApplicationPath":"D:/PC_GAMES/Manhunt 2/Manhunt2.exe",
+      "CaptureDir":"captures/GAME_MANHUNT2",
+      "EbootIsoPath":"D:/PC_GAMES/Manhunt 2/Manhunt2.exe",
+      "GameApplication":"Manhunt2.exe",
+      "Id":"GAME_MANHUNT2",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-30 20:45:48",
+      "LauncherType":"STANDARD",
+      "PlayTimeReadable":"2.4m",
+      "SavedName":"MANHUNT2",
+      "SnapshotDir":"snapshots/GAME_MANHUNT2",
+      "TotalPlayTime":146
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\Gran Turismo 4 (USA) (Beta).iso",
+      "Id":"GAME_PCSX2_GRAN_TURISMO_4_USA_BETA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] Gran Turismo 4 (USA) (Beta)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\CD\\PAPX_902.03.Gran Turismo 2000 [NTSC-J] [CD].iso",
+      "Id":"GAME_PCSX2_PAPX_902_03_GRAN_TURISMO_2000_NTSC_J_CD",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PAPX 902.03.Gran Turismo 2000 [NTSC-J] [CD]"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\PAPX_905.04.PAPX90524.iso",
+      "Id":"GAME_PCSX2_PAPX_905_04_PAPX90524",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PAPX 905.04.PAPX90524"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Pops\\Tekken 3_(ALL VER)\\PATCH_4.BIN",
+      "Id":"GAME_PCSX2_PATCH_4",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PATCH 4"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Pops\\POPS-VCD-Manager\\Common\\IGRTHEMES\\LopoTRIIGR\\PATCH_5.BIN",
+      "Id":"GAME_PCSX2_PATCH_5",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PATCH 5"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Pops\\Tekken 3_(ALL VER)\\PATCH_6.BIN",
+      "Id":"GAME_PCSX2_PATCH_6",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PATCH 6"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\PBPX_955.24.Gran Turismo 4 - Prologue.iso",
+      "Id":"GAME_PCSX2_PBPX_955_24_GRAN_TURISMO_4_PROLOGUE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PBPX 955.24.Gran Turismo 4 - Prologue"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\CD\\PS2 - Fatal Frame 3 Ver 0.1 August 15 2005.bin",
+      "Id":"GAME_PCSX2_PS2_FATAL_FRAME_3_VER_0_1_AUGUST_15_2005",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PS2 - Fatal Frame 3 Ver 0.1 August 15 2005"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\CD\\PS2 - Fatal Frame 3 Ver 1.00 9-20-05 Review.bin",
+      "Id":"GAME_PCSX2_PS2_FATAL_FRAME_3_VER_1_00_9_20_05_REVIEW",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PS2 - Fatal Frame 3 Ver 1.00 9-20-05 Review"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SCES_508.87.ALPINE RACER 3.iso",
+      "Id":"GAME_PCSX2_SCES_508_87_ALPINE_RACER_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCES 508.87.ALPINE RACER 3"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SCPS_150.10.Gran Turismo Concept - 2001 Toky.iso",
+      "Id":"GAME_PCSX2_SCPS_150_10_GRAN_TURISMO_CONCEPT_2001_TOKY",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCPS 150.10.Gran Turismo Concept - 2001 Toky"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SCPS_150.54.Chain Dive.iso",
+      "Id":"GAME_PCSX2_SCPS_150_54_CHAIN_DIVE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCPS 150.54.Chain Dive"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SCPS_559.02.Gran Turismo Concept - 2002.iso",
+      "Id":"GAME_PCSX2_SCPS_559_02_GRAN_TURISMO_CONCEPT_2002",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCPS 559.02.Gran Turismo Concept - 2002"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SCUS_973.28.Gran Turismo 4.iso",
+      "Id":"GAME_PCSX2_SCUS_973_28_GRAN_TURISMO_4",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCUS 973.28.Gran Turismo 4"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SCUS_973.99.God of War.iso",
+      "Id":"GAME_PCSX2_SCUS_973_99_GOD_OF_WAR",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCUS 973.99.God of War"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SCUS_974.36.patched_gt.iso",
+      "Id":"GAME_PCSX2_SCUS_974_36_PATCHED_GT",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCUS 974.36.patched gt"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SCUS_974.81.God of War II.iso",
+      "Id":"GAME_PCSX2_SCUS_974_81_GOD_OF_WAR_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCUS 974.81.God of War II"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SCUS_976.54.Motorstorm Arctic Edge.iso",
+      "Id":"GAME_PCSX2_SCUS_976_54_MOTORSTORM_ARCTIC_EDGE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCUS 976.54.Motorstorm Arctic Edge"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLES_511.56.SILENT HILL 2 - DIRECTORS CUT.iso",
+      "Id":"GAME_PCSX2_SLES_511_56_SILENT_HILL_2_DIRECTORS_CUT",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 511.56.SILENT HILL 2 - DIRECTORS CUT"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLES_525.19.Pink Pong.iso",
+      "Id":"GAME_PCSX2_SLES_525_19_PINK_PONG",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 525.19.Pink Pong"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLES_525.35.Rumble Roses.iso",
+      "Id":"GAME_PCSX2_SLES_525_35_RUMBLE_ROSES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 525.35.Rumble Roses"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLES_527.52.PLAYBOY - THE MANSION.iso",
+      "Id":"GAME_PCSX2_SLES_527_52_PLAYBOY_THE_MANSION",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 527.52.PLAYBOY - THE MANSION"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLES_532.97.7 SINS.iso",
+      "Id":"GAME_PCSX2_SLES_532_97_7_SINS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 532.97.7 SINS"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLES_534.03.Demolition Girl.iso",
+      "Id":"GAME_PCSX2_SLES_534_03_DEMOLITION_GIRL",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 534.03.Demolition Girl"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLES_545.69.Zombie Hunters 2.iso",
+      "Id":"GAME_PCSX2_SLES_545_69_ZOMBIE_HUNTERS_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 545.69.Zombie Hunters 2"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLES_548.19.Manhunt 2 [Uncut].iso",
+      "Id":"GAME_PCSX2_SLES_548_19_MANHUNT_2_UNCUT",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 548.19.Manhunt 2 [Uncut]"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLKA_250.66.Zone of the Enders The 2nd.iso",
+      "Id":"GAME_PCSX2_SLKA_250_66_ZONE_OF_THE_ENDERS_THE_2ND",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLKA 250.66.Zone of the Enders The 2nd"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPM_666.75.Kingdom Hearts II Final Mix.iso",
+      "Id":"GAME_PCSX2_SLPM_666_75_KINGDOM_HEARTS_II_FINAL_MIX",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPM 666.75.Kingdom Hearts II Final Mix"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPM_668.22.Guitar Freaks V-3 Drummania V-3.iso",
+      "Id":"GAME_PCSX2_SLPM_668_22_GUITAR_FREAKS_V_3_DRUMMANIA_V_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPM 668.22.Guitar Freaks V-3 Drummania V-3"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Ps2\\SLPS_200.15.TEKKEN TAG TOURNAMENT.iso",
+      "Id":"GAME_PCSX2_SLPS_200_15_TEKKEN_TAG_TOURNAMENT",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 200.15.TEKKEN TAG TOURNAMENT"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Ps2\\SLPS_250.02.Dead or Alive 2 (Japan).iso",
+      "Id":"GAME_PCSX2_SLPS_250_02_DEAD_OR_ALIVE_2_JAPAN",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 250.02.Dead or Alive 2 (Japan)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Ps2\\SLPS_251.00.Tekken 4.iso",
+      "Id":"GAME_PCSX2_SLPS_251_00_TEKKEN_4",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 251.00.Tekken 4"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_251.81.Gunvarl Collection Time Crisis.iso",
+      "Id":"GAME_PCSX2_SLPS_251_81_GUNVARL_COLLECTION_TIME_CRISIS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 251.81.Gunvarl Collection Time Crisis"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Ps2\\SLPS_252.30.Soulcalibur II (Japan).iso",
+      "Id":"GAME_PCSX2_SLPS_252_30_SOULCALIBUR_II_JAPAN",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 252.30.Soulcalibur II (Japan)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_252.40.MGS Megumi.iso",
+      "Id":"GAME_PCSX2_SLPS_252_40_MGS_MEGUMI",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 252.40.MGS Megumi"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_252.41.MGS Mori Hinoko.iso",
+      "Id":"GAME_PCSX2_SLPS_252_41_MGS_MORI_HINOKO",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 252.41.MGS Mori Hinoko"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_252.42.MGS Kitagawa Tomomi.iso",
+      "Id":"GAME_PCSX2_SLPS_252_42_MGS_KITAGAWA_TOMOMI",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 252.42.MGS Kitagawa Tomomi"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_252.43.MGS Nemoto Harumi.iso",
+      "Id":"GAME_PCSX2_SLPS_252_43_MGS_NEMOTO_HARUMI",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 252.43.MGS Nemoto Harumi"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_253.43.Gunslinger Girl VolumeI.iso",
+      "Id":"GAME_PCSX2_SLPS_253_43_GUNSLINGER_GIRL_VOLUMEI",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 253.43.Gunslinger Girl VolumeI"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_253.73.GUNSLINGER GIRL VOLUME 2.iso",
+      "Id":"GAME_PCSX2_SLPS_253_73_GUNSLINGER_GIRL_VOLUME_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 253.73.GUNSLINGER GIRL VOLUME 2"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_253.88.Gunslinger Girl Volume 3.iso",
+      "Id":"GAME_PCSX2_SLPS_253_88_GUNSLINGER_GIRL_VOLUME_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 253.88.Gunslinger Girl Volume 3"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Ps2\\SLPS_254.22.Death by Degrees.iso",
+      "Id":"GAME_PCSX2_SLPS_254_22_DEATH_BY_DEGREES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 254.22.Death by Degrees"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_255.00.NamCollection.iso",
+      "Id":"GAME_PCSX2_SLPS_255_00_NAMCOLLECTION",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.00.NamCollection"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_255.05.NAMCO X CAPCOM.iso",
+      "Id":"GAME_PCSX2_SLPS_255_05_NAMCO_X_CAPCOM",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.05.NAMCO X CAPCOM"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Ps2\\SLPS_255.10.Tekken 5.iso",
+      "Id":"GAME_PCSX2_SLPS_255_10_TEKKEN_5",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.10.Tekken 5"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_255.44.ZERO - SHISEI NO KOE.iso",
+      "Id":"GAME_PCSX2_SLPS_255_44_ZERO_SHISEI_NO_KOE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.44.ZERO - SHISEI NO KOE"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_255.50.Cowboy Bebop Tsuioku no Serenade.iso",
+      "Id":"GAME_PCSX2_SLPS_255_50_COWBOY_BEBOP_TSUIOKU_NO_SERENADE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.50.Cowboy Bebop Tsuioku no Serenade"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Ps2\\SLPS_255.77.Soulcalibur III (Japan).iso",
+      "Id":"GAME_PCSX2_SLPS_255_77_SOULCALIBUR_III_JAPAN",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.77.Soulcalibur III (Japan)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLPS_258.16.Ridge Racer Slot Machine.iso",
+      "Id":"GAME_PCSX2_SLPS_258_16_RIDGE_RACER_SLOT_MACHINE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 258.16.Ridge Racer Slot Machine"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_200.01.TEKKEN TAG TOURNAMENT.iso",
+      "Id":"GAME_PCSX2_SLUS_200_01_TEKKEN_TAG_TOURNAMENT",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 200.01.TEKKEN TAG TOURNAMENT"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_200.71.DOA2 Hardcore.iso",
+      "Id":"GAME_PCSX2_SLUS_200_71_DOA2_HARDCORE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 200.71.DOA2 Hardcore"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_201.48.Zone of the Enders.iso",
+      "Id":"GAME_PCSX2_SLUS_201_48_ZONE_OF_THE_ENDERS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 201.48.Zone of the Enders"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_202.19.Time Crisis II.iso",
+      "Id":"GAME_PCSX2_SLUS_202_19_TIME_CRISIS_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 202.19.Time Crisis II"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_202.28.SILENT HILL 2 [GREATEST HITS].iso",
+      "Id":"GAME_PCSX2_SLUS_202_28_SILENT_HILL_2_GREATEST_HITS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 202.28.SILENT HILL 2 [GREATEST HITS]"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_202.47.TETRIS WORLDS.iso",
+      "Id":"GAME_PCSX2_SLUS_202_47_TETRIS_WORLDS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 202.47.TETRIS WORLDS"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_202.67.Dot Hack Part 1.iso",
+      "Id":"GAME_PCSX2_SLUS_202_67_DOT_HACK_PART_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 202.67.Dot Hack Part 1"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_203.28.Tekken 4.iso",
+      "Id":"GAME_PCSX2_SLUS_203_28_TEKKEN_4",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 203.28.Tekken 4"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_203.44.CodeBreaker v10.iso",
+      "Id":"GAME_PCSX2_SLUS_203_44_CODEBREAKER_V10",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 203.44.CodeBreaker v10"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_203.88.FATAL FRAME.iso",
+      "Id":"GAME_PCSX2_SLUS_203_88_FATAL_FRAME",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 203.88.FATAL FRAME"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_203.91.Terminator Dawn of Fate.iso",
+      "Id":"GAME_PCSX2_SLUS_203_91_TERMINATOR_DAWN_OF_FATE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 203.91.Terminator Dawn of Fate"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_204.69.Xenosaga Episode 1.iso",
+      "Id":"GAME_PCSX2_SLUS_204_69_XENOSAGA_EPISODE_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 204.69.Xenosaga Episode 1"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_205.52.Grand Theft Auto - Vice City.iso",
+      "Id":"GAME_PCSX2_SLUS_205_52_GRAND_THEFT_AUTO_VICE_CITY",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 205.52.Grand Theft Auto - Vice City"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_205.62.Dot Hack Part 2.iso",
+      "Id":"GAME_PCSX2_SLUS_205_62_DOT_HACK_PART_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 205.62.Dot Hack Part 2"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_205.63.Hack - Part 3 – Outbreak.iso",
+      "Id":"GAME_PCSX2_SLUS_205_63_HACK_PART_3_–_OUTBREAK",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 205.63.Hack - Part 3 – Outbreak"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_205.82.SRS - STREET RACING SYNDICATE.iso",
+      "Id":"GAME_PCSX2_SLUS_205_82_SRS_STREET_RACING_SYNDICATE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 205.82.SRS - STREET RACING SYNDICATE"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_206.22.SILENT HILL 3.iso",
+      "Id":"GAME_PCSX2_SLUS_206_22_SILENT_HILL_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 206.22.SILENT HILL 3"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_206.43.Soulcalibur II.iso",
+      "Id":"GAME_PCSX2_SLUS_206_43_SOULCALIBUR_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 206.43.Soulcalibur II"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_206.43.Soulcalibur IIa.iso",
+      "Id":"GAME_PCSX2_SLUS_206_43_SOULCALIBUR_IIA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 206.43.Soulcalibur IIa"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_206.45.Time Crisis 3 (USA).iso",
+      "Id":"GAME_PCSX2_SLUS_206_45_TIME_CRISIS_3_USA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 206.45.Time Crisis 3 (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_207.12.GRADIUS V.iso",
+      "Id":"GAME_PCSX2_SLUS_207_12_GRADIUS_V",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 207.12.GRADIUS V"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_207.66.FATAL FRAME II.iso",
+      "Id":"GAME_PCSX2_SLUS_207_66_FATAL_FRAME_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 207.66.FATAL FRAME II"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_207.72.SSX 3.iso",
+      "Id":"GAME_PCSX2_SLUS_207_72_SSX_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 207.72.SSX 3"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_207.77.OBSCURE.iso",
+      "Id":"GAME_PCSX2_SLUS_207_77_OBSCURE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 207.77.OBSCURE"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_207.99.Terminator 3.iso",
+      "Id":"GAME_PCSX2_SLUS_207_99_TERMINATOR_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 207.99.Terminator 3"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_208.43.Dead to Rights II.iso",
+      "Id":"GAME_PCSX2_SLUS_208_43_DEAD_TO_RIGHTS_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 208.43.Dead to Rights II"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_208.52.Terminator 3 II.iso",
+      "Id":"GAME_PCSX2_SLUS_208_52_TERMINATOR_3_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 208.52.Terminator 3 II"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_208.73.SILENT HILL 4 - THE ROOM.iso",
+      "Id":"GAME_PCSX2_SLUS_208_73_SILENT_HILL_4_THE_ROOM",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 208.73.SILENT HILL 4 - THE ROOM"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_208.92.Xenosaga Episode II (Disc 1).iso",
+      "Id":"GAME_PCSX2_SLUS_208_92_XENOSAGA_EPISODE_II_DISC_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 208.92.Xenosaga Episode II (Disc 1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_209.27.Time Crisis - Crisis Zone (USA).iso",
+      "Id":"GAME_PCSX2_SLUS_209_27_TIME_CRISIS_CRISIS_ZONE_USA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 209.27.Time Crisis - Crisis Zone (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_209.34.Death by Degrees.iso",
+      "Id":"GAME_PCSX2_SLUS_209_34_DEATH_BY_DEGREES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 209.34.Death by Degrees"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_209.46.Grand Theft Auto - San Andreas.iso",
+      "Id":"GAME_PCSX2_SLUS_209_46_GRAND_THEFT_AUTO_SAN_ANDREAS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 209.46.Grand Theft Auto - San Andreas"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_210.07.KUON.iso",
+      "Id":"GAME_PCSX2_SLUS_210_07_KUON",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 210.07.KUON"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_210.32.Marc Eckos Getting Up.iso",
+      "Id":"GAME_PCSX2_SLUS_210_32_MARC_ECKOS_GETTING_UP",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 210.32.Marc Eckos Getting Up"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_210.59.Tekken 5.iso",
+      "Id":"GAME_PCSX2_SLUS_210_59_TEKKEN_5",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 210.59.Tekken 5"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_210.74.The Guy Game.iso",
+      "Id":"GAME_PCSX2_SLUS_210_74_THE_GUY_GAME",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 210.74.The Guy Game"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_211.33.Xenosaga Episode II (Disc 2).iso",
+      "Id":"GAME_PCSX2_SLUS_211_33_XENOSAGA_EPISODE_II_DISC_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 211.33.Xenosaga Episode II (Disc 2)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_212.09.URBAN REIGN.iso",
+      "Id":"GAME_PCSX2_SLUS_212_09_URBAN_REIGN",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.09.URBAN REIGN"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_212.16.SOUL CALIBUR III.iso",
+      "Id":"GAME_PCSX2_SLUS_212_16_SOUL_CALIBUR_III",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.16.SOUL CALIBUR III"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_212.44.Fatal Frame III The Tormented.iso",
+      "Id":"GAME_PCSX2_SLUS_212_44_FATAL_FRAME_III_THE_TORMENTED",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.44.Fatal Frame III The Tormented"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_212.44.Fatal Frame III The Tormented 1.iso",
+      "Id":"GAME_PCSX2_SLUS_212_44_FATAL_FRAME_III_THE_TORMENTED_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.44.Fatal Frame III The Tormented 1"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_212.58.Dot Hack GU Vol 1.iso",
+      "Id":"GAME_PCSX2_SLUS_212_58_DOT_HACK_GU_VOL_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.58.Dot Hack GU Vol 1"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_212.68.24 THE GAME.iso",
+      "Id":"GAME_PCSX2_SLUS_212_68_24_THE_GAME",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.68.24 THE GAME"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_212.69.Bully.iso",
+      "Id":"GAME_PCSX2_SLUS_212_69_BULLY",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.69.Bully"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_213.15.50 Cent Bulletproof.iso",
+      "Id":"GAME_PCSX2_SLUS_213_15_50_CENT_BULLETPROOF",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 213.15.50 Cent Bulletproof"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_213.55.Midnight Club 3 Remix.iso",
+      "Id":"GAME_PCSX2_SLUS_213_55_MIDNIGHT_CLUB_3_REMIX",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 213.55.Midnight Club 3 Remix"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_213.89.Xenosaga Episode III (Disc 1).iso",
+      "Id":"GAME_PCSX2_SLUS_213_89_XENOSAGA_EPISODE_III_DISC_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 213.89.Xenosaga Episode III (Disc 1)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_214.17.Xenosaga Episode III (Disc 2).iso",
+      "Id":"GAME_PCSX2_SLUS_214_17_XENOSAGA_EPISODE_III_DISC_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 214.17.Xenosaga Episode III (Disc 2)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_214.23.GTA Liberty City Stories.iso",
+      "Id":"GAME_PCSX2_SLUS_214_23_GTA_LIBERTY_CITY_STORIES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 214.23.GTA Liberty City Stories"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_214.48.Rule of Rose (USA).iso",
+      "Id":"GAME_PCSX2_SLUS_214_48_RULE_OF_ROSE_USA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 214.48.Rule of Rose (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_214.88.Dot Hack GU Vol 2.iso",
+      "Id":"GAME_PCSX2_SLUS_214_88_DOT_HACK_GU_VOL_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 214.88.Dot Hack GU Vol 2"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_214.89.Dot Hack GU Vol 3.iso",
+      "Id":"GAME_PCSX2_SLUS_214_89_DOT_HACK_GU_VOL_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 214.89.Dot Hack GU Vol 3"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_215.53.Lumines Plus (USA).iso",
+      "Id":"GAME_PCSX2_SLUS_215_53_LUMINES_PLUS_USA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 215.53.Lumines Plus (USA)"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_215.90.Grand Theft AutoVC Stories.iso",
+      "Id":"GAME_PCSX2_SLUS_215_90_GRAND_THEFT_AUTOVC_STORIES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 215.90.Grand Theft AutoVC Stories"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_217.31.SILENT HILL - ORIGINS.iso",
+      "Id":"GAME_PCSX2_SLUS_217_31_SILENT_HILL_ORIGINS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 217.31.SILENT HILL - ORIGINS"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_218.99.Silent Hill Shattered Memories.iso",
+      "Id":"GAME_PCSX2_SLUS_218_99_SILENT_HILL_SHATTERED_MEMORIES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 218.99.Silent Hill Shattered Memories"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_291.34.Namco Transmission.iso",
+      "Id":"GAME_PCSX2_SLUS_291_34_NAMCO_TRANSMISSION",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 291.34.Namco Transmission"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\DVD\\SLUS_291.75.Namco Transmission v32.iso",
+      "Id":"GAME_PCSX2_SLUS_291_75_NAMCO_TRANSMISSION_V32",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 291.75.Namco Transmission v32"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Pops\\CTR (USA) POPSTARTER Mod Fix\\TROJAN_0.BIN",
+      "Id":"GAME_PCSX2_TROJAN_0",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] TROJAN 0"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Pops\\Tekken 3_(ALL VER)\\TROJAN_2.BIN",
+      "Id":"GAME_PCSX2_TROJAN_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] TROJAN 2"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Pops\\Tekken 3_(ALL VER)\\TROJAN_3.BIN",
+      "Id":"GAME_PCSX2_TROJAN_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] TROJAN 3"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Pops\\Tekken 3_(ALL VER)\\TROJAN_8.BIN",
+      "Id":"GAME_PCSX2_TROJAN_8",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] TROJAN 8"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Textures\\vulkan_pipelines.bin",
+      "Id":"GAME_PCSX2_VULKAN_PIPELINES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] vulkan pipelines"
+    },
+    {
+      "AddedDate":"2026-01-28 00:28:52",
+      "ApplicationPath":"D:\\PS2 PLAYSTATION 2\\Org\\Textures\\vulkan_shaders.bin",
+      "Id":"GAME_PCSX2_VULKAN_SHADERS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] vulkan shaders"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\101-in-1 Megamix (NPEH-00068).iso",
+      "Id":"GAME_PPSSPP_101_IN_1_MEGAMIX_NPEH_00068",
+      "LastPlayed":"2026-01-27 21:06:08",
+      "LauncherType":"PPSSPP",
+      "PlayTimeReadable":"3.1m",
+      "SavedName":"[PSP] 101-in-1 Megamix (NPEH-00068)",
+      "TotalPlayTime":185
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\50 Cent® Bulletproof G Unit Edition (ULUS-10128).iso",
+      "Id":"GAME_PPSSPP_50_CENT®_BULLETPROOF_G_UNIT_EDITION_ULUS_10128",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] 50 Cent® Bulletproof G Unit Edition (ULUS-10128)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\7 Wonders (ULUS-10227).iso",
+      "Id":"GAME_PPSSPP_7_WONDERS_ULUS_10227",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] 7 Wonders (ULUS-10227)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Activision Hits Remixed (ULUS-10186).iso",
+      "Id":"GAME_PPSSPP_ACTIVISION_HITS_REMIXED_ULUS_10186",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Activision Hits Remixed (ULUS-10186)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Archer Maclean_s Mercury (ULES-00011).iso",
+      "Id":"GAME_PPSSPP_ARCHER_MACLEAN_S_MERCURY_ULES_00011",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Archer Maclean s Mercury (ULES-00011)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Assassin_s Creed Bloodlines (ULES-01367).iso",
+      "Id":"GAME_PPSSPP_ASSASSIN_S_CREED_BLOODLINES_ULES_01367",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Assassin s Creed Bloodlines (ULES-01367)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Atari Classics Evolved (ULUS-10325).iso",
+      "Id":"GAME_PPSSPP_ATARI_CLASSICS_EVOLVED_ULUS_10325",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Atari Classics Evolved (ULUS-10325)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Bejeweled 2 (NPEG-00036).iso",
+      "Id":"GAME_PPSSPP_BEJEWELED_2_NPEG_00036",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Bejeweled 2 (NPEG-00036)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\BLAZBLUE CONTINUUM SHIFT Ⅱ (ULUS-10579).iso",
+      "Id":"GAME_PPSSPP_BLAZBLUE_CONTINUUM_SHIFT_Ⅱ_ULUS_10579",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] BLAZBLUE CONTINUUM SHIFT Ⅱ (ULUS-10579)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\BLAZBLUE Portable (ULUS-10519).iso",
+      "Id":"GAME_PPSSPP_BLAZBLUE_PORTABLE_ULUS_10519",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] BLAZBLUE Portable (ULUS-10519)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\BUBBLE BOBBLE EVOLUTION (ULES-00303).iso",
+      "Id":"GAME_PPSSPP_BUBBLE_BOBBLE_EVOLUTION_ULES_00303",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] BUBBLE BOBBLE EVOLUTION (ULES-00303)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\BURNOUT DOMINATOR (ULES-00703).iso",
+      "Id":"GAME_PPSSPP_BURNOUT_DOMINATOR_ULES_00703",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] BURNOUT DOMINATOR (ULES-00703)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Burnout Legends (ULUS-10025).iso",
+      "Id":"GAME_PPSSPP_BURNOUT_LEGENDS_ULUS_10025",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Burnout Legends (ULUS-10025)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\B-Boy (ULUS-10363).iso",
+      "Id":"GAME_PPSSPP_B_BOY_ULUS_10363",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] B-Boy (ULUS-10363)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\CAPCOM CLASSICS COLLECTION RELOADED (ULUS-10134).iso",
+      "Id":"GAME_PPSSPP_CAPCOM_CLASSICS_COLLECTION_RELOADED_ULUS_10134",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] CAPCOM CLASSICS COLLECTION RELOADED (ULUS-10134)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Capcom Classics Collection Remixed (ULES-00347).iso",
+      "Id":"GAME_PPSSPP_CAPCOM_CLASSICS_COLLECTION_REMIXED_ULES_00347",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Capcom Classics Collection Remixed (ULES-00347)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Castlevania The Dracula X Chronicles (ULUS-10277).iso",
+      "Id":"GAME_PPSSPP_CASTLEVANIA_THE_DRACULA_X_CHRONICLES_ULUS_10277",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Castlevania The Dracula X Chronicles (ULUS-10277)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\CODED ARMS (ULUS-10019).iso",
+      "Id":"GAME_PPSSPP_CODED_ARMS_ULUS_10019",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] CODED ARMS (ULUS-10019)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Crash Tag Team Racing (ULUS-10044).iso",
+      "Id":"GAME_PPSSPP_CRASH_TAG_TEAM_RACING_ULUS_10044",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Crash Tag Team Racing (ULUS-10044)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Crash® of the Titans (ULUS-10304).iso",
+      "Id":"GAME_PPSSPP_CRASH®_OF_THE_TITANS_ULUS_10304",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Crash® of the Titans (ULUS-10304)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Crazy Taxi Fare Wars (ULUS-10273).iso",
+      "Id":"GAME_PPSSPP_CRAZY_TAXI_FARE_WARS_ULUS_10273",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Crazy Taxi Fare Wars (ULUS-10273)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Daxter (NPUG-80329).iso",
+      "Id":"GAME_PPSSPP_DAXTER_NPUG_80329",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Daxter (NPUG-80329)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\DEAD OR ALIVE Paradise (ULUS-10521).iso",
+      "Id":"GAME_PPSSPP_DEAD_OR_ALIVE_PARADISE_ULUS_10521",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DEAD OR ALIVE Paradise (ULUS-10521)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Def Jam® Fight For NY The Takeover (ULUS-10100).iso",
+      "Id":"GAME_PPSSPP_DEF_JAM®_FIGHT_FOR_NY_THE_TAKEOVER_ULUS_10100",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Def Jam® Fight For NY The Takeover (ULUS-10100)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\DJMAX Fever (ULUS-10403).iso",
+      "Id":"GAME_PPSSPP_DJMAX_FEVER_ULUS_10403",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX Fever (ULUS-10403)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\DJMAX PORTABLE 3 (ULUS-10538).iso",
+      "Id":"GAME_PPSSPP_DJMAX_PORTABLE_3_ULUS_10538",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX PORTABLE 3 (ULUS-10538)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\DJMAX PORTABLE BLACK SQUARE (ULKS-46189).iso",
+      "Id":"GAME_PPSSPP_DJMAX_PORTABLE_BLACK_SQUARE_ULKS_46189",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX PORTABLE BLACK SQUARE (ULKS-46189)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\DJMAX PORTABLE CLAZZIQUAI EDITION (ULKS-46190).iso",
+      "Id":"GAME_PPSSPP_DJMAX_PORTABLE_CLAZZIQUAI_EDITION_ULKS_46190",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX PORTABLE CLAZZIQUAI EDITION (ULKS-46190)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\DJMAX PORTABLE Hottunes (ULKS-46240).iso",
+      "Id":"GAME_PPSSPP_DJMAX_PORTABLE_HOTTUNES_ULKS_46240",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX PORTABLE Hottunes (ULKS-46240)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\DJMAX PORTABLE i (ULKS-46059).iso",
+      "Id":"GAME_PPSSPP_DJMAX_PORTABLE_I_ULKS_46059",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX PORTABLE i (ULKS-46059)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\DJ Max Portable 2 (ULKS-46116).iso",
+      "Id":"GAME_PPSSPP_DJ_MAX_PORTABLE_2_ULKS_46116",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJ Max Portable 2 (ULKS-46116)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\EA Replay (ULES-00592).iso",
+      "Id":"GAME_PPSSPP_EA_REPLAY_ULES_00592",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] EA Replay (ULES-00592)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Everybody_s Stress Buster GREEN (NPEG-00046).iso",
+      "Id":"GAME_PPSSPP_EVERYBODY_S_STRESS_BUSTER_GREEN_NPEG_00046",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Everybody s Stress Buster GREEN (NPEG-00046)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\EXIT 2 (ULES-00620).iso",
+      "Id":"GAME_PPSSPP_EXIT_2_ULES_00620",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] EXIT 2 (ULES-00620)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\GODS EATER BURST (ULES-01519).iso",
+      "Id":"GAME_PPSSPP_GODS_EATER_BURST_ULES_01519",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] GODS EATER BURST (ULES-01519)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\God of War Chains of Olympus (NPEG-00023).iso",
+      "Id":"GAME_PPSSPP_GOD_OF_WAR_CHAINS_OF_OLYMPUS_NPEG_00023",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] God of War Chains of Olympus (NPEG-00023)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\God of War® Ghost of Sparta (NPUG-80508).iso",
+      "Id":"GAME_PPSSPP_GOD_OF_WAR®_GHOST_OF_SPARTA_NPUG_80508",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] God of War® Ghost of Sparta (NPUG-80508)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\GRADIUS COLLECTION (ULUS-10103).iso",
+      "Id":"GAME_PPSSPP_GRADIUS_COLLECTION_ULUS_10103",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] GRADIUS COLLECTION (ULUS-10103)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Grand Theft Auto Vice City Stories (ULUS-10160).iso",
+      "Id":"GAME_PPSSPP_GRAND_THEFT_AUTO_VICE_CITY_STORIES_ULUS_10160",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Grand Theft Auto Vice City Stories (ULUS-10160)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Gran Turismo® (UCUS-98632).iso",
+      "Id":"GAME_PPSSPP_GRAN_TURISMO®_UCUS_98632",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Gran Turismo® (UCUS-98632)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\GUILTYGEAR XX ΛCORE PLUS (ULUS-10409).iso",
+      "Id":"GAME_PPSSPP_GUILTYGEAR_XX_ΛCORE_PLUS_ULUS_10409",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] GUILTYGEAR XX ΛCORE PLUS (ULUS-10409)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\GUILTY GEAR JUDGMENT (ULUS-10104).iso",
+      "Id":"GAME_PPSSPP_GUILTY_GEAR_JUDGMENT_ULUS_10104",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] GUILTY GEAR JUDGMENT (ULUS-10104)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\GunPey (ULUX80236).iso",
+      "Id":"GAME_PPSSPP_GUNPEY_ULUX80236",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] GunPey (ULUX80236)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Hot Pixel (ULUS-10298).iso",
+      "Id":"GAME_PPSSPP_HOT_PIXEL_ULUS_10298",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Hot Pixel (ULUS-10298)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Jak & Daxter® The Lost Frontier (NPUG-80330).iso",
+      "Id":"GAME_PPSSPP_JAK_DAXTER®_THE_LOST_FRONTIER_NPUG_80330",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Jak & Daxter® The Lost Frontier (NPUG-80330)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Jetpack Joyride (NPUZ-00292).iso",
+      "Id":"GAME_PPSSPP_JETPACK_JOYRIDE_NPUZ_00292",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Jetpack Joyride (NPUZ-00292)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Juiced 2 Hot Import Nights (ULUS-10312).iso",
+      "Id":"GAME_PPSSPP_JUICED_2_HOT_IMPORT_NIGHTS_ULUS_10312",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Juiced 2 Hot Import Nights (ULUS-10312)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\KINGDOM HEARTS Birth by Sleep (ULUS-10505).iso",
+      "Id":"GAME_PPSSPP_KINGDOM_HEARTS_BIRTH_BY_SLEEP_ULUS_10505",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] KINGDOM HEARTS Birth by Sleep (ULUS-10505)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Kurohyou 2.iso",
+      "Id":"GAME_PPSSPP_KUROHYOU_2",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Kurohyou 2"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Kurohyou 2 - Ashura Chapter (NPJH50562).iso",
+      "Id":"GAME_PPSSPP_KUROHYOU_2_ASHURA_CHAPTER_NPJH50562",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Kurohyou 2 - Ashura Chapter (NPJH50562)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Kurohyou - Ryu ga Gotoku Shinshou (NPJH50333).iso",
+      "Id":"GAME_PPSSPP_KUROHYOU_RYU_GA_GOTOKU_SHINSHOU_NPJH50333",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Kurohyou - Ryu ga Gotoku Shinshou (NPJH50333)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\LEMMINGS (UCUS-98647).iso",
+      "Id":"GAME_PPSSPP_LEMMINGS_UCUS_98647",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] LEMMINGS (UCUS-98647)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\LUMINES II (ULES-00553).iso",
+      "Id":"GAME_PPSSPP_LUMINES_II_ULES_00553",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] LUMINES II (ULES-00553)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\LUMINES (ULES-00043).iso",
+      "Id":"GAME_PPSSPP_LUMINES_ULES_00043",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] LUMINES (ULES-00043)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Manhunt 2 (ULES-00756).iso",
+      "Id":"GAME_PPSSPP_MANHUNT_2_ULES_00756",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Manhunt 2 (ULES-00756)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Manhunt 2 (ULUS-10280).iso",
+      "Id":"GAME_PPSSPP_MANHUNT_2_ULUS_10280",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Manhunt 2 (ULUS-10280)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Mega Man Maverick Hunter X (ULES-00251).iso",
+      "Id":"GAME_PPSSPP_MEGA_MAN_MAVERICK_HUNTER_X_ULES_00251",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Mega Man Maverick Hunter X (ULES-00251)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Midnight Club 3 DUB Edition (ULUS-10021).iso",
+      "Id":"GAME_PPSSPP_MIDNIGHT_CLUB_3_DUB_EDITION_ULUS_10021",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Midnight Club 3 DUB Edition (ULUS-10021)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Midnight Club L.A. Remix (ULUS-10383).iso",
+      "Id":"GAME_PPSSPP_MIDNIGHT_CLUB_L_A_REMIX_ULUS_10383",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Midnight Club L.A. Remix (ULUS-10383)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Midway Arcade TreasuresExtended Play (ULUS-10059).iso",
+      "Id":"GAME_PPSSPP_MIDWAY_ARCADE_TREASURESEXTENDED_PLAY_ULUS_10059",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Midway Arcade TreasuresExtended Play (ULUS-10059)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\MONSTER HUNTER FREEDOM 2 (ULES-00851).iso",
+      "Id":"GAME_PPSSPP_MONSTER_HUNTER_FREEDOM_2_ULES_00851",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] MONSTER HUNTER FREEDOM 2 (ULES-00851)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\MONSTER HUNTER FREEDOM(TM) (ULES-00318).iso",
+      "Id":"GAME_PPSSPP_MONSTER_HUNTER_FREEDOM_TM_ULES_00318",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] MONSTER HUNTER FREEDOM(TM) (ULES-00318)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\MONSTER HUNTER FREEDOM UNITE (ULES-01213).iso",
+      "Id":"GAME_PPSSPP_MONSTER_HUNTER_FREEDOM_UNITE_ULES_01213",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] MONSTER HUNTER FREEDOM UNITE (ULES-01213)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Mortal Kombat Unchained (ULUS-10102).iso",
+      "Id":"GAME_PPSSPP_MORTAL_KOMBAT_UNCHAINED_ULUS_10102",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Mortal Kombat Unchained (ULUS-10102)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\MotorStorm® Arctic Edge (UCES-01250).iso",
+      "Id":"GAME_PPSSPP_MOTORSTORM®_ARCTIC_EDGE_UCES_01250",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] MotorStorm® Arctic Edge (UCES-01250)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\NAMCO MUSEUM BATTLE COLLECTION (UCES-00116).iso",
+      "Id":"GAME_PPSSPP_NAMCO_MUSEUM_BATTLE_COLLECTION_UCES_00116",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NAMCO MUSEUM BATTLE COLLECTION (UCES-00116)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\NEED FOR SPEED Carbon OTC (ULUS-10114).iso",
+      "Id":"GAME_PPSSPP_NEED_FOR_SPEED_CARBON_OTC_ULUS_10114",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NEED FOR SPEED Carbon OTC (ULUS-10114)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\NEED FOR SPEED MOST WANTED 5-1-0 (ULES-00196).iso",
+      "Id":"GAME_PPSSPP_NEED_FOR_SPEED_MOST_WANTED_5_1_0_ULES_00196",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NEED FOR SPEED MOST WANTED 5-1-0 (ULES-00196)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Need For Speed Underground Rivals (ULUS-10007).iso",
+      "Id":"GAME_PPSSPP_NEED_FOR_SPEED_UNDERGROUND_RIVALS_ULUS_10007",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Need For Speed Underground Rivals (ULUS-10007)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\NEOGEO HEROES ~Ultimate Shooting~ (NPEH-00086).iso",
+      "Id":"GAME_PPSSPP_NEOGEO_HEROES_ULTIMATE_SHOOTING_NPEH_00086",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NEOGEO HEROES ~Ultimate Shooting~ (NPEH-00086)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\NETWORK UTILITY DISC.ISO",
+      "Id":"GAME_PPSSPP_NETWORK_UTILITY_DISC",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NETWORK UTILITY DISC"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\NUMBLAST (NPEG-00011).iso",
+      "Id":"GAME_PPSSPP_NUMBLAST_NPEG_00011",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NUMBLAST (NPEG-00011)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Pac-Man World 3 (ULUS-10055).iso",
+      "Id":"GAME_PPSSPP_PAC_MAN_WORLD_3_ULUS_10055",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Pac-Man World 3 (ULUS-10055)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Pac-Man World Rally (ULUS-10149).iso",
+      "Id":"GAME_PPSSPP_PAC_MAN_WORLD_RALLY_ULUS_10149",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Pac-Man World Rally (ULUS-10149)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Phantasy Star Portable 2 (ULES-01439).iso",
+      "Id":"GAME_PPSSPP_PHANTASY_STAR_PORTABLE_2_ULES_01439",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Phantasy Star Portable 2 (ULES-01439)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\PLAYSTATION®Network Collection Puzzle (UCES-01159).iso",
+      "Id":"GAME_PPSSPP_PLAYSTATION®NETWORK_COLLECTION_PUZZLE_UCES_01159",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] PLAYSTATION®Network Collection Puzzle (UCES-01159)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Portable Island - Tenohira no Resort (Japan).iso",
+      "Id":"GAME_PPSSPP_PORTABLE_ISLAND_TENOHIRA_NO_RESORT_JAPAN",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Portable Island - Tenohira no Resort (Japan)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Portable Island - Tenohira no Resort (Japan) (v1.02).iso",
+      "Id":"GAME_PPSSPP_PORTABLE_ISLAND_TENOHIRA_NO_RESORT_JAPAN_V1_02",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Portable Island - Tenohira no Resort (Japan) (v1.02)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\POWER STONE COLLECTION (ULUS-10171).iso",
+      "Id":"GAME_PPSSPP_POWER_STONE_COLLECTION_ULUS_10171",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] POWER STONE COLLECTION (ULUS-10171)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Ratchet & Clank Size Matters (UCUS-98633).iso",
+      "Id":"GAME_PPSSPP_RATCHET_CLANK_SIZE_MATTERS_UCUS_98633",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Ratchet & Clank Size Matters (UCUS-98633)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Resistance Retribution (UCUS-98668).iso",
+      "Id":"GAME_PPSSPP_RESISTANCE_RETRIBUTION_UCUS_98668",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Resistance Retribution (UCUS-98668)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\RIDGE RACER 2 (UCES-00422).iso",
+      "Id":"GAME_PPSSPP_RIDGE_RACER_2_UCES_00422",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] RIDGE RACER 2 (UCES-00422)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\RIDGE RACER PRE PRODUCTION (UCES-00002).iso",
+      "Id":"GAME_PPSSPP_RIDGE_RACER_PRE_PRODUCTION_UCES_00002",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] RIDGE RACER PRE PRODUCTION (UCES-00002)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\RIDGE RACER (ULUS-10001).iso",
+      "Id":"GAME_PPSSPP_RIDGE_RACER_ULUS_10001",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] RIDGE RACER (ULUS-10001)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\SEGA Genesis® Collection (ULUS-10192).iso",
+      "Id":"GAME_PPSSPP_SEGA_GENESIS®_COLLECTION_ULUS_10192",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SEGA Genesis® Collection (ULUS-10192)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\SEGA MEGA DRIVE® Collection (ULES-00556).iso",
+      "Id":"GAME_PPSSPP_SEGA_MEGA_DRIVE®_COLLECTION_ULES_00556",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SEGA MEGA DRIVE® Collection (ULES-00556)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Shrek Smash n_ Crash Racing (ULUS-10194).iso",
+      "Id":"GAME_PPSSPP_SHREK_SMASH_N_CRASH_RACING_ULUS_10194",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Shrek Smash n  Crash Racing (ULUS-10194)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Silent Hill Origins (ULES-00869).iso",
+      "Id":"GAME_PPSSPP_SILENT_HILL_ORIGINS_ULES_00869",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Silent Hill Origins (ULES-00869)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Silent Hill Shattered Memories (ULUS-10450).iso",
+      "Id":"GAME_PPSSPP_SILENT_HILL_SHATTERED_MEMORIES_ULUS_10450",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Silent Hill Shattered Memories (ULUS-10450)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\SNK Arcade Classics Vol. 1 (ULES-01105).iso",
+      "Id":"GAME_PPSSPP_SNK_ARCADE_CLASSICS_VOL_1_ULES_01105",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SNK Arcade Classics Vol. 1 (ULES-01105)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\SOULCALIBUR Broken Destiny (ULUS-10457).iso",
+      "Id":"GAME_PPSSPP_SOULCALIBUR_BROKEN_DESTINY_ULUS_10457",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SOULCALIBUR Broken Destiny (ULUS-10457)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\SPACE INVADERS EVOLUTION (ULES-00348).iso",
+      "Id":"GAME_PPSSPP_SPACE_INVADERS_EVOLUTION_ULES_00348",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SPACE INVADERS EVOLUTION (ULES-00348)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\SPACE INVADERS EXTREME (ULES-01078).iso",
+      "Id":"GAME_PPSSPP_SPACE_INVADERS_EXTREME_ULES_01078",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SPACE INVADERS EXTREME (ULES-01078)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\STREET FIGHTER ALPHA3 MAX (ULUS-10062).iso",
+      "Id":"GAME_PPSSPP_STREET_FIGHTER_ALPHA3_MAX_ULUS_10062",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] STREET FIGHTER ALPHA3 MAX (ULUS-10062)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\TEKKEN 6 (NPJH50184).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_6_NPJH50184",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN 6 (NPJH50184)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\TEKKEN 6 (ULUS-10466).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_6_ULUS_10466",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN 6 (ULUS-10466)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\TEKKEN DARK RESURRECTION (UCAS-40099).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_DARK_RESURRECTION_UCAS_40099",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN DARK RESURRECTION (UCAS-40099)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\TEKKEN DARK RESURRECTION (UCKS-45027).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_DARK_RESURRECTION_UCKS_45027",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN DARK RESURRECTION (UCKS-45027)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\TEKKEN DARK RESURRECTION (ULJS-00048}.iso",
+      "Id":"GAME_PPSSPP_TEKKEN_DARK_RESURRECTION_ULJS_00048",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN DARK RESURRECTION (ULJS-00048}"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\TEKKEN DARK RESURRECTION (ULUS-10139).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_DARK_RESURRECTION_ULUS_10139",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN DARK RESURRECTION (ULUS-10139)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\TEKKEN DARK RESURRECTION v2 (UCES00356).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_DARK_RESURRECTION_V2_UCES00356",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN DARK RESURRECTION v2 (UCES00356)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\The 3rd Birthday (ULUS-10567).iso",
+      "Id":"GAME_PPSSPP_THE_3RD_BIRTHDAY_ULUS_10567",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] The 3rd Birthday (ULUS-10567)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\The Fast and the Furious (ULUS-10198).iso",
+      "Id":"GAME_PPSSPP_THE_FAST_AND_THE_FURIOUS_ULUS_10198",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] The Fast and the Furious (ULUS-10198)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Tomb Raider Anniversary (ULUS-10253).iso",
+      "Id":"GAME_PPSSPP_TOMB_RAIDER_ANNIVERSARY_ULUS_10253",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Tomb Raider Anniversary (ULUS-10253)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\ULUS-10280 Manhunt 2 (USA) [Uncensored].iso",
+      "Id":"GAME_PPSSPP_ULUS_10280_MANHUNT_2_USA_UNCENSORED",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] ULUS-10280 Manhunt 2 (USA) [Uncensored]"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\What Did I Do To Deserve This (ULUS-10456).iso",
+      "Id":"GAME_PPSSPP_WHAT_DID_I_DO_TO_DESERVE_THIS_ULUS_10456",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] What Did I Do To Deserve This (ULUS-10456)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Wipeout Pure (UCES-00001).iso",
+      "Id":"GAME_PPSSPP_WIPEOUT_PURE_UCES_00001",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Wipeout Pure (UCES-00001)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\WipEout® Pulse (UCES-00465).iso",
+      "Id":"GAME_PPSSPP_WIPEOUT®_PULSE_UCES_00465",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] WipEout® Pulse (UCES-00465)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Xyanide Resurrection (ULES-00634).iso",
+      "Id":"GAME_PPSSPP_XYANIDE_RESURRECTION_ULES_00634",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Xyanide Resurrection (ULES-00634)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\Z.H.P. Unlosing Ranger VS Darkdeath Evilman (NPEH-00099).iso",
+      "Id":"GAME_PPSSPP_Z_H_P_UNLOSING_RANGER_VS_DARKDEATH_EVILMAN_NPEH_00099",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Z.H.P. Unlosing Ranger VS Darkdeath Evilman (NPEH-00099)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\一騎当千 XROSS IMPACT (NPJH-50222).iso",
+      "Id":"GAME_PPSSPP_一騎当千_XROSS_IMPACT_NPJH_50222",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] 一騎当千 XROSS IMPACT (NPJH-50222)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\一騎当千　Eloquent Fist (ULJS-00152).iso",
+      "Id":"GAME_PPSSPP_一騎当千　ELOQUENT_FIST_ULJS_00152",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] 一騎当千　Eloquent Fist (ULJS-00152)"
+    },
+    {
+      "AddedDate":"2026-01-27 17:24:44",
+      "ApplicationPath":"D:\\PSP PLAYSTATION PORTABLE\\PSP GAMES\\萌え萌え大戦争☆げんだいばーん ＋(ぷらす) (ULJS-00411).iso",
+      "Id":"GAME_PPSSPP_萌え萌え大戦争☆げんだいばーん_＋_ぷらす_ULJS_00411",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] 萌え萌え大戦争☆げんだいばーん ＋(ぷらす) (ULJS-00411)"
+    },
+    {
+      "ApplicationPath":"D:/PC_GAMES/Silent Hill f/SHf_BonusContent.exe",
+      "CaptureDir":"captures/GAME_SHF_BONUSCONTENT",
+      "EbootIsoPath":"D:/PC_GAMES/Silent Hill f/SHf_BonusContent.exe",
+      "GameApplication":"SHf_BonusContent.exe",
+      "Id":"GAME_SHF_BONUSCONTENT",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-27 21:36:12",
+      "LauncherType":"STANDARD",
+      "PatchGroup":"",
+      "SavedName":"SHF_BONUSCONTENT",
+      "SnapshotDir":"snapshots/GAME_SHF_BONUSCONTENT"
+    },
+    {
+      "ApplicationPath":"D:/PC_GAMES/Silent Hill f/SILENT HILL f.bat",
+      "CaptureDir":"captures/GAME_SILENT_HILL_F",
+      "EbootIsoPath":"D:/PC_GAMES/Silent Hill f/SILENT HILL f.bat",
+      "GameApplication":"SILENT HILL f.bat",
+      "Id":"GAME_SILENT_HILL_F",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-27 22:23:33",
+      "LauncherType":"STANDARD",
+      "PlayTimeReadable":"42s",
+      "SavedName":"SILENT_HILL_F",
+      "SnapshotDir":"snapshots/GAME_SILENT_HILL_F",
+      "TotalPlayTime":42
+    },
+    {
+      "ApplicationPath":"D:/PC_GAMES/Silent Hill f/SILENT HILL f Bonus Content.bat",
+      "CaptureDir":"captures/GAME_SILENT_HILL_F_BONUS_CONTENT",
+      "EbootIsoPath":"D:/PC_GAMES/Silent Hill f/SILENT HILL f Bonus Content.bat",
+      "GameApplication":"SILENT HILL f Bonus Content.bat",
+      "Id":"GAME_SILENT_HILL_F_BONUS_CONTENT",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-30 18:13:38",
+      "LauncherType":"STANDARD",
+      "PlayTimeReadable":"21s",
+      "SavedName":"SILENT_HILL_F_BONUS_CONTENT",
+      "SnapshotDir":"snapshots/GAME_SILENT_HILL_F_BONUS_CONTENT",
+      "TotalPlayTime":21
+    },
+    {
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES TRANSLATED/[PSP] Sol Trigger [J] [TRAD-E] [ULJM-06093] [v0.9]/Sol Trigger (Japan) [T-En by GareJei & JamRules v0.9] [i].iso",
+      "CaptureDir":"captures/GAME_SOL_TRIGGER_JAPAN_T_EN_BY_GAREJEI_JAMRULES_V0_9_I_PPSSPP",
+      "EbootIsoPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES TRANSLATED/[PSP] Sol Trigger [J] [TRAD-E] [ULJM-06093] [v0.9]/Sol Trigger (Japan) [T-En by GareJei & JamRules v0.9] [i].iso",
+      "GameApplication":"Sol Trigger (Japan) [T-En by GareJei & JamRules v0.9] [i].iso",
+      "Id":"GAME_SOL_TRIGGER_JAPAN_T_EN_BY_GAREJEI_JAMRULES_V0_9_I_PPSSPP",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-27 22:16:57",
+      "LauncherType":"PPSSPP",
+      "PlayTimeReadable":"7s",
+      "SavedName":"SOL_TRIGGER_JAPAN_T_EN_BY_GAREJEI_JAMRULES_V0_9_I_PPSSPP",
+      "SnapshotDir":"snapshots/GAME_SOL_TRIGGER_JAPAN_T_EN_BY_GAREJEI_JAMRULES_V0_9_I_PPSSPP",
+      "TotalPlayTime":7
+    },
+    {
+      "ApplicationPath":"E:/GAMECUBE GAMES/Soulcalibur II (USA).rvz",
+      "CaptureDir":"captures/GAME_SOULCALIBUR_II_USA_DOLPHIN",
+      "EbootIsoPath":"E:/GAMECUBE GAMES/Soulcalibur II (USA).rvz",
+      "GameApplication":"Soulcalibur II (USA).rvz",
+      "HasWindowProfile":1,
+      "Id":"GAME_SOULCALIBUR_II_USA_DOLPHIN",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-02-02 00:49:48",
+      "LauncherType":"DOLPHIN",
+      "PlayTimeReadable":"1.7m",
+      "SavedName":"SOULCALIBUR_II_USA_DOLPHIN",
+      "SnapshotDir":"snapshots/GAME_SOULCALIBUR_II_USA_DOLPHIN",
+      "TotalPlayTime":104,
+      "WinH":1315,
+      "WinW":1920,
+      "WinX":0,
+      "WinY":-67
+    },
+    {
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES TRANSLATED/[PSP] DotHack-Link [J] [TRAD-E] [ULJS-00266] [v1.0.2]/ULJS-00266-DotHackLink-ENG.iso",
+      "CaptureDir":"captures/GAME_ULJS_00266_DOTHACKLINK_ENG_PPSSPP",
+      "EbootIsoPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES TRANSLATED/[PSP] DotHack-Link [J] [TRAD-E] [ULJS-00266] [v1.0.2]/ULJS-00266-DotHackLink-ENG.iso",
+      "GameApplication":"ULJS-00266-DotHackLink-ENG.iso",
+      "Id":"GAME_ULJS_00266_DOTHACKLINK_ENG_PPSSPP",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-01-27 19:35:33",
+      "LauncherType":"PPSSPP",
+      "PatchGroup":"",
+      "PlayTimeReadable":"4.2m",
+      "SavedName":"ULJS_00266_DOTHACKLINK_ENG_PPSSPP",
+      "SnapshotDir":"snapshots/GAME_ULJS_00266_DOTHACKLINK_ENG_PPSSPP",
+      "TotalPlayTime":249
+    }
+  ]
+}

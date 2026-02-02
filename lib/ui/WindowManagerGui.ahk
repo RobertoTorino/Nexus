@@ -81,13 +81,14 @@ class WindowManagerGui {
         this.BtnAddTheme("  Refresh List  ", (*) => this.RefreshList(), "x+10 Background333333")
 
         ; --- ROW 2  ---
-        this.BtnAddTheme("  Restore  ", (*) => this.Action("Default"), "x6 " yState " Background333333")
-        this.BtnAddTheme("  Fit Screen  ", (*) => this.Action("FitScreen"), "x+10 Background333333")
-        this.BtnAddTheme("  Topmost  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "Topmost", 0, {}), "x+10 Background333333")
-        this.BtnAddTheme("  Tool Window  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "ToolWindow", 0, {}), "x+10 Background333333")
-        this.BtnAddTheme("  Layered  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "Layered", 0, {}), "x+10 Background333333")
-        this.BtnAddTheme("  No Activate  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "NoActivate", 0, {}), "x+10 Background333333")
-        this.BtnAddTheme("  Overscan  ", (*) => WindowManager.ApplyPreset("SizeOverscan"), "x+10 Background333333")
+        ; --- ROW 2: ADVANCED MODES ---
+        this.BtnAddTheme("  Restore  ", (*) => this.Action("Default"), "x6 " yState " Background333333", "Resets window to standard OS defaults.")
+        this.BtnAddTheme("  Fit Screen  ", (*) => this.Action("FitScreen"), "x+10 Background333333", "Stretches window to fill the current monitor.")
+        this.BtnAddTheme("  Topmost  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "Topmost", 0, {}), "x+10 Background333333", "Keeps the game on top of all other windows.")
+        this.BtnAddTheme("  Tool Window  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "ToolWindow", 0, {}), "x+10 Background333333", "Hides the game from the Windows Alt-Tab menu.")
+        this.BtnAddTheme("  Layered  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "Layered", 0, {}), "x+10 Background333333", "Enables advanced transparency and overlay support.")
+        this.BtnAddTheme("  No Activate  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "NoActivate", 0, {}), "x+10 Background333333", "Window will not take focus when clicked or resized.")
+        this.BtnAddTheme("  Overscan  ", (*) => WindowManager.ApplyPreset("SizeOverscan"), "x+10 Background333333", "Zooms slightly past edges to hide UI borders.")
         this.BtnAddTheme("  Force Saved Settings  ", (*) => WindowManager.ApplyGameSettings(), "x+10 Background006666")
 
         ; --- ROW 3: OVERSCAN LOGIC ---
@@ -158,16 +159,20 @@ class WindowManagerGui {
         this.BtnAddTheme("  Fake Fullscreen  ", (*) => WindowManager.ApplyPreset("SizeFakeFull2560"), "x+0 Background004466")
         this.BtnAddTheme("  All Logic  ", (*) => WindowManager.ApplyPreset("SizeFakeFullAll2560"), "x+0 Background004466")
 
-        ; --- ROW 7: MONITOR SWITCH
-        this.BtnMon1 := this.BtnAddTheme("  Monitor 01  ", (*) => this.SwitchMonitor(1), "x6 " yState " Background333333")
-        this.BtnMon2 := this.BtnAddTheme("  Monitor 02  ", (*) => this.SwitchMonitor(2), "x+0 Background333333")
-        ; THE NEW INFO LABEL
+        ; --- ROW 7: MONITOR SWITCH ---
+        this.BtnMon1 := this.BtnAddTheme("  Monitor 01  ", (*) => this.SwitchMonitor(1), "x6 " yState " Background333333", "Move window to Primary Display.")
+        this.BtnMon2 := this.BtnAddTheme("  Monitor 02  ", (*) => this.SwitchMonitor(2), "x+0 Background333333", "Move window to Secondary Display.")
+
+        ; The Info Label (No callback, just visual)
         this.txtMonitorInfo := this.WinGui.Add("Text", "x+10 w205 h26 +0x200 +Border Background333333 Center", " Active: [Detecting...] ")
-        this.BtnAddTheme("  Reset All  ", (*) => WindowManager.ForceKillAll(), "x+405 Background660000")
+
+        this.BtnAddTheme("  Reset All  ", (*) => WindowManager.ForceKillAll(), "x+405 Background660000", "WARNING: Force closes all known emulator processes.")
 
         this.UpdateMonitorVisuals(1)
 
         this.WinGui.Show("w" guiW)
+        ; --- THE FIX: Listen for mouse movement over controls ---
+        OnMessage(0x0200, WindowManagerGui.OnMouseMove.Bind(WindowManagerGui))
 
         if !this.HasProp("RegisteredGuis")
             this.RegisteredGuis := Map()
@@ -176,6 +181,13 @@ class WindowManagerGui {
             this.RegisterForSnapping(this.WinGui.Hwnd)
 
         this.RefreshList()
+    }
+
+    static VisualFeedback(ctrl, flashColor := "Background444444", originalColor := "Background333333") {
+        ctrl.Opt("+" . flashColor)
+        ctrl.Redraw()
+        ; Use a high-speed timer to revert (50ms is the "sweet spot" for human eyes)
+        SetTimer(() => (ctrl.Opt("+" . originalColor), ctrl.Redraw()), -50)
     }
 
     static Destroy() {
@@ -219,9 +231,23 @@ class WindowManagerGui {
         }
     }
 
-    static BtnAddTheme(label, callback, options) {
+    static BtnAddTheme(label, callback, options, tip := "") {
         btn := this.WinGui.Add("Text", "h26 +0x200 +Center +Border " options, label)
-        btn.OnEvent("Click", callback)
+
+        originalBg := "Background333333"
+        if RegExMatch(options, "i)Background([0-9A-F]{6})", &match)
+            originalBg := "Background" . match[1]
+
+        ; Visual Feedback
+        btn.OnEvent("Click", (ctrl, *) => (
+            this.VisualFeedback(ctrl, "Background444444", originalBg),
+            callback(ctrl)
+        ))
+
+        ; --- THE FIX: Store tip in the control object ---
+        if (tip != "")
+            btn.ToolTipText := tip
+
         return btn
     }
 
@@ -353,7 +379,7 @@ class WindowManagerGui {
 
             if (w > 0 && h > 0) {
                 ; 1. Move the window
-                WinMove(,, w, h, "ahk_id " hwnd)
+                WinMove(, , w, h, "ahk_id " hwnd)
 
                 ; 2. Sync Context: If WindowManager doesn't know the game, tell it
                 if (WindowManager.ActiveGameId == "")
@@ -361,7 +387,7 @@ class WindowManagerGui {
 
                 ; 3. Auto-Save the new size to JSON
                 if (WindowManager.ActiveGameId != "") {
-                    WinGetPos(&x, &y,,, "ahk_id " hwnd)
+                    WinGetPos(&x, &y, , , "ahk_id " hwnd)
                     ConfigManager.UpdateGameWindowProfile(WindowManager.ActiveGameId, x, y, w, h)
                     DialogsGui.CustomStatusPop("Size Set & Saved")
                 }
@@ -445,7 +471,7 @@ class WindowManagerGui {
         }
     }
 
-static OnMainMove(wParam, lParam, msg, hwnd) {
+    static OnMainMove(wParam, lParam, msg, hwnd) {
         ; 1. Safety check: Is the GuiBuilder even initialized?
         if !IsSet(GuiBuilder) || !HasProp(GuiBuilder, "MainGui")
             return
@@ -497,4 +523,29 @@ static OnMainMove(wParam, lParam, msg, hwnd) {
             WindowManagerGui.LastMainPos := { x: nX, y: nY }
         }
     }
+
+    ; --- INSERT THIS AT THE BOTTOM OF YOUR CLASS ---
+    static OnMouseMove(wParam, lParam, msg, hwnd) {
+        static LastCtrlHwnd := 0
+
+        ; Identify which control is under the mouse
+        currCtrl := GuiCtrlFromHwnd(hwnd)
+
+        ; Only trigger if the mouse is over THIS specific Window Manager GUI
+        if (currCtrl && currCtrl.Gui.Hwnd == WindowManagerGui.WinGui.Hwnd) {
+            if (currCtrl.Hwnd != LastCtrlHwnd) {
+                if (HasProp(currCtrl, "ToolTipText"))
+                    ToolTip(currCtrl.ToolTipText)
+                else
+                    ToolTip() ; Clear tooltip if button has no "tip" defined
+                LastCtrlHwnd := currCtrl.Hwnd
+            }
+        } else {
+            ; Mouse left the GUI area entirely
+            if (LastCtrlHwnd != 0) {
+                ToolTip()
+                LastCtrlHwnd := 0
+            }
+        }
     }
+}

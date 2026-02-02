@@ -597,7 +597,7 @@ class GuiBuilder {
 
         game := ConfigManager.GetCurrentGame()
         if (!game)
-        return
+            return
 
         this.ClearGameGroup()
         this.SetBtnHighlight(this.BtnStart, true)
@@ -657,7 +657,7 @@ class GuiBuilder {
                 ; Start the auto-watcher as a courtesy, but use the button if it fails
                 WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, targetExe)
                 Logger.Info("Launch: Dolphin started.", "GuiBuilder")
-        }
+            }
             else if (launcher == "TEKNO") {
                 SplitPath(appPath, , &dir)
                 ; FIX: Added commas and &targetPid
@@ -999,7 +999,7 @@ class GuiBuilder {
        - To change language, click the language icon. 
 
     9. MAGNETIC WINDOWS
-       - hOLD Control on the Main UI to detach it.
+       - Hold Control on the Main UI to detach it.
 
     T. TROUBLESHOOTING:
        - If a game does not respond, use Exit Game (X).
@@ -1008,6 +1008,6 @@ class GuiBuilder {
        - The statusbar shows the RAM usage.
        - Audio related, check Audio Manager.
     )"
-        DialogsGui.ShowTextViewer("NEXUS :: Quick Start", helpText, 550, 820)
+        DialogsGui.ShowTextViewer("NEXUS :: Quick Start", helpText, 450, 825)
     }
 }

@@ -96,11 +96,79 @@ class DialogsGui {
         return Result
     }
 
-    static ShowTextViewer(title, content, w := 600, h := 600) {
-        myGui := this._CreateModernGui(title, w)
-        myGui.SetFont("s10 cSilver", "Consolas")
-        myGui.Add("Edit", "x10 y45 w" (w - 20) " h" (h - 60) " ReadOnly Background202020 -E0x200", content)
-        this._ShowCentered(myGui, w, h)
+    static ShowTextViewer(title, text, width := 600, height := 400) {
+        viewer := Gui("-Caption +Border +AlwaysOnTop +ToolWindow", title)
+        viewer.BackColor := "1A1A1A"
+
+        ; Initial state: Hidden and transparent
+        WinSetTransparent(0, viewer.Hwnd)
+
+        viewer.SetFont("s11 cSilver", "Segoe UI")
+
+        ; Custom Header
+        titleBar := viewer.Add("Text", "x0 y0 w" (width - 65) " h30 +0x200 Background2A2A2A", "  " . title)
+        titleBar.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, viewer.Hwnd))
+
+        ; 1. Add the Copy Button (Using the Matte Blue theme)
+        ; +0x100 (SS_NOTIFY) ensures clicks are registered
+        copyBtn := viewer.Add("Text", "x" (width - 65) " y0 w30 h30 +0x200 +Center +0x100 Background2A2A2A cSilver", "📋")
+        ; 2. We use a global-ish property or a Bound Function to ensure the text persists
+        ; Binding the 'text' variable directly to the function
+        copyBtn.OnEvent("Click", this.OnCopyClick.Bind(this, text))
+
+        ; 2. ATTACH THE DATA: Save the text string directly to the button object
+        copyBtn.SavedText := text
+
+        ; 3. THE ACTION: Use 'ctrl' to access the stored text
+        copyBtn.OnEvent("Click", (ctrl, *) => (
+            A_Clipboard := ctrl.SavedText,
+            DialogsGui.CustomStatusPop("Copied to Clipboard", "White"),
+            Logger.Info("UI: Help text copied to clipboard.", "DialogsGui")
+        ))
+
+        closeBtn := viewer.Add("Text", "x+0 w30 h30 +0x200 +Center Background2A2A2A cRed", "✕")
+        closeBtn.OnEvent("Click", (*) => viewer.Destroy())
+
+        ; Main Content - Hidden Scrollbar and Sunken Borders removed
+        viewer.SetFont("s10 cSilver")
+
+        ; -VScroll: Hides the bar
+        ; -E0x200: Removes the sunken border
+        ; -TabStop: Prevents the control from being "clicked into" or Tabbed into
+        ; ReadOnly: Prevents the caret (blinking line) and editing
+        viewer.Add("Edit", "x15 y40 w" (width - 30) " h" (height - 55) " ReadOnly -VScroll -E0x200 -TabStop Background1A1A1A", text)
+
+        ; Show the window
+        viewer.Show("w" width " h" height " NoActivate")
+
+        ; --- SUBTLE FADE IN ---
+        loop 15 { ; 15 steps instead of 10
+            if (!WinExist("ahk_id " viewer.Hwnd))
+                break
+            transValue := Integer(A_Index * 17) ; 15 * 17 = 255
+            try WinSetTransparent(transValue, "ahk_id " viewer.Hwnd)
+            Sleep(10) ; Faster updates
+        }
+        ; Final safety to ensure it's 100% solid
+        try WinSetTransparent(255, "ahk_id " viewer.Hwnd)
+
+        ; Register for magnetic snapping
+        if IsSet(WindowManagerGui)
+            WindowManagerGui.RegisterForSnapping(viewer.Hwnd)
+    }
+
+    static OnCopyClick(textToCopy, ctrl, *) {
+        ; 1. Visual Feedback (High Performance)
+        ctrl.Opt("Background444444") ; Lighten background instantly
+        ctrl.Redraw()
+
+        try {
+            A_Clipboard := textToCopy
+            DialogsGui.CustomStatusPop("Copied to Clipboard", "004466")
+        }
+
+        ; 2. Reset visual after a tiny delay (50ms is enough to see it)
+        SetTimer(() => (ctrl.Opt("Background2A2A2A"), ctrl.Redraw()), -50)
     }
 
     ; NOTIFICATIONS
@@ -122,7 +190,7 @@ class DialogsGui {
         this.PopGui.BackColor := "1A1A1A"
 
         this.PopGui.SetFont("s12 c" . color, "Segoe UI")
-        this.PopGui.Add("Text", "x15 y10 Center", text)
+        this.PopGui.Add("Text", "x15 y6 Center", text)
 
         ; 4. DISPLAY
         this.PopGui.Show("NoActivate AutoSize Center")
@@ -140,7 +208,7 @@ class DialogsGui {
         ; Loop through transparency from 255 (solid) down to 0 (invisible)
         loop 10 {
             if (!this.PopGui)
-            break
+                break
             transparency := 255 - (A_Index * 25)
             try WinSetTransparent(Max(0, transparency), "ahk_id " this.PopGui.Hwnd)
             Sleep(20) ; Speed of the fade
@@ -211,7 +279,7 @@ class DialogsGui {
         if (targetHwnd) {
             try {
                 WinGetPos(&pX, &pY, &pW, &pH, "ahk_id " targetHwnd)
-                WinGetPos(,, &cW, &cH, "ahk_id " childGui.Hwnd)
+                WinGetPos(, , &cW, &cH, "ahk_id " childGui.Hwnd)
                 nX := pX + (pW - cW) // 2
                 nY := pY + (pH - cH) // 2
                 childGui.Move(nX, nY)
