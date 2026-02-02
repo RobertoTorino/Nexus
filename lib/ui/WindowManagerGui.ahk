@@ -44,11 +44,11 @@ class WindowManagerGui {
 
         this.WinGui := Gui("-Caption +Border +AlwaysOnTop +ToolWindow +Owner", "Nexus :: Window Manager")
         this.WinGui.BackColor := "2A2A2A"
-        this.WinGui.SetFont("s12 cSilver q5", "Segoe UI")
+        this.WinGui.SetFont("s12 cSilver", "Segoe UI")
         this.WinGui.OnEvent("Close", (*) => this.Destroy())
         this.WinGui.OnEvent("Escape", (*) => this.Destroy())
 
-        guiW := 805
+        guiW := 905
 
         ; CUSTOM TITLE BAR
         titleCtrl := this.WinGui.Add("Text", "x0 y0 w" (guiW - 30) " h30 +0x200 Background2A2A2A", winTitle)
@@ -58,81 +58,92 @@ class WindowManagerGui {
         BtnClose.OnEvent("Click", (*) => this.Destroy())
 
         ; WINDOW LIST
-        this.ListView := this.WinGui.Add("ListView", "x5 y+5 w795 h150 -Multi Background2A2A2A cSilver", ["ID", "Title", "Class", "Status"])
+        this.ListView := this.WinGui.Add("ListView", "x5 y+5 w895 h150 -Multi Background2A2A2A cSilver", ["ID", "Title", "Class", "Status"])
         this.ListView.OnEvent("DoubleClick", (*) => this.OnListDoubleClick())
 
         this.ListView.ModifyCol(1, 95)
-        this.ListView.ModifyCol(2, 275)
-        this.ListView.ModifyCol(3, 325)
+        this.ListView.ModifyCol(2, 325)
+        this.ListView.ModifyCol(3, 375)
         this.ListView.ModifyCol(4, 65)
 
-        ; WINDOW STATE BUTTONS
+        ; --- ROW 1: WINDOW STATE BUTTONS ---
         yState := "y+10"
-        this.BtnAddTheme("  Destroy  ", (*) => this.Action("Close"), "x6 " yState " w60 Background333333")
-        this.BtnAddTheme("  Hidden  ", (*) => this.Action("Hide"), "x+5 Background333333")
-        this.BtnAddTheme("  Show  ", (*) => this.Action("Show"), "x+5 Background333333")
-        this.BtnAddTheme("  Minimized  ", (*) => this.Action("Minimize"), "x+5 Background333333")
-        this.BtnAddTheme("  Maximized  ", (*) => this.Action("Maximize"), "x+5 Background333333")
-        this.BtnAddTheme("  Windowed  ", (*) => this.Action("Windowed"), "x+5 Background333333")
-        this.BtnAddTheme(" True Borderless Fullscreen  ", (*) => this.Action("Borderless"), "x+5 Background333333")
+        this.BtnAddTheme("  Destroy  ", (*) => this.Action("Close"), "x6 " yState " Background333333")
+        this.BtnAddTheme("  Hidden  ", (*) => this.Action("Hide"), "x+10 Background333333")
+        this.BtnAddTheme("  Show  ", (*) => this.Action("Show"), "x+10 Background333333")
+        this.BtnAddTheme("  Minimized  ", (*) => this.Action("Minimize"), "x+10 Background333333")
+        this.BtnAddTheme("  Maximized  ", (*) => this.Action("Maximize"), "x+10 Background333333")
+        this.BtnAddTheme("  Windowed  ", (*) => this.Action("Windowed"), "x+10 Background333333")
+        this.BtnAddTheme("  True Borderless Fullscreen  ", (*) => this.Action("Borderless"), "x+10 Background333333")
+        this.BtnAddTheme("  Refresh List  ", (*) => this.RefreshList(), "x+10 Background333333")
 
-        this.BtnAddTheme("  Refresh List  ", (*) => this.RefreshList(), "x+5 Background333333")
-
-        ; --- ROW 2: OVERSCAN LOGIC ---
-        this.BtnAddTheme("  Restore  ", (*) => this.Action("Default"), "x5 y+10 Background333333")
+        ; --- ROW 2  ---
+        this.BtnAddTheme("  Restore  ", (*) => this.Action("Default"), "x6 " yState " Background333333")
         this.BtnAddTheme("  Fit Screen  ", (*) => this.Action("FitScreen"), "x+10 Background333333")
+        this.BtnAddTheme("  Topmost  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "Topmost", 0, {}), "x+10 Background333333")
+        this.BtnAddTheme("  Tool Window  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "ToolWindow", 0, {}), "x+10 Background333333")
+        this.BtnAddTheme("  Layered  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "Layered", 0, {}), "x+10 Background333333")
+        this.BtnAddTheme("  No Activate  ", (*) => WindowManager.ApplyMode(this.GetValidHwndFromUI(), "NoActivate", 0, {}), "x+10 Background333333")
+        this.BtnAddTheme("  Overscan  ", (*) => WindowManager.ApplyPreset("SizeOverscan"), "x+10 Background333333")
+        this.BtnAddTheme("  Force Saved Settings  ", (*) => WindowManager.ApplyGameSettings(), "x+10 Background006666")
 
-        this.BtnAddTheme("  Apply H-Overscan  ", (*) => WindowManager.ApplyHorizontalOverscan(this.OverscanVal), "x+10 Background006666")
-        this.WinGui.SetFont("Bold s11 cBlack")
-        this.EditOverscan := this.WinGui.Add("Edit", "x+10 h26 w35 Number Center", "0")
-        this.EditOverscan.OnEvent("Change", (ctrl, *) => this.OverscanVal := ctrl.Value)
+        ; --- ROW 3: OVERSCAN LOGIC ---
+        this.BtnAddTheme("  Apply H-Overscan  ", (*) => WindowManager.ApplyHorizontalOverscan(this.OverscanVal), "x6 " yState " Background006666")
+
+        this.WinGui.SetFont("Bold s12 cBlack")
+
+        this.EditOverscan := this.WinGui.Add("Edit", "x+0 h26 w35 Number +0x200 Center", "0")
+
         this.WinGui.SetFont("Norm s12 cSilver")
-        this.BtnAddTheme("  Apply V-Overscan  ", (*) => WindowManager.ApplyVerticalOverscan(this.OverscanVal), "x+10 Background006666")
 
-        ; POSITION & MONITOR
-        this.BtnAddTheme("Up", (*) => WindowManager.Nudge(0, -this.NudgeStep, 0, 0), "x6 y+10 w35 Background333333")
-        this.BtnAddTheme("Down", (*) => WindowManager.Nudge(0, this.NudgeStep, 0, 0), "x+0 w50 Background333333")
-        this.BtnAddTheme("Left", (*) => WindowManager.Nudge(-this.NudgeStep, 0, 0, 0), "x+0 w40 Background333333")
-        this.BtnAddTheme("Right", (*) => WindowManager.Nudge(this.NudgeStep, 0, 0, 0), "x+0 w50 Background333333")
+        this.EditOverscan.OnEvent("Change", (ctrl, *) => this.OverscanVal := ctrl.Value)
+        this.BtnAddTheme("  Apply V-Overscan  ", (*) => WindowManager.ApplyVerticalOverscan(this.OverscanVal), "x+0 Background006666")
+        this.BtnAddTheme("  U  ", (*) => WindowManager.Nudge(0, -this.NudgeStep, 0, 0), "x+10 +0x200 Center Background333333")
+        this.BtnAddTheme("  D  ", (*) => WindowManager.Nudge(0, this.NudgeStep, 0, 0), "x+0  +0x200 Center Background333333")
+        this.BtnAddTheme("  L  ", (*) => WindowManager.Nudge(-this.NudgeStep, 0, 0, 0), "x+0  +0x200 Center Background333333")
+        this.BtnAddTheme("  R  ", (*) => WindowManager.Nudge(this.NudgeStep, 0, 0, 0), "x+0  +0x200 Center Background333333")
 
-        this.WinGui.SetFont("Bold s11 cBlack")
-        this.EditStep := this.WinGui.Add("Edit", "x+12 h26 w35 Number Center", "1")
+        this.WinGui.SetFont("Bold s12 cBlack")
+
+        this.EditStep := this.WinGui.Add("Edit", "x+0 h26 w35 Number Center", "1")
         this.EditStep.OnEvent("Change", (ctrl, *) => this.NudgeStep := ctrl.Value)
 
-        this.EditW := this.WinGui.Add("Edit", "x+14 h26 w55 Number Center", "1920")
-        this.EditH := this.WinGui.Add("Edit", "x+0 h26 w55 Number Center", "1080")
+        this.WinGui.SetFont("Norm s12 cSilver")
+
+        this.BtnAddTheme("  W ++  ", (*) => WindowManager.Nudge(0, 0, this.NudgeStep, 0, true), "x+0 Background333333")
+        this.BtnAddTheme("  H ++  ", (*) => WindowManager.Nudge(0, 0, 0, this.NudgeStep, true), "x+0 Background333333")
+        this.BtnAddTheme("  W --  ", (*) => WindowManager.Nudge(0, 0, -this.NudgeStep, 0, true), "x+0 Background333333")
+        this.BtnAddTheme("  H --  ", (*) => WindowManager.Nudge(0, 0, 0, -this.NudgeStep, true), "x+0 Background333333")
+        this.BtnAddTheme("  Save  ", (*) => WindowManager.SaveCurrentPosition(), "x+0 Background006666")
+
+        this.WinGui.SetFont("Bold s12 cBlack")
+
+        this.EditW := this.WinGui.Add("Edit", "x+10 h26 w50 Number Center", "1920")
+        this.EditH := this.WinGui.Add("Edit", "x+0 h26 w50 Number Center", "1080")
+
         this.WinGui.SetFont("Norm s12 cSilver")
 
         this.BtnAddTheme("Set", (*) => this.ApplyCustomSize(), "x+0 w35 Background006666")
 
-        ; Size Nudge Buttons
-        ; [UPDATED] Symmetric Resize Nudge (Arg 5 = true)
-        this.BtnAddTheme("W ++", (*) => WindowManager.Nudge(0, 0, this.NudgeStep, 0, true), "x+10 w50 Background333333")
-        this.BtnAddTheme("H ++", (*) => WindowManager.Nudge(0, 0, 0, this.NudgeStep, true), "x+0 w50 Background333333")
-        this.BtnAddTheme("W --", (*) => WindowManager.Nudge(0, 0, -this.NudgeStep, 0, true), "x+0 w50 Background333333")
-        this.BtnAddTheme("H --", (*) => WindowManager.Nudge(0, 0, 0, -this.NudgeStep, true), "x+0 w50 Background333333")
+        ; --- ROW 4: RESOLUTIONS
+        this.BtnAddTheme("1920x1080", (*) => WindowManager.ApplyPreset("Size1920x1080"), "x6 " yState " w90 Background333333")
+        this.BtnAddTheme("1920x1200", (*) => WindowManager.ApplyPreset("Size1920x1200"), "x+10 Background333333 w90")
+        this.BtnAddTheme("1920x1440", (*) => WindowManager.ApplyPreset("Size1920x1440"), "x+10 Background333333 w90")
+        this.BtnAddTheme("2048x1152", (*) => WindowManager.ApplyPreset("Size2048x1152"), "x+10 Background333333 w90")
+        this.BtnAddTheme("2048x1536", (*) => WindowManager.ApplyPreset("Size2048x1536"), "x+10 Background333333 w90")
+        this.BtnAddTheme("2560x1440", (*) => WindowManager.ApplyPreset("Size2560x1440"), "x+10 Background333333 w90")
+        this.BtnAddTheme("2560x1600", (*) => WindowManager.ApplyPreset("Size2560x1600"), "x+10 Background333333 w90")
+        this.BtnAddTheme("2880x1800", (*) => WindowManager.ApplyPreset("Size2880x1800"), "x+10 Background333333 w90")
+        this.BtnAddTheme("3840x2160", (*) => WindowManager.ApplyPreset("Size3840x2160"), "x+10 Background333333 w90")
 
-        ; Save Button
-        this.BtnAddTheme("  Save Changes  ", (*) => WindowManager.SaveCurrentPosition(), "x+10 Background006666")
+        ; --- ROW 5: RESOLUTIONS
+        this.BtnAddTheme("4096x2160", (*) => WindowManager.ApplyPreset("Size4096x2160"), "x6 " yState " w90 Background333333 w90")
+        this.BtnAddTheme("5120x2880", (*) => WindowManager.ApplyPreset("Size5120x2880"), "x+10 Background333333 w90")
+        this.BtnAddTheme("6016x3384", (*) => WindowManager.ApplyPreset("Size6016x3384"), "x+10 Background333333 w90")
+        this.BtnAddTheme("7680x4320", (*) => WindowManager.ApplyPreset("Size7680x4320"), "x+10 Background333333 w90")
 
-        ; RESOLUTIONS
-        this.BtnAddTheme("1920x1080", (*) => WindowManager.ApplyPreset("Size1920x1080"), "x5 y+10 w90 Background333333")
-        this.BtnAddTheme("1920x1200", (*) => WindowManager.ApplyPreset("Size1920x1200"), "x+8 Background333333 w90")
-        this.BtnAddTheme("1920x1440", (*) => WindowManager.ApplyPreset("Size1920x1440"), "x+8 Background333333 w90")
-        this.BtnAddTheme("2048x1152", (*) => WindowManager.ApplyPreset("Size2048x1152"), "x+8 Background333333 w90")
-        this.BtnAddTheme("2048x1536", (*) => WindowManager.ApplyPreset("Size2048x1536"), "x+8 Background333333 w90")
-        this.BtnAddTheme("2560x1440", (*) => WindowManager.ApplyPreset("Size2560x1440"), "x+8 Background333333 w90")
-        this.BtnAddTheme("2560x1600", (*) => WindowManager.ApplyPreset("Size2560x1600"), "x+8 Background333333 w90")
-        this.BtnAddTheme("2880x1800", (*) => WindowManager.ApplyPreset("Size2880x1800"), "x+8 Background333333 w90")
-
-        this.BtnAddTheme("3840x2160", (*) => WindowManager.ApplyPreset("Size3840x2160"), "x5 y+10 w90 Background333333")
-        this.BtnAddTheme("4096x2160", (*) => WindowManager.ApplyPreset("Size4096x2160"), "x+8 Background333333 w90")
-        this.BtnAddTheme("5120x2880", (*) => WindowManager.ApplyPreset("Size5120x2880"), "x+8 Background333333 w90")
-        this.BtnAddTheme("6016x3384", (*) => WindowManager.ApplyPreset("Size6016x3384"), "x+8 Background333333 w90")
-        this.BtnAddTheme("7680x4320", (*) => WindowManager.ApplyPreset("Size7680x4320"), "x+9 Background333333 w90")
-
-        ; MONITOR SWITCH
-        this.WinGui.SetFont("cSilver q5")
+        ; --- ROW 6: MONITOR SWITCH
+        this.WinGui.SetFont("cSilver")
         this.BtnMon1 := this.BtnAddTheme("Monitor 1", (*) => this.SwitchMonitor(1), "x5 y+10 w90 Background333333")
         this.BtnMon2 := this.BtnAddTheme("Monitor 2", (*) => this.SwitchMonitor(2), "x+8 w90 Background333333")
 
@@ -295,14 +306,7 @@ class WindowManagerGui {
     }
 
     static ApplyCustomSize() {
-        hwnd := 0
-        row := this.ListView.GetNext(0)
-        if (row > 0)
-            hwnd := Integer(this.ListView.GetText(row, 1))
-
-        if (!hwnd)
-            hwnd := WindowManager.GetValidHwnd()
-
+        hwnd := this.GetValidHwndFromUI()
         if (!hwnd || !WinExist("ahk_id " hwnd))
             return
 
@@ -311,12 +315,31 @@ class WindowManagerGui {
             h := Integer(this.EditH.Value)
 
             if (w > 0 && h > 0) {
-                WinMove(, , w, h, "ahk_id " hwnd)
-                DialogsGui.CustomTrayTip("Resized to " w "x" h, 1)
+                ; 1. Move the window
+                WinMove(,, w, h, "ahk_id " hwnd)
+
+                ; 2. Sync Context: If WindowManager doesn't know the game, tell it
+                if (WindowManager.ActiveGameId == "")
+                    WindowManager.ActiveGameId := ConfigManager.CurrentGameId
+
+                ; 3. Auto-Save the new size to JSON
+                if (WindowManager.ActiveGameId != "") {
+                    WinGetPos(&x, &y,,, "ahk_id " hwnd)
+                    ConfigManager.UpdateGameWindowProfile(WindowManager.ActiveGameId, x, y, w, h)
+                    DialogsGui.CustomStatusPop("Size Set & Saved")
+                }
             }
         } catch {
-            DialogsGui.CustomStatusPop("Failed to resize window")
+            DialogsGui.CustomStatusPop("Failed to resize/save")
         }
+    }
+
+    ; Helper to ensure we are targeting the right window from the list
+    static GetValidHwndFromUI() {
+        row := this.ListView.GetNext(0)
+        if (row > 0)
+            return Integer(this.ListView.GetText(row, 1))
+        return WindowManager.GetValidHwnd()
     }
 
     static OnListDoubleClick() {

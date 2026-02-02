@@ -277,7 +277,7 @@ class GuiBuilder {
             this.UpdateTitle()
 
         loadTime := A_TickCount - loadStart
-        Logger.Info("Main GUI loaded in " . loadTime . " ms")
+        Logger.Info("Main GUI loaded in " . loadTime . " ms", "GuiBuilder")
         DialogsGui.CustomStatusPop("GUI Load Time: " . loadTime . "ms")
     }
 
@@ -517,7 +517,7 @@ class GuiBuilder {
     static OnSelectionChange(selectedName) {
         success := ConfigManager.SetCurrentGameByName(selectedName)
         if (success) {
-            Logger.Info("UI: Selection changed to " . selectedName)
+            Logger.Info("UI: Selection changed to " . selectedName, "GuiBuilder")
             this.UpdateButtonState()
         } else {
             Logger.Warn("UI: Could not find ID for game: " . selectedName)
@@ -595,17 +595,17 @@ class GuiBuilder {
             return
         }
 
+        game := ConfigManager.GetCurrentGame()
+        if (!game)
+        return
+
         this.ClearGameGroup()
         this.SetBtnHighlight(this.BtnStart, true)
 
-        game := ConfigManager.GetCurrentGame()
-        if (!game)
-            return
-
         GetProp := (key) => (Type(game) == "Map" ? (game.Has(key) ? game[key] : "") : (game.HasOwnProp(key) ? game.%key% : ""))
-
         launcher := GetProp("LauncherType")
         appPath := GetProp("ApplicationPath")
+
         if (appPath == "")
             appPath := GetProp("EbootIsoPath")
 
@@ -617,40 +617,64 @@ class GuiBuilder {
 
         try {
             targetExe := ""
+            targetPid := 0 ; Initialize to avoid "unassigned" errors
 
             if (launcher == "PPSSPP") {
                 emuPath := IniRead(ConfigManager.IniPath, "PPSSPP_PATH", "PpssppPath", "")
-                Run(emuPath . ' "' . appPath . '"')
+                Run(emuPath . ' "' . appPath . '"', , , &targetPid)
                 SplitPath(emuPath, &targetExe)
                 ConfigManager.ActiveProcessName := targetExe
+                WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, targetExe)
+                Logger.Info("Launch: PPSSPP started.", "GuiBuilder")
             }
             else if (launcher == "PCSX2") {
                 emuPath := IniRead(ConfigManager.IniPath, "PCSX2_PATH", "Pcsx2Path", "")
-                Run(emuPath . ' -batch -- "' . appPath . '"')
+                Run(emuPath . ' -batch -- "' . appPath . '"', , , &targetPid)
                 SplitPath(emuPath, &targetExe)
                 ConfigManager.ActiveProcessName := targetExe
+                WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, targetExe)
+                Logger.Info("Launch: PCSX2 started.", "GuiBuilder")
             }
             else if (launcher == "DUCKSTATION") {
                 emuPath := IniRead(ConfigManager.IniPath, "DUCKSTATION_PATH", "DuckStationPath", "")
-                Run(emuPath . ' -batch "' . appPath . '"')
+                ; FIX: Added commas and &targetPid
+                Run(emuPath . ' -batch "' . appPath . '"', , , &targetPid)
                 SplitPath(emuPath, &targetExe)
                 ConfigManager.ActiveProcessName := targetExe
+                WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, targetExe)
+                Logger.Info("Launch: DuckStation started.", "GuiBuilder")
             }
             else if (launcher == "DOLPHIN") {
                 emuPath := IniRead(ConfigManager.IniPath, "DOLPHIN_PATH", "DolphinPath", "")
-                Run(emuPath . ' -b -e "' . appPath . '"')
+                Run(emuPath . ' -b -e "' . appPath . '"', , , &targetPid)
+
+                ; Sync the Manager's ID immediately
+                WindowManager.ActiveGameId := ConfigManager.CurrentGameId
+
                 SplitPath(emuPath, &targetExe)
                 ConfigManager.ActiveProcessName := targetExe
-            }
+
+                ; Start the auto-watcher as a courtesy, but use the button if it fails
+                WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, targetExe)
+                Logger.Info("Launch: Dolphin started.", "GuiBuilder")
+        }
             else if (launcher == "TEKNO") {
                 SplitPath(appPath, , &dir)
-                Run(appPath, dir)
-                ConfigManager.ActiveProcessName := "TeknoParrotUi.exe"
+                ; FIX: Added commas and &targetPid
+                Run(appPath, dir, , &targetPid)
+                targetExe := "TeknoParrotUi.exe"
+                ConfigManager.ActiveProcessName := targetExe
+                WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, targetExe)
+                Logger.Info("Launch: Teknoparrot started.", "GuiBuilder")
             }
             else {
                 sl := StandardLauncher()
+                ; Note: StandardLauncher must be modified to return or set a PID to work with RegisterGame here
                 if (sl.Launch(game)) {
-                    ; Success
+                    ; If StandardLauncher has a Pid property:
+                    targetPid := sl.HasProp("Pid") ? sl.Pid : 0
+                    WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, "")
+                    Logger.Info("Launch: Standard launcher started.", "GuiBuilder")
                 } else {
                     DialogsGui.CustomStatusPop("Launch Failed")
                 }
@@ -678,7 +702,7 @@ class GuiBuilder {
         targetExe := ConfigManager.ActiveProcessName
         if (targetExe != "") {
             if IsSet(Logger)
-                Logger.Info("Terminating: " . targetExe)
+                Logger.Info("Terminating: " . targetExe, "GuiBuilder")
             if ProcessExist(targetExe) {
                 ProcessClose(targetExe)
                 DialogsGui.CustomStatusPop("Terminated: " . targetExe)
@@ -699,13 +723,25 @@ class GuiBuilder {
     }
 
     static OnDeleteGame() {
-        if (ConfigManager.CurrentGameId == "")
+        ; Use exactly TWO parameters
+        Logger.Info("Delete request initiated for ID: " . ConfigManager.CurrentGameId, "GuiBuilder")
+
+        if (ConfigManager.CurrentGameId == "") {
+            Logger.Warn("Delete aborted. No game selected.", "GuiBuilder")
             return
-        if (DialogsGui.CustomMsgBox("Delete", "Delete selected game?", 300) == "Yes") {
-            ConfigManager.DeleteGame(ConfigManager.CurrentGameId)
-            this.RefreshDropdown()
+        }
+
+        ; Confirm with Yes/No (Option 4)
+        if (DialogsGui.CustomMsgBox("Delete Game", "Are you sure?", 0, 4) == "Yes") {
+            Logger.Info("User confirmed delete for: " . ConfigManager.CurrentGameId, "GuiBuilder")
+
+            if ConfigManager.DeleteGame(ConfigManager.CurrentGameId) {
+                this.RefreshDropdown()
+                DialogsGui.CustomStatusPop("Game Deleted")
+            }
         }
     }
+
 
     static OnGameSelect(selectedName) {
         for id, game in ConfigManager.Games {

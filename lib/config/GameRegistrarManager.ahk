@@ -18,19 +18,25 @@ class GameRegistrarManager {
 
     ; MAIN ENTRY POINT
     static AddGame() {
+        Logger.Info("AddGame sequence initiated.", "GameRegistrarManager")
+
         path := FileSelect(3, , "Select Game Executable, ISO, or EBOOT",
             "All Supported (*.exe; *.bat; *.lnk; *.iso; *.cso; *.bin; *.cue; *.chd; *.pbp; *.elf; *.rvz; *.wbfs; *.gcm)")
 
-        if (path == "")
+        if (path == "") {
+            Logger.Warn("File selection cancelled by user.", "GameRegistrarManager")
             return false
+        }
 
         SplitPath(path, &fileName, &dir, &ext, &nameNoExt)
+        Logger.Debug("Path selected: " . path, "GameRegistrarManager")
 
         ; Use a Map for the temporary config to keep things consistent
         config := Map("Path", path, "Dir", dir, "Name", nameNoExt, "Ext", ext, "Launcher", "NORMAL", "App", fileName)
 
         ; Better Naming for EBOOTs
         if (fileName ~= "i)^eboot\.(bin|elf)$") {
+            Logger.Debug("EBOOT detected. Adjusting naming logic...", "GameRegistrarManager")
             SplitPath(dir, &parentFolder)
             if (parentFolder ~= "i)^USRDIR$") {
                 SplitPath(dir . "\..", &grandParent)
@@ -42,14 +48,17 @@ class GameRegistrarManager {
 
         ; Routing Logic
         if (fileName ~= "i)^eboot\.(bin|elf)$") {
+            Logger.Info("Routing to EBOOT handler.", "GameRegistrarManager")
             if !this.HandleEboot(config)
                 return false
         }
         else if (ext ~= "i)^(iso|cso|bin|cue|chd|pbp|rvz|wbfs|gcm)$") {
+            Logger.Info("Routing to ISO handler.", "GameRegistrarManager")
             if !this.HandleIso(config)
                 return false
         }
         else {
+            Logger.Info("Routing to Standard (EXE) handler.", "GameRegistrarManager")
             if !this.HandleStandard(config)
                 return false
         }
@@ -60,6 +69,7 @@ class GameRegistrarManager {
     ; HANDLERS
     static HandleStandard(config) {
         if (config["App"] ~= "i)TeknoParrotUi\.exe") {
+            Logger.Info("TeknoParrot executable detected. Redirecting to TP Manager.", "GameRegistrarManager")
             if (DialogsGui.CustomMsgBox("TeknoParrot Detected",
                 "You selected the TeknoParrot Launcher.`nTo play TeknoParrot games, use the Profile Manager.`nOpen it now?", 0, 4) == "Yes") {
                 TeknoParrotManager.ShowPicker()
@@ -67,17 +77,21 @@ class GameRegistrarManager {
             return false
         }
         config["Launcher"] := "STANDARD"
+        Logger.Debug("Launcher type set to: STANDARD", "GameRegistrarManager")
         return true
     }
 
     static HandleEboot(config) {
         ; --- VITA3K DETECTION ---
         if (config["Path"] ~= "i)(app|ux0|mai)") {
+            Logger.Info("Vita3K structure detected.", "GameRegistrarManager")
             choice := DialogsGui.AskForChoice("Select Vita3K Build", "Which emulator version?",
                 ["Standard Vita3K", "Vita3K Build 3830"])
 
-            if (choice == "")
+            if (choice == "") {
+                Logger.Warn("Vita3K selection cancelled.", "GameRegistrarManager")
                 return false
+            }
 
             if (choice == "Vita3K Build 3830") {
                 return this.ConfigureEmulator(config, "VITA3K_3830", "VITA3K_3830", "Vita3k3830Path")
@@ -87,11 +101,14 @@ class GameRegistrarManager {
         }
 
         ; --- RPCS3 DETECTION ---
+        Logger.Info("EBOOT detected, requesting RPCS3 Build choice.", "GameRegistrarManager")
         choice := DialogsGui.AskForChoice("Select RPCS3 Build", "Which specialized build is this for?",
             ["Standard RPCS3", "Fighter Build", "Shooter Build", "TCRS Build"])
 
-        if (choice == "")
+        if (choice == "") {
+            Logger.Warn("RPCS3 selection cancelled.", "GameRegistrarManager")
             return false
+        }
 
         switch choice {
             case "Standard RPCS3":
@@ -110,11 +127,16 @@ class GameRegistrarManager {
     }
 
     static HandleIso(config) {
+        Logger.Info("ISO/ROM detected, requesting platform choice.", "GameRegistrarManager")
         choice := DialogsGui.AskForChoice("Select Platform", "Select Emulator:", ["PCSX2", "DUCKSTATION", "PPSSPP", "DOLPHIN"])
-        if (choice == "")
-            return false
 
-        ; [FIX] Manual mapping to avoid "StrTitle is not a function" error
+        if (choice == "") {
+            Logger.Warn("ISO Platform selection cancelled.", "GameRegistrarManager")
+            return false
+        }
+
+        Logger.Info("User selected platform: " . choice, "GameRegistrarManager")
+
         iniKey := ""
         switch choice {
             case "PCSX2":       iniKey := "Pcsx2Path"
@@ -129,28 +151,32 @@ class GameRegistrarManager {
     static ConfigureEmulator(config, type, iniSec, iniKey) {
         config["Launcher"] := type
         emuPath := IniRead(ConfigManager.IniPath, iniSec, iniKey, "")
+        Logger.Debug("Checking emulator path for " . type . " in INI.", "GameRegistrarManager")
 
         if (!FileExist(emuPath)) {
+            Logger.Warn("Emulator path missing on disk for " . type, "GameRegistrarManager")
             emuPath := FileSelect(3, , "Select " type " Executable", "Emulator (*.exe)")
-            if (!emuPath)
+            if (!emuPath) {
+                Logger.Error("Manual emulator selection cancelled.", "GameRegistrarManager")
                 return false
+            }
             IniWrite(emuPath, ConfigManager.IniPath, iniSec, iniKey)
+            Logger.Info("Updated INI with new emulator path: " . emuPath, "GameRegistrarManager")
         }
         return true
     }
 
     ; REGISTRATION FINALIZATION
     static FinalizeRegistration(config) {
+        Logger.Info("Finalizing registration for: " . config["Name"], "GameRegistrarManager")
 
         ; 1. DUPLICATE CHECK
         for id, game in ConfigManager.Games {
-            ; Robust property extraction (works for Map or Object)
             existingPath := (Type(game) == "Map") ? (game.Has("ApplicationPath") ? game["ApplicationPath"] : "") : (game.HasOwnProp("ApplicationPath") ? game.ApplicationPath : "")
 
-            ; Normalize checks (Backslashes can match Forward slashes)
             if (StrReplace(existingPath, "/", "\") == StrReplace(config["Path"], "/", "\")) {
-
                 gameName := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
+                Logger.Warn("Duplicate detected: [" . gameName . "] already exists with ID: " . id, "GameRegistrarManager")
 
                 if (DialogsGui.CustomMsgBox("Game Exists", "The game '" . gameName . "' is already in your library.`nPlay it now?", 0, 4) == "Yes") {
                     ConfigManager.CurrentGameId := id
@@ -173,9 +199,12 @@ class GameRegistrarManager {
             defName := cleanDef
         }
 
+        Logger.Debug("Prompting user for display name. Default: " . defName, "GameRegistrarManager")
         userInput := DialogsGui.AskForString("Game Name", "Enter display name:", defName)
-        if (userInput == "")
+        if (userInput == "") {
+            Logger.Warn("User aborted at naming step.", "GameRegistrarManager")
             return false
+        }
 
         friendlyName := Utilities.SanitizeName(userInput)
         if (friendlyName == "")
@@ -183,9 +212,11 @@ class GameRegistrarManager {
 
         ; 3. GENERATE ID & PATHS
         uniqueId := Utilities.GenerateUniqueId(friendlyName, ConfigManager.Games)
+        Logger.Info("Generated Unique ID: [" . uniqueId . "]", "GameRegistrarManager")
         safePath := StrReplace(config["Path"], "\", "/")
 
-        ; 4. BUILD MAP (Use Map, NOT Object, for better JSON/ConfigManager compatibility)
+        ; 4. BUILD MAP
+        Logger.Debug("Building game data map...", "GameRegistrarManager")
         newGame := Map()
         newGame["Id"] := uniqueId
         newGame["SavedName"] := friendlyName
@@ -196,27 +227,31 @@ class GameRegistrarManager {
         newGame["CaptureDir"] := "captures/" . uniqueId
         newGame["EbootIsoPath"] := safePath
 
-        ; Transfer Patch flags if detected earlier
+        ; Transfer Patch flags
         if (config.Has("IsPatchable"))
             newGame["IsPatchable"] := config["IsPatchable"]
         else
             newGame["IsPatchable"] := "false"
 
-        if (config.Has("PatchGroup"))
+        if (config.Has("PatchGroup")) {
             newGame["PatchGroup"] := config["PatchGroup"]
-        else {
-            ; Check patch tool just in case
+        } else {
+            Logger.Debug("Scanning for available patches...", "GameRegistrarManager")
             if IsSet(PatchServiceTool) {
                 patchInfo := PatchServiceTool.IdentifyPatchableGame(config["App"], config["Path"])
                 if (patchInfo != "") {
                     newGame["IsPatchable"] := "true"
                     newGame["PatchGroup"] := patchInfo.Name
+                    Logger.Info("Patch group identified: " . patchInfo.Name, "GameRegistrarManager")
                 }
             }
         }
 
         ; 5. SAVE AND REFRESH
+        Logger.Info("Sending new game data to ConfigManager...", "GameRegistrarManager")
         ConfigManager.RegisterGame(uniqueId, newGame)
+        Logger.Info("Successfully registered game: " . uniqueId, "GameRegistrarManager")
+
         ConfigManager.CurrentGameId := uniqueId
         IniWrite(uniqueId, ConfigManager.IniPath, "LAST_PLAYED", "GameID")
 

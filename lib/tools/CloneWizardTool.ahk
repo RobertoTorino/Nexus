@@ -35,7 +35,7 @@ class CloneWizardTool {
             return false
 
         ; VALIDATION (NEW: HASH BASED)
-        Logger.Info("Validating source file: " sourceEboot)
+        Logger.Info("Validating source file: " sourceEboot, this.__Class)
 
         ; Calculate hash synchronously
         fileHash := this.GetFileHash(sourceEboot, "MD5")
@@ -55,7 +55,7 @@ class CloneWizardTool {
             return false
         }
 
-        Logger.Info("Validation Passed: " . this.ValidSourceHashes[fileHash])
+        Logger.Info("Validation Passed: " . this.ValidSourceHashes[fileHash], this.__Class)
 
         ; PATH SETUP
         SplitPath(sourceEboot, &ebootName, &usrDir)
@@ -86,7 +86,7 @@ class CloneWizardTool {
         IniWrite(cleanName, ConfigManager.IniPath, "ReservedIDs", newId)
         ConfigManager.AddOrUpdateGame(friendlyName, newPath, buildType)
 
-        Logger.Info("CloneWizardTool: Cloned " oldId " to " newId " as " cleanName)
+        Logger.Info("CloneWizardTool: Cloned " oldId " to " newId " as " cleanName, this.__Class)
         return newPath
     }
 

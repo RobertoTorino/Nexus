@@ -64,7 +64,7 @@ class Vita3kLauncher {
             return false
         }
 
-        Logger.Info("Vita3K Launching ID: " . titleId . " using " . typeLabel)
+        Logger.Info("Vita3K Launching ID: " . titleId . " using " . typeLabel, this.__Class)
 
         ; Prepare Capture
         CaptureManager.CurrentProcessName := emuExe

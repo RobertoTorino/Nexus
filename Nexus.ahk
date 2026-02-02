@@ -99,8 +99,8 @@ if !FileExist(JsonFilePath) {
     MsgBox("FATAL: nexus.json not found at:`n" JsonFilePath)
     return
 }
-Logger.Info("Configuration File: " . ConfigFilePath)
-Logger.Info("Games Database: " . JsonFilePath)
+Logger.Info("Configuration File: " . ConfigFilePath, "Nexus.ahk")
+Logger.Info("Games Database: " . JsonFilePath, "Nexus.ahk")
 
 if !AudioManager.Init()
     Logger.Warn("Audio Manager: Voicemeeter not found.")
@@ -208,7 +208,7 @@ StartGame(*) {
         }
 
         ; EXECUTE
-        Logger.Info("Launching Type: " . launcherType)
+        Logger.Info("Launching Type: " . launcherType, "Nexus.ahk")
 
         ; Explicitly reset WindowManager context before launch to prevent ghosting
         if IsSet(WindowManager)
@@ -253,7 +253,7 @@ MainExitHandler(ExitReason, ExitCode) {
         return 0
 
     AppIsExiting := true
-    Logger.Info("App Exiting (Reason: " . ExitReason . ")")
+    Logger.Info("App Exiting (Reason: " . ExitReason . ")", "Nexus.ahk")
 
     ; ---- ACCURATE TIME TRACKING ----
     try {
@@ -268,7 +268,7 @@ MainExitHandler(ExitReason, ExitCode) {
 
             if (elapsed > 5) { ; Minimum 5 seconds to count
                 ConfigManager.AddPlayTime(activeId, elapsed)
-                Logger.Info("Saved " . elapsed . "s play time for ID: " . activeId)
+                Logger.Info("Saved " . elapsed . "s play time for ID: " . activeId, "Nexus.ahk")
             }
         }
     } catch as err {

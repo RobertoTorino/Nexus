@@ -301,3 +301,16 @@ If you ever need to "hardcode" a position for the top screen in your scripts, us
 AutoHotkey
 ; Example: Move active window to Top Monitor
 WinMove(0, -1080, 1920, 1080, "A")
+
+
+Example overscan"
+
+That result is mathematically perfect based on how your screen geometry and the overscan logic work. Here is the breakdown of those numbers, assuming you are on a 1920x1080 monitor:1. The Width and X-Axis (Horizontal)When you applied 200px of Horizontal Overscan:WinW (2120): This is $1920 \text{ (Monitor Width)} + 200 \text{ (Overscan)}$.WinX (-100): To keep the image centered, the script pushes the window left by half of the overscan. $0 - (200 / 2) = -100$. This hides 100 pixels off the left edge and 100 pixels off the right edge.2. The Height and Y-Axis (Vertical)This is where your manual "Down" nudge and the Vertical Overscan combined:WinH (1280): This is $1080 \text{ (Monitor Height)} + 200 \text{ (Overscan)}$.WinY (-80): * Initially, applying 200px Vertical Overscan moves the Y to -100 ($0 - (200 / 2)$) to center it.You then nudged the window Down by 20px.$-100 \text{ (Initial Y)} + 20 \text{ (Nudge)} = -80$.
+
+---
+
+Property,Base (1080p),Overscan (+200),Nudge (+20),Final JSON
+Width,1920,+200,0,2120
+Height,1080,+200,0,1280
+X Pos,0,-100 (centered),0,-100
+Y Pos,0,-100 (centered),+20 (down),-80

@@ -15,37 +15,55 @@
 
 class WindowManager {
     ; CONFIGURATION PRESETS
-    static Presets := Map(
-        "SizeFull", { Mode: "FullScreen" },
-        "SizeWindowed", { Mode: "Windowed" },
+static Presets := Map(
+        ; --- Basic States ---
+        "SizeFull",       { Mode: "FullScreen" },
+        "SizeWindowed",   { Mode: "Windowed" },
         "SizeBorderless", { Mode: "Borderless" },
-        "SizeHidden", { Mode: "Hidden" },
-        "SizeMinimized", { Mode: "Minimized" },
-        "SizeMaximized", { Mode: "Maximized" },
-        "SizeRestored", { Mode: "Restored" },
-        ; Resolutions - Standard
-        "Size640x480", { Width: 640, Height: 480 },
-        "Size800x600", { Width: 800, Height: 600 },
-        "Size1024x768", { Width: 1024, Height: 768 },
-        "Size1280x720", { Width: 1280, Height: 720 },
-        "Size1366x768", { Width: 1366, Height: 768 },
-        "Size1600x900", { Width: 1600, Height: 900 },
-        "Size1920x1080", { Width: 1920, Height: 1080 },
-        ; Resolutions - High / Ultrawide
-        "Size1920x1200", { Width: 1920, Height: 1200 },
-        "Size1920x1440", { Width: 1920, Height: 1440 },
-        "Size2048x1152", { Width: 2048, Height: 1152 },
-        "Size2048x1536", { Width: 2048, Height: 1536 },
-        "Size2560x1440", { Width: 2560, Height: 1440 },
-        "Size2560x1600", { Width: 2560, Height: 1600 },
-        "Size2880x1800", { Width: 2880, Height: 1800 },
-        "Size3840x2160", { Width: 3840, Height: 2160 },
-        "Size5120x2880", { Width: 5120, Height: 2880 },
-        "Size7680x4320", { Width: 7680, Height: 4320 },
-        ; Complex Presets
+        "SizeHidden",     { Mode: "Hidden" },
+        "SizeMinimized",  { Mode: "Minimized" },
+        "SizeMaximized",  { Mode: "Maximized" },
+        "SizeRestored",   { Mode: "Restored" },
+        "SizeTopmost",    { Mode: "Topmost" },
+        "SizeTool",       { Mode: "ToolWindow" },
+        "SizeLayered",    { Mode: "Layered" },
+        "SizeNoActivate", { Mode: "NoActivate" },
+
+        ; --- Standard Resolutions ---
+        "Size640x480",    { Width: 640, Height: 480 },
+        "Size800x600",    { Width: 800, Height: 600 },
+        "Size1024x768",   { Width: 1024, Height: 768 },
+        "Size1280x720",   { Width: 1280, Height: 720 },
+        "Size1366x768",   { Width: 1366, Height: 768 },
+        "Size1600x900",   { Width: 1600, Height: 900 },
+        "Size1920x1080",  { Width: 1920, Height: 1080 },
+        "Size1920x1200",  { Width: 1920, Height: 1200 },
+        "Size1920x1440",  { Width: 1920, Height: 1440 },
+        "Size2048x1152",  { Width: 2048, Height: 1152 },
+        "Size2048x1536",  { Width: 2048, Height: 1536 },
+        "Size2560x1440",  { Width: 2560, Height: 1440 },
+        "Size2560x1600",  { Width: 2560, Height: 1600 },
+        "Size3840x2160",  { Width: 3840, Height: 2160 },
+        "Size7680x4320",  { Width: 7680, Height: 4320 },
+
+        ; --- 1920x1080 Extended Variants ---
+        "SizeBorderless1920",           { Width: 1920, Height: 1080, Mode: "Borderless" },
+        "SizeBorderlessTopmost1920",    { Width: 1920, Height: 1080, Mode: "Borderless", Topmost: true },
+        "SizeBorderlessTool1920",       { Width: 1920, Height: 1080, Mode: "Borderless", ToolWindow: true },
+        "SizeBorderlessLayered1920",    { Width: 1920, Height: 1080, Mode: "Borderless", Layered: true, NoActivate: true },
+        "SizeFakeFullAll1920",          { Width: 1920, Height: 1080, Mode: "Borderless", Topmost: true, Layered: true, ToolWindow: true, NoActivate: true },
+        "SizeWindowedTopLayered1920",   { Width: 1920, Height: 1080, Mode: "Windowed", Topmost: true, Layered: true },
+
+        ; --- 2560x1440 Extended Variants ---
+        "SizeBorderless2560",           { Width: 2560, Height: 1440, Mode: "Borderless" },
+        "SizeBorderlessTopmost2560",    { Width: 2560, Height: 1440, Mode: "Borderless", Topmost: true },
+        "SizeBorderlessLayered2560",    { Width: 2560, Height: 1440, Mode: "Borderless", Layered: true, NoActivate: true },
+        "SizeFakeFullAll2560",          { Width: 2560, Height: 1440, Mode: "Borderless", Topmost: true, Layered: true, ToolWindow: true, NoActivate: true },
+
+        ; --- Utility & Complex ---
         "SizeFakeFull1920", { Width: 1920, Height: 1080, Mode: "Borderless", Topmost: true },
-        "SizeFitScreen", { Mode: "FitScreen" },
-        "SizeOverscan", { Mode: "Overscan" }
+        "SizeFitScreen",    { Mode: "FitScreen" },
+        "SizeOverscan",     { Mode: "Overscan" }
     )
 
     ; State Tracking
@@ -82,6 +100,22 @@ class WindowManager {
         )
     }
 
+    ; Call this once in your main script's initialization (e.g., in WindowManager.__New())
+    static StartGlobalWatcher() {
+        SetTimer(() => this.AutoDetectAndApply(), 2000)
+    }
+
+    static AutoDetectAndApply() {
+        ; If we aren't tracking a game, but the ConfigManager says one was just played...
+        if (this.ActiveGameHwnd == 0 && ConfigManager.CurrentGameId != "") {
+            hwnd := this.GetValidHwnd()
+            if (hwnd) {
+                Logger.Info("GlobalWatcher: Auto-detected active game window. Applying profile...", "WindowManager")
+                this.ApplyGameSettings()
+            }
+        }
+    }
+
     static CheckForTeknoWindow() {
         try {
             hwnd := WinExist("A")
@@ -103,68 +137,87 @@ class WindowManager {
         return 0
     }
 
-    static RegisterGame(pid, gameId, targetMonitor := 0, knownExeName := "") {
+    static RegisterGame(pid, gameId, targetMonitor := 0, exeName := "") {
+        this.ActiveGamePid := pid
         this.ActiveGameId := gameId
-        this.TargetMonitor := targetMonitor
-        Logger.Info("WinMgr: Registering Game [" gameId "] PID: " pid " EXE: " knownExeName)
+        this.ActiveGameExe := exeName
 
-        if (knownExeName != "")
-            this.ActiveGameExe := knownExeName
+        Logger.Info("Registering Game: " . gameId, "WindowManager")
 
-        this.SetGameContext("ahk_pid " pid, targetMonitor)
-
-        SetTimer () => this.ApplyGameSettings(), -500
-        SetTimer () => this.ApplyGameSettings(), -2500
-        SetTimer () => this.ApplyGameSettings(), -5000
+        ; Start the polling loop to wait for the visible window
+        SetTimer(() => this.ApplyGameSettings(), -1000)
     }
 
-    static ApplyGameSettings() {
+    static ApplyGameSettings(isAuto := false) {
         hwnd := this.GetValidHwnd()
         if !hwnd {
+            if (isAuto)
+                SetTimer(() => this.ApplyGameSettings(true), -1000)
             return
         }
 
-        game := ConfigManager.Games.Has(this.ActiveGameId) ? ConfigManager.Games[this.ActiveGameId] : ""
+        targetId := (this.ActiveGameId != "") ? this.ActiveGameId : ConfigManager.CurrentGameId
+        game := ConfigManager.Games.Has(targetId) ? ConfigManager.Games[targetId] : ""
 
         if (game && (Type(game) == "Map" ? game.Has("HasWindowProfile") : game.HasOwnProp("HasWindowProfile"))) {
             val := (k) => (Type(game) == "Map" ? game[k] : game.%k%)
-            x := val("WinX"), y := val("WinY")
-            w := val("WinW"), h := val("WinH")
 
-            Logger.Info("WinMgr: Applying Saved Profile -> x" x " y" y " w" w " h" h)
-            this.ApplyFakeFullscreen(hwnd, w, h, 0, {})
+            Logger.Info("WinMgr: Profile found for [" . targetId . "]. Applying to HWND: " . hwnd, "WindowManager")
+
+            if (isAuto) {
+                Logger.Debug("WinMgr: Auto-load detected. Sleeping 1.8s for GPU sync...", "WindowManager")
+                Sleep(1800) ; Increased for Dolphin Vulkan initialization
+            }
+
+            ; Apply Styles & Move
+            WinSetStyle("-0xC00000", "ahk_id " hwnd)
+            WinSetStyle("-0x800000", "ahk_id " hwnd)
+
+            x := val("WinX"), y := val("WinY"), w := val("WinW"), h := val("WinH")
+            Logger.Debug("WinMgr: Moving to " x "," y " (" w "x" h ")", "WindowManager")
             WinMove(x, y, w, h, "ahk_id " hwnd)
-            DialogsGui.CustomStatusPop("Saved Settings Applied")
-        }
-        else if (this.TargetMonitor > 0) {
-            mon := MonitorHelper.GetMonitorGeometry(this.TargetMonitor)
-            if mon
-                this.ApplyFakeFullscreen(hwnd, mon.Width, mon.Height, this.TargetMonitor, {})
-            DialogsGui.CustomStatusPop("Forced: Monitor " . this.TargetMonitor)
-        }
-        else {
-            monIdx := MonitorHelper.GetMonitorIndexFromWindow(hwnd)
-            mon := MonitorHelper.GetMonitorGeometry(monIdx)
-            if mon
-                this.ApplyFakeFullscreen(hwnd, mon.Width, mon.Height, monIdx, {})
-            DialogsGui.CustomStatusPop("Default: Borderless")
+
+            ; Force DWM Refresh
+            WinSetAlwaysOnTop(1, "ahk_id " hwnd)
+            Sleep(100)
+            WinSetAlwaysOnTop(0, "ahk_id " hwnd)
+
+            ; Only show popup on manual clicks to avoid confusion
+            if (!isAuto) {
+                SoundPlay("*64")
+                DialogsGui.CustomStatusPop("Layout Forced")
+            }
+        } else {
+            Logger.Warn("WinMgr: Target window found, but no saved profile exists in JSON for " . targetId, "WindowManager")
         }
     }
 
     static SaveCurrentPosition() {
         hwnd := this.GetValidHwnd()
         if (!hwnd) {
-            DialogsGui.CustomStatusPop("No Game Tracked")
+            DialogsGui.CustomStatusPop("No Window Detected")
             return
         }
+
+        ; FALLBACK: If ActiveGameId is lost, grab it from the ConfigManager's last known game
+        if (this.ActiveGameId == "")
+            this.ActiveGameId := ConfigManager.CurrentGameId
+
+        if (this.ActiveGameId == "") {
+            DialogsGui.CustomStatusPop("Error: No Game ID Linked")
+            return
+        }
+
         try {
             WinGetPos(&x, &y, &w, &h, "ahk_id " hwnd)
-            Logger.Info("WinMgr: Saving Profile -> x" x " y" y " w" w " h" h)
+            ; This call performs the JSON write
             success := ConfigManager.UpdateGameWindowProfile(this.ActiveGameId, x, y, w, h)
             if (success)
-                DialogsGui.CustomStatusPop("Position Saved! 💾")
+                DialogsGui.CustomStatusPop("Position Saved to JSON! 💾")
+            else
+                DialogsGui.CustomStatusPop("JSON Write Failed")
         } catch {
-            DialogsGui.CustomStatusPop("Error Saving")
+            DialogsGui.CustomStatusPop("Error during Save")
         }
     }
 
@@ -187,7 +240,7 @@ class WindowManager {
                     exe := WinGetProcessName("ahk_pid " this.ActiveGamePid)
 
                 if (this.TeknoLoaders.Has(exe)) {
-                    Logger.Info("WinMgr: Emulator detected (" exe "), performing ForceKillAll")
+                    Logger.Info("WinMgr: Emulator detected (" exe "), performing ForceKillAll", "WindowManager")
                     this.ForceKillAll()
                     DialogsGui.CustomStatusPop("Emulator Closed")
                     return
@@ -223,7 +276,7 @@ class WindowManager {
                 try {
                     ProcessClose(exeName)
                     count++
-                    Logger.Info("WinMgr: Force killed " exeName)
+                    Logger.Info("WinMgr: Force killed " exeName, "WindowManager")
                 }
             }
         }
@@ -294,7 +347,7 @@ class WindowManager {
         if (hwnd) {
             this.ActiveGameHwnd := hwnd
             this.MoveToMonitor(targetMonitor)
-            Logger.Info("Delayed Move Successful.")
+            Logger.Info("Delayed Move Successful.", "WindowManager")
         }
     }
 
@@ -377,7 +430,7 @@ class WindowManager {
         Sleep(50)
         WinSetAlwaysOnTop(0, "ahk_id " hwnd)
 
-        Logger.Info("Forced focus on HWND: " hwnd)
+        Logger.Info("Forced focus on HWND: " hwnd, "WindowManager")
     }
 
     static ApplyMode(hwnd, mode, monitorIndex, options) {
@@ -424,6 +477,18 @@ class WindowManager {
 
             case "Maximized":
                 WinMaximize(hwnd)
+
+            case "Topmost":
+                WinSetAlwaysOnTop(-1, hwnd) ; Toggle
+
+            case "ToolWindow":
+                WinSetExStyle("^0x00000080", hwnd) ; Toggle WS_EX_TOOLWINDOW
+
+            case "Layered":
+                WinSetExStyle("^0x00080000", hwnd) ; Toggle WS_EX_LAYERED
+
+            case "NoActivate":
+                WinSetExStyle("^0x08000000", hwnd) ; Toggle WS_EX_NOACTIVATE
         }
     }
 
@@ -452,8 +517,18 @@ class WindowManager {
             WinMove(, , w, h, hwnd)
         }
 
-        if options.HasOwnProp("Topmost") && options.Topmost
-            WinSetAlwaysOnTop(1, hwnd)
+; --- Handle Multiple Attributes ---
+        if options.HasOwnProp("Topmost")
+            WinSetAlwaysOnTop(options.Topmost ? 1 : 0, hwnd)
+
+        if options.HasOwnProp("ToolWindow")
+            WinSetExStyle(options.ToolWindow ? "+0x00000080" : "-0x00000080", hwnd)
+
+        if options.HasOwnProp("Layered")
+            WinSetExStyle(options.Layered ? "+0x00080000" : "-0x00080000", hwnd)
+
+        if options.HasOwnProp("NoActivate")
+            WinSetExStyle(options.NoActivate ? "+0x08000000" : "-0x08000000", hwnd)
 
         WinActivate(hwnd)
         WinShow(hwnd)
@@ -461,83 +536,82 @@ class WindowManager {
     }
 
     static GetValidHwnd() {
-        ; 1. Try existing Handle
-        if (this.ActiveGameHwnd && WinExist(this.ActiveGameHwnd)) {
-            return this.ActiveGameHwnd
-        }
+        ; Force visibility check
+        prev := A_DetectHiddenWindows
+        DetectHiddenWindows(false)
 
-        ; 2. Try Global Active Process Name (The most reliable source)
-        exeName := ConfigManager.ActiveProcessName
-        if (exeName != "") {
-            hwnd := this.FindRealGameWindow("ahk_exe " . exeName)
-            if (hwnd) {
-                this.ActiveGameHwnd := hwnd
-                this.ActiveGamePid := WinGetPID("ahk_id " hwnd)
-                return hwnd
-            }
+        hwnd := 0
+        ; 1. Try existing Handle (if it's still visible)
+        if (this.ActiveGameHwnd && WinExist("ahk_id " this.ActiveGameHwnd)) {
+            hwnd := this.ActiveGameHwnd
         }
-
+        ; 2. Try Global Active Process Name
+        else if (ConfigManager.ActiveProcessName != "") {
+            hwnd := this.FindRealGameWindow("ahk_exe " . ConfigManager.ActiveProcessName)
+        }
         ; 3. Fallback to internal PID
-        if (this.ActiveGamePid > 0) {
-            this.ActiveGameHwnd := this.FindRealGameWindow("ahk_pid " this.ActiveGamePid)
+        else if (this.ActiveGamePid > 0) {
+            hwnd := this.FindRealGameWindow("ahk_pid " this.ActiveGamePid)
         }
 
-        return this.ActiveGameHwnd
+        DetectHiddenWindows(prev)
+
+        if (hwnd) {
+            this.ActiveGameHwnd := hwnd
+            ; Sync the ID if missing
+            if (this.ActiveGameId == "")
+                this.ActiveGameId := ConfigManager.CurrentGameId
+        }
+
+        return hwnd
     }
 
     ; [CRITICAL FIX] Removed the "Scan Everything" fallback.
     ; This method now ONLY returns windows that match the requested criteria.
     static FindRealGameWindow(winTitle) {
+        ; Force hidden windows OFF for this search
         prev := A_DetectHiddenWindows
-        DetectHiddenWindows(true)
+        DetectHiddenWindows(false)
+
         bestHwnd := 0
         bestScore := -99999
 
+        ; This now ONLY retrieves visible windows matching the title/exe/pid
         ids := WinGetList(winTitle)
 
-        ; Note: We removed the "if ids.Length == 0 -> WinGetList()" block.
-        ; If we can't find the specific game window, we return 0.
-        ; This prevents us from accidentally latching onto the IDE or Explorer.
-
         for this_id in ids {
-            currentScore := 0
-
             title := WinGetTitle(this_id)
             cls := WinGetClass(this_id)
-            style := WinGetStyle(this_id)
             WinGetPos(, , &w, &h, this_id)
             area := w * h
 
-            if (InStr(title, "Play!") || InStr(title, "TeknoParrot") || InStr(title, "TK5"))
-                currentScore += 5000
+            ; Start with a base score
+            currentScore := 100
 
-            if (style & 0x10000000)
-                currentScore += 500
-            else
-                currentScore -= 100
-
-            if (area > 500000)
-                currentScore += 200
-            else if (area < 2500)
+            ; Filter out system "visible" windows that have no size or title
+            if (title == "" || area < 10000) {
                 currentScore -= 5000
-
-            if (cls = "ConsoleWindowClass" || cls = "D3DProxyWindow" || cls = "DIEmWin" || InStr(cls, "HwndWrapper") || cls = "CiceroUIWndFrame" || cls = "IME" || cls = "MSCTFIME UI")
-                currentScore -= 10000
-            if (title == "")
-                currentScore -= 500
-
-            ; Heuristic: Match Process Name
-            try {
-                procName := WinGetProcessName(this_id)
-                if (this.ActiveGameExe != "" && procName = this.ActiveGameExe)
-                    currentScore += 3000
+                continue
             }
 
-            if (currentScore > bestScore && currentScore > 0) {
+            ; Ignore common system/utility classes that are technically visible
+            if (cls = "ConsoleWindowClass" || cls = "IME" || cls = "MSCTFIME UI")
+                continue
+
+            ; Heuristic: Bigger windows (the game) score higher
+            currentScore += (area // 1000)
+
+            if (currentScore > bestScore) {
                 bestScore := currentScore
                 bestHwnd := this_id
             }
         }
+
+        if (bestHwnd)
+            Logger.Info("WinMgr: Target acquired (Visible Only): " WinGetTitle(bestHwnd) " | Class: " WinGetClass(bestHwnd), "WindowManager")
+        else
+            Logger.Warn("WinMgr: Search failed. No visible window matches: " winTitle)
+
         DetectHiddenWindows(prev)
         return bestHwnd
     }
@@ -556,88 +630,76 @@ class WindowManager {
         }
     }
 
-    static ApplyHorizontalOverscan(extraPixels) {
+static ApplyHorizontalOverscan(extraPixels) {
         hwnd := this.GetValidHwnd()
         if !hwnd
-            return
+        return
 
         monIdx := MonitorHelper.GetMonitorIndexFromWindow(hwnd)
         mon := MonitorHelper.GetMonitorGeometry(monIdx)
         if (!mon)
-            return
+        return
 
         newW := mon.Width + extraPixels
         newH := mon.Height
         newX := mon.Left - (extraPixels // 2)
         newY := mon.Top
 
-        try {
-            WinSetStyle("-0xC00000", "ahk_id " hwnd)
-            WinSetStyle("-0x800000", "ahk_id " hwnd)
-            WinMove(newX, newY, newW, newH, "ahk_id " hwnd)
-            WinSetAlwaysOnTop(1, "ahk_id " hwnd)
-            WinSetAlwaysOnTop(0, "ahk_id " hwnd)
-            this.SaveState(hwnd)
-            Logger.Info("WinMgr: Applied H-Overscan: " extraPixels "px")
-            if IsSet(DialogsGui)
-                DialogsGui.CustomStatusPop("H-Overscan: +" . extraPixels . "px")
-        } catch {
-            Logger.Error("WinMgr: Overscan Failed")
-        }
+        ; Call the private helper to apply AND save
+        this._ExecuteOverscan(hwnd, newX, newY, newW, newH, "Horizontal", extraPixels)
     }
 
     static ApplyVerticalOverscan(extraPixels) {
         hwnd := this.GetValidHwnd()
         if !hwnd
-            return
+        return
 
         monIdx := MonitorHelper.GetMonitorIndexFromWindow(hwnd)
         mon := MonitorHelper.GetMonitorGeometry(monIdx)
         if (!mon)
-            return
+        return
 
-        ; Keep current width, but expand height
-        WinGetPos(,, &w,, "ahk_id " hwnd)
-
+        WinGetPos(, , &w, , "ahk_id " hwnd)
         newW := w
         newH := mon.Height + extraPixels
-        newX := mon.Left + (mon.Width - w) // 2 ; Keep centered horizontally
-        newY := mon.Top - (extraPixels // 2)    ; Offset Y upward by half the overscan
+        newX := mon.Left + (mon.Width - w) // 2
+        newY := mon.Top - (extraPixels // 2)
 
-        try {
-            WinSetStyle("-0xC00000", "ahk_id " hwnd)
-            WinSetStyle("-0x800000", "ahk_id " hwnd)
-            WinMove(newX, newY, newW, newH, "ahk_id " hwnd)
-            WinSetAlwaysOnTop(1, "ahk_id " hwnd)
-            WinSetAlwaysOnTop(0, "ahk_id " hwnd)
-            this.SaveState(hwnd)
-            Logger.Info("WinMgr: Applied V-Overscan: " extraPixels "px")
-            if IsSet(DialogsGui)
-                DialogsGui.CustomStatusPop("V-Overscan: +" . extraPixels . "px")
-        } catch {
-            Logger.Error("WinMgr: Vertical Overscan Failed")
-        }
+        ; Call the private helper to apply AND save
+        this._ExecuteOverscan(hwnd, newX, newY, newW, newH, "Vertical", extraPixels)
     }
 
     ; Private helper to handle the actual movement and JSON persistence
     static _ExecuteOverscan(hwnd, x, y, w, h, type, val) {
         try {
+            ; 1. Apply Styles (remove borders/title bar)
             WinSetStyle("-0xC00000", "ahk_id " hwnd)
             WinSetStyle("-0x800000", "ahk_id " hwnd)
+
+            ; 2. Move the window to the calculated overscan position
             WinMove(x, y, w, h, "ahk_id " hwnd)
+
+            ; 3. Refresh DWM and internal state
             WinSetAlwaysOnTop(1, "ahk_id " hwnd)
             WinSetAlwaysOnTop(0, "ahk_id " hwnd)
-
             this.SaveState(hwnd)
 
-            ; PERSISTENCE: Update the JSON profile via ConfigManager
-            if (this.ActiveGameId != "") {
-                ConfigManager.UpdateGameWindowProfile(this.ActiveGameId, x, y, w, h)
-                Logger.Info("WinMgr: Applied " type "-Overscan (" val "px) and saved to profile.")
-            }
+            ; 4. PERSISTENCE FIX: Identify the target game ID
+            ; Use the active tracking ID, or fallback to the last played game in the ConfigManager
+            targetId := (this.ActiveGameId != "") ? this.ActiveGameId : ConfigManager.CurrentGameId
 
-            if IsSet(DialogsGui)
-                DialogsGui.CustomStatusPop(type "-Overscan: +" . val . "px (Saved)")
+            if (targetId != "") {
+                ; Update JSON via ConfigManager
+                ConfigManager.UpdateGameWindowProfile(targetId, x, y, w, h)
+                Logger.Info("WinMgr: " type "-Overscan saved to ID: " targetId, "WindowManager")
+
+                if IsSet(DialogsGui)
+                    DialogsGui.CustomStatusPop(type "-Overscan Saved")
+            } else {
+                Logger.Warn("WinMgr: Position applied but NOT saved - No Game ID identified.")
+                if IsSet(DialogsGui)
+                    DialogsGui.CustomStatusPop(type "-Overscan Applied (Not Saved)")
+            }
         } catch as err {
             Logger.Error("WinMgr: Overscan Failed: " err.Message)
         }

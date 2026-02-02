@@ -52,7 +52,7 @@ class TeknoParrotManager {
             IniWrite(tpPath, ConfigManager.IniPath, "TEKNO_PATH", "TeknoPath")
         }
 
-        Logger.Info("TP Manager: Opening Picker. TP Path: " tpPath)
+        Logger.Info("TP Manager: Opening Picker. TP Path: " tpPath, this.__Class)
         SplitPath(tpPath, , &tpDir)
         this.TpRootDir := tpDir
 
@@ -69,15 +69,15 @@ class TeknoParrotManager {
         this.UserCount := 0
         this.SystemCount := 0
 
-        Logger.Info("TP Manager: Scanning User Profiles...")
+        Logger.Info("TP Manager: Scanning User Profiles...", this.__Class)
         this.ScanProfiles(userDir, "User")
 
         if DirExist(systemDir) {
-            Logger.Info("TP Manager: Scanning System Profiles...")
+            Logger.Info("TP Manager: Scanning System Profiles...", this.__Class)
             this.ScanProfiles(systemDir, "System")
         }
 
-        Logger.Info("TP Manager: Scan Complete. Found " this.UserCount " User, " this.SystemCount " System.")
+        Logger.Info("TP Manager: Scan Complete. Found " this.UserCount " User, " this.SystemCount " System.", this.__Class)
 
         if (this.ProfileMap.Count == 0) {
             DialogsGui.CustomTrayTip("No XML profiles found", 2)
@@ -360,7 +360,7 @@ class TeknoParrotManager {
     }
 
     static RegisterTeknoGame(data) {
-        Logger.Info("TP Manager: Starting registration for " data.Title)
+        Logger.Info("TP Manager: Starting registration for " data.Title, this.__Class)
 
         safeTitle := Utilities.SanitizeName(data.Title)
         safeId := "GAME_TP_" RegExReplace(data.File, "[^A-Za-z0-9]", "_")
@@ -390,7 +390,7 @@ class TeknoParrotManager {
         ConfigManager.CurrentGameId := safeId
         ConfigManager.UpdateLastPlayed(safeId)
 
-        Logger.Info("TP Manager: Successfully registered " safeId)
+        Logger.Info("TP Manager: Successfully registered " safeId, this.__Class)
 
         if IsSet(GuiBuilder) {
             GuiBuilder.RefreshDropdown()

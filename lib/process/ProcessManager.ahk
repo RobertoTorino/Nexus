@@ -36,7 +36,7 @@ class ProcessManager {
         this.GameName := (name != "") ? name : "Unknown Game"
 
         if IsSet(Logger)
-            Logger.Info("ProcessManager: Session Started for '" this.GameName "'")
+            Logger.Info("ProcessManager: Session Started for '" this.GameName "'", this.__Class)
     }
 
     static EndSession() {
@@ -56,7 +56,7 @@ class ProcessManager {
         report .= "Peak RAM:  " . this.PeakRAM . " MB"
 
         if IsSet(Logger)
-            Logger.Info("ProcessManager: Session Ended. Duration: " timeStr " | Peak RAM: " this.PeakRAM "MB")
+            Logger.Info("ProcessManager: Session Ended. Duration: " timeStr " | Peak RAM: " this.PeakRAM "MB", this.__Class)
 
         this.SessionStart := 0
         return report
@@ -132,7 +132,7 @@ class ProcessManager {
         try {
             ProcessSetPriority(level, targetExe)
             if IsSet(Logger)
-                Logger.Info("Priority set to [" level "] for: " targetExe)
+                Logger.Info("Priority set to [" level "] for: " targetExe, this.__Class)
             if IsSet(DialogsGui)
                 DialogsGui.CustomTrayTip("Priority: " level, 1)
         } catch as err {
@@ -163,7 +163,7 @@ class ProcessManager {
         if !pid
             return
         if IsSet(Logger)
-            Logger.Info("Kill Switch Activated for PID: " pid)
+            Logger.Info("Kill Switch Activated for PID: " pid, this.__Class)
         try RunWait(A_ComSpec " /c taskkill /PID " pid " /F /T", , "Hide")
     }
 
@@ -171,7 +171,7 @@ class ProcessManager {
         if (exeName == "")
             return
         if IsSet(Logger)
-            Logger.Info("Kill Switch Activated for EXE: " exeName)
+            Logger.Info("Kill Switch Activated for EXE: " exeName, this.__Class)
         try RunWait(A_ComSpec " /c taskkill /IM " exeName " /F /T", , "Hide")
     }
 

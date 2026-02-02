@@ -37,7 +37,7 @@ class PpssppLauncher extends EmulatorBase {
 
         ; PPSSPP Specific Arguments
         runCmd := Format('"{1}" --fullscreen "{2}"', emuPath, gameObj.EbootIsoPath)
-        Logger.Info("Launching PPSSPP: " runCmd)
+        Logger.Info("Launching PPSSPP: " runCmd, this.__Class)
 
         try {
             Run(runCmd, emuDir, "UseErrorLevel", &newPid)

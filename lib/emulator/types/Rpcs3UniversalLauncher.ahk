@@ -20,7 +20,7 @@ class Rpcs3UniversalLauncher {
     Pid := 0
 
     Launch(gameMap) {
-        Logger.Info("RPCS3 Launcher: Starting launch sequence...")
+        Logger.Info("RPCS3 Launcher: Starting launch sequence...", this.__Class)
 
         ; Universal map adapter
         game := {}
@@ -83,7 +83,7 @@ class Rpcs3UniversalLauncher {
             return false
         }
 
-        Logger.Info("RPCS3 Launcher: Emulator found: " . emuPath)
+        Logger.Info("RPCS3 Launcher: Emulator found: " . emuPath, this.__Class)
 
         SplitPath(emuPath, &emuExe, &emuDir)
 
@@ -99,7 +99,7 @@ class Rpcs3UniversalLauncher {
         try {
             Run(runCmd, emuDir, , &outPid)
             this.Pid := outPid
-            Logger.Info("RPCS3 Launcher: Process started successfully. PID: " . this.Pid)
+            Logger.Info("RPCS3 Launcher: Process started successfully. PID: " . this.Pid, this.__Class)
 
             ; Tell WindowManager the PID
             if (this.Pid > 0) {
@@ -108,7 +108,7 @@ class Rpcs3UniversalLauncher {
                 if (WinWait("ahk_pid " this.Pid, , 10)) {
                     WinActivate("ahk_pid " this.Pid)
                     WindowManager.SetGameContext("ahk_pid " this.Pid, 1)
-                    Logger.Info("RPCS3 Launcher: Window activated and context set.")
+                    Logger.Info("RPCS3 Launcher: Window activated and context set.", this.__Class)
                 } else {
                     Logger.Warn("RPCS3 Launcher: Process started, but window did not appear within 10s.")
                 }
@@ -124,7 +124,7 @@ class Rpcs3UniversalLauncher {
 
     Stop() {
         if (this.Pid) {
-            Logger.Info("RPCS3 Launcher: Stopping PID " . this.Pid)
+            Logger.Info("RPCS3 Launcher: Stopping PID " . this.Pid, this.__Class)
             try ProcessClose(this.Pid)
             this.Pid := 0
         }

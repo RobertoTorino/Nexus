@@ -18,68 +18,66 @@ class DolphinLauncher extends EmulatorBase {
 
     Launch(gameObj) {
         this.GameId := gameObj.Id
+        Logger.Info("DolphinLauncher: Starting launch sequence for ID: [" . this.GameId . "]", "DolphinLauncher")
 
         ; 1. Get Emulator Path
         emuPath := this.GetEmulatorPath("DOLPHIN_PATH", "DolphinPath")
         if !emuPath {
+            Logger.Error("DolphinLauncher: emuPath is empty. Check nexus.ini.", "DolphinLauncher")
             DialogsGui.CustomMsgBox("Launch Error", "Dolphin executable not configured.", 0x10)
             return false
         }
 
         SplitPath(emuPath, &exeName, &emuDir)
+        Logger.Debug("DolphinLauncher: Resolved Exe: " . exeName . " | Dir: " . emuDir, "DolphinLauncher")
 
         ; 2. Path Validation
-        ; Support both old (EbootIsoPath) and new (ApplicationPath) JSON keys
         gamePath := gameObj.HasProp("ApplicationPath") ? gameObj.ApplicationPath : ""
         if (gamePath == "" && gameObj.HasProp("EbootIsoPath"))
             gamePath := gameObj.EbootIsoPath
 
-        ; Fallback: Open GUI if no game file
         if (gamePath == "") {
+            Logger.Warn("DolphinLauncher: No ROM path found. Launching emulator GUI only.", "DolphinLauncher")
             try {
                 Run(emuPath, emuDir)
                 return true
-            } catch {
+            } catch as err {
+                Logger.Error("DolphinLauncher: Failed to open GUI: " . err.Message, "DolphinLauncher")
                 return false
             }
         }
 
+        Logger.Info("DolphinLauncher: Target ROM detected -> " . gamePath, "DolphinLauncher")
+
         ; 3. Cleanup & Prep
+        Logger.Debug("DolphinLauncher: Cleaning up existing instances of " . exeName, "DolphinLauncher")
         this.KillProcess(exeName)
         CaptureManager.CurrentProcessName := exeName
 
         ; 4. Construct Command
-        ; FIX: Use dashes (-) instead of slashes (/) for Qt-based Dolphin versions.
-        ; -b = Batch (Exit when done)
-        ; -e = Execute/Load File
         runCmd := Format('"{1}" -b -e "{2}"', emuPath, gamePath)
-
-        Logger.Info("Launching Dolphin: " runCmd)
+        Logger.Info("DolphinLauncher: Executing Command: " . runCmd, "DolphinLauncher")
 
         try {
-            Run(runCmd, emuDir, "UseErrorLevel", &newPid)
+            ; Capture PID using the 4th parameter (3 commas)
+            Run(runCmd, emuDir, , &newPid)
 
             if (newPid > 0) {
+                Logger.Info("DolphinLauncher: Process started successfully. PID: " . newPid, "DolphinLauncher")
                 this.UpdateLastPlayed(emuPath, newPid)
 
-                ; 5. Ninja Move (Force Monitor 1)
-                ; Wait up to 5 seconds for the window to appear
-                if WinWait("ahk_pid " newPid, , 5) {
-                    WindowManager.SetGameContext("ahk_pid " newPid, 1)
+                ; 5. Hand-off to WindowManager
+                ; This triggers the loop that waits for the visible window
+                Logger.Debug("DolphinLauncher: Registering with WindowManager...", "DolphinLauncher")
+                WindowManager.RegisterGame(newPid, this.GameId, 1, exeName)
 
-                    ; Double check focus
-                    WinActivate("ahk_pid " newPid)
-                    return true
-                }
-
-                ; Even if window isn't found immediately, return true as process is running
-                Logger.Warn("Dolphin launched (PID: " newPid ") but window delay exceeded.")
-                WindowManager.SetGameContext("ahk_pid " newPid, 1)
                 return true
+            } else {
+                Logger.Error("DolphinLauncher: Run executed but failed to return a valid PID.", "DolphinLauncher")
+                return false
             }
-            return false
         } catch as err {
-            Logger.Error("Dolphin Launch Failed: " err.Message)
+            Logger.Error("DolphinLauncher: Exception during Run -> " . err.Message, "DolphinLauncher")
             DialogsGui.CustomMsgBox("Launch Error", "Dolphin failed to start.`n" . err.Message, 0x10)
             return false
         }

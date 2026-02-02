@@ -29,7 +29,7 @@ class EmulatorBase {
         ; --- CRITICAL FIX: PREVENT KILL ON APP EXIT ---
         global AppIsExiting
         if (IsSet(AppIsExiting) && AppIsExiting) {
-            Logger.Info("App exiting. Keeping game process alive (PID: " this.Pid ")")
+            Logger.Info("App exiting. Keeping game process alive (PID: " this.Pid ")", this.__Class)
             return
         }
 
@@ -40,11 +40,11 @@ class EmulatorBase {
         }
 
         if (this.Pid && ProcessExist(this.Pid)) {
-            Logger.Info("Stopping PID: " . this.Pid)
+            Logger.Info("Stopping PID: " . this.Pid, this.__Class)
             try ProcessClose(this.Pid)
         }
         else if (this.ExeName && ProcessExist(this.ExeName)) {
-            Logger.Info("Stopping Process: " . this.ExeName)
+            Logger.Info("Stopping Process: " . this.ExeName, this.__Class)
             try ProcessClose(this.ExeName)
         }
     }

@@ -37,16 +37,6 @@
     },
     {
       "AddedDate":"2026-01-28 00:28:58",
-      "ApplicationPath":"E:\\GAMECUBE GAMES\\Soulcalibur II (USA).rvz",
-      "Id":"GAME_DOLPHIN_SOULCALIBUR_II_USA",
-      "LastPlayed":"2026-02-01 21:00:21",
-      "LauncherType":"DOLPHIN",
-      "PlayTimeReadable":"32.9m",
-      "SavedName":"[GC/WII] Soulcalibur II (USA)",
-      "TotalPlayTime":1975
-    },
-    {
-      "AddedDate":"2026-01-28 00:28:58",
       "ApplicationPath":"E:\\GAMECUBE GAMES\\SSX 3 (USA).rvz",
       "Id":"GAME_DOLPHIN_SSX_3_USA",
       "LauncherType":"DOLPHIN",
@@ -3549,6 +3539,25 @@
       "SavedName":"SOL_TRIGGER_JAPAN_T_EN_BY_GAREJEI_JAMRULES_V0_9_I_PPSSPP",
       "SnapshotDir":"snapshots/GAME_SOL_TRIGGER_JAPAN_T_EN_BY_GAREJEI_JAMRULES_V0_9_I_PPSSPP",
       "TotalPlayTime":7
+    },
+    {
+      "ApplicationPath":"E:/GAMECUBE GAMES/Soulcalibur II (USA).rvz",
+      "CaptureDir":"captures/GAME_SOULCALIBUR_II_USA_DOLPHIN",
+      "EbootIsoPath":"E:/GAMECUBE GAMES/Soulcalibur II (USA).rvz",
+      "GameApplication":"Soulcalibur II (USA).rvz",
+      "HasWindowProfile":1,
+      "Id":"GAME_SOULCALIBUR_II_USA_DOLPHIN",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-02-02 00:49:48",
+      "LauncherType":"DOLPHIN",
+      "PlayTimeReadable":"1.7m",
+      "SavedName":"SOULCALIBUR_II_USA_DOLPHIN",
+      "SnapshotDir":"snapshots/GAME_SOULCALIBUR_II_USA_DOLPHIN",
+      "TotalPlayTime":104,
+      "WinH":1315,
+      "WinW":1920,
+      "WinX":0,
+      "WinY":-67
     },
     {
       "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES TRANSLATED/[PSP] DotHack-Link [J] [TRAD-E] [ULJS-00266] [v1.0.2]/ULJS-00266-DotHackLink-ENG.iso",

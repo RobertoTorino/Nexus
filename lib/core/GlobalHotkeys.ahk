@@ -23,10 +23,10 @@
 ^l:: {
     if (WinExist("Nexus :: Logger")) {
         LoggerGui.Hide()
-        Logger.Info("Visual Log Disabled via Hotkey")
+        Logger.Info("Visual Log Disabled via Hotkey", "GlobalHotkeys")
     } else {
         LoggerGui.Show()
-        Logger.Info("Visual Log Enabled via Hotkey")
+        Logger.Info("Visual Log Enabled via Hotkey", "GlobalHotkeys")
     }
 }
 

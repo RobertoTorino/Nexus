@@ -41,13 +41,13 @@ class RomScanner {
         if (currentDir == "") {
             currentDir := DirSelect("", 3, "Select " . emulatorName . " ROMs Folder")
             if (currentDir == "") {
-                Logger.Info("Scan Cancelled: User did not select a folder.")
+                Logger.Info("Scan Cancelled: User did not select a folder.", this.__Class)
                 return
             }
             IniWrite(currentDir, ConfigManager.IniPath, iniSection, iniKey)
         }
 
-        Logger.Info("Starting Scan :: Emu: " . emulatorName . " | Path: " . currentDir)
+        Logger.Info("Starting Scan :: Emu: " . emulatorName . " | Path: " . currentDir, this.__Class)
 
         addedCount := 0
         skippedCount := 0
@@ -85,20 +85,20 @@ class RomScanner {
                 addedCount++
 
                 ; Log Success
-                Logger.Info("Scanned: " . cleanName . " -> ID: " . gameId)
+                Logger.Info("Scanned: " . cleanName . " -> ID: " . gameId, this.__Class)
             }
         }
 
         if (addedCount > 0) {
             ConfigManager.SaveGames()
             Logger.Info("Scan Finished. Added: " . addedCount . " | Skipped: " . skippedCount)
-            DialogsGui.CustomStatusPop("Added: " . addedCount . " (Skipped: " . skippedCount . ")")
+            DialogsGui.CustomStatusPop("Added: " . addedCount . " (Skipped: " . skippedCount . ")", this.__Class)
 
             if IsSet(GuiBuilder)
                 GuiBuilder.RefreshDropdown()
         } else {
             Logger.Info("Scan Finished. No new games found. Skipped: " . skippedCount)
-            DialogsGui.CustomStatusPop("No new games found.`n(Checked " . skippedCount . " existing)")
+            DialogsGui.CustomStatusPop("No new games found.`n(Checked " . skippedCount . " existing)", this.__Class)
         }
     }
 

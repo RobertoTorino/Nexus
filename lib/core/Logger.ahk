@@ -11,14 +11,6 @@
 ; --- DEPENDENCY IMPORTS ---
 ; None
 
-#Requires AutoHotkey v2.0
-; ==============================================================================
-; * @description Logging Module - Robust File Access & Source Detection.
-; * @class Logger
-; * @location lib/core/Logger.ahk
-; * @version 1.2.00 (Production Grade - Shared Write Access)
-; ==============================================================================
-
 class Logger {
     ; Configuration
     static LogFile := "nexus.log"
@@ -88,13 +80,20 @@ class Logger {
     ; ---- WRAPPERS (Auto-Detect Source) ----
 
     ; 'Error("", -1).What' gets the name of the function calling this wrapper
-    static Info(msg) => this.Log("INFO", msg, Error("", -1).What)
+    ; ---- WRAPPERS (Enhanced Source Detection) ----
+    ; These now accept an optional 'src'. If empty, it defaults to "Nexus"
+        static Info(msg, src := "Nexus")  => this.Log("INFO",  msg, src)
+        static Warn(msg, src := "Nexus")  => this.Log("WARN",  msg, src)
+        static Error(msg, src := "Nexus") => this.Log("ERROR", msg, src)
+        static Debug(msg, src := "Nexus") => this.Log("DEBUG", msg, src)
 
-    static Warn(msg) => this.Log("WARN", msg, Error("", -1).What)
-
-    static Error(msg) => this.Log("ERROR", msg, Error("", -1).What)
-
-    static Debug(msg) => this.Log("DEBUG", msg, Error("", -1).What)
+    static _GetClassName() {
+        try {
+            ; This looks at the stack to find the calling class
+            return RegExReplace(Error("", -2).What, "\..*$", "")
+        }
+        return "Unknown"
+    }
 
     ; ---- UTILS ----
 

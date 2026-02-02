@@ -128,7 +128,7 @@ class CaptureManager {
         args .= ' -c:a aac -b:a 192k'
         args .= ' -movflags +faststart "' outFile '"'
 
-        Logger.Info("Starting Video Rec: " args)
+        Logger.Info("Starting Video Rec: " args, this.__Class)
 
         try {
             Run(this.FfmpegPath . args, , "Min", &pid)
@@ -185,7 +185,7 @@ class CaptureManager {
 
         args := ' -f dshow -i audio="' audioDevice '" -acodec pcm_s16le -ar 48000 -ac 2 -y "' outFile '"'
 
-        Logger.Info("Starting Audio Rec: " args)
+        Logger.Info("Starting Audio Rec: " args, this.__Class)
 
         try {
             Run(A_ComSpec ' /k ""' this.FfmpegPath '" ' args '"', , "Min", &pid)

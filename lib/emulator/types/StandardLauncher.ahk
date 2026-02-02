@@ -58,7 +58,7 @@ class StandardLauncher extends EmulatorBase {
         this.OldPids := this.GetProcessList()
 
         if IsSet(Logger)
-            Logger.Info("StandardLauncher: Starting " . exeName)
+            Logger.Info("StandardLauncher: Starting " . exeName, this.__Class)
 
         try {
             ; 4. EXECUTE
@@ -148,7 +148,7 @@ class StandardLauncher extends EmulatorBase {
             if (ConfigManager.ActiveProcessName == "" || (hasWindow && this.Pid != bestPid)) {
 
                 if IsSet(Logger)
-                    Logger.Info("StandardLauncher: Detected Child Process -> " bestName " (" bestPid ")")
+                    Logger.Info("StandardLauncher: Detected Child Process -> " bestName " (" bestPid ")", this.__Class)
 
                 this.Pid := bestPid
                 this.ExeName := bestName

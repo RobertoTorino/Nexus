@@ -23,13 +23,14 @@ class ConfigManager {
 
     ; INITIALIZATION & LOADING
     static Init() {
+        Logger.Info("Initializing ConfigManager...", "ConfigManager")
         this.LoadSettings()
         success := this.LoadGamesFromJson()
 
-        ; Run the Integrity Check immediately after loading
-        if (success)
+        if (success) {
+            Logger.Info("Database loaded. Items: " . this.Games.Count, "ConfigManager")
             this.SanityCheck()
-
+        }
         return success
     }
 
@@ -249,20 +250,25 @@ class ConfigManager {
         return false
     }
 
-    ; Unified Registration / Update
     static RegisterGame(gameId, dataObj) {
-        ; 1. Validate First
         try {
             this.ValidateGameData(dataObj)
         } catch as err {
+            Logger.Error("Registration Validation Failed: " err.Message, "ConfigManager")
             DialogsGui.CustomMsgBox("Save Aborted", "Cannot save game:`n" . err.Message, 0)
             return false
         }
 
-        ; 2. Save
+        Logger.Info("ConfigMgr: Attempting to save data for " . gameId, "ConfigManager")
         this.Games[gameId] := dataObj
-        this.SaveGames()
-        return true
+
+        if (this.SaveGames()) {
+            Logger.Info("ConfigMgr: JSON Write Successful.", "ConfigManager")
+            return true
+        } else {
+            Logger.Error("ConfigMgr: JSON Write FAILED!", "ConfigManager")
+            return false
+        }
     }
 
     ; Legacy alias for compatibility
@@ -375,6 +381,7 @@ class ConfigManager {
     }
 
     static SaveGames() {
+        Logger.Debug("ConfigMgr: Writing database to disk...", "ConfigManager")
         try {
             gameArray := []
             for id, gameObj in ConfigManager.Games {
@@ -387,7 +394,8 @@ class ConfigManager {
                 FileDelete(this.JsonPath)
             FileAppend(jsonString, this.JsonPath, "UTF-8")
             return true
-        } catch {
+        } catch as err {
+            Logger.Error("ConfigMgr: File IO Error -> " . err.Message, "ConfigManager")
             return false
         }
     }
@@ -522,19 +530,16 @@ class ConfigManager {
             return false
 
         game := this.Games[gameId]
+        Logger.Info("ConfigMgr: Updating Window Profile for " . gameId . " [" w "x" h "]", "ConfigManager")
 
-        ; Update properties (handling both Map and Object styles)
-        if (Type(game) == "Map") {
-            game["WinX"] := x
-            game["WinY"] := y
-            game["WinW"] := w
-            game["WinH"] := h
+        isMap := (Type(game) == "Map")
+        if (isMap) {
+            game["WinX"] := x, game["WinY"] := y
+            game["WinW"] := w, game["WinH"] := h
             game["HasWindowProfile"] := 1
         } else {
-            game.WinX := x
-            game.WinY := y
-            game.WinW := w
-            game.WinH := h
+            game.WinX := x, game.WinY := y
+            game.WinW := w, game.WinH := h
             game.HasWindowProfile := 1
         }
 

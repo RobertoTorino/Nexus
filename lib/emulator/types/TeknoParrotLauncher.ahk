@@ -26,9 +26,9 @@ class TeknoParrotLauncher {
 
     Launch(gameObj) {
         this.GameId := gameObj.Id
-        Logger.Info("TP Launcher: Starting sequence for " gameObj.Id)
+        Logger.Info("TP Launcher: Starting sequence for " gameObj.Id, this.__Class)
 
-        Logger.Info("TP Launcher: Cleaning up old processes...")
+        Logger.Info("TP Launcher: Cleaning up old processes...", this.__Class)
         WindowManager.ForceKillAll()
         Sleep(100)
 
@@ -67,7 +67,7 @@ class TeknoParrotLauncher {
             expectedExe := "Play.exe"
         }
 
-        Logger.Info("TP Launcher: Target Exe Resolved -> [" expectedExe "] (EmuType: " gameInfo.EmuType ")")
+        Logger.Info("TP Launcher: Target Exe Resolved -> [" expectedExe "] (EmuType: " gameInfo.EmuType ")", this.__Class)
 
         if (expectedExe != "") {
             WindowManager.SetGameContext("ahk_exe " . expectedExe, 1)
@@ -79,17 +79,17 @@ class TeknoParrotLauncher {
         try {
             Run(runCmd, tpDir, "Min", &tpPid)
             this.TpPid := tpPid
-            Logger.Info("TP Launcher: TeknoParrotUI started with PID " tpPid)
+            Logger.Info("TP Launcher: TeknoParrotUI started with PID " tpPid, this.__Class)
 
             SetTimer(this.NagScreenKiller.Bind(this), 500)
             SetTimer(() => SetTimer(this.NagScreenKiller.Bind(this), 0), -20000)
 
-            Logger.Info("TP Launcher: Waiting for game process...")
+            Logger.Info("TP Launcher: Waiting for game process...", this.__Class)
             realPid := this.WaitForGameProcess(expectedExe, tpPid, 45000)
 
             if (realPid) {
                 this.Pid := realPid
-                Logger.Info("TP Launcher: Game Process FOUND! PID: " realPid)
+                Logger.Info("TP Launcher: Game Process FOUND! PID: " realPid, this.__Class)
                 Sleep(2000)
                 WindowManager.RegisterGame(realPid, this.GameId, 1, expectedExe)
                 GuiBuilder.SetRecordingStatus(true)
@@ -151,7 +151,7 @@ class TeknoParrotLauncher {
             foundHwnd := WindowManager.CheckForTeknoWindow()
             if (foundHwnd) {
                 pid := WinGetPID("ahk_id " foundHwnd)
-                Logger.Info("TP Launcher: Discovered via Window Scan -> PID " pid)
+                Logger.Info("TP Launcher: Discovered via Window Scan -> PID " pid, this.__Class)
                 return pid
             }
             Sleep(500)
@@ -169,7 +169,7 @@ class TeknoParrotLauncher {
                 txt := WinGetText(this_id)
 
                 if (InStr(txt, "already be running") || title = "Question" || title = "Error") {
-                    Logger.Info("TP Launcher: Detected Error Popup [" title "]. Auto-clicking Yes.")
+                    Logger.Info("TP Launcher: Detected Error Popup [" title "]. Auto-clicking Yes.", this.__Class)
                     WinActivate(this_id)
                     Sleep(50)
                     Send("{Enter}")
@@ -191,7 +191,7 @@ class TeknoParrotLauncher {
 
     Stop() {
         if (this.Pid) {
-            Logger.Info("TP Launcher: Stopping PID " this.Pid)
+            Logger.Info("TP Launcher: Stopping PID " this.Pid, this.__Class)
             WindowManager.ForceKillAll()
             this.Pid := 0
             this.TpPid := 0

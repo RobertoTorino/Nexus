@@ -257,7 +257,7 @@ class Utilities {
 
             ; Specific check for Monitor 2 (as per your legacy code)
             if (count < 2) {
-                Logger.Info("Monitor 2 not available (Single Monitor Setup).")
+                Logger.Info("Monitor 2 not available (Single Monitor Setup).", this.__Class)
             }
 
             Logger.Debug("--------------------------------------------------")

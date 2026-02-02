@@ -32,7 +32,7 @@ class Pcsx2Launcher extends EmulatorBase {
 
         ; Fallback: Launch UI if no game selected
         if (rawPath == "") {
-            Logger.Info("PCSX2: No ISO selected, launching UI.")
+            Logger.Info("PCSX2: No ISO selected, launching UI.", this.__Class)
             try {
                 Run(emuPath, emuDir)
                 return true
@@ -52,7 +52,7 @@ class Pcsx2Launcher extends EmulatorBase {
         ; Launch
         ; ARGS: -batch (Exit on close) -fullscreen (Start FS) -- (File separator)
         runCmd := Format('"{1}" -batch -fullscreen -- "{2}"', emuPath, isoPath)
-        Logger.Info("Launching PCSX2: " runCmd)
+        Logger.Info("Launching PCSX2: " runCmd, this.__Class)
 
         try {
             Run(runCmd, emuDir, "UseErrorLevel", &newPid)
@@ -67,7 +67,7 @@ class Pcsx2Launcher extends EmulatorBase {
                     ; Force move immediately via WindowManager
                     WindowManager.SetGameContext("ahk_pid " newPid, 1)
 
-                    Logger.Info("PCSX2 Launched & Moved (PID: " newPid ")")
+                    Logger.Info("PCSX2 Launched & Moved (PID: " newPid ")", this.__Class)
                     return true
                 }
 

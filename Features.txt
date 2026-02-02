@@ -5,85 +5,26 @@ Pending Todo List (The "Next Steps")
 [FEATURE] Would you like me to show you how to add a "Backup Database" button to your GUI that creates a timestamped zip of your nexus.ini and nexus.json?
 [FEATURE] Would you like me to add a "Timestamp" button to that notes window so you can quickly mark when you made a change?
 
-
-
-; Standard modes
-WindowConfigs["SizeFull"]       := {Mode:"FullScreen"}
-WindowConfigs["SizeWindowed"]   := {Mode:"Windowed"}
-WindowConfigs["SizeBorderless"] := {Mode:"Borderless"}
-WindowConfigs["SizeHidden"]     := {Mode:"Hidden"}
-WindowConfigs["SizeMinimized"]  := {Mode:"Minimized"}
-WindowConfigs["SizeMaximized"]  := {Mode:"Maximized"}
-WindowConfigs["SizeRestored"]   := {Mode:"Restored"}
-WindowConfigs["SizeTopmost"]    := {Mode:"Topmost"}
-WindowConfigs["SizeTool"]       := {Mode:"ToolWindow"}
-WindowConfigs["SizeLayered"]    := {Mode:"Layered"}
-WindowConfigs["SizeNoActivate"] := {Mode:"NoActivate"}
-
-; Resolutions
-WindowConfigs["Size1920x1080"] := {Width:1920, Height:1080}
-WindowConfigs["Size1920x1200"] := {Width:1920, Height:1200}
-WindowConfigs["Size1920x1440"] := {Width:1920, Height:1440}
-WindowConfigs["Size2048x1152"] := {Width:2048, Height:1152}
-WindowConfigs["Size2048x1536"] := {Width:2048, Height:1536}
-WindowConfigs["Size2560x1440"] := {Width:2560, Height:1440}
-WindowConfigs["Size2560x1600"] := {Width:2560, Height:1600}
-WindowConfigs["Size2880x1800"] := {Width:2880, Height:1800}
-WindowConfigs["Size3840x2160"] := {Width:3840, Height:2160}
-WindowConfigs["Size5120x2880"] := {Width:5120, Height:2880}
-WindowConfigs["Size6016x3384"] := {Width:6016, Height:3384}
-WindowConfigs["Size7680x4320"] := {Width:7680, Height:4320}
-
-; Combined examples
-WindowConfigs["SizeBorderlessTopmost2560"] := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true}
-; Basic Borderless variants─
-WindowConfigs["SizeBorderless1920"]          := {Width:1920, Height:1080, Mode:"Borderless"}
-WindowConfigs["SizeBorderlessTopmost1920"]   := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true}
-WindowConfigs["SizeBorderlessTool1920"]      := {Width:1920, Height:1080, Mode:"Borderless", ToolWindow:true}
-WindowConfigs["SizeBorderlessLayered1920"]   := {Width:1920, Height:1080, Mode:"Borderless", Layered:true, NoActivate:true}
-WindowConfigs["SizeBorderlessTopLayered1920"]:= {Width:1920, Height:1080, Mode:"Borderless", Topmost:true, Layered:true}
-WindowConfigs["SizeBorderlessNoAct1920"]     := {Width:1920, Height:1080, Mode:"Borderless", NoActivate:true}
-
-; Windowed variants
-WindowConfigs["SizeWindowed1920"]            := {Width:1920, Height:1080, Mode:"Windowed"}
-WindowConfigs["SizeWindowedTopmost1920"]     := {Width:1920, Height:1080, Mode:"Windowed", Topmost:true}
-WindowConfigs["SizeWindowedTool1920"]        := {Width:1920, Height:1080, Mode:"Windowed", ToolWindow:true}
-WindowConfigs["SizeWindowedLayered1920"]     := {Width:1920, Height:1080, Mode:"Windowed", Layered:true}
-WindowConfigs["SizeWindowedNoAct1920"]       := {Width:1920, Height:1080, Mode:"Windowed", NoActivate:true}
-WindowConfigs["SizeWindowedTopLayered1920"]  := {Width:1920, Height:1080, Mode:"Windowed", Topmost:true, Layered:true}
-
-; Fake fullscreen & other utility modes
-WindowConfigs["SizeFakeFull1920"]            := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true}
-WindowConfigs["SizeFakeFullLayered1920"]     := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true, Layered:true}
-WindowConfigs["SizeFakeFullTool1920"]        := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true, ToolWindow:true}
-WindowConfigs["SizeFakeFullNoAct1920"]       := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true, NoActivate:true}
-WindowConfigs["SizeFakeFullAll1920"]         := {Width:1920, Height:1080, Mode:"Borderless", Topmost:true, Layered:true, ToolWindow:true, NoActivate:true}
-
-; Basic Borderless variants─
-WindowConfigs["SizeBorderless2560"]          := {Width:2560, Height:1440, Mode:"Borderless"}
-WindowConfigs["SizeBorderlessTopmost2560"]   := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true}
-WindowConfigs["SizeBorderlessTool2560"]      := {Width:2560, Height:1440, Mode:"Borderless", ToolWindow:true}
-WindowConfigs["SizeBorderlessLayered2560"]   := {Width:2560, Height:1440, Mode:"Borderless", Layered:true, NoActivate:true}
-WindowConfigs["SizeBorderlessTopLayered2560"]:= {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, Layered:true}
-WindowConfigs["SizeBorderlessNoAct2560"]     := {Width:2560, Height:1440, Mode:"Borderless", NoActivate:true}
-
-; Windowed variants
-WindowConfigs["SizeWindowed2560"]            := {Width:2560, Height:1440, Mode:"Windowed"}
-WindowConfigs["SizeWindowedTopmost2560"]     := {Width:2560, Height:1440, Mode:"Windowed", Topmost:true}
-WindowConfigs["SizeWindowedTool2560"]        := {Width:2560, Height:1440, Mode:"Windowed", ToolWindow:true}
-WindowConfigs["SizeWindowedLayered2560"]     := {Width:2560, Height:1440, Mode:"Windowed", Layered:true}
-WindowConfigs["SizeWindowedNoAct2560"]       := {Width:2560, Height:1440, Mode:"Windowed", NoActivate:true}
-WindowConfigs["SizeWindowedTopLayered2560"]  := {Width:2560, Height:1440, Mode:"Windowed", Topmost:true, Layered:true}
-
-; Fake fullscreen & other utility modes
-WindowConfigs["SizeFakeFull2560"]            := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true}
-WindowConfigs["SizeFakeFullLayered2560"]     := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, Layered:true}
-WindowConfigs["SizeFakeFullTool2560"]        := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, ToolWindow:true}
-WindowConfigs["SizeFakeFullNoAct2560"]       := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, NoActivate:true}
-WindowConfigs["SizeFakeFullAll2560"]         := {Width:2560, Height:1440, Mode:"Borderless", Topmost:true, Layered:true, ToolWindow:true, NoActivate:true}
-
 --------------------------------
 
 Test
 Bat, game is already in the list, but still have to select it first to play
 .EXE Select but no confirmation after name is filled in DETROIT_BECOME_HUMAN
+
+-------------------------------------
+
+3. Auditing the Project Structure for LoggingHere is the priority list for your classes.
+You should ensure each one has a Logger.
+Info at the start of its primary methods:
+ClassMethod to Log
+Log ContentDolphinLauncherLaunch()"Launching Dolphin with ROM: " . path
+ProcessManagerStartSession()"Process Monitoring started for: " . name
+CaptureManagerTakeSnapshot()"Snapshot requested. Target: " . path
+PatchServiceToolOpenPatcher()"Scanning for patches for GameID: " . id
+
+---------------------------------------
+
+. Implementation Note
+The "ToolWindow" flag is great for hiding games from the Alt-Tab menu.
+The "Layered" flag is useful for certain transparency effects or overlay compatibility.
+The "NoActivate" flag prevents the game window from stealing focus when it is moved or resized.
