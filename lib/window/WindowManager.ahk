@@ -8,6 +8,14 @@
 ; * @version 1.0.00
 ; ======================================================================
 
+; The script now handles the window lifecycle in three distinct stages to ensure emulators don't win:
+; Stage 1: Registration (RegisterGame) - Sets the PID and ID context.
+; Stage 2: Visible Detection (FindRealGameWindow) - Ignores splash screens and hidden background processes.
+; Stage 3: The GPU Settle (ApplyGameSettings with isAuto) - Waits 1.8s for the emulator's 3D engine to finish its own internal window setup before we "slam" the final coordinates.
+
+; ======================================================================
+
+; --- DEPENDENCY IMPORTS ---
 #Include ..\core\Logger.ahk
 #Include ..\window\MonitorHelper.ahk
 #Include ..\config\ConfigManager.ahk
@@ -400,18 +408,32 @@ static Presets := Map(
     static MoveToMonitor(targetMonitorIndex) {
         hwnd := this.GetValidHwnd()
         if !hwnd
-            return
+        return
 
         mon := MonitorHelper.GetMonitorGeometry(targetMonitorIndex)
-        if !mon
+        if !mon {
+            Logger.Error("WinMgr: Invalid Monitor Index " . targetMonitorIndex)
             return
+        }
 
-        WinGetPos(, , &w, &h, hwnd)
+        ; Get current window size
+        WinGetPos(,, &w, &h, "ahk_id " hwnd)
+
+        ; Center on target monitor
         newX := mon.Left + (mon.Width - w) // 2
         newY := mon.Top + (mon.Height - h) // 2
 
-        WinMove(newX, newY, , , hwnd)
+        WinMove(newX, newY,,, "ahk_id " hwnd)
+
+        ; IMPORTANT: Save this new position so the 'Stabilizer' doesn't
+        ; snap it back to the old monitor!
         this.SaveState(hwnd)
+
+        ; Persist to JSON so it stays on this monitor next launch
+        targetId := (this.ActiveGameId != "") ? this.ActiveGameId : ConfigManager.CurrentGameId
+        if (targetId != "") {
+            ConfigManager.UpdateGameWindowProfile(targetId, newX, newY, w, h)
+        }
     }
 
     ; Force Focus (New Feature)
@@ -479,16 +501,16 @@ static Presets := Map(
                 WinMaximize(hwnd)
 
             case "Topmost":
-                WinSetAlwaysOnTop(-1, hwnd) ; Toggle
+                WinSetAlwaysOnTop(-1, "ahk_id " hwnd) ; -1 is the built-in toggle for AHK v2
 
             case "ToolWindow":
-                WinSetExStyle("^0x00000080", hwnd) ; Toggle WS_EX_TOOLWINDOW
+                WinSetExStyle("^0x00000080", "ahk_id " hwnd)
 
             case "Layered":
-                WinSetExStyle("^0x00080000", hwnd) ; Toggle WS_EX_LAYERED
+                WinSetExStyle("^0x00080000", "ahk_id " hwnd)
 
             case "NoActivate":
-                WinSetExStyle("^0x08000000", hwnd) ; Toggle WS_EX_NOACTIVATE
+                WinSetExStyle("^0x08000000", "ahk_id " hwnd)
         }
     }
 
@@ -517,7 +539,7 @@ static Presets := Map(
             WinMove(, , w, h, hwnd)
         }
 
-; --- Handle Multiple Attributes ---
+        ; --- Handle Multiple Attributes ---
         if options.HasOwnProp("Topmost")
             WinSetAlwaysOnTop(options.Topmost ? 1 : 0, hwnd)
 
@@ -530,8 +552,10 @@ static Presets := Map(
         if options.HasOwnProp("NoActivate")
             WinSetExStyle(options.NoActivate ? "+0x08000000" : "-0x08000000", hwnd)
 
-        WinActivate(hwnd)
-        WinShow(hwnd)
+        WinActivate("ahk_id " hwnd)
+        WinShow("ahk_id " hwnd)
+        ; Force DWM to recognize style changes
+        WinRedraw("ahk_id " hwnd)
         this.SaveState(hwnd)
     }
 

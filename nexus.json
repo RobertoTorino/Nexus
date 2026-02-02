@@ -22,6 +22,27 @@
       "SavedName":"[GC/WII] Capcom vs. SNK 2 EO - Millionaire Fighting 2001 (Europe)"
     },
     {
+      "AddedDate":"2026-02-02 16:33:44",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Crash Nitro Kart (USA).rvz",
+      "Id":"GAME_DOLPHIN_CRASH_NITRO_KART_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Crash Nitro Kart (USA)"
+    },
+    {
+      "AddedDate":"2026-02-02 16:33:44",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Def Jam - Fight for NY (USA).rvz",
+      "Id":"GAME_DOLPHIN_DEF_JAM_FIGHT_FOR_NY_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Def Jam - Fight for NY (USA)"
+    },
+    {
+      "AddedDate":"2026-02-02 16:33:44",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Die Hard - Vendetta (USA).rvz",
+      "Id":"GAME_DOLPHIN_DIE_HARD_VENDETTA_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Die Hard - Vendetta (USA)"
+    },
+    {
       "AddedDate":"2026-01-28 00:28:58",
       "ApplicationPath":"E:\\GAMECUBE GAMES\\Mario Kart - Double Dash!! (USA).rvz",
       "Id":"GAME_DOLPHIN_MARIO_KART_DOUBLE_DASH_USA",
@@ -34,6 +55,13 @@
       "Id":"GAME_DOLPHIN_R_RACING_EVOLUTION_USA",
       "LauncherType":"DOLPHIN",
       "SavedName":"[GC/WII] R-Racing Evolution (USA)"
+    },
+    {
+      "AddedDate":"2026-02-02 16:33:44",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Soulcalibur II (USA).rvz",
+      "Id":"GAME_DOLPHIN_SOULCALIBUR_II_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Soulcalibur II (USA)"
     },
     {
       "AddedDate":"2026-01-28 00:28:58",
@@ -62,6 +90,13 @@
       "Id":"GAME_DOLPHIN_SUPER_SMASH_BROS_MELEE_V1_01_USA",
       "LauncherType":"DOLPHIN",
       "SavedName":"[GC/WII] Super Smash Bros. Melee (v1.01)(USA)"
+    },
+    {
+      "AddedDate":"2026-02-02 16:33:44",
+      "ApplicationPath":"E:\\GAMECUBE GAMES\\Tetris Worlds (USA).rvz",
+      "Id":"GAME_DOLPHIN_TETRIS_WORLDS_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Tetris Worlds (USA)"
     },
     {
       "AddedDate":"2026-01-28 00:28:58",

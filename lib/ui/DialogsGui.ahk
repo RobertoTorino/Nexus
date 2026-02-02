@@ -105,20 +105,51 @@ class DialogsGui {
 
     ; NOTIFICATIONS
 
-    static CustomStatusPop(text, color := "05FBE4", duration := 2200) {
-        if (this.PopGui)
-            try this.PopGui.Destroy()
+    static CustomStatusPop(text, color := "Silver", duration := 2500) {
+        ; 1. NORMALIZE THE COLOR
+        if (color ~= "i)^(RomScanner|WindowManager|GuiBuilder|ConfigManager|ProcessManager)$"
+            || color == ""
+            || StrLen(color) > 12) {
+            color := "004466"
+        }
 
+        ; 2. CLEANUP PREVIOUS POPUP
+        try if (this.HasProp("PopGui") && this.PopGui)
+            this.PopGui.Destroy()
+
+        ; 3. CREATE THE POPUP
         this.PopGui := Gui("-Caption +AlwaysOnTop +ToolWindow +Border")
-        this.PopGui.BackColor := "202020"
+        this.PopGui.BackColor := "1A1A1A"
+
         this.PopGui.SetFont("s12 c" . color, "Segoe UI")
         this.PopGui.Add("Text", "x15 y10 Center", text)
-        this.PopGui.Show("NoActivate AutoSize Hide")
 
-        this._CenterOnOwner(this.PopGui)
-        this.PopGui.Show("NoActivate")
+        ; 4. DISPLAY
+        this.PopGui.Show("NoActivate AutoSize Center")
 
-        SetTimer(() => (this.PopGui ? this.PopGui.Destroy() : ""), -duration)
+        ; 5. START FADE TIMER
+        ; We stay at full visibility for (duration), then start fading
+        timeout := -Abs(duration)
+        SetTimer(() => this.FadeOut(), timeout)
+    }
+
+    static FadeOut() {
+        if (!this.PopGui)
+            return
+
+        ; Loop through transparency from 255 (solid) down to 0 (invisible)
+        loop 10 {
+            if (!this.PopGui)
+            break
+            transparency := 255 - (A_Index * 25)
+            try WinSetTransparent(Max(0, transparency), "ahk_id " this.PopGui.Hwnd)
+            Sleep(20) ; Speed of the fade
+        }
+
+        try if (this.PopGui) {
+            this.PopGui.Destroy()
+            this.PopGui := ""
+        }
     }
 
     static CustomTrayTip(text, iconType := 1) {

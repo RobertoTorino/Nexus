@@ -131,8 +131,8 @@ class GuiBuilder {
         this.TitleControl.OnEvent("Click", DragWin)
         this.TitleControl.OnEvent("DoubleClick", ToggleMode)
 
-        this.MainGui.Add("Text", "x+20 h30 +0x200 Center -Border", "- A:").OnEvent("Click", DragWin)
-        this.TimerAudio := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
+        this.MainGui.Add("Text", "x+20 h30 +0x200 Center -Border", "-  A:").OnEvent("Click", DragWin)
+        this.TimerAudio := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00  ")
         this.TimerAudio.OnEvent("Click", DragWin)
         this.TimerAudio.OnEvent("DoubleClick", ToggleMode)
 

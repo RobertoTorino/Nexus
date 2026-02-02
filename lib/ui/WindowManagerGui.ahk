@@ -31,6 +31,8 @@ class WindowManagerGui {
     static BtnMon2 := ""
     static EditOverscan := ""
 
+    static txtMonitorInfo := ""
+
     static Show() {
         if (this.HasProp("WinGui") && IsObject(this.WinGui) && this.WinGui) {
             this.WinGui.Show()
@@ -68,7 +70,8 @@ class WindowManagerGui {
 
         ; --- ROW 1: WINDOW STATE BUTTONS ---
         yState := "y+10"
-        this.BtnAddTheme("  Destroy  ", (*) => this.Action("Close"), "x6 " yState " Background333333")
+
+        this.BtnAddTheme("  Destroy  ", (*) => this.Action("Close"), "x6 " yState " Background660000")
         this.BtnAddTheme("  Hidden  ", (*) => this.Action("Hide"), "x+10 Background333333")
         this.BtnAddTheme("  Show  ", (*) => this.Action("Show"), "x+10 Background333333")
         this.BtnAddTheme("  Minimized  ", (*) => this.Action("Minimize"), "x+10 Background333333")
@@ -142,10 +145,25 @@ class WindowManagerGui {
         this.BtnAddTheme("6016x3384", (*) => WindowManager.ApplyPreset("Size6016x3384"), "x+10 Background333333 w90")
         this.BtnAddTheme("7680x4320", (*) => WindowManager.ApplyPreset("Size7680x4320"), "x+10 Background333333 w90")
 
-        ; --- ROW 6: MONITOR SWITCH
-        this.WinGui.SetFont("cSilver")
-        this.BtnMon1 := this.BtnAddTheme("Monitor 1", (*) => this.SwitchMonitor(1), "x5 y+10 w90 Background333333")
-        this.BtnMon2 := this.BtnAddTheme("Monitor 2", (*) => this.SwitchMonitor(2), "x+8 w90 Background333333")
+        ; --- ROW 6: RESOLUTIONS 1080P
+        this.BtnAddTheme("  1080P  ", (*) => WindowManager.ApplyPreset("SizeBorderlessTopmost1920"), "x6 " yState " Background004466")
+        this.BtnAddTheme("  Bor+Top  ", (*) => WindowManager.ApplyPreset("SizeBorderlessTopmost1920"), "x+0 Background004466")
+        this.BtnAddTheme("  Bor+Layer  ", (*) => WindowManager.ApplyPreset("SizeBorderlessLayered1920"), "x+0 Background004466")
+        this.BtnAddTheme("  Fake Fullscreen  ", (*) => WindowManager.ApplyPreset("SizeFakeFull1920"), "x+0 Background004466")
+        this.BtnAddTheme("  All Logic  ", (*) => WindowManager.ApplyPreset("SizeFakeFullAll1920"), "x+0 Background004466")
+        ; 1440P
+        this.BtnAddTheme("  1440P  ", (*) => WindowManager.ApplyPreset("SizeBorderlessTopmost2560"), "x+10 Background004466")
+        this.BtnAddTheme("  Bor+Top  ", (*) => WindowManager.ApplyPreset("SizeBorderlessTopmost2560"), "x+0 Background004466")
+        this.BtnAddTheme("  Bor+Layer  ", (*) => WindowManager.ApplyPreset("SizeBorderlessLayered2560"), "x+0 Background004466")
+        this.BtnAddTheme("  Fake Fullscreen  ", (*) => WindowManager.ApplyPreset("SizeFakeFull2560"), "x+0 Background004466")
+        this.BtnAddTheme("  All Logic  ", (*) => WindowManager.ApplyPreset("SizeFakeFullAll2560"), "x+0 Background004466")
+
+        ; --- ROW 7: MONITOR SWITCH
+        this.BtnMon1 := this.BtnAddTheme("  Monitor 01  ", (*) => this.SwitchMonitor(1), "x6 " yState " Background333333")
+        this.BtnMon2 := this.BtnAddTheme("  Monitor 02  ", (*) => this.SwitchMonitor(2), "x+0 Background333333")
+        ; THE NEW INFO LABEL
+        this.txtMonitorInfo := this.WinGui.Add("Text", "x+10 w205 h26 +0x200 +Border Background333333 Center", " Active: [Detecting...] ")
+        this.BtnAddTheme("  Reset All  ", (*) => WindowManager.ForceKillAll(), "x+405 Background660000")
 
         this.UpdateMonitorVisuals(1)
 
@@ -168,8 +186,14 @@ class WindowManagerGui {
     }
 
     static SwitchMonitor(monitorIndex) {
+        ; Move the actual window
         WindowManager.MoveToMonitor(monitorIndex)
+
+        ; Force the UI to reflect the move
         this.UpdateMonitorVisuals(monitorIndex)
+
+        ; Optional: Small delay then refresh list to update the "Status" column
+        SetTimer(() => this.RefreshList(), -200)
     }
 
     static UpdateMonitorVisuals(activeIndex) {
@@ -179,15 +203,20 @@ class WindowManagerGui {
         if !this.HasProp("BtnMon1") || !this.HasProp("BtnMon2")
             return
 
+        ; 1. Update Button Colors
         if (activeIndex == 1) {
-            this.BtnMon1.Opt("+" cActive)
-            this.BtnMon2.Opt("+" cInactive)
+            this.BtnMon1.Opt("+" cActive), this.BtnMon2.Opt("+" cInactive)
         } else {
-            this.BtnMon1.Opt("+" cInactive)
-            this.BtnMon2.Opt("+" cActive)
+            this.BtnMon1.Opt("+" cInactive), this.BtnMon2.Opt("+" cActive)
         }
-        this.BtnMon1.Redraw()
-        this.BtnMon2.Redraw()
+        this.BtnMon1.Redraw(), this.BtnMon2.Redraw()
+
+        ; 2. Update Resolution Text
+        mon := MonitorHelper.GetMonitorGeometry(activeIndex)
+        if (mon) {
+            infoText := "Active: Mon " activeIndex " [" mon.Width "x" mon.Height "]"
+            this.txtMonitorInfo.Value := infoText
+        }
     }
 
     static BtnAddTheme(label, callback, options) {
@@ -256,6 +285,14 @@ class WindowManagerGui {
             this.ListView.Add("", "Error", "Could not list windows", "", "")
         }
         DetectHiddenWindows(prevDetect)
+
+        ; --- THE FIX: SYNC MONITOR BUTTONS ---
+        ; This must happen AFTER the list is refreshed and DetectHiddenWindows is reset
+        hwnd := this.GetValidHwndFromUI()
+        if (hwnd) {
+            actualMon := MonitorHelper.GetMonitorIndexFromWindow(hwnd)
+            this.UpdateMonitorVisuals(actualMon)
+        }
     }
 
     static Action(type) {
@@ -336,9 +373,12 @@ class WindowManagerGui {
 
     ; Helper to ensure we are targeting the right window from the list
     static GetValidHwndFromUI() {
+        ; 1. If a row is selected in the list, use that
         row := this.ListView.GetNext(0)
         if (row > 0)
             return Integer(this.ListView.GetText(row, 1))
+
+        ; 2. If nothing is selected, ask WindowManager for the best guess
         return WindowManager.GetValidHwnd()
     }
 
