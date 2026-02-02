@@ -18,55 +18,57 @@ class Pcsx2Launcher extends EmulatorBase {
     Launch(gameObj) {
         this.GameId := gameObj.Id
 
-        ; Get Emulator Path (Using Base Class Helper)
+        ; 1. Get Emulator Path
         emuPath := this.GetEmulatorPath("PCSX2_PATH", "Pcsx2Path")
         if !emuPath
             return false
 
         SplitPath(emuPath, &exeName, &emuDir)
 
-        ; Path Validation (Support both New and Old JSON keys)
+        ; 2. Path Validation
         rawPath := gameObj.HasProp("ApplicationPath") ? gameObj.ApplicationPath : ""
         if (rawPath == "" && gameObj.HasProp("EbootIsoPath"))
             rawPath := gameObj.EbootIsoPath
 
-        ; Fallback: Launch UI if no game selected
+        ; --- FIX 1: TRACK UI SESSION ---
         if (rawPath == "") {
             Logger.Info("PCSX2: No ISO selected, launching UI.", this.__Class)
             try {
-                Run(emuPath, emuDir)
+                Run(emuPath, emuDir, , &guiPid)
+                if (guiPid > 0)
+                    this.TrackProcess(guiPid, emuPath, "PCSX2_UI")
                 return true
             } catch {
                 return false
             }
         }
 
-        ; CRITICAL FIX: FORCE WINDOWS BACKSLASHES
-        ; PCSX2 Command Line fails if paths use forward slashes (JSON style)
+        ; 3. Normalization (Force Backslashes for PCSX2 CLI)
         isoPath := StrReplace(rawPath, "/", "\")
 
-        ; Cleanup & Prep
+        ; 4. Prep
         this.KillProcess(exeName)
-        CaptureManager.CurrentProcessName := exeName ; Sync for Recording
+        CaptureManager.CurrentProcessName := exeName
 
-        ; Launch
-        ; ARGS: -batch (Exit on close) -fullscreen (Start FS) -- (File separator)
+        ; 5. Launch Arguments
+        ; -batch (Exit on close) -fullscreen -- (File separator)
         runCmd := Format('"{1}" -batch -fullscreen -- "{2}"', emuPath, isoPath)
         Logger.Info("Launching PCSX2: " runCmd, this.__Class)
 
         try {
-            Run(runCmd, emuDir, "UseErrorLevel", &newPid)
+            ; --- FIX 2: REMOVE LEGACY "UseErrorLevel" ---
+            Run(runCmd, emuDir, , &newPid)
 
             if (newPid > 0) {
-                this.UpdateLastPlayed(emuPath, newPid)
+                Logger.Info("PCSX2Launcher: Process started successfully. PID: " . newPid, "PCSX2Launcher")
 
-                ; "Ninja Move" Technique (Restored)
-                ; Wait for the window to actually exist (max 3 seconds)
+                ; Hook into Process Manager
+                this.TrackProcess(newPid, emuPath, gameObj.Id)
+
+                ; 6. Window Management ("Ninja Move")
+                ; Wait up to 3 seconds for the window to appear so we can snap it
                 if WinWait("ahk_pid " newPid, , 3) {
-
-                    ; Force move immediately via WindowManager
                     WindowManager.SetGameContext("ahk_pid " newPid, 1)
-
                     Logger.Info("PCSX2 Launched & Moved (PID: " newPid ")", this.__Class)
                     return true
                 }

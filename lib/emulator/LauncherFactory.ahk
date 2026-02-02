@@ -25,39 +25,41 @@
 #Include types/Rpcs3UniversalLauncher.ahk
 
 class LauncherFactory {
+    ; We store the instances here so we don't have to re-create them
+    static _instances := Map()
 
     static GetLauncher(launcherType) {
-        switch launcherType, 0 { ; Case insensitive
+        ; Normalize the type to handle your RPCS3/VITA variants
+        type := StrUpper(launcherType)
 
-            ; --- Universal RPCS3 Builds ---
-            ; Maps all variants to the single Universal Class
-            case "RPCS3": return Rpcs3UniversalLauncher()
-            case "FIGHTER": return Rpcs3UniversalLauncher()
-            case "SHOOTER": return Rpcs3UniversalLauncher()
-            case "TCRS": return Rpcs3UniversalLauncher()
+        ; Map variants to their core class keys
+        if InStr(type, "RPCS3")
+            targetKey := "RPCS3"
+        else if InStr(type, "VITA3K")
+            targetKey := "VITA3K"
+        else
+            targetKey := type
 
-                ; Added fully qualified names just in case
-            case "RPCS3_FIGHTER": return Rpcs3UniversalLauncher()
-            case "RPCS3_SHOOTER": return Rpcs3UniversalLauncher()
-            case "RPCS3_TCRS": return Rpcs3UniversalLauncher()
+        ; If we already created this launcher before, just return it!
+        if this._instances.Has(targetKey)
+            return this._instances[targetKey]
 
-                ; --- Vita3K Builds ---
-                ; Both Standard and 3830 use the same class (handled internally)
-            case "VITA3K": return Vita3kLauncher()
-            case "VITA3K_3830": return Vita3kLauncher()
+        ; Otherwise, create it once and save it
+        launcher := this.CreateInstance(targetKey)
+        this._instances[targetKey] := launcher
+        return launcher
+    }
 
-                ; --- Dedicated Class Launchers ---
-            case "PPSSPP": return PpssppLauncher()
-            case "PCSX2": return Pcsx2Launcher()
+    static CreateInstance(key) {
+        switch key, 0 {
+            case "RPCS3":       return Rpcs3UniversalLauncher()
+            case "VITA3K":      return Vita3kLauncher()
+            case "PPSSPP":      return PpssppLauncher()
+            case "PCSX2":       return Pcsx2Launcher()
             case "DUCKSTATION": return DuckStationLauncher()
-            case "TEKNO": return TeknoParrotLauncher()
-            case "DOLPHIN": return DolphinLauncher()
-
-                ; --- Standard Windows ---
-            case "NORMAL": return StandardLauncher()
-            case "STANDARD": return StandardLauncher()
-
-            default: return StandardLauncher()
+            case "TEKNO":       return TeknoParrotLauncher()
+            case "DOLPHIN":     return DolphinLauncher()
+            default:            return StandardLauncher()
         }
     }
 }

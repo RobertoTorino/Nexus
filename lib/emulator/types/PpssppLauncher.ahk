@@ -23,26 +23,38 @@ class PpssppLauncher extends EmulatorBase {
 
         SplitPath(emuPath, &exeName, &emuDir)
 
-        ; Handle "Launch UI Only"
+        ; Handle "Launch UI Only" (No ROM provided)
         if (gameObj.EbootIsoPath == "") {
             try {
-                Run(emuPath, emuDir)
+                Run(emuPath, emuDir, , &newPid)
+                ; Even for the UI, we should track it so it appears in Window Manager
+                this.TrackProcess(newPid, emuPath, gameObj.Id)
                 return true
             } catch {
                 return false
             }
         }
 
+        ; Clean up any hanging instances before starting
         this.KillProcess(exeName)
 
-        ; PPSSPP Specific Arguments
+        ; Construct command: "path/to/emu.exe" --fullscreen "path/to/rom.iso"
         runCmd := Format('"{1}" --fullscreen "{2}"', emuPath, gameObj.EbootIsoPath)
         Logger.Info("Launching PPSSPP: " runCmd, this.__Class)
 
         try {
-            Run(runCmd, emuDir, "UseErrorLevel", &newPid)
+            ; Start the emulator and capture the PID via &newPid
+            Run(runCmd, emuDir, , &newPid)
+
             if (newPid > 0) {
-                this.UpdateLastPlayed(emuPath, newPid)
+
+                Logger.Info("PPSSPPLauncher: Process started successfully. PID: " . newPid, "PPSSPPLauncher")
+                ; --- THE SURGICAL FIX ---
+                ; This triggers the ProcessManager session, RAM monitor,
+                ; and updates ConfigManager all in one call.
+                this.TrackProcess(newPid, emuPath, gameObj.Id)
+
+                ; Tell Window Manager which process we are focusing on
                 WindowManager.SetGameContext("ahk_pid " newPid)
                 return true
             }

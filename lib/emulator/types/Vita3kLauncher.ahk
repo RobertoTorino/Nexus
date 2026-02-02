@@ -9,13 +9,17 @@
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
+#Include ..\EmulatorBase.ahk
 #Include ..\..\window\WindowManager.ahk
 #Include ..\..\capture\CaptureManager.ahk
 #Include ..\..\ui\DialogsGui.ahk
+#Include ..\..\config\ConfigManager.ahk
+#Include ..\..\core\Logger.ahk
 
-class Vita3kLauncher {
+; --- INHERIT FROM EMULATORBASE ---
+class Vita3kLauncher extends EmulatorBase {
 
-    Pid := 0
+    ; Note: 'Pid' is already defined in EmulatorBase.
 
     Launch(gameMap) {
         ; Map Adapter
@@ -26,6 +30,8 @@ class Vita3kLauncher {
         } else {
             game := gameMap
         }
+
+        this.GameId := game.HasProp("Id") ? game.Id : ""
 
         ; Validate Game Path
         gamePath := game.HasProp("ApplicationPath") ? game.ApplicationPath : ""
@@ -64,24 +70,29 @@ class Vita3kLauncher {
             return false
         }
 
-        Logger.Info("Vita3K Launching ID: " . titleId . " using " . typeLabel, this.__Class)
+        Logger.Info("Vita3K Launching ID: " . titleId . " using " . typeLabel, "Vita3kLauncher")
 
         ; Prepare Capture
-        CaptureManager.CurrentProcessName := emuExe
+        if IsSet(CaptureManager)
+            CaptureManager.CurrentProcessName := emuExe
 
-        ; Launch
-        ; Use Uppercase -F and place it BEFORE -r
+        ; Launch Command (-F = Fullscreen, -r = Run Title ID)
         runCmd := Format('"{1}" -F -r {2}', emuPath, titleId)
 
         try {
             Run(runCmd, emuDir, , &outPid)
 
-            ; WAIT FOR WINDOW (Legacy Logic Restored)
-            ; Vita3K might spawn a secondary process. Wait for the EXE window.
+            ; WAIT FOR WINDOW (Legacy Logic Preserved)
+            ; Vita3K spawns a console first, then the render window. We wait for the real window.
             if WinWait("ahk_exe " emuExe, , 7) {
-                ; Get the REAL PID from the visible window
+
+                ; Get the REAL PID from the visible window (sometimes different from outPid)
                 realPid := WinGetPID("ahk_exe " emuExe)
                 this.Pid := realPid
+
+                ; --- THE FIX: TRACK PROCESS ---
+                ; We track the REAL pid associated with the window
+                this.TrackProcess(realPid, emuPath, this.GameId)
 
                 ; Force Monitor 1 immediately
                 WindowManager.SetGameContext("ahk_pid " this.Pid, 1)
@@ -90,8 +101,10 @@ class Vita3kLauncher {
                 WinActivate("ahk_pid " this.Pid)
                 return true
             } else {
-                ; Fallback if window detection fails (e.g. invalid game ID)
+                ; Fallback: If window wait fails, track the PID we got from Run
                 this.Pid := outPid
+                if (outPid > 0)
+                     this.TrackProcess(outPid, emuPath, this.GameId)
                 return true
             }
 
@@ -101,17 +114,11 @@ class Vita3kLauncher {
         }
     }
 
-    Stop() {
-        if (this.Pid) {
-            try ProcessClose(this.Pid)
-            this.Pid := 0
-        }
-    }
+    ; Removed manual Stop() to use EmulatorBase.Stop() instead
 
     ; ROBUST TITLE ID PARSER
     GetTitleId(fullPath) {
         cleanPath := StrReplace(fullPath, "/", "\")
-
         SplitPath(cleanPath, , &parentDir)
         SplitPath(parentDir, &folderName)
 

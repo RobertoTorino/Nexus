@@ -77,7 +77,6 @@ global JsonFilePath := A_ScriptDir . "\nexus.json"
 
 ; --- BOOTSTRAP ---
 ConfigManager.Init()
-ProcessManager.InitMonitor()
 
 Utilities.LogMonitorStats()
 

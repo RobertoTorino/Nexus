@@ -1,30 +1,5 @@
-Pending Todo List (The "Next Steps")
-[FEATURE] Would you like me to look at your ProcessManager to see if we can optimize how it calculates RAM usage to save even more CPU cycles?
-[FEATURE] Would you like me to show you how to add a "Last Played" timestamp to the JSON so you can eventually sort the list by "Most Recent"?
-[FEATURE] Would you like me to show you how to add a "Last Played" timestamp into the JSON so you can eventually see exactly when you last played each specific game?
-[FEATURE] Would you like me to show you how to add a "Backup Database" button to your GUI that creates a timestamped zip of your nexus.ini and nexus.json?
-[FEATURE] Would you like me to add a "Timestamp" button to that notes window so you can quickly mark when you made a change?
-
---------------------------------
-
-Test
+Testing:
 Bat, game is already in the list, but still have to select it first to play
 .EXE Select but no confirmation after name is filled in DETROIT_BECOME_HUMAN
 
--------------------------------------
 
-3. Auditing the Project Structure for LoggingHere is the priority list for your classes.
-You should ensure each one has a Logger.
-Info at the start of its primary methods:
-ClassMethod to Log
-Log ContentDolphinLauncherLaunch()"Launching Dolphin with ROM: " . path
-ProcessManagerStartSession()"Process Monitoring started for: " . name
-CaptureManagerTakeSnapshot()"Snapshot requested. Target: " . path
-PatchServiceToolOpenPatcher()"Scanning for patches for GameID: " . id
-
----------------------------------------
-
-. Implementation Note
-The "ToolWindow" flag is great for hiding games from the Alt-Tab menu.
-The "Layered" flag is useful for certain transparency effects or overlay compatibility.
-The "NoActivate" flag prevents the game window from stealing focus when it is moved or resized.

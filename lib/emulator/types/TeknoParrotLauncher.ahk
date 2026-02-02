@@ -12,9 +12,8 @@
 #Include ..\..\window\WindowManager.ahk
 #Include ..\..\core\Logger.ahk
 
-class TeknoParrotLauncher {
-    Pid := 0
-    GameId := ""
+; --- INHERIT FROM EMULATORBASE ---
+class TeknoParrotLauncher extends EmulatorBase {
     TpPid := 0
 
     static EmulatorMap := Map(
@@ -27,9 +26,9 @@ class TeknoParrotLauncher {
 
     Launch(gameObj) {
         this.GameId := gameObj.Id
-        Logger.Info("TP Launcher: Starting sequence for " gameObj.Id, this.__Class)
+        Logger.Info("TP Launcher: Starting sequence for " gameObj.Id, "TeknoParrotLauncher")
 
-        Logger.Info("TP Launcher: Cleaning up old processes...", this.__Class)
+        Logger.Info("TP Launcher: Cleaning up old processes...", "TeknoParrotLauncher")
         WindowManager.ForceKillAll()
         Sleep(100)
 
@@ -68,7 +67,7 @@ class TeknoParrotLauncher {
             expectedExe := "Play.exe"
         }
 
-        Logger.Info("TP Launcher: Target Exe Resolved -> [" expectedExe "] (EmuType: " gameInfo.EmuType ")", this.__Class)
+        Logger.Info("TP Launcher: Target Exe Resolved -> [" expectedExe "] (EmuType: " gameInfo.EmuType ")", "TeknoParrotLauncher")
 
         if (expectedExe != "") {
             WindowManager.SetGameContext("ahk_exe " . expectedExe, 1)
@@ -80,19 +79,31 @@ class TeknoParrotLauncher {
         try {
             Run(runCmd, tpDir, "Min", &tpPid)
             this.TpPid := tpPid
-            Logger.Info("TP Launcher: TeknoParrotUI started with PID " tpPid, this.__Class)
+            Logger.Info("TP Launcher: TeknoParrotUI started with PID " tpPid, "TeknoParrotLauncher")
 
+            ; Start the popup killer
             SetTimer(this.NagScreenKiller.Bind(this), 500)
             SetTimer(() => SetTimer(this.NagScreenKiller.Bind(this), 0), -20000)
 
-            Logger.Info("TP Launcher: Waiting for game process...", this.__Class)
+            Logger.Info("TP Launcher: Waiting for game process...", "TeknoParrotLauncher")
+
+            ; This waits up to 45 seconds for the REAL game (e.g. BudgieLoader.exe) to appear
             realPid := this.WaitForGameProcess(expectedExe, tpPid, 45000)
 
             if (realPid) {
                 this.Pid := realPid
-                Logger.Info("TP Launcher: Game Process FOUND! PID: " realPid, this.__Class)
-                Sleep(2000)
-                WindowManager.RegisterGame(realPid, this.GameId, 1, expectedExe)
+                Logger.Info("TP Launcher: Game Process FOUND! PID: " realPid, "TeknoParrotLauncher")
+
+                ; --- THE FIX: TRACK THE REAL PROCESS ---
+                ; We pass the PID of the game (BudgieLoader), not the UI.
+                ; This ensures ProcessManager watches the correct RAM usage.
+                this.TrackProcess(realPid, gameInfo.Path, this.GameId)
+
+                Sleep(2000) ; Give the game a moment to render
+
+                ; Force Context
+                WindowManager.SetGameContext("ahk_pid " realPid, 1)
+
                 GuiBuilder.SetRecordingStatus(true)
                 return true
             } else {
@@ -109,51 +120,38 @@ class TeknoParrotLauncher {
         }
     }
 
+    ; ... (Keep ParseProfileXml, WaitForGameProcess, and NagScreenKiller exactly as they were) ...
     ParseProfileXml(xmlPath) {
         try {
             content := FileRead(xmlPath)
             info := { Exe: "", Path: "", EmuType: "" }
-
             if RegExMatch(content, "i)<GamePath>\s*(.*?)\s*</GamePath>", &match)
                 info.Path := Trim(match[1])
-
             if RegExMatch(content, "i)<ExecutableName>\s*(.*?)\s*</ExecutableName>", &match)
                 info.Exe := Trim(match[1])
-
             if RegExMatch(content, "i)<EmulatorType>\s*(.*?)\s*</EmulatorType>", &match)
                 info.EmuType := Trim(match[1])
 
-            Logger.Debug("TP XML Raw: Path=[" info.Path "] Exe=[" info.Exe "] Type=[" info.EmuType "]")
-
-            ; [FIX] Use Class Name explicitly to avoid crash
             needsMapping := (SubStr(info.Exe, -4) = ".zip" || SubStr(info.Exe, -4) = ".rar" || info.Exe == "")
-
-            if (needsMapping && TeknoParrotLauncher.EmulatorMap.Has(info.EmuType)) {
+            if (needsMapping && TeknoParrotLauncher.EmulatorMap.Has(info.EmuType))
                 info.Exe := TeknoParrotLauncher.EmulatorMap[info.EmuType]
-            }
-            else if (info.EmuType = "Play") {
+            else if (info.EmuType = "Play")
                 info.Exe := "Play.exe"
-            }
 
             return info
-        } catch as err {
-            Logger.Error("TP Launcher: XML Parse Exception -> " err.Message)
-            return { Exe: "", Path: "", EmuType: "" }
+        } catch {
+             return { Exe: "", Path: "", EmuType: "" }
         }
     }
 
     WaitForGameProcess(expectedExe, tpLauncherPid, timeoutMs) {
         startTime := A_TickCount
         while ((A_TickCount - startTime) < timeoutMs) {
-
             if (expectedExe != "" && ProcessExist(expectedExe))
                 return ProcessExist(expectedExe)
-
             foundHwnd := WindowManager.CheckForTeknoWindow()
             if (foundHwnd) {
-                pid := WinGetPID("ahk_id " foundHwnd)
-                Logger.Info("TP Launcher: Discovered via Window Scan -> PID " pid, this.__Class)
-                return pid
+                return WinGetPID("ahk_id " foundHwnd)
             }
             Sleep(500)
         }
@@ -164,38 +162,30 @@ class TeknoParrotLauncher {
         if (!this.TpPid || !ProcessExist(this.TpPid))
             return
         try {
-            idList := WinGetList("ahk_pid " this.TpPid)
-            for this_id in idList {
+            for this_id in WinGetList("ahk_pid " this.TpPid) {
                 title := WinGetTitle(this_id)
                 txt := WinGetText(this_id)
-
                 if (InStr(txt, "already be running") || title = "Question" || title = "Error") {
-                    Logger.Info("TP Launcher: Detected Error Popup [" title "]. Auto-clicking Yes.", this.__Class)
-                    WinActivate(this_id)
-                    Sleep(50)
-                    Send("{Enter}")
+                    WinActivate(this_id), Sleep(50), Send("{Enter}")
                     continue
                 }
-
                 if (WinGetStyle(this_id) & 0x10000000) {
                     WinGetPos(, , &w, &h, this_id)
-                    if (w < 600 && h < 450) {
-                        WinActivate(this_id)
-                        Send("{Enter}")
-                    } else {
-                        WinHide(this_id)
-                    }
+                    (w < 600 && h < 450) ? (WinActivate(this_id), Send("{Enter}")) : WinHide(this_id)
                 }
             }
         }
     }
 
     Stop() {
-        if (this.Pid) {
-            Logger.Info("TP Launcher: Stopping PID " this.Pid, this.__Class)
-            WindowManager.ForceKillAll()
-            this.Pid := 0
-            this.TpPid := 0
-        }
+        ; 1. Manually trigger the session end report because we are overriding Base.Stop()
+        if IsSet(ProcessManager)
+            ProcessManager.EndSession()
+
+        ; 2. Nuke everything
+        Logger.Info("TP Launcher: Stopping PID " this.Pid, "TeknoParrotLauncher")
+        WindowManager.ForceKillAll()
+        this.Pid := 0
+        this.TpPid := 0
     }
 }

@@ -9,18 +9,18 @@
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
+#Include ..\EmulatorBase.ahk
 #Include ..\..\window\WindowManager.ahk
 #Include ..\..\capture\CaptureManager.ahk
 #Include ..\..\ui\DialogsGui.ahk
 #Include ..\..\config\ConfigManager.ahk
 #Include ..\..\core\Logger.ahk
 
-class Rpcs3UniversalLauncher {
-
-    Pid := 0
+; --- INHERIT FROM EMULATORBASE ---
+class Rpcs3UniversalLauncher extends EmulatorBase {
 
     Launch(gameMap) {
-        Logger.Info("RPCS3 Launcher: Starting launch sequence...", this.__Class)
+        Logger.Info("RPCS3 Launcher: Starting launch sequence...", "Rpcs3UniversalLauncher")
 
         ; Universal map adapter
         game := {}
@@ -30,6 +30,8 @@ class Rpcs3UniversalLauncher {
         } else {
             game := gameMap
         }
+
+        this.GameId := game.HasProp("Id") ? game.Id : ""
 
         ; 1. Path validation
         rawPath := game.HasProp("ApplicationPath") ? game.ApplicationPath : ""
@@ -46,7 +48,6 @@ class Rpcs3UniversalLauncher {
 
         ; FIX 1: Normalize Path
         gamePath := StrReplace(rawPath, "/", "\")
-        Logger.Debug("RPCS3 Launcher: Normalized Path: " . gamePath)
 
         ; 2. Config Selection Logic
         iniKey := "Rpcs3Path"
@@ -57,7 +58,6 @@ class Rpcs3UniversalLauncher {
             currentType := game.LauncherType
             Logger.Debug("RPCS3 Launcher: Detected Type: " . currentType)
 
-            ; FIX 2: Correct INI Section Names
             switch StrUpper(game.LauncherType) {
                 case "FIGHTER", "RPCS3_FIGHTER":
                     iniSec := "RPCS3_FIGHTER_PATH"
@@ -74,6 +74,8 @@ class Rpcs3UniversalLauncher {
         }
 
         Logger.Debug("RPCS3 Launcher: Looking for Emulator in INI [" . iniSec . "] Key: " . iniKey)
+
+        ; Note: We use IniRead directly here instead of GetEmulatorPath because of the dynamic section logic
         emuPath := IniRead(ConfigManager.IniPath, iniSec, iniKey, "")
 
         if (emuPath == "" || !FileExist(emuPath)) {
@@ -83,7 +85,7 @@ class Rpcs3UniversalLauncher {
             return false
         }
 
-        Logger.Info("RPCS3 Launcher: Emulator found: " . emuPath, this.__Class)
+        Logger.Info("RPCS3 Launcher: Emulator found: " . emuPath, "Rpcs3UniversalLauncher")
 
         SplitPath(emuPath, &emuExe, &emuDir)
 
@@ -91,24 +93,25 @@ class Rpcs3UniversalLauncher {
         CaptureManager.CurrentProcessName := emuExe
 
         ; 3. Run Command
-        ; Log the exact command for future debugging
         runCmd := Format('"{1}" --no-gui --fullscreen "{2}"', emuPath, gamePath)
         Logger.Debug("RPCS3 Launcher: Command Line: " . runCmd)
-        Logger.Debug("RPCS3 Launcher: Working Directory: " . emuDir)
 
         try {
             Run(runCmd, emuDir, , &outPid)
             this.Pid := outPid
-            Logger.Info("RPCS3 Launcher: Process started successfully. PID: " . this.Pid, this.__Class)
+            Logger.Info("RPCS3 Launcher: Process started successfully. PID: " . this.Pid, "Rpcs3UniversalLauncher")
 
-            ; Tell WindowManager the PID
             if (this.Pid > 0) {
+                ; --- THE FIX: TRACK PROCESS ---
+                ; Connects to ProcessManager/ConfigManager
+                this.TrackProcess(this.Pid, emuPath, this.GameId)
+
                 WindowManager.SetGameContext("ahk_pid " this.Pid, 1)
 
                 if (WinWait("ahk_pid " this.Pid, , 10)) {
                     WinActivate("ahk_pid " this.Pid)
                     WindowManager.SetGameContext("ahk_pid " this.Pid, 1)
-                    Logger.Info("RPCS3 Launcher: Window activated and context set.", this.__Class)
+                    Logger.Info("RPCS3 Launcher: Window activated and context set.", "Rpcs3UniversalLauncher")
                 } else {
                     Logger.Warn("RPCS3 Launcher: Process started, but window did not appear within 10s.")
                 }
@@ -122,11 +125,5 @@ class Rpcs3UniversalLauncher {
         }
     }
 
-    Stop() {
-        if (this.Pid) {
-            Logger.Info("RPCS3 Launcher: Stopping PID " . this.Pid, this.__Class)
-            try ProcessClose(this.Pid)
-            this.Pid := 0
-        }
-    }
+    ; Removed manual Stop() to use EmulatorBase.Stop() instead
 }

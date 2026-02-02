@@ -24,30 +24,60 @@ class EmulatorBase {
         return false
     }
 
-    ; Clean shutdown
+; Clean shutdown
     Stop() {
-        ; --- CRITICAL FIX: PREVENT KILL ON APP EXIT ---
         global AppIsExiting
         if (IsSet(AppIsExiting) && AppIsExiting) {
             Logger.Info("App exiting. Keeping game process alive (PID: " this.Pid ")", this.__Class)
             return
         }
 
-        ; [FIX] Smart Kill for TeknoParrot
-        if (this.ExeName = "TeknoParrotUi.exe" || InStr(this.ExeName, "Tekno")) {
+        ; 1. END THE MONITORING SESSION
+        if IsSet(ProcessManager) {
+            report := ProcessManager.EndSession()
+            if (report != "" && IsSet(DialogsGui))
+                DialogsGui.CustomStatusPop("Session Summary Sent to Log", "Silver")
+        }
+
+        ; 2. Handle TeknoParrot specifically
+        if (InStr(this.ExeName, "TeknoParrot") || InStr(this.ExeName, "Tekno")) {
             WindowManager.ForceKillAll()
             return
         }
 
-        if (this.Pid && ProcessExist(this.Pid)) {
-            Logger.Info("Stopping PID: " . this.Pid, this.__Class)
-            try ProcessClose(this.Pid)
-        }
-        else if (this.ExeName && ProcessExist(this.ExeName)) {
-            Logger.Info("Stopping Process: " . this.ExeName, this.__Class)
-            try ProcessClose(this.ExeName)
+        ; 3. Standard Kill
+        target := this.Pid ? this.Pid : this.ExeName
+        if (target && ProcessExist(target)) {
+            Logger.Info("Stopping: " . target, this.__Class)
+            ProcessClose(target)
         }
     }
+
+    ; Call this inside your specific Launchers (DolphinLauncher, etc.) after Run()
+        TrackProcess(pid, fullPath, gameId) {
+            SplitPath(fullPath, &name)
+            this.Pid := pid
+            this.ExeName := name
+            this.ExePath := fullPath
+            this.GameId := gameId
+
+            ; 1. Update ConfigManager Global State
+            ConfigManager.ActiveProcessName := name
+            ConfigManager.UpdateLastPlayed(gameId)
+
+            ; 2. Start the High-Performance Monitor
+            if IsSet(ProcessManager) {
+                gameTitle := ""
+                try gameTitle := ConfigManager.Games[gameId]["SavedName"]
+                ProcessManager.StartSession(gameTitle || gameId)
+            }
+
+            ; 3. Write Session Info to INI for external tools
+            try {
+                IniWrite(pid, ConfigManager.IniPath, "LAST_PLAYED", "ExePID")
+                IniWrite(name, ConfigManager.IniPath, "LAST_PLAYED", "ExeName")
+            }
+        }
 
     ; Helpers for Subclasses
     GetEmulatorPath(section, key) {

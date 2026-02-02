@@ -36,10 +36,13 @@ class DolphinLauncher extends EmulatorBase {
         if (gamePath == "" && gameObj.HasProp("EbootIsoPath"))
             gamePath := gameObj.EbootIsoPath
 
+        ; --- FIX 1: TRACK GUI SESSIONS ---
         if (gamePath == "") {
             Logger.Warn("DolphinLauncher: No ROM path found. Launching emulator GUI only.", "DolphinLauncher")
             try {
-                Run(emuPath, emuDir)
+                Run(emuPath, emuDir, , &guiPid)
+                if (guiPid > 0)
+                    this.TrackProcess(guiPid, emuPath, "DOLPHIN_UI")
                 return true
             } catch as err {
                 Logger.Error("DolphinLauncher: Failed to open GUI: " . err.Message, "DolphinLauncher")
@@ -54,22 +57,22 @@ class DolphinLauncher extends EmulatorBase {
         this.KillProcess(exeName)
         CaptureManager.CurrentProcessName := exeName
 
-        ; 4. Construct Command
+        ; 4. Construct Command (-b = batch/exit on stop, -e = execute)
         runCmd := Format('"{1}" -b -e "{2}"', emuPath, gamePath)
         Logger.Info("DolphinLauncher: Executing Command: " . runCmd, "DolphinLauncher")
 
         try {
-            ; Capture PID using the 4th parameter (3 commas)
             Run(runCmd, emuDir, , &newPid)
 
             if (newPid > 0) {
                 Logger.Info("DolphinLauncher: Process started successfully. PID: " . newPid, "DolphinLauncher")
-                this.UpdateLastPlayed(emuPath, newPid)
 
-                ; 5. Hand-off to WindowManager
-                ; This triggers the loop that waits for the visible window
-                Logger.Debug("DolphinLauncher: Registering with WindowManager...", "DolphinLauncher")
-                WindowManager.RegisterGame(newPid, this.GameId, 1, exeName)
+                ; Hook into ProcessManager & ConfigManager
+                this.TrackProcess(newPid, emuPath, gameObj.Id)
+
+                ; --- FIX 2: STANDARDIZE WINDOW MANAGER CONTEXT ---
+                Logger.Debug("DolphinLauncher: Setting Game Context...", "DolphinLauncher")
+                WindowManager.SetGameContext("ahk_pid " newPid, 1)
 
                 return true
             } else {

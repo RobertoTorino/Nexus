@@ -9,16 +9,18 @@
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
+#Include ..\EmulatorBase.ahk ; <--- CRITICAL IMPORT
 #Include ..\..\window\WindowManager.ahk
 #Include ..\..\capture\CaptureManager.ahk
 #Include ..\..\ui\DialogsGui.ahk
 
-class DuckStationLauncher {
+; --- CRITICAL CHANGE: Inherit from EmulatorBase ---
+class DuckStationLauncher extends EmulatorBase {
 
-    Pid := 0
+    ; Note: 'Pid' is already defined in EmulatorBase, so we don't need to redeclare it here.
 
     Launch(gameMap) {
-        ; 1. Map Adapter
+        ; 1. Map Adapter (Kept for compatibility)
         game := {}
         if (Type(gameMap) == "Map") {
             for k, v in gameMap
@@ -37,22 +39,18 @@ class DuckStationLauncher {
             return false
         }
 
-        ; 3. Get Emulator Path
-        emuPath := IniRead(ConfigManager.IniPath, "DUCKSTATION_PATH", "DuckStationPath", "")
-        if (emuPath == "" || !FileExist(emuPath)) {
-            DialogsGui.CustomMsgBox("Emulator Error", "DuckStation Executable not found.", 0x10)
+        ; 3. Get Emulator Path (Using Base Class Helper)
+        emuPath := this.GetEmulatorPath("DUCKSTATION_PATH", "DuckStationPath")
+        if !emuPath
             return false
-        }
 
         SplitPath(emuPath, &emuExe, &emuDir)
 
         ; 4. Prepare Capture
-        CaptureManager.CurrentProcessName := emuExe
+        if IsSet(CaptureManager)
+            CaptureManager.CurrentProcessName := emuExe
 
-        ; 5. Launch
-        ; -batch: Exit when closed
-        ; -fullscreen: Start in fullscreen
-        ; -- : End arguments, start path
+        ; 5. Launch Arguments
         runCmd := Format('"{1}" -batch -fullscreen -- "{2}"', emuPath, gamePath)
 
         try {
@@ -60,14 +58,16 @@ class DuckStationLauncher {
             this.Pid := outPid
 
             if (this.Pid > 0) {
-                ; --- CRITICAL FIX: FORCE MONITOR 1 ---
+                ; --- THE FIX: CONNECT TO PROCESS MANAGER ---
+                ; This triggers RAM monitoring, Session Timer, and Config updates
+                this.TrackProcess(this.Pid, emuPath, game.Id)
+
+                ; Force Monitor 1 (Specific DuckStation logic)
                 WindowManager.SetGameContext("ahk_pid " this.Pid, 1)
 
-                ; Wait for window to appear
+                ; Wait for window to ensure it snaps correctly
                 if WinWait("ahk_pid " this.Pid, , 10) {
                     WinActivate("ahk_pid " this.Pid)
-
-                    ; Re-assert Monitor 1
                     WindowManager.SetGameContext("ahk_pid " this.Pid, 1)
                 }
             }
@@ -79,10 +79,6 @@ class DuckStationLauncher {
         }
     }
 
-    Stop() {
-        if (this.Pid) {
-            try ProcessClose(this.Pid)
-            this.Pid := 0
-        }
-    }
+    ; Note: Removed the Stop() method because EmulatorBase already has a
+    ; robust Stop() method that handles PIDs and ProcessManager sessions automatically.
 }
