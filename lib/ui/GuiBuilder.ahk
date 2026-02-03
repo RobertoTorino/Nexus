@@ -162,55 +162,69 @@ class GuiBuilder {
 
         ; --- ROW 1 ---
         this.MainGui.SetFont(this.UseIcons ? "s14" : "s12")
-        this.AddNavBtn(this.Label("➕", "Set Launch Path"), (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 y40 Background006666")
-        this.AddNavBtn(this.Label("🕹️", "Profiles"), (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10 Background333333")
-        this.AddNavBtn(this.Label("🧹", "Delete Game"), (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background333333")
-        this.AddNavBtn(this.Label("🛠️", "Emulators"), (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10 Background333333")
+        this.AddNavBtn(this.Label("➕", "Set Launch Path"), (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 w40 y40 Background006666")
+        this.AddNavBtn(this.Label("🕹️", "Profiles"), (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "w40 x+10 Background333333")
+        this.AddNavBtn(this.Label("🧹", "Delete Game"), (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "w40 x+10 Background333333")
+        this.AddNavBtn(this.Label("🛠️", "Emulators"), (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "w40 x+10 Background333333")
 
         ; KISS: Just a standard button. No disabling. No font tricks.
-        this.AddNavBtn(this.Label("🩹", "Patch Game"), (btn, *) => (this.FlashButton(btn), this.OnPatchGame()), "x+10 Background333333")
-
-        this.AddNavBtn(this.Label("🗑️", "Clear Path"), (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+10 Background333333")
-        this.AddNavBtn(this.Label("🔧", "Restore Path"), (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "x+10 Background333333")
-
+        this.AddNavBtn(this.Label("🩹", "Patch Game"), (btn, *) => (this.FlashButton(btn), this.OnPatchGame()), "w40 x+10 Background333333")
+        this.AddNavBtn(this.Label("🗑️", "Clear Path"), (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "w40 x+10 Background333333")
+        this.AddNavBtn(this.Label("🔧", "Restore Path"), (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "w40 x+10 Background333333")
 
         NextX := this.UseIcons ? "x+10" : "x5"
         NextY := this.UseIcons ? "yp" : "y+10"
         this.AddNavBtn(this.Label("🔲", "Window Manager"), (btn, *) => (this.FlashButton(btn), WindowManagerGui.Show()), NextX " " NextY " Background333333")
-        this.AddNavBtn(this.Label("🎯", "Focus"), (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), "x+10 Background333333")
-        this.AddNavBtn(this.Label("🎵", "Music"), (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+10 Background333333")
-        this.AddNavBtn(this.Label("🎞️", "Video"), (btn, *) => (this.FlashButton(btn), VideoPlayer.Show()), "x+10 Background333333")
-        this.AddNavBtn(this.Label("🌄", "Gallery"), (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "x+10 Background333333")
-        this.AddNavBtn(this.Label("📦", "Database"), (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "x+10 Background333333")
-        this.AddNavBtn(this.Label("📝", "Notes"), (btn, *) => (this.FlashButton(btn), this.OnNotes()), "x+10 Background333333")
-        this.AddNavBtn(this.Label("📁", "Browser"), (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10 Background333333")
+        this.AddNavBtn(this.Label("🎯", "Focus"), (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), "w40 x+10 Background333333")
+        this.AddNavBtn(this.Label("🎵", "Music"), (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "w40 x+10 Background333333")
+        this.AddNavBtn(this.Label("🎞️", "Video"), (btn, *) => (this.FlashButton(btn), VideoPlayer.Show()), "w40 x+10 Background333333")
+        this.AddNavBtn(this.Label("🌄", "Gallery"), (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "w40 x+10 Background333333")
+        this.AddNavBtn(this.Label("📦", "Database"), (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "w40 x+10 Background333333")
+        this.AddNavBtn(this.Label("📝", "Notes"), (btn, *) => (this.FlashButton(btn), this.OnNotes()), "w40 x+10 Background333333")
+        this.AddNavBtn(this.Label("📁", "Browser"), (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "w40 x+10 Background333333")
 
         ; --- ROW 2 ---
         this.MainGui.SetFont("s14", "Segoe UI")
-        this.BtnStart := this.AddNavBtn("  ▶️  ", (*) => this.OnStartAction(), "x5 y+10 h35 Background333333")
-        this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10 h35 Background333333")
-        this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10 h35 Background333333")
+        this.BtnStart := this.AddNavBtn("  ▶️  ", (*) => this.OnStartAction(), "x5 y+10 w40 h35 Background333333")
+        this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10 w40 h35 Background333333")
+        this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10 w40 h35 Background333333")
 
         this.MainGui.SetFont("s12", "Segoe UI")
-        this.MainGui.Add("Text", "x+10 yp w476 h35 Background333333")
-        this.GameSelector := this.MainGui.Add("Edit", "xp+3 yp+2 w441 h22 Background02A2A2A -E0x200 +ReadOnly -VScroll Center", "")
+
+        this.MainGui.Add("Text", "x+10 yp w481 h35 Background333333")
+
+        this.GameSelector := this.MainGui.Add("Edit", "xp+3 yp+2 w442 h22 Background02A2A2A -E0x200 +ReadOnly -VScroll Center", "")
+
         this.MainGui.Add("Text", "x+4 yp w25 h22 cSilver Background333333 +0x200 +Center", "▼")
-        BtnOverlay := this.MainGui.Add("Text", "xp-521 yp-2 w550 h28 BackgroundTrans")
+
+        BtnOverlay := this.MainGui.Add("Text", "xp-521 yp-2 w556 h28 BackgroundTrans")
         BtnOverlay.OnEvent("Click", (*) => this.OpenGameList(ConfigManager.GetSortedList()))
 
         this.MainGui.SetFont("s14 Bold", "Segoe UI")
-        this.AddNavBtn(" 📸 ", (*) => CaptureManager.TakeSnapshot(false), "x+10 Background333333 h35")
-        this.BurstInput := this.MainGui.Add("Edit", "x+10 h35 w42 Number Center +0x200 Limit2 Background02A2A2A", " 5 ")
-        this.BtnBurstStart := this.AddNavBtn("  ▶️ ", (*) => this.OnBurstSnap(), "x+0 Background333333 h35")
+        this.AddNavBtn(" 🔘 ", (*) => CaptureManager.TakeSnapshot(false), "x+11 Background333333 w40 h35")
+        ; [FIX] "Container" Strategy for vertical centering
+        ; 1. Draw the Border Frame (Background only)
+        this.MainGui.Add("Text", "yp w42 h35 x+10 Border Background333333", "")
+        ; 2. Draw the Input INSIDE the frame
+        ; xp+1 : Indent 1px so we don't cover the left border
+        ; yp+3 : Push text down 3 pixels (this centers the "5")
+        ; w40  : Slightly narrower to fit inside
+        ; h29  : Shorter height (text doesn't need full 35px)
+        ; -Border : Remove the Edit's own border
+        this.BurstInput := this.MainGui.Add("Edit", "xp+1 yp+5 w40 h29 Number Center -E0x200 -Border Limit2 Background333333 cWhite", "5")
+        ; 3. Play Button
+        ; x+1  : Positions it exactly after the Container edge (Edit is w40, +1 padding = w41, so +1 gap closes the 42px width)
+        ; yp-3 : Moves back UP to the original row height
+        this.BtnBurstStart := this.AddNavBtn("  ▶️ ", (*) => this.OnBurstSnap(), "x+10 yp-5 Background333333 w40 h35")
 
-; --- ROW 3 ---
+        ; --- ROW 3 ---
         ; 1. Audio/Video/Icon Manager
         ; Use global mode (Icons=s14, Text=s12)
         this.MainGui.SetFont(this.UseIcons ? "s14 Norm" : "s12 Norm", "Segoe UI")
 
-        this.BtnRecAudio := this.AddNavBtn(this.Label("🔴", "Rec Audio"), (btn, *) => this.OnRecAudioClick(btn), "x5 y+10 Background333333")
-        this.BtnRecVideo := this.AddNavBtn(this.Label("🎥", "Rec Video"), (btn, *) => this.OnRecVideoClick(btn), "x+10 Background333333")
-        this.AddNavBtn(this.Label("🖼️", "Icon Manager"), (*) => IconManagerGui.Show(), "x+10 Background333333")
+        this.BtnRecAudio := this.AddNavBtn(this.Label("🔴", "Rec Audio"), (btn, *) => this.OnRecAudioClick(btn), "x5 w40 y+10 Background333333")
+        this.BtnRecVideo := this.AddNavBtn(this.Label("🎥", "Rec Video"), (btn, *) => this.OnRecVideoClick(btn), "w40 x+10 Background333333")
+        this.AddNavBtn(this.Label("🖼️", "Icon Manager"), (*) => IconManagerGui.Show(), "w40 x+10 Background333333")
 
         ; --- CPU SECTION ---
         NextX := this.UseIcons ? "x+10" : "x5"
@@ -226,12 +240,12 @@ class GuiBuilder {
         this.MainGui.SetFont(this.UseIcons ? "s14" : "s12", "Segoe UI")
 
         ; Attach first button to CPU label
-        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " 💤 " : "  " this.T("Idle") "  ",          (*) => this.OnCpuClick("Low", 1),         "x+0 yp" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " 📉 " : "  " this.T("Normal") " --  ",    (*) => this.OnCpuClick("BelowNormal", 2), "x+0" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " ⏺️ " : "  " this.T("Normal") "  ",       (*) => this.OnCpuClick("Normal", 3),      "x+0" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " 📈 " : "  " this.T("Normal") " ++  ",    (*) => this.OnCpuClick("AboveNormal", 4), "x+0" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " 🚀 " : "  " this.T("High") "  ",          (*) => this.OnCpuClick("High", 5),        "x+0" . cBtn))
-        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " ⚡ " : "  " this.T("Realtime") "  ",      (*) => this.OnCpuClick("Realtime", 6),    "x+0" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " 💤 " : "  " this.T("Idle") "  ",          (*) => this.OnCpuClick("Low", 1),         "w40 x+0 yp" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " 🔻 " : "  " this.T("Normal") " --  ",    (*) => this.OnCpuClick("BelowNormal", 2), "w40 x+0" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " 🧊 " : "  " this.T("Normal") "  ",       (*) => this.OnCpuClick("Normal", 3),      "w40 x+0" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " 🔺 " : "  " this.T("Normal") " ++  ",    (*) => this.OnCpuClick("AboveNormal", 4), "w40 x+0" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " ⚡ " : "  " this.T("High") "  ",          (*) => this.OnCpuClick("High", 5),        "w40 x+0" . cBtn))
+        this.BtnCpu.Push(this.AddNavBtn(this.UseIcons ? " ☢️ " : "  " this.T("Realtime") "  ",      (*) => this.OnCpuClick("Realtime", 6),    "w40 x+0" . cBtn))
 
         this.BtnCpu[3].SetFont("c05FBE4")
 
