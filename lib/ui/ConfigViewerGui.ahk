@@ -15,7 +15,7 @@
 class ConfigViewerGui {
     static MainGui := ""
     static EditCtrl := ""
-    static BgBlock := "" ; The black background behind the edit box
+    static BgBlock := ""
 
     ; Controls
     static BtnEdit := "", BtnSave := ""
@@ -28,13 +28,13 @@ class ConfigViewerGui {
     static CurrentPath := ""
 
     ; Config
-    static BorderThick := 1
-    static RightBorderWidth := -17
+    static BorderThick := 2       ; [Changed] Slightly thicker border covers edges better
+    static RightBorderWidth := -26 ; [Changed] Increased from -17 to -26 to hide scrollbar on 150% scaling
     static BorderColor := "008000"
 
     ; Color Constants
     static ColorJson := "008000"  ; Green
-    static ColorIni := "00E5FF"  ; Aqua
+    static ColorIni := "00E5FF"   ; Aqua
 
     ; Borders (4 Lines)
     static BorderTop := "", BorderBottom := "", BorderLeft := "", BorderRight := ""
@@ -70,27 +70,18 @@ class ConfigViewerGui {
         this.MainGui.Add("Button", "x-100 y-100 w0 h0 Default", "") ; Focus Trap
 
         ; ---- Snap Gui ----
-        WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
+        if IsSet(WindowManagerGui)
+            WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
         this.MainGui.OnEvent("Close", (*) => this.Close())
         this.MainGui.OnEvent("Escape", (*) => this.Close())
 
-        if IsSet(WindowManagerGui)
-
-        ; 1. BORDERS (4 Thin Lines - 1px)
+        ; ---------------------------------------------------------
+        ; 1. HEADER & TOOLBAR
+        ; ---------------------------------------------------------
         t := this.BorderThick
-        c := this.BorderColor
-
-        ; Top & Bottom
-        this.BorderTop := this.MainGui.Add("Text", "x0 y0 w" guiW " h" t " Background" c, "")
-        this.BorderBottom := this.MainGui.Add("Text", "x0 y" (guiH - t) " w" guiW " h" t " Background" c, "")
-
-        ; Left & Right (Full Height)
-        this.BorderLeft := this.MainGui.Add("Text", "x0 y0 w" t " h" guiH " Background" c, "")
-        this.BorderRight := this.MainGui.Add("Text", "x" (guiW - t) " y0 w" t " h" guiH " Background" c, "")
-
-        ; 2. HEADER & TOOLBAR
         headerW := guiW - 100
+
         HeaderBg := this.MainGui.Add("Text", "x" t " y" t " w" headerW " h32 Background1E1E1E", "")
         HeaderBg.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
 
@@ -124,27 +115,45 @@ class ConfigViewerGui {
         this.BtnSave := this.MainGui.Add("Text", "x+5 yp h35 +0x200 Center Border Background0x990000 cWhite Hidden", "  💾 SAVE  ")
         this.BtnSave.OnEvent("Click", (*) => this.SaveChanges())
 
-        ; 3. EDIT AREA (Black Background + Padded Control)
+        ; ---------------------------------------------------------
+        ; 2. EDIT AREA (Created BEFORE borders)
+        ; ---------------------------------------------------------
         outerY := 75
-        outerH := guiH - 75 - t ; Height remaining minus bottom border
+        outerH := guiH - 75 - t
 
-        ; A. Black Background Block (Fills the area inside the borders)
-        ; This ensures the margin area is BLACK, not Green/Aqua
+        ; A. Black Background Block
         this.BgBlock := this.MainGui.Add("Text", "x" t " y" outerY " w" (guiW - t * 2) " h" outerH " Background101010", "")
 
-        ; B. Edit Control (Indented by 10px)
+        ; B. Edit Control
         padX := 10
         padY := 10
 
         innerX := t + padX
         innerY := outerY + padY
+
+        ; [TRICK] Push width way past the edge (-26px) to bury the scrollbar
         innerW := guiW - t * 2 - padX - this.RightBorderWidth
-        innerH := outerH - padY * 2 ; Pad top and bottom
+        innerH := outerH - padY * 2
 
         this.MainGui.SetFont("s12", "Consolas")
         textColor := (this.CurrentMode == "INI") ? "c" this.ColorIni : "c" this.ColorJson
 
         this.EditCtrl := this.MainGui.Add("Edit", "x" innerX " y" innerY " w" innerW " h" innerH " +Multi +ReadOnly +VScroll -HScroll -Border -E0x200 Background101010 " . textColor)
+
+        ; ---------------------------------------------------------
+        ; 3. BORDERS (Created LAST so they sit ON TOP)
+        ; ---------------------------------------------------------
+        c := this.BorderColor
+
+        ; Top
+        this.BorderTop := this.MainGui.Add("Text", "x0 y0 w" guiW " h" t " Background" c, "")
+        ; Bottom
+        this.BorderBottom := this.MainGui.Add("Text", "x0 y" (guiH - t) " w" guiW " h" t " Background" c, "")
+        ; Left
+        this.BorderLeft := this.MainGui.Add("Text", "x0 y0 w" t " h" guiH " Background" c, "")
+
+        ; Right - [CRITICAL] This now sits ON TOP of the hidden scrollbar area
+        this.BorderRight := this.MainGui.Add("Text", "x" (guiW - t) " y0 w" t " h" guiH " Background" c, "")
 
         this.RefreshContent()
         this.MainGui.Show("w" guiW " h" guiH)

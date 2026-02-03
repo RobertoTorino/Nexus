@@ -95,7 +95,7 @@ static GetMonitorText(gameExeName := "") {
         if !IsObject(stats)
         return "RAM: --"
 
-        msg := "Sys: " stats[1] "MB (" stats[2] "%)"
+        msg := "System: " stats[1] "MB (" stats[2] "%)"
 
         if (gameExeName != "") {
             pid := ProcessExist(gameExeName)

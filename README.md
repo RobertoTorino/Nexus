@@ -314,3 +314,17 @@ Width,1920,+200,0,2120
 Height,1080,+200,0,1280
 X Pos,0,-100 (centered),0,-100
 Y Pos,0,-100 (centered),+20 (down),-80
+
+
+----
+
+
+1. Will the Patch Logic work?
+   Yes, absolutely.
+
+Based on the PatchServiceTool.ahk code you provided earlier, the logic is designed exactly for your Tekken 6 use case.
+It detects the game: It looks for EBOOT.BIN (or the folder structure).
+It checks the current state: It calculates the CRC32 (Hash) of the VER.206 file currently in the game folder to see if you are in "Test Mode", "Normal Mode", or "Unknown".
+It swaps the file: When you click the button in the popup, it copies the specific VER.206 from your patches/t6br folder and overwrites the one in the game folder.
+Launch: When you click Run/Play on the main UI, the emulator (RPCS3) launches the game. Since the file is already physically swapped on the disk, the game loads into the mode you selected.
+You do not need a separate launcher. The "Patch" button acts as your mode switcher.

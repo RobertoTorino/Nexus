@@ -16,110 +16,120 @@
 class RomScanner {
 
     static PrefixMap := Map(
-        "PPSSPP",       "[PSP]",
-        "PCSX2",        "[PS2]",
-        "DUCKSTATION",  "[PS1]",
-        "RPCS3",        "[PS3]",
-        "VITA3K",       "[VITA]",
-        "DOLPHIN",      "[GC/WII]",
-        "TEKNO",        "[ARCADE]",
-        "REDREAM",      "[DC]",
-        "SHADPS4",      "[PS4]",
-        "VIVANONNO",    "[RR]",
-        "YUZU",         "[SW]"
+        "PPSSPP", "[PSP]", "PCSX2", "[PS2]", "DUCKSTATION", "[PS1]",
+        "RPCS3", "[PS3]", "VITA3K", "[VITA]", "DOLPHIN", "[GC/WII]",
+        "TEKNO", "[ARCADE]", "REDREAM", "[DC]", "SHADPS4", "[PS4]",
+        "VIVANONNO", "[RR]", "YUZU", "[SW]"
     )
 
     static Scan(emulatorName, extensionList) {
         iniSection := "ROM_PATHS"
         iniKey := emulatorName . "_RomDir"
-
         currentDir := IniRead(ConfigManager.IniPath, iniSection, iniKey, "")
 
         if (currentDir != "" && DirExist(currentDir)) {
             msg := "Current " . emulatorName . " Folder:`n" . currentDir . "`n`nScan this folder?"
-
-            ; --- FIX: Adjusted parameters for new DialogsGui ---
-            ; Arg 3 (Timeout) = 0 (No timeout)
-            ; Arg 4 (Options) = 4 (Yes/No buttons)
             if (DialogsGui.CustomMsgBox("Scan Setup", msg, 0, 4) == "No")
                 currentDir := ""
         }
 
         if (currentDir == "") {
             currentDir := DirSelect("", 3, "Select " . emulatorName . " ROMs Folder")
-            if (currentDir == "") {
-                Logger.Info("Scan Cancelled: User did not select a folder.", "RomScanner")
+            if (currentDir == "")
                 return
-            }
             IniWrite(currentDir, ConfigManager.IniPath, iniSection, iniKey)
         }
 
-        Logger.Info("Starting Scan :: Emu: " . emulatorName . " | Path: " . currentDir, "RomScanner")
-
+        Logger.Info("Starting Scan :: Emu: " . emulatorName, "RomScanner")
         addedCount := 0
         skippedCount := 0
         prefix := this.PrefixMap.Has(emulatorName) ? this.PrefixMap[emulatorName] . " " : ""
 
-        ; --- SINGLE OPTIMIZED LOOP ---
+        ; --- VIVANONNO / TEKNO ZIP FIX ---
+        ; If scanning for Arcade, force add .zip to the allowed list if not present
+        if (emulatorName = "VIVANONNO" || emulatorName = "TEKNO") {
+            hasZip := false
+            for ext in extensionList
+                if (ext = "zip")
+                    hasZip := true
+            if !hasZip
+                extensionList.Push("zip")
+        }
+        ; ---------------------------------
+
         Loop Files, currentDir . "\*.*", "R" {
-            if (this.HasExtension(A_LoopFileExt, extensionList)) {
+            ext := StrLower(A_LoopFileExt)
 
-                ; 1. Clean Path and Name
-                safePath := StrReplace(A_LoopFileFullPath, "\", "/")
-                cleanName := StrReplace(A_LoopFileName, "." . A_LoopFileExt, "")
-                cleanName := StrReplace(cleanName, "_", " ")
+            ; 1. Extension Check
+            if (!this.HasExtension(ext, extensionList))
+                continue
 
-                ; 2. Path Normalization Duplicate Check (Highest Accuracy)
-                alreadyExists := false
-                for id, game in ConfigManager.Games {
-                    existingPath := (Type(game) == "Map") ? game["ApplicationPath"] : game.ApplicationPath
-                    if (existingPath == safePath) {
-                        alreadyExists := true
-                        break
-                    }
-                }
+            SplitPath(A_LoopFileFullPath, , &dir, , &nameNoExt)
 
-                if (alreadyExists) {
+            ; 2. INTELLIGENT FILTER: Ignore .bin if .cue exists
+            if (ext == "bin") {
+                ; A. Check for exact match (Game.bin -> Game.cue)
+                cuePath := dir . "\" . nameNoExt . ".cue"
+                if (FileExist(cuePath)) {
                     skippedCount++
                     continue
                 }
 
-                ; 3. Generate ID and Handle Collisions
-                safeName := Utilities.SanitizeName(cleanName)
-                gameId := "GAME_" . StrUpper(emulatorName) . "_" . StrUpper(safeName)
-
-                if ConfigManager.Games.Has(gameId)
-                    gameId .= "_" . A_TickCount
-
-                ; 4. Prepare and Register
-                newGame := Map()
-                newGame["Id"] := gameId
-                newGame["SavedName"] := prefix . cleanName
-                newGame["ApplicationPath"] := safePath
-                newGame["LauncherType"] := StrUpper(emulatorName)
-                newGame["AddedDate"] := FormatTime(, "yyyy-MM-dd HH:mm:ss")
-
-                ; We pass 'false' to defer saving until the loop is done
-                ConfigManager.RegisterGame(gameId, newGame, false)
-                addedCount++
-
-                Logger.Info("Scanned: " . cleanName . " -> ID: " . gameId, "RomScanner")
+                ; B. Check for "Track" files (Game (Track 1).bin)
+                ; Most PS1 games split into tracks. We only want the .cue file.
+                if (InStr(nameNoExt, "Track") || InStr(nameNoExt, "(Track")) {
+                    skippedCount++
+                    continue
+                }
             }
+
+            ; 3. Prepare Data
+            safePath := StrReplace(A_LoopFileFullPath, "\", "/")
+            cleanName := nameNoExt
+            cleanName := StrReplace(cleanName, "_", " ")
+
+            ; 4. Check for Duplicates (Path based)
+            alreadyExists := false
+            for id, game in ConfigManager.Games {
+                existingPath := (Type(game) == "Map") ? game["ApplicationPath"] : game.ApplicationPath
+                if (existingPath == safePath) {
+                    alreadyExists := true
+                    break
+                }
+            }
+
+            if (alreadyExists) {
+                skippedCount++
+                continue
+            }
+
+            ; 5. Register
+            safeName := Utilities.SanitizeName(cleanName)
+            gameId := "GAME_" . StrUpper(emulatorName) . "_" . StrUpper(safeName)
+            if ConfigManager.Games.Has(gameId)
+                gameId .= "_" . A_TickCount
+
+            newGame := Map()
+            newGame["Id"] := gameId
+            newGame["SavedName"] := prefix . cleanName
+            newGame["ApplicationPath"] := safePath
+            newGame["LauncherType"] := StrUpper(emulatorName)
+            newGame["AddedDate"] := FormatTime(, "yyyy-MM-dd HH:mm:ss")
+
+            if (cleanName = "EBOOT.BIN")
+                newGame["GameApplication"] := "EBOOT.BIN"
+
+            ConfigManager.RegisterGame(gameId, newGame, false)
+            addedCount++
         }
 
-        ; --- FINISH AND NOTIFY ---
         if (addedCount > 0) {
-            ; --- PERFORMANCE FIX: SAVE ONCE AT THE END ---
             ConfigManager.SaveGames()
-
-            Logger.Info("Scan Finished. Added: " . addedCount, "RomScanner")
             DialogsGui.CustomStatusPop("Added: " . addedCount . " (Skipped: " . skippedCount . ")")
-
             if IsSet(GuiBuilder)
                 GuiBuilder.RefreshDropdown()
         } else {
-            Logger.Info("Scan Finished. No new games found.", "RomScanner")
-            DialogsGui.CustomStatusPop("No new games found.")
+            DialogsGui.CustomStatusPop("No new games found.`nSkipped: " . skippedCount)
         }
     }
 
