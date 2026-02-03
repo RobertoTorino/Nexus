@@ -17,23 +17,23 @@
 class EmulatorConfigGui {
     static MainGui := ""
 
-    ; [UPDATED] Added 'RomExts' to define supported file types
+    ; Added 'RomExts' to define supported file types
     static Emulators := [
-    { Name: "DOLPHIN", Section: "DOLPHIN_PATH",             Key: "DolphinPath",         RomExts: ["gcm", "iso", "rvz", "wbfs"] },
-    { Name: "DUCKSTATION", Section: "DUCKSTATION_PATH",     Key: "DuckStationPath",     RomExts: ["bin", "chd", "cue", "iso"] },
-    { Name: "PCSX2", Section: "PCSX2_PATH",                 Key: "Pcsx2Path",           RomExts: ["bin", "chd", "gz", "iso"] },
-    { Name: "PPSSPP", Section: "PPSSPP_PATH",               Key: "PpssppPath",          RomExts: ["cso", "elf", "iso", "pbp"] },
-    { Name: "REDREAM", Section: "REDREAM_PATH",             Key: "RedreamPath" },
-    { Name: "RPCS3", Section: "RPCS3_PATH",                 Key: "Rpcs3Path" },
-    { Name: "RPCS3_FIGHTER", Section: "RPCS3_FIGHTER_PATH", Key: "Rpcs3FighterPath" },
-    { Name: "RPCS3_SHOOTER", Section: "RPCS3_SHOOTER_PATH", Key: "Rpcs3ShooterPath" },
-    { Name: "RPCS3_TCRS", Section: "RPCS3_TCRS_PATH",       Key: "Rpcs3TcrsPath" },
-    { Name: "SHADPS4", Section: "SHADPS4_PATH",             Key: "ShadPs4Path" },
-    { Name: "TEKNO", Section: "TEKNO_PATH",                 Key: "TeknoPath" },
-    { Name: "VITA3K", Section: "VITA3K_PATH",               Key: "Vita3kPath" },
-    { Name: "VITA3K_3830", Section: "VITA3K_3830_PATH",     Key: "Vita3k3830Path" },
-    { Name: "VIVANONNO", Section: "VIVANONNO_PATH",         Key: "VivaNonnoPath" },
-    { Name: "YUZU", Section: "YUZU_PATH",                   Key: "YuzuPath" }
+    { Name: "DOLPHIN",          Section: "DOLPHIN_PATH",        Key: "DolphinPath",         RomExts: ["gcm", "iso", "rvz", "wbfs"] },
+    { Name: "DUCKSTATION",      Section: "DUCKSTATION_PATH",    Key: "DuckStationPath",     RomExts: ["bin", "chd", "cue", "iso"] },
+    { Name: "PCSX2",            Section: "PCSX2_PATH",          Key: "Pcsx2Path",           RomExts: ["bin", "chd", "gz", "iso"] },
+    { Name: "PPSSPP",           Section: "PPSSPP_PATH",         Key: "PpssppPath",          RomExts: ["cso", "elf", "iso", "pbp"] },
+    { Name: "REDREAM",          Section: "REDREAM_PATH",        Key: "RedreamPath",         RomExts: ["gdi", "cdi", "chd"] },
+    { Name: "RPCS3",            Section: "RPCS3_PATH",          Key: "Rpcs3Path" },
+    { Name: "RPCS3_FIGHTER",    Section: "RPCS3_FIGHTER_PATH",  Key: "Rpcs3FighterPath" },
+    { Name: "RPCS3_SHOOTER",    Section: "RPCS3_SHOOTER_PATH",  Key: "Rpcs3ShooterPath" },
+    { Name: "RPCS3_TCRS",       Section: "RPCS3_TCRS_PATH",     Key: "Rpcs3TcrsPath" },
+    { Name: "SHADPS4",          Section: "SHADPS4_PATH",        Key: "ShadPs4Path",         RomExts: ["elf", "pkg"] },
+    { Name: "TEKNO",            Section: "TEKNO_PATH",          Key: "TeknoPath" },
+    { Name: "VITA3K",           Section: "VITA3K_PATH",         Key: "Vita3kPath" },
+    { Name: "VITA3K_3830",      Section: "VITA3K_3830_PATH",    Key: "Vita3k3830Path" },
+    { Name: "VIVANONNO",        Section: "VIVANONNO_PATH",      Key: "VivaNonnoPath",       RomExts: ["zip"] },
+    { Name: "YUZU",             Section: "YUZU_PATH",           Key: "YuzuPath",            RomExts: ["nsp", "xci"] },
     ]
 
     static Show() {
@@ -53,7 +53,7 @@ class EmulatorConfigGui {
         title.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
         this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕").OnEvent("Click", (*) => this.MainGui.Destroy())
 
-        y := 35
+        y := 45
         for index, emu in this.Emulators {
             this.MainGui.Add("Button", "x-100 y-100 w0 h0 Default", "")
             currentPath := IniRead(ConfigManager.IniPath, emu.Section, emu.Key, "")

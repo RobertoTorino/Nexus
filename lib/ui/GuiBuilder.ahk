@@ -16,6 +16,8 @@
 #Include ..\capture\CaptureManager.ahk
 #Include ..\config\GameRegistrarManager.ahk
 #Include ..\config\TeknoParrotManager.ahk
+#Include ..\emulator\LauncherFactory.ahk
+#Include ..\emulator\types\StandardLauncher.ahk
 #Include ..\media\SnapshotGallery.ahk
 #Include ..\media\MusicPlayer.ahk
 #Include ..\media\VideoPlayer.ahk
@@ -28,7 +30,6 @@
 #Include ..\ui\ConfigViewerGui.ahk
 #Include ..\ui\IconManagerGui.ahk
 #Include ..\ui\PatchManagerGui.ahk
-#Include ..\emulator\types\StandardLauncher.ahk
 #Include ..\config\TranslationManager.ahk
 
 class GuiBuilder {
@@ -191,7 +192,7 @@ class GuiBuilder {
         this.MainGui.SetFont("s16", "Segoe UI")
         this.AddNavBtn(" 📸 ", (*) => CaptureManager.TakeSnapshot(false), "x+10 Background333333 h35")
         this.BurstInput := this.MainGui.Add("Edit", "x+10 h35 w42 Number Center +0x200 Limit2 Background02A2A2A", " 5 ")
-        this.BtnBurstStart := this.AddNavBtn("  ▶️  ", (*) => this.OnBurstSnap(), "x+10 Background333333 h35")
+        this.BtnBurstStart := this.AddNavBtn("  ▶️ ", (*) => this.OnBurstSnap(), "x+0 Background333333 h35")
 
         ; --- ROW 3 ---
         size := this.UseIcons ? "s16" : "s12"
@@ -603,89 +604,32 @@ class GuiBuilder {
         this.SetBtnHighlight(this.BtnStart, true)
 
         GetProp := (key) => (Type(game) == "Map" ? (game.Has(key) ? game[key] : "") : (game.HasOwnProp(key) ? game.%key% : ""))
-        launcher := GetProp("LauncherType")
-        appPath := GetProp("ApplicationPath")
 
-        if (appPath == "")
-            appPath := GetProp("EbootIsoPath")
+        launcherType := GetProp("LauncherType")
 
-        if (appPath == "") {
-            DialogsGui.CustomMsgBox("Launch Error", "Game path is empty.")
-            this.ClearGameGroup()
-            return
-        }
-
+        ; --- NEW FACTORY LOGIC ---
         try {
-            targetExe := ""
-            targetPid := 0 ; Initialize to avoid "unassigned" errors
+            ; 1. Ask Factory for the correct class (Yuzu, Dolphin, Standard, etc.)
+            launcherInstance := LauncherFactory.GetLauncher(launcherType)
 
-            if (launcher == "PPSSPP") {
-                emuPath := IniRead(ConfigManager.IniPath, "PPSSPP_PATH", "PpssppPath", "")
-                Run(emuPath . ' "' . appPath . '"', , , &targetPid)
-                SplitPath(emuPath, &targetExe)
-                ConfigManager.ActiveProcessName := targetExe
-                WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, targetExe)
-                Logger.Info("Launch: PPSSPP started.", "GuiBuilder")
-            }
-            else if (launcher == "PCSX2") {
-                emuPath := IniRead(ConfigManager.IniPath, "PCSX2_PATH", "Pcsx2Path", "")
-                Run(emuPath . ' -batch -- "' . appPath . '"', , , &targetPid)
-                SplitPath(emuPath, &targetExe)
-                ConfigManager.ActiveProcessName := targetExe
-                WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, targetExe)
-                Logger.Info("Launch: PCSX2 started.", "GuiBuilder")
-            }
-            else if (launcher == "DUCKSTATION") {
-                emuPath := IniRead(ConfigManager.IniPath, "DUCKSTATION_PATH", "DuckStationPath", "")
-                ; FIX: Added commas and &targetPid
-                Run(emuPath . ' -batch "' . appPath . '"', , , &targetPid)
-                SplitPath(emuPath, &targetExe)
-                ConfigManager.ActiveProcessName := targetExe
-                WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, targetExe)
-                Logger.Info("Launch: DuckStation started.", "GuiBuilder")
-            }
-            else if (launcher == "DOLPHIN") {
-                emuPath := IniRead(ConfigManager.IniPath, "DOLPHIN_PATH", "DolphinPath", "")
-                Run(emuPath . ' -b -e "' . appPath . '"', , , &targetPid)
+            Logger.Info("UI Launching: " . GetProp("SavedName") . " via " . Type(launcherInstance), "GuiBuilder")
 
-                ; Sync the Manager's ID immediately
-                WindowManager.ActiveGameId := ConfigManager.CurrentGameId
+            ; 2. Execute Launch
+            ; The specific class (e.g. YuzuLauncher) handles the PID, Window Registration, and specific arguments.
+            if (launcherInstance.Launch(game)) {
 
-                SplitPath(emuPath, &targetExe)
-                ConfigManager.ActiveProcessName := targetExe
+                ; 3. Post-Launch UI Updates
+                ProcessManager.StartSession(GetProp("SavedName"))
+                ConfigManager.UpdateLastPlayed(ConfigManager.CurrentGameId)
+                this.UpdateButtonState()
 
-                ; Start the auto-watcher as a courtesy, but use the button if it fails
-                WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, targetExe)
-                Logger.Info("Launch: Dolphin started.", "GuiBuilder")
+                Logger.Info("Launch sequence completed successfully.", "GuiBuilder")
+            } else {
+                DialogsGui.CustomStatusPop("Launch Failed")
             }
-            else if (launcher == "TEKNO") {
-                SplitPath(appPath, , &dir)
-                ; FIX: Added commas and &targetPid
-                Run(appPath, dir, , &targetPid)
-                targetExe := "TeknoParrotUi.exe"
-                ConfigManager.ActiveProcessName := targetExe
-                WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, targetExe)
-                Logger.Info("Launch: Teknoparrot started.", "GuiBuilder")
-            }
-            else {
-                sl := StandardLauncher()
-                ; Note: StandardLauncher must be modified to return or set a PID to work with RegisterGame here
-                if (sl.Launch(game)) {
-                    ; If StandardLauncher has a Pid property:
-                    targetPid := sl.HasProp("Pid") ? sl.Pid : 0
-                    WindowManager.RegisterGame(targetPid, ConfigManager.CurrentGameId, 0, "")
-                    Logger.Info("Launch: Standard launcher started.", "GuiBuilder")
-                } else {
-                    DialogsGui.CustomStatusPop("Launch Failed")
-                }
-            }
-
-            ProcessManager.StartSession(GetProp("SavedName"))
-            ConfigManager.UpdateLastPlayed(ConfigManager.CurrentGameId)
-            this.UpdateButtonState()
 
         } catch as err {
-            DialogsGui.CustomMsgBox("Launch Failed", err.Message)
+            DialogsGui.CustomMsgBox("Launch Error", err.Message, 0x10)
             this.ClearGameGroup()
         }
     }

@@ -525,25 +525,55 @@ class WindowManagerGui {
     }
 
     ; --- INSERT THIS AT THE BOTTOM OF YOUR CLASS ---
-    static OnMouseMove(wParam, lParam, msg, hwnd) {
+static OnMouseMove(wParam, lParam, msg, hwnd) {
+        ; --- SAFETY GUARD ---
+        ; If the main GUI variable is a String (e.g., ""), unset, or not an object, stop immediately.
+        if (!WindowManagerGui.HasProp("WinGui") || !IsObject(WindowManagerGui.WinGui))
+            return
+
         static LastCtrlHwnd := 0
 
-        ; Identify which control is under the mouse
+        ; Get the control under the mouse
         currCtrl := GuiCtrlFromHwnd(hwnd)
 
-        ; Only trigger if the mouse is over THIS specific Window Manager GUI
-        if (currCtrl && currCtrl.Gui.Hwnd == WindowManagerGui.WinGui.Hwnd) {
+        ; Check if the control belongs to OUR specific GUI
+        ; We added IsObject() here just to be double-safe
+        if (currCtrl && IsObject(WindowManagerGui.WinGui) && currCtrl.Gui.Hwnd == WindowManagerGui.WinGui.Hwnd) {
+
             if (currCtrl.Hwnd != LastCtrlHwnd) {
-                if (HasProp(currCtrl, "ToolTipText"))
-                    ToolTip(currCtrl.ToolTipText)
-                else
-                    ToolTip() ; Clear tooltip if button has no "tip" defined
+
+                ; 1. Reset Previous Control (if it was ours)
+                if (LastCtrlHwnd) {
+                    try {
+                        prevCtrl := GuiCtrlFromHwnd(LastCtrlHwnd)
+                        if (prevCtrl && prevCtrl.Gui.Hwnd == WindowManagerGui.WinGui.Hwnd) {
+                            ; Restore standard font/color
+                            try prevCtrl.SetFont("Norm")
+                            try prevCtrl.Opt("cThemeText") ; Use your theme variable if needed
+                        }
+                    }
+                }
+
+                ; 2. Highlight Current Control (Hover Effect)
                 LastCtrlHwnd := currCtrl.Hwnd
+
+                ; Only highlight buttons or text, not the background
+                if (currCtrl.Type = "Button" || currCtrl.Type = "Text") {
+                    try currCtrl.SetFont("Bold")
+                    ; Optional: Change color if you want
+                    ; try currCtrl.Opt("cBlue")
+                }
             }
-        } else {
-            ; Mouse left the GUI area entirely
-            if (LastCtrlHwnd != 0) {
-                ToolTip()
+        }
+        else {
+            ; Mouse moved OFF our GUI entirely -> Reset last known control
+            if (LastCtrlHwnd) {
+                try {
+                    prevCtrl := GuiCtrlFromHwnd(LastCtrlHwnd)
+                    if (prevCtrl && IsObject(WindowManagerGui.WinGui) && prevCtrl.Gui.Hwnd == WindowManagerGui.WinGui.Hwnd) {
+                        try prevCtrl.SetFont("Norm")
+                    }
+                }
                 LastCtrlHwnd := 0
             }
         }

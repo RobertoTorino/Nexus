@@ -26,111 +26,89 @@ class StandardLauncher extends EmulatorBase {
     OldPids := Map()
 
     Launch(gameObj) {
-        ; 1. Resolve & Normalize Path
-        rawPath := (Type(gameObj) == "Map") ? (gameObj.Has("ApplicationPath") ? gameObj["ApplicationPath"] : gameObj["Path"]) : (gameObj.HasProp("ApplicationPath") ? gameObj.ApplicationPath : gameObj.Path)
-        gamePath := StrReplace(StrReplace(rawPath, "/", "\"), '"', "")
+        ; 1. Resolve Path
+        rawPath := ""
+        if (Type(gameObj) == "Map") {
+            if gameObj.Has("ApplicationPath")
+                rawPath := gameObj["ApplicationPath"]
+            else if gameObj.Has("Path")
+                rawPath := gameObj["Path"]
+        } else {
+            if gameObj.HasProp("ApplicationPath")
+                rawPath := gameObj.ApplicationPath
+            else if gameObj.HasProp("Path")
+                rawPath := gameObj.Path
+        }
+
+        ; 2. Normalize
+        gamePath := StrReplace(rawPath, "/", "\")
+        gamePath := StrReplace(gamePath, '"', "")
 
         if (gamePath == "" || !FileExist(gamePath)) {
             DialogsGui.CustomMsgBox("Launch Error", "File not found:`n" . gamePath)
             return false
         }
 
+        ; 3. Context
         SplitPath(gamePath, &exeName, &dir, &ext)
         this.ExeName := exeName
         this.GameId := (Type(gameObj) == "Map") ? gameObj["Id"] : gameObj.Id
 
-        ; [CRITICAL] Snapshot running processes using a faster method than WMI
+        ; [CRITICAL] Snapshot running processes BEFORE launch
         this.OldPids := this.GetFastProcessMap()
 
+        if IsSet(Logger)
+            Logger.Info("StandardLauncher: Starting " . exeName, this.__Class)
+
         try {
+            ; 4. EXECUTE
             oldDir := A_WorkingDir
-            SetWorkingDir(dir)
+
+            ; Safety: Only change directory if 'dir' is valid
+            if (dir != "")
+                SetWorkingDir(dir)
+
+            ; Initialize PID to 0 to prevent "Expected Number" errors
+            launchPid := 0
+
             try {
                 if (ext = "bat" || ext = "cmd") {
+                    ; Run batch files
                     Run('"' . exeName . '"', dir, "Min", &launchPid)
-                } else {
-                    Run('"' . exeName . '"', dir, , &launchPid)
-                    ; Initial tracking (might be replaced by child detection later)
-                    if (launchPid > 0)
+
+                    ; Don't track the batch PID directly, use the Watcher to find the child EXE
+                    ConfigManager.ActiveProcessName := ""
+                }
+                else {
+                    ; Run Executables normally
+                    ; We pass " " as options to ensure the comma count is correct
+                    Run('"' . exeName . '"', dir, " ", &launchPid)
+
+                    if (IsNumber(launchPid) && launchPid > 0) {
+                        this.Pid := launchPid
+
+                        ; Track immediately
                         this.TrackProcess(launchPid, gamePath, this.GameId)
+
+                        WindowManager.SetGameContext("ahk_pid " launchPid, 1)
+                    }
                 }
             } finally {
                 SetWorkingDir(oldDir)
             }
 
-            ; Start Smart Watcher for chain-loaders
+            ; 5. START SMART WATCHER (Finds the real game exe if the launcher closes)
             this.ScanStartTime := A_TickCount
             this.SearchTimer := this.DetectNewProcess.Bind(this)
             SetTimer(this.SearchTimer, 1000)
+
             return true
+
         } catch as err {
             DialogsGui.CustomMsgBox("Launch Failed", err.Message)
             return false
         }
-
-
-    DetectNewProcess() {
-        if (A_TickCount - this.ScanStartTime > this.ScanDuration) {
-            SetTimer(this.SearchTimer, 0)
-            return
-        }
-
-        newPids := this.GetFastProcessMap()
-        for pid, name in newPids {
-            if !this.OldPids.Has(pid) {
-                ; Filter noise
-                if (name ~= "i)^(cmd|conhost|werfault|taskhostw|git|timeout)\.exe$")
-                    continue
-
-                hasWindow := WinExist("ahk_pid " pid)
-
-                ; If we found a child process, hand it over to the parent tracking system
-                if (hasWindow || this.Pid == 0) {
-                    if IsSet(Logger)
-                        Logger.Info("StandardLauncher: Detected Child -> " name " (" pid ")", this.__Class)
-
-                    ; Use the new EmulatorBase method to trigger RAM/Session monitoring
-                    this.TrackProcess(pid, name, this.GameId)
-
-                    ; If it has a window, we've likely found the main game. Stop scanning.
-                    if (hasWindow) {
-                        SetTimer(this.SearchTimer, 0)
-                        break
-                    }
-                }
-            }
-        }
     }
-
-GetFastProcessMap() {
-        pids := Map()
-        ; TH32CS_SNAPPROCESS = 0x00000002
-        hSnap := DllCall("CreateToolhelp32Snapshot", "uint", 0x00000002, "uint", 0, "ptr")
-        if (hSnap = -1)
-            return pids
-
-        ; ProcessEntry32 structure size: 568 bytes on x64, 296 on x86
-        structSize := (A_PtrSize = 8) ? 568 : 296
-        pe := Buffer(structSize, 0)
-        NumPut("uint", structSize, pe, 0)
-
-        if DllCall("Process32First", "ptr", hSnap, "ptr", pe) {
-            loop {
-                ; Offset 8 is th32ProcessID
-                pid := NumGet(pe, 8, "uint")
-                ; Offset 36 (x64) or 28 (x86) is szExeFile (the name)
-                name := StrGet(pe.Ptr + (A_PtrSize = 8 ? 44 : 36), "cp0")
-
-                pids[pid] := name
-
-                if !DllCall("Process32Next", "ptr", hSnap, "ptr", pe)
-                    break
-            }
-        }
-        DllCall("CloseHandle", "ptr", hSnap)
-        return pids
-    }
-}
 
     ; --- SMART PROCESS DETECTION ---
     DetectNewProcess() {
@@ -142,71 +120,72 @@ GetFastProcessMap() {
             return
         }
 
-        newPids := this.GetProcessList()
-        bestPid := 0
-        bestName := ""
-        hasWindow := false
+        newPids := this.GetFastProcessMap()
 
         ; Compare New List vs Old List
-for pid, name in newPids {
-        if !this.OldPids.Has(pid) {
-            if (name ~= "i)^(cmd|conhost|werfault|taskhostw|git|timeout)\.exe$")
-                continue
+        for pid, name in newPids {
+            if !this.OldPids.Has(pid) {
 
-            hwnd := WinExist("ahk_pid " pid)
+                ; Ignore System/Console noise
+                if (name ~= "i)^(cmd|conhost|werfault|taskhostw|git|timeout)\.exe$")
+                    continue
 
-            ; If we find a windowed process, it's definitely the game
-            if (hwnd) {
-                this.TrackProcess(pid, name, this.GameId)
-                SetTimer(this.SearchTimer, 0) ; We found it! Stop searching.
-                return
-            }
+                hwnd := WinExist("ahk_pid " pid)
 
-            ; If we haven't tracked anything yet, track this background process for now
-            if (this.Pid == 0) {
-                this.TrackProcess(pid, name, this.GameId)
-            }
-        }
-    }
+                ; If we found a windowed process, it's definitively the game
+                if (hwnd) {
+                    if IsSet(Logger)
+                        Logger.Info("StandardLauncher: Detected Child Process -> " name " (" pid ")", this.__Class)
 
-        ; If we found a candidate
-        if (bestPid > 0) {
-            ; Logic:
-            ; 1. If we have NO active game tracked yet -> Take this one.
-            ; 2. If we found a windowed process -> Override whatever we had.
+                    ; Hand over to ProcessManager
+                    this.TrackProcess(pid, name, this.GameId)
 
-            if (ConfigManager.ActiveProcessName == "" || (hasWindow && this.Pid != bestPid)) {
+                    ; Snap Window
+                    WindowManager.SetGameContext("ahk_pid " pid, 1)
 
-                if IsSet(Logger)
-                    Logger.Info("StandardLauncher: Detected Child Process -> " bestName " (" bestPid ")", "StandardLauncher")
-
-                this.Pid := bestPid
-                this.ExeName := bestName
-
-                ; [CRITICAL] Update Global State so WindowManager & Kill Switch work
-                ConfigManager.ActiveProcessName := bestName
-                WindowManager.SetGameContext("ahk_pid " bestPid, 1)
-
-                if IsSet(CaptureManager)
-                    CaptureManager.CurrentProcessName := bestName
-
-                if IsSet(GuiBuilder) && GuiBuilder.HasProp("StatusText")
-                    GuiBuilder.StatusText.Text := " Active: " . bestName
-
-                ; If we found a window, we are done scanning.
-                if (hasWindow)
+                    ; Stop scanning immediately
                     SetTimer(this.SearchTimer, 0)
+                    return
+                }
+
+                ; If we haven't tracked anything yet, track this background process
+                if (this.Pid == 0) {
+                    this.TrackProcess(pid, name, this.GameId)
+                }
             }
         }
     }
 
-    GetProcessList() {
+    ; --- HIGH PERFORMANCE SNAPSHOT ---
+    GetFastProcessMap() {
         pids := Map()
-        try {
-            for process in ComObjGet("winmgmts:").ExecQuery("Select ProcessId, Name from Win32_Process") {
-                pids[process.ProcessId] := process.Name
+        ; CreateToolhelp32Snapshot (TH32CS_SNAPPROCESS = 0x2)
+        hSnap := DllCall("CreateToolhelp32Snapshot", "uint", 0x2, "uint", 0, "ptr")
+        if (hSnap == -1)
+            return pids
+
+        ; PROCESSENTRY32 Structure
+        ; Size: 568 (x64) or 296 (x86)
+        structSize := (A_PtrSize = 8) ? 568 : 296
+        pe := Buffer(structSize, 0)
+
+        ; Explicit v2 NumPut Syntax: Type, Value, Target, Offset
+        NumPut("uint", structSize, pe, 0)
+
+        if DllCall("Process32First", "ptr", hSnap, "ptr", pe) {
+            loop {
+                ; th32ProcessID is at offset 8
+                pid := NumGet(pe, 8, "uint")
+                ; szExeFile is at offset 44 (x64) or 36 (x86)
+                name := StrGet(pe.Ptr + (A_PtrSize = 8 ? 44 : 36), "cp0")
+
+                pids[pid] := name
+
+                if !DllCall("Process32Next", "ptr", hSnap, "ptr", pe)
+                    break
             }
         }
+        DllCall("CloseHandle", "ptr", hSnap)
         return pids
     }
 }

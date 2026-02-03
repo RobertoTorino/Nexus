@@ -23,6 +23,10 @@
 #Include types/TeknoParrotLauncher.ahk
 #Include types/DolphinLauncher.ahk
 #Include types/Rpcs3UniversalLauncher.ahk
+#Include types/RedreamLauncher.ahk
+#Include types/ShadPs4Launcher.ahk
+#Include types/VivaNonnoLauncher.ahk
+#Include types/YuzuLauncher.ahk
 
 class LauncherFactory {
     ; We store the instances here so we don't have to re-create them
@@ -52,13 +56,17 @@ class LauncherFactory {
 
     static CreateInstance(key) {
         switch key, 0 {
-            case "RPCS3":       return Rpcs3UniversalLauncher()
-            case "VITA3K":      return Vita3kLauncher()
-            case "PPSSPP":      return PpssppLauncher()
-            case "PCSX2":       return Pcsx2Launcher()
-            case "DUCKSTATION": return DuckStationLauncher()
-            case "TEKNO":       return TeknoParrotLauncher()
             case "DOLPHIN":     return DolphinLauncher()
+            case "DUCKSTATION": return DuckStationLauncher()
+            case "PCSX2":       return Pcsx2Launcher()
+            case "PPSSPP":      return PpssppLauncher()
+            case "REDREAM":     return RedreamLauncher()
+            case "RPCS3":       return Rpcs3UniversalLauncher()
+            case "SHADPS4":     return ShadPs4Launcher()
+            case "TEKNO":       return TeknoParrotLauncher()
+            case "VITA3K":      return Vita3kLauncher()
+            case "VIVANONNO":   return VivaNonnoLauncher()
+            case "YUZU":        return YuzuLauncher()
             default:            return StandardLauncher()
         }
     }

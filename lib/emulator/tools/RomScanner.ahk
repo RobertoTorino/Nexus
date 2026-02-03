@@ -16,13 +16,17 @@
 class RomScanner {
 
     static PrefixMap := Map(
-        "PPSSPP", "[PSP]",
-        "PCSX2", "[PS2]",
-        "DUCKSTATION", "[PS1]",
-        "RPCS3", "[PS3]",
-        "VITA3K", "[VITA]",
-        "DOLPHIN", "[GC/WII]",
-        "TEKNO", "[ARCADE]"
+        "PPSSPP",       "[PSP]",
+        "PCSX2",        "[PS2]",
+        "DUCKSTATION",  "[PS1]",
+        "RPCS3",        "[PS3]",
+        "VITA3K",       "[VITA]",
+        "DOLPHIN",      "[GC/WII]",
+        "TEKNO",        "[ARCADE]",
+        "REDREAM",      "[DC]",
+        "SHADPS4",      "[PS4]",
+        "VIVANONNO",    "[RR]",
+        "YUZU",         "[SW]"
     )
 
     static Scan(emulatorName, extensionList) {
@@ -33,7 +37,11 @@ class RomScanner {
 
         if (currentDir != "" && DirExist(currentDir)) {
             msg := "Current " . emulatorName . " Folder:`n" . currentDir . "`n`nScan this folder?"
-            if (DialogsGui.CustomMsgBox("Scan Setup", msg, 4) == "No")
+
+            ; --- FIX: Adjusted parameters for new DialogsGui ---
+            ; Arg 3 (Timeout) = 0 (No timeout)
+            ; Arg 4 (Options) = 4 (Yes/No buttons)
+            if (DialogsGui.CustomMsgBox("Scan Setup", msg, 0, 4) == "No")
                 currentDir := ""
         }
 
@@ -91,23 +99,27 @@ class RomScanner {
                 newGame["LauncherType"] := StrUpper(emulatorName)
                 newGame["AddedDate"] := FormatTime(, "yyyy-MM-dd HH:mm:ss")
 
+                ; We pass 'false' to defer saving until the loop is done
                 ConfigManager.RegisterGame(gameId, newGame, false)
                 addedCount++
-                ; Write all new games to games.json in one single operation
-                ConfigManager.SaveGames()
+
                 Logger.Info("Scanned: " . cleanName . " -> ID: " . gameId, "RomScanner")
             }
         }
 
         ; --- FINISH AND NOTIFY ---
         if (addedCount > 0) {
+            ; --- PERFORMANCE FIX: SAVE ONCE AT THE END ---
+            ConfigManager.SaveGames()
+
             Logger.Info("Scan Finished. Added: " . addedCount, "RomScanner")
-            DialogsGui.CustomStatusPop("Added: " . addedCount . " (Skipped: " . skippedCount . ")", "004466")
+            DialogsGui.CustomStatusPop("Added: " . addedCount . " (Skipped: " . skippedCount . ")")
+
             if IsSet(GuiBuilder)
                 GuiBuilder.RefreshDropdown()
         } else {
             Logger.Info("Scan Finished. No new games found.", "RomScanner")
-            DialogsGui.CustomStatusPop("No new games found.", "Silver")
+            DialogsGui.CustomStatusPop("No new games found.")
         }
     }
 
