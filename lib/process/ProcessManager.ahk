@@ -9,31 +9,22 @@
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
-#Include ..\config\ConfigManager.ahk ; [NEW] Required to read ActiveProcessName
+#Include ..\config\ConfigManager.ahk
 
 class ProcessManager {
-    ; Pre-allocate buffers to avoid re-creating them every second
-    static _memBuffer := Buffer(64, 0)
-    static _pmBuffer := Buffer(A_PtrSize = 8 ? 72 : 40, 0)
-    static _lastPID := 0
-    static _hProcess := 0
+    static _wmi := ""
+    static SessionStart := 0
+    static PeakRAM := 0
+    static GameName := ""
 
-    static GetSystemMemoryInfo() {
-        ; Use the pre-allocated buffer
-        NumPut("UInt", 64, this._memBuffer, 0)
-        if !DllCall("kernel32\GlobalMemoryStatusEx", "ptr", this._memBuffer)
-            return 0
-
-        ; We pull only what we need directly from the pointer
-        ; Offset 8: Total Phys, Offset 16: Avail Phys
-        total := NumGet(this._memBuffer, 8, "UInt64")
-        avail := NumGet(this._memBuffer, 16, "UInt64")
-
-        ; Return a simple array [UsedMB, Load%] to avoid object overhead
-        used := (total - avail) // 1048576 ; Integer division is faster than Round()
-        load := NumGet(this._memBuffer, 4, "UInt") ; Memory Load is already at Offset 4
-
-        return [used, load, total // 1048576]
+    ; INITIALIZATION
+    static InitMonitor() {
+        try {
+            this._wmi := ComObject("WbemScripting.SWbemLocator").ConnectServer(".", "root\cimv2")
+        } catch as err {
+            if IsSet(Logger)
+                Logger.Error("ProcessManager: Failed to init WMI. " err.Message)
+        }
     }
 
     ; SESSION TRACKING
@@ -41,154 +32,113 @@ class ProcessManager {
         this.SessionStart := A_TickCount
         this.PeakRAM := 0
         this.GameName := (name != "") ? name : "Unknown Game"
-
         if IsSet(Logger)
-            Logger.Info("ProcessManager: Session Started for '" this.GameName "'", this.__Class)
+            Logger.Info("ProcessManager: Session Started for '" this.GameName "'")
     }
 
-    ; ... (Keep Session Stats and StartSession as they are) ...
-
-static EndSession() {
+    static EndSession() {
         if (this.SessionStart == 0)
             return ""
 
-        ; --- 1. CLEANUP HANDLE (Important for the RAM optimization) ---
-        if (this.HasProp("_hProcess") && this._hProcess) {
-            DllCall("CloseHandle", "ptr", this._hProcess)
-            this._hProcess := 0
-            this._lastPID := 0
-        }
-
-        ; --- 2. DEFINE FINALPEAK (This was missing!) ---
-        finalPeak := (this.PeakRAM > 0) ? this.PeakRAM . " MB" : "No Data"
-
-        ; Calculate Duration
         duration := A_TickCount - this.SessionStart
         seconds := Round(duration / 1000)
-        h := Floor(seconds / 3600), m := Floor(Mod(seconds, 3600) / 60), s := Mod(seconds, 60)
+        h := Floor(seconds / 3600)
+        m := Floor(Mod(seconds, 3600) / 60)
+        s := Mod(seconds, 60)
         timeStr := (h > 0 ? h "h " : "") . Format("{:02}m {:02}s", m, s)
 
-        ; Build Report
         report := "Session Ended: " . this.GameName . "`n"
-        report .= "--------------------------------`n"
+        report .= StrReplace(Format("{:16}", ""), " ", Chr(0x2500)) . "`n"
         report .= "Duration:  " . timeStr . "`n"
-        report .= "Peak RAM:  " . finalPeak
+        report .= "Peak RAM:  " . this.PeakRAM . " MB"
 
-        ; --- 3. SAVE STATS TO DATABASE ---
-        ; We use ConfigManager's current ID to ensure we save to the right game
-        if (ConfigManager.CurrentGameId != "")
-            ConfigManager.AddPlayTime(ConfigManager.CurrentGameId, seconds)
+        if IsSet(Logger)
+            Logger.Info("ProcessManager: Session Ended. Duration: " timeStr " | Peak RAM: " this.PeakRAM "MB")
 
-        ; Reset for next session
         this.SessionStart := 0
-        this.PeakRAM := 0
         return report
     }
 
-    ; MONITORING (Refined for zero-impact)
-static GetMonitorText(gameExeName := "") {
-        if (gameExeName == "")
-            gameExeName := ConfigManager.ActiveProcessName
+    ; MONITORING
+    static GetMonitorText(gameExeName := "") {
+        mem := this.GetSystemMemoryInfo()
+        msg := ""
 
-        ; Get array [Used, Load, Total]
-        stats := this.GetSystemMemoryInfo()
-        if !IsObject(stats)
-        return "RAM: --"
+        ; 1. SYSTEM RAM
+        if (mem.HasOwnProp("total")) {
+            mbTotal := Round(mem.total / 1024, 0)
+            mbUsed := Round(mem.used / 1024, 0)
+            msg .= "SYSTEM: " mbUsed "/" mbTotal "MB (" mem.load "%)"
+        } else {
+            msg .= "no-data"
+        }
 
-        msg := "System: " stats[1] "MB (" stats[2] "%)"
+        ; 2. APP RAM
+        kbScript := this.GetProcessMemoryKB(ProcessExist())
+        if (kbScript >= 0) {
+            mbScript := Round(kbScript / 1024, 1)
+            percScript := (mem.HasOwnProp("total")) ? Round((kbScript / mem.total) * 100, 1) : "0"
+            msg .= " | APP: " mbScript "MB (" percScript "%)"
+        } else {
+            msg .= " | APP: no-data"
+        }
 
+        ; 3. GAME RAM
         if (gameExeName != "") {
             pid := ProcessExist(gameExeName)
             if (pid) {
-                mbGame := this.GetProcessMemoryMB(pid)
-                if (mbGame > 0) {
-                    if (mbGame > this.PeakRAM) this.PeakRAM := mbGame
-                    ; Quick math: (GameMB / TotalMB) * 100
-                    percGame := Round((mbGame / stats[3]) * 100, 1)
-                    msg .= " | Game: " mbGame "MB (" percGame "%)"
+                kbGame := this.GetProcessMemoryKB(pid)
+                actualName := ProcessGetName(pid)
+
+                if (kbGame > 0) {
+                    mbGame := Round(kbGame / 1024, 1)
+                    if (mbGame > this.PeakRAM)
+                        this.PeakRAM := mbGame
+
+                    msg .= " | GAME: " mbGame "MB (Peak: " this.PeakRAM "MB)"
+                } else {
+                    msg .= " | GAME: no-data (" actualName ")"
                 }
+            } else {
+                ; The game name is set, but not running yet -> SHOW WAITING
+                msg .= " | GAME: " gameExeName " [waiting]"
             }
+        } else {
+            ; No game selected or set
+            msg .= " | GAME: waiting"
         }
+
         return msg
     }
 
-    ; PRIORITY MANAGEMENT
-    static SetPriority(level) {
-        targetExe := ConfigManager.ActiveProcessName
-
-        if (targetExe == "" || !ProcessExist(targetExe)) {
-            if IsSet(DialogsGui)
-                DialogsGui.CustomTrayTip("No active game process found", 2)
-            return
-        }
-
-        try {
-            ProcessSetPriority(level, targetExe)
-            if IsSet(Logger)
-                Logger.Info("Priority set to [" level "] for: " targetExe, this.__Class)
-            if IsSet(DialogsGui)
-                DialogsGui.CustomTrayTip("Priority: " level, 1)
-        } catch as err {
-            if IsSet(Logger)
-                Logger.Error("Failed to set priority: " err.Message)
-        }
+    ; HELPERS
+    static GetSystemMemoryInfo() {
+        ms := Buffer(64, 0)
+        NumPut("UInt", 64, ms, 0)
+        if !DllCall("kernel32\GlobalMemoryStatusEx", "ptr", ms)
+            return {}
+        total := NumGet(ms, 8, "UInt64") / 1024
+        avail := NumGet(ms, 16, "UInt64") / 1024
+        used := total - avail
+        load := Round((used / total) * 100, 1)
+        return { total: total, available: avail, used: used, load: load }
     }
 
-    static OpenOverclock() {
-        paths := [
-            "C:\Program Files (x86)\MSI Afterburner\MSIAfterburner.exe",
-            "C:\Program Files\MSI Afterburner\MSIAfterburner.exe"
-        ]
-        for path in paths {
-            if FileExist(path) {
-                Run(path)
-                if IsSet(DialogsGui)
-                    DialogsGui.CustomTrayTip("Afterburner Started", 1)
-                return
-            }
-        }
-        if IsSet(DialogsGui)
-            DialogsGui.CustomMsgBox("Error", "MSI Afterburner not found.")
-    }
-
-    ; KILL SWITCH
-    static KillProcessTree(pid) {
+    static GetProcessMemoryKB(pid) {
         if !pid
-            return
-        if IsSet(Logger)
-            Logger.Info("Kill Switch Activated for PID: " pid, this.__Class)
-        try RunWait(A_ComSpec " /c taskkill /PID " pid " /F /T", , "Hide")
-    }
+            return -1
+        hProcess := DllCall("OpenProcess", "uint", 0x400 | 0x10, "int", 0, "uint", pid, "ptr")
+        if !hProcess
+            return -1
 
-    static KillProcessByName(exeName) {
-        if (exeName == "")
-            return
-        if IsSet(Logger)
-            Logger.Info("Kill Switch Activated for EXE: " exeName, this.__Class)
-        try RunWait(A_ComSpec " /c taskkill /IM " exeName " /F /T", , "Hide")
-    }
-
-static GetProcessMemoryMB(pid) {
-        if !pid
-        return 0
-
-        ; OPTIMIZATION: Only open/close handle if the PID changes
-        if (pid != this._lastPID) {
-            if (this._hProcess)
-                DllCall("CloseHandle", "ptr", this._hProcess)
-
-            this._hProcess := DllCall("OpenProcess", "uint", 0x400 | 0x10, "int", 0, "uint", pid, "ptr")
-            this._lastPID := pid
+        pm := Buffer((A_PtrSize=8)?72:40, 0)
+        NumPut("UInt", pm.Size, pm, 0)
+        if !DllCall("psapi\GetProcessMemoryInfo", "ptr", hProcess, "ptr", pm, "uint", pm.Size) {
+            DllCall("CloseHandle", "ptr", hProcess)
+            return -1
         }
-
-        if !this._hProcess
-        return 0
-
-        NumPut("UInt", this._pmBuffer.Size, this._pmBuffer, 0)
-        if !DllCall("psapi\GetProcessMemoryInfo", "ptr", this._hProcess, "ptr", this._pmBuffer, "uint", this._pmBuffer.Size)
-            return 0
-
-        ; Offset 16 (x64) or 8 (x86) is WorkingSetSize
-        return NumGet(this._pmBuffer, (A_PtrSize = 8 ? 16 : 8), "UPtr") // 1048576
+        res := Round(NumGet(pm, (A_PtrSize=8)?16:8, "UPtr") / 1024)
+        DllCall("CloseHandle", "ptr", hProcess)
+        return res
     }
 }

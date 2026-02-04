@@ -31,8 +31,17 @@ class DolphinLauncher extends EmulatorBase {
         SplitPath(emuPath, &exeName, &emuDir)
         Logger.Debug("DolphinLauncher: Resolved Exe: " . exeName . " | Dir: " . emuDir, "DolphinLauncher")
 
-        ; 2. Path Validation
-        gamePath := gameObj.HasProp("ApplicationPath") ? gameObj.ApplicationPath : ""
+        ; 2. Path Validation [FIXED]
+        gamePath := ""
+
+        ; [FIX] Check 'ExePath' first because that is what your INI uses
+        if (gameObj.HasProp("ExePath"))
+            gamePath := gameObj.ExePath
+
+        ; Fallbacks for other possible naming conventions
+        if (gamePath == "" && gameObj.HasProp("ApplicationPath"))
+            gamePath := gameObj.ApplicationPath
+
         if (gamePath == "" && gameObj.HasProp("EbootIsoPath"))
             gamePath := gameObj.EbootIsoPath
 
@@ -67,10 +76,12 @@ class DolphinLauncher extends EmulatorBase {
             if (newPid > 0) {
                 Logger.Info("DolphinLauncher: Process started successfully. PID: " . newPid, "DolphinLauncher")
 
+                ; [CRITICAL FIX] Explicitly store the PID on this object
+                this.Pid := newPid
+
                 ; Hook into ProcessManager & ConfigManager
                 this.TrackProcess(newPid, emuPath, gameObj.Id)
 
-                ; --- FIX 2: STANDARDIZE WINDOW MANAGER CONTEXT ---
                 Logger.Debug("DolphinLauncher: Setting Game Context...", "DolphinLauncher")
                 WindowManager.SetGameContext("ahk_pid " newPid, 1)
 

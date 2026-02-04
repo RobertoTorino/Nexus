@@ -1,3 +1,135 @@
 ﻿{
-  "GAMES":[]
+  "GAMES":[
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Capcom vs. SNK 2 EO - Millionaire Fighting 2001 (Europe).rvz",
+      "Id":"GAME_DOLPHIN_CAPCOM_VS_SNK_2_EO_MILLIONAIRE_FIGHTING_2001_EUROPE",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Capcom vs. SNK 2 EO - Millionaire Fighting 2001 (Europe)"
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Crash Nitro Kart (USA).rvz",
+      "Id":"GAME_DOLPHIN_CRASH_NITRO_KART_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Crash Nitro Kart (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Def Jam - Fight for NY (USA).rvz",
+      "Id":"GAME_DOLPHIN_DEF_JAM_FIGHT_FOR_NY_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Def Jam - Fight for NY (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Die Hard - Vendetta (USA).rvz",
+      "Id":"GAME_DOLPHIN_DIE_HARD_VENDETTA_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Die Hard - Vendetta (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Mario Kart - Double Dash!! (USA).rvz",
+      "Id":"GAME_DOLPHIN_MARIO_KART_DOUBLE_DASH_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Mario Kart - Double Dash!! (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/R-Racing Evolution (USA).rvz",
+      "Id":"GAME_DOLPHIN_R_RACING_EVOLUTION_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] R-Racing Evolution (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Soulcalibur II (USA).rvz",
+      "HasWindowProfile":1,
+      "Id":"GAME_DOLPHIN_SOULCALIBUR_II_USA",
+      "LastPlayed":"2026-02-04 04:54:25",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Soulcalibur II (USA)",
+      "WinH":519,
+      "WinW":656,
+      "WinX":632,
+      "WinY":280
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/SSX 3 (USA).rvz",
+      "HasWindowProfile":1,
+      "Id":"GAME_DOLPHIN_SSX_3_USA",
+      "LastPlayed":"2026-02-04 05:05:41",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] SSX 3 (USA)",
+      "WinH":519,
+      "WinW":656,
+      "WinX":632,
+      "WinY":280
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Super Mario Sunshine (USA, Canada).rvz",
+      "Id":"GAME_DOLPHIN_SUPER_MARIO_SUNSHINE_USA_CANADA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Super Mario Sunshine (USA, Canada)"
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Super Smash Bros. Melee (USA) (En,Ja) (Rev 2).rvz",
+      "Id":"GAME_DOLPHIN_SUPER_SMASH_BROS_MELEE_USA_ENJA_REV_2",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Super Smash Bros. Melee (USA) (En,Ja) (Rev 2)"
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Super Smash Bros. Melee (v1.01)(USA).iso",
+      "Id":"GAME_DOLPHIN_SUPER_SMASH_BROS_MELEE_V1_01_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Super Smash Bros. Melee (v1.01)(USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Tetris Worlds (USA).rvz",
+      "HasWindowProfile":1,
+      "Id":"GAME_DOLPHIN_TETRIS_WORLDS_USA",
+      "LastPlayed":"2026-02-04 04:36:58",
+      "LauncherType":"DOLPHIN",
+      "PlayTimeReadable":"6s",
+      "SavedName":"[GC/WII] Tetris Worlds (USA)",
+      "TotalPlayTime":6,
+      "WinH":519,
+      "WinW":656,
+      "WinX":632,
+      "WinY":280
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Wario World (USA).rvz",
+      "Id":"GAME_DOLPHIN_WARIO_WORLD_USA",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Wario World (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Wave Race - Blue Storm (USA).iso",
+      "HasWindowProfile":1,
+      "Id":"GAME_DOLPHIN_WAVE_RACE_BLUE_STORM_USA",
+      "LastPlayed":"2026-02-04 04:47:01",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Wave Race - Blue Storm (USA)",
+      "WinH":1080,
+      "WinW":1920,
+      "WinX":0,
+      "WinY":-1080
+    },
+    {
+      "AddedDate":"2026-02-04 04:31:42",
+      "ApplicationPath":"E:/GAMECUBE GAMES/Wave Race - Blue Storm (USA).rvz",
+      "Id":"GAME_DOLPHIN_WAVE_RACE_BLUE_STORM_USA_7108906",
+      "LauncherType":"DOLPHIN",
+      "SavedName":"[GC/WII] Wave Race - Blue Storm (USA)"
+    }
+  ]
 }

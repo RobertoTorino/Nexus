@@ -225,10 +225,20 @@ class ConfigManager {
     ; CORE GAME MANAGEMENT
 
     ; Retrieves the currently selected game object
-    static GetCurrentGame() {
+static GetCurrentGame() {
+        ; 1. PRIORITY: Check the Live Variable first
         if (this.CurrentGameId != "" && this.Games.Has(this.CurrentGameId)) {
             return this.Games[this.CurrentGameId]
         }
+
+        ; 2. FALLBACK: Only check INI if memory is empty
+        iniId := IniRead(this.IniPath, "LAST_PLAYED", "GameID", "")
+        if (iniId != "" && this.Games.Has(iniId)) {
+            ; Sync memory with INI so next time it's faster
+            this.CurrentGameId := iniId
+            return this.Games[iniId]
+        }
+
         return ""
     }
 
