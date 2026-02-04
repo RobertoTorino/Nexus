@@ -130,6 +130,551 @@
       "Id":"GAME_DOLPHIN_WAVE_RACE_BLUE_STORM_USA_7108906",
       "LauncherType":"DOLPHIN",
       "SavedName":"[GC/WII] Wave Race - Blue Storm (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/BIOS.BIN",
+      "Id":"GAME_DUCKSTATION_BIOS",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] BIOS"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/BIOS/SCPH-101/BIOS.BIN",
+      "Id":"GAME_DUCKSTATION_BIOS_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] BIOS"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Capcom vs. SNK Pro (USA)/Capcom vs. SNK Pro (USA).cue",
+      "Id":"GAME_DUCKSTATION_CAPCOM_VS_SNK_PRO_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Capcom vs. SNK Pro (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Castlevania-Symphony of the Night[U] [SLUS-00067]/Castlevania - Symphony of the Night (USA).cue",
+      "Id":"GAME_DUCKSTATION_CASTLEVANIA_SYMPHONY_OF_THE_NIGHT_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Castlevania - Symphony of the Night (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Codename - Tenka (USA)/Codename - Tenka (USA).cue",
+      "Id":"GAME_DUCKSTATION_CODENAME_TENKA_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Codename - Tenka (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Crash Bandicoot 2 - Cortex Strikes Back (USA)/Crash Bandicoot 2 - Cortex Strikes Back (USA).cue",
+      "Id":"GAME_DUCKSTATION_CRASH_BANDICOOT_2_CORTEX_STRIKES_BACK_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Crash Bandicoot 2 - Cortex Strikes Back (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Crash Bandicoot (USA)/Crash Bandicoot (USA).cue",
+      "Id":"GAME_DUCKSTATION_CRASH_BANDICOOT_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Crash Bandicoot (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Crash Bandicoot - Warped (USA)/Crash Bandicoot - Warped (USA).cue",
+      "Id":"GAME_DUCKSTATION_CRASH_BANDICOOT_WARPED_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Crash Bandicoot - Warped (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/CTR - Crash Team Racing (USA)/CTR - Crash Team Racing (USA).cue",
+      "Id":"GAME_DUCKSTATION_CTR_CRASH_TEAM_RACING_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] CTR - Crash Team Racing (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Dead or Alive (USA)/Dead or Alive (USA).cue",
+      "Id":"GAME_DUCKSTATION_DEAD_OR_ALIVE_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Dead or Alive (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Die Hard Trilogy (USA) (v1.0)/Die Hard Trilogy (USA) (v1.0).cue",
+      "Id":"GAME_DUCKSTATION_DIE_HARD_TRILOGY_USA_V1_0",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Die Hard Trilogy (USA) (v1.0)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Galaga - Destination Earth (USA)/Galaga - Destination Earth (USA).cue",
+      "Id":"GAME_DUCKSTATION_GALAGA_DESTINATION_EARTH_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Galaga - Destination Earth (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Gran Turismo 2 (USA) (Arcade Mode) (v1.0)/Gran Turismo 2 (USA) (Arcade Mode) (v1.0).cue",
+      "Id":"GAME_DUCKSTATION_GRAN_TURISMO_2_USA_ARCADE_MODE_V1_0",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Gran Turismo 2 (USA) (Arcade Mode) (v1.0)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Gran Turismo (USA) (v1.1)/Gran Turismo (USA) (v1.1).cue",
+      "Id":"GAME_DUCKSTATION_GRAN_TURISMO_USA_V1_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Gran Turismo (USA) (v1.1)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Gunbalina (NTSC-J) (SLPS-03100)/Gunbalina [NTSC-J] [SLPS-03100] by HNK.cue",
+      "Id":"GAME_DUCKSTATION_GUNBALINA_NTSC_J_SLPS_03100_BY_HNK",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Gunbalina [NTSC-J] [SLPS-03100] by HNK"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/GunBarl (NTSC-J) (SLPS-01500)/GunBarl SLPS-01500.cue",
+      "Id":"GAME_DUCKSTATION_GUNBARL_SLPS_01500",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] GunBarl SLPS-01500"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Gunbullet (with Guncon) (NTSC-J) (SLPS-00929)/Gunbullet [with Guncon] [NTSC-J] [SLPS-00929].cue",
+      "Id":"GAME_DUCKSTATION_GUNBULLET_WITH_GUNCON_NTSC_J_SLPS_00929",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Gunbullet [with Guncon] [NTSC-J] [SLPS-00929]"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/LSD - Dream Emulator (English v1)/LSD - Dream Emulator (English v1).cue",
+      "Id":"GAME_DUCKSTATION_LSD_DREAM_EMULATOR_ENGLISH_V1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] LSD - Dream Emulator (English v1)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/N2O - Nitrous Oxide (USA)/N2O - Nitrous Oxide (USA).cue",
+      "Id":"GAME_DUCKSTATION_N2O_NITROUS_OXIDE_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] N2O - Nitrous Oxide (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/IGR_Behaviour_Modifiers/PATCH_0.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_0",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 0"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/IGR_Behaviour_Modifiers/PATCH_0.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_0_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 0"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/Compatibility_Modes/PATCH_1.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 1"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/Compatibility_Modes/PATCH_1.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_1_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 1"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/Compatibility_Modes/PATCH_2.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_2",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 2"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/Compatibility_Modes/PATCH_2.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_2_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 2"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/Compatibility_Modes/PATCH_3.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_3",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/Compatibility_Modes/PATCH_3.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_3_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/Compatibility_Modes/PATCH_4.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_4",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 4"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/Compatibility_Modes/PATCH_4.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_4_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 4"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/Compatibility_Modes/PATCH_5.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_5",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 5"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/Compatibility_Modes/PATCH_5.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_5_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 5"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/Compatibility_Modes/PATCH_6.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_6",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 6"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/Compatibility_Modes/PATCH_6.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_6_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 6"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/Compatibility_Modes/PATCH_7.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_7",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 7"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/Compatibility_Modes/PATCH_7.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_7_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 7"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/$FORCEPAL_PATCH/PATCH_8.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_8",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 8"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/$FORCEPAL_PATCH/PATCH_8.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_8_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 8"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/$NOPAL_PATCH/PATCH_9.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_9",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 9"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/$NOPAL_PATCH/PATCH_9.BIN",
+      "Id":"GAME_DUCKSTATION_PATCH_9_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] PATCH 9"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Pepsiman/Pepsiman (Japan).cue",
+      "Id":"GAME_DUCKSTATION_PEPSIMAN_JAPAN",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Pepsiman (Japan)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Point Blank 2 (NTSC-U) (SLUS-00796)/Point Blank 2 (USA).cue",
+      "Id":"GAME_DUCKSTATION_POINT_BLANK_2_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Point Blank 2 (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Point Blank 3 (NTSC-U) (SLUS-01354)/Point Blank 3 [SLUS-01354].cue",
+      "Id":"GAME_DUCKSTATION_POINT_BLANK_3_SLUS_01354",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Point Blank 3 [SLUS-01354]"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/R4 - Ridge Racer Type 4 (USA)/R4 - Ridge Racer Type 4 (USA).cue",
+      "Id":"GAME_DUCKSTATION_R4_RIDGE_RACER_TYPE_4_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] R4 - Ridge Racer Type 4 (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Rage Racer (USA)/Rage Racer (USA).cue",
+      "Id":"GAME_DUCKSTATION_RAGE_RACER_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Rage Racer (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Ridge Racer Bonus Turbo Mode Disc (USA)/Ridge Racer Bonus Turbo Mode Disc (USA).cue",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_BONUS_TURBO_MODE_DISC_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Bonus Turbo Mode Disc (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Ridge Racer Revolution (USA)/Ridge Racer Revolution (USA).cue",
+      "HasWindowProfile":1,
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA",
+      "LastPlayed":"2026-02-04 05:30:54",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer Revolution (USA)",
+      "WinH":1080,
+      "WinW":1920,
+      "WinX":0,
+      "WinY":0
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Ridge Racer (USA)/Ridge Racer (USA).cue",
+      "Id":"GAME_DUCKSTATION_RIDGE_RACER_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Ridge Racer (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Point Blank (NTSC-U) (SLUS-00481)/SLUS-00481.cue",
+      "Id":"GAME_DUCKSTATION_SLUS_00481",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] SLUS-00481"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Snobow Kids Plus (Japan)/Snobow Kids Plus (Japan).cue",
+      "Id":"GAME_DUCKSTATION_SNOBOW_KIDS_PLUS_JAPAN",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Snobow Kids Plus (Japan)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Soul Blade (USA) (v1.0)/Soul Blade (USA) (v1.0).cue",
+      "Id":"GAME_DUCKSTATION_SOUL_BLADE_USA_V1_0",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Soul Blade (USA) (v1.0)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Soul Blade (USA) (v1.1)/Soul Blade (USA) (v1.1).cue",
+      "Id":"GAME_DUCKSTATION_SOUL_BLADE_USA_V1_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Soul Blade (USA) (v1.1)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/SouldBlade 1.1 patched/Soul Blade (USA) (v1.1).cue",
+      "Id":"GAME_DUCKSTATION_SOUL_BLADE_USA_V1_1_9290093",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Soul Blade (USA) (v1.1)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Soul Edge (Japan)/Soul Edge (Japan).cue",
+      "Id":"GAME_DUCKSTATION_SOUL_EDGE_JAPAN",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Soul Edge (Japan)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Tekken 2 (Japan)/Tekken 2 (Japan) (Track 1).cue",
+      "Id":"GAME_DUCKSTATION_TEKKEN_2_JAPAN_TRACK_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 2 (Japan) (Track 1)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Tekken 2 (v1.1)/Tekken 2 (v1.1).cue",
+      "Id":"GAME_DUCKSTATION_TEKKEN_2_V1_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 2 (v1.1)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Tekken 3 (USA)/Tekken 3 (USA).cue",
+      "Id":"GAME_DUCKSTATION_TEKKEN_3_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken 3 (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Tekken (Japan)/Tekken (Japan) (Track 01).cue",
+      "Id":"GAME_DUCKSTATION_TEKKEN_JAPAN_TRACK_01",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (Japan) (Track 01)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Tekken (USA)/Tekken (USA).cue",
+      "Id":"GAME_DUCKSTATION_TEKKEN_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tekken (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Tobal 2 (Japan) (1997) (Fighting) (PS1)/Tobal 2 (Japan) (1997) (Fighting) (PS1).cue",
+      "Id":"GAME_DUCKSTATION_TOBAL_2_JAPAN_1997_FIGHTING_PS1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Tobal 2 (Japan) (1997) (Fighting) (PS1)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_0.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_0",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 0"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_0.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_0_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 0"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_1.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_1",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 1"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_1.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_1_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 1"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_2.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_2",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 2"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_2.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_2_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 2"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_3.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_3",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_3.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_3_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_4.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_4",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 4"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_4.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_4_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 4"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_5.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_5",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 5"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_5.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_5_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 5"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Capcom vs. SNK Pro (USA)/TROJAN_7.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_7",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 7"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/TROJAN_7.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_7_9290093",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 7"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/Tools/CUE2POPS_2.3/TROJAN_7.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_7_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 7"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/IGR_Behaviour_Modifiers/No 2nd Pad in IGR/TROJAN_9.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_9",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 9"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/IGR_Behaviour_Modifiers/No 2nd Pad in IGR/TROJAN_9.BIN",
+      "Id":"GAME_DUCKSTATION_TROJAN_9_9290109",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] TROJAN 9"
+    },
+    {
+      "AddedDate":"2026-02-04 05:08:03",
+      "ApplicationPath":"E:/PSX GAMES/Unknown Variable 2 - Raven's Ridge (USA)/Unknown Variable 2 - Raven's Ridge (USA).cue",
+      "Id":"GAME_DUCKSTATION_UNKNOWN_VARIABLE_2_RAVENS_RIDGE_USA",
+      "LauncherType":"DUCKSTATION",
+      "SavedName":"[PS1] Unknown Variable 2 - Raven's Ridge (USA)"
     }
   ]
 }

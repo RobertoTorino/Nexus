@@ -548,25 +548,49 @@ static UpdateStatusBar() {
         return btn
     }
 
-    static RefreshTopPlayed() {
+static RefreshTopPlayed() {
+        if !this.StatsHeader
+            return
+
+        ; 1. Refresh Counters
         this.CachedGameCount := ConfigManager.Games.Count
         this.CachedTotalTime := ConfigManager.GetTotalLibraryTime()
+
+        ; 2. Get Top 2 Games
         topList := ConfigManager.GetTopGames(2)
         topLine := ""
+
         if (topList.Length == 0) {
-            topLine .= "None"
+            topLine := "None"
         } else {
             for index, game in topList {
+                ; A. Get Name safely
                 safeName := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
-                timeStr := (Type(game) == "Map") ? (game.Has("PlayTimeReadable") ? game["PlayTimeReadable"] : "0s")
-                    : (game.HasProp("PlayTimeReadable") ? game.PlayTimeReadable : "0s")
+
+                ; B. [FIX] Read RAW SECONDS (PlayTime), ignore the stale 'PlayTimeReadable'
+                rawSeconds := 0
+                if (Type(game) == "Map")
+                    rawSeconds := game.Has("PlayTime") ? game["PlayTime"] : 0
+                else
+                    rawSeconds := HasProp(game, "PlayTime") ? game.PlayTime : 0
+
+                ; C. [FIX] Format the string Live
+                timeStr := ""
+                if (rawSeconds >= 3600)
+                    timeStr := Round(rawSeconds / 3600, 1) "h"
+                else
+                    timeStr := Round(rawSeconds / 60, 0) "m"
+
+                ; D. Build the line
                 topLine .= index . ". " . safeName . " (" . timeStr . ")  "
+
                 if (index < topList.Length)
                     topLine .= "| "
             }
         }
-        if (this.StatsHeader)
-            this.StatsHeader.Text := topLine
+
+        ; 3. Push to UI
+        this.StatsHeader.Text := topLine
     }
 
     static SelectLastPlayed() {
