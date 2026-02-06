@@ -211,7 +211,7 @@ class PatchServiceTool {
     }
 
     ; UTILITIES
-static ApplyFileSwap(gameObj, patchData, suffix) {
+    static ApplyFileSwap(gameObj, patchData, suffix) {
         basePath := this.SafeGet(gameObj, "ApplicationPath")
         if (basePath == "")
             basePath := this.SafeGet(gameObj, "EbootIsoPath")

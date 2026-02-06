@@ -56,18 +56,18 @@ class LauncherFactory {
 
     static CreateInstance(key) {
         switch key, 0 {
-            case "DOLPHIN":     return DolphinLauncher()
+            case "DOLPHIN": return DolphinLauncher()
             case "DUCKSTATION": return DuckStationLauncher()
-            case "PCSX2":       return Pcsx2Launcher()
-            case "PPSSPP":      return PpssppLauncher()
-            case "REDREAM":     return RedreamLauncher()
-            case "RPCS3":       return Rpcs3UniversalLauncher()
-            case "SHADPS4":     return ShadPs4Launcher()
-            case "TEKNO":       return TeknoParrotLauncher()
-            case "VITA3K":      return Vita3kLauncher()
-            case "VIVANONNO":   return VivaNonnoLauncher()
-            case "YUZU":        return YuzuLauncher()
-            default:            return StandardLauncher()
+            case "PCSX2": return Pcsx2Launcher()
+            case "PPSSPP": return PpssppLauncher()
+            case "REDREAM": return RedreamLauncher()
+            case "RPCS3": return Rpcs3UniversalLauncher()
+            case "SHADPS4": return ShadPs4Launcher()
+            case "TEKNO": return TeknoParrotLauncher()
+            case "VITA3K": return Vita3kLauncher()
+            case "VIVANONNO": return VivaNonnoLauncher()
+            case "YUZU": return YuzuLauncher()
+            default: return StandardLauncher()
         }
     }
 }

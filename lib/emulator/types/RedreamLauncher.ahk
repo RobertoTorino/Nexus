@@ -22,7 +22,6 @@ Launch(gameMap) {
         } else {
             game := gameMap
         }
-        ; ---------------
 
         this.GameId := game.Id
         

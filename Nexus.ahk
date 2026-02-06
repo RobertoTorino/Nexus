@@ -40,6 +40,9 @@
 #Include lib\emulator\types\StandardLauncher.ahk
 #Include lib\emulator\types\TeknoParrotLauncher.ahk
 #Include lib\emulator\types\Vita3kLauncher.ahk
+; lib\input\
+#Include lib\input\ControllerManager.ahk
+#Include lib\input\GamepadTester.ahk
 ; lib\media\
 #Include lib\media\SnapshotGallery.ahk
 #Include lib\media\MusicPlayer.ahk
@@ -80,6 +83,19 @@ ConfigManager.Init()
 
 Utilities.LogMonitorStats()
 
+; [ADMIN FORCE START]
+full_command_line := DllCall("GetCommandLine", "str")
+if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)")) {
+    try {
+        if A_IsCompiled
+            Run '*RunAs "' A_ScriptFullPath '" /restart'
+        else
+            Run '*RunAs "' A_AhkPath '" /restart "' A_ScriptFullPath '"'
+    }
+    ExitApp
+}
+; [ADMIN FORCE END]
+
 ; --- HIGH DPI SETTINGS (Prevents Blurry Text) ---
 try {
     ; Windows 8.1+ (Per-Monitor DPI Aware - The best setting)
@@ -110,6 +126,7 @@ try {
     MsgBox("Critical UI Error: " err.Message)
 }
 
+
 ; Read the INI
 try {
     sections := IniRead(ConfigFilePath)
@@ -132,7 +149,7 @@ A_TrayMenu.Add("System Log", (*) => (WinExist("Nexus :: Logger") ? LoggerGui.Hid
 A_TrayMenu.Add("Clone Wizard", (*) => CloneGameWizardGui.Show())
 A_TrayMenu.Add("Manage Audio", (*) => AudioManager.ShowGui())
 A_TrayMenu.Add("Reload", (*) => Reload())
-A_TrayMenu.Add("Exit", (*) => ExitApp())
+A_TrayMenu.Add("Exit", (*) => (SetTimer(ObjBindMethod(ControllerManager, "HandleControllerInput"), 0), ExitApp()))
 
 
 StartGame(*) {

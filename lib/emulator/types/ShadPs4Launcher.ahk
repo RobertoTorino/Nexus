@@ -22,9 +22,9 @@ class ShadPs4Launcher extends EmulatorBase {
         } else {
             game := gameMap
         }
-        
-        this.GameId := game.Id 
-        
+
+        this.GameId := game.Id
+
         emuPath := this.GetEmulatorPath("SHADPS4_PATH", "ShadPs4Path")
         if !emuPath
             return false

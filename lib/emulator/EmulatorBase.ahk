@@ -24,7 +24,7 @@ class EmulatorBase {
         return false
     }
 
-; Clean shutdown
+    ; Clean shutdown
     Stop() {
         global AppIsExiting
         if (IsSet(AppIsExiting) && AppIsExiting) {
@@ -54,30 +54,30 @@ class EmulatorBase {
     }
 
     ; Call this inside your specific Launchers (DolphinLauncher, etc.) after Run()
-        TrackProcess(pid, fullPath, gameId) {
-            SplitPath(fullPath, &name)
-            this.Pid := pid
-            this.ExeName := name
-            this.ExePath := fullPath
-            this.GameId := gameId
+    TrackProcess(pid, fullPath, gameId) {
+        SplitPath(fullPath, &name)
+        this.Pid := pid
+        this.ExeName := name
+        this.ExePath := fullPath
+        this.GameId := gameId
 
-            ; 1. Update ConfigManager Global State
-            ConfigManager.ActiveProcessName := name
-            ConfigManager.UpdateLastPlayed(gameId)
+        ; 1. Update ConfigManager Global State
+        ConfigManager.ActiveProcessName := name
+        ConfigManager.UpdateLastPlayed(gameId)
 
-            ; 2. Start the High-Performance Monitor
-            if IsSet(ProcessManager) {
-                gameTitle := ""
-                try gameTitle := ConfigManager.Games[gameId]["SavedName"]
-                ProcessManager.StartSession(gameTitle || gameId)
-            }
-
-            ; 3. Write Session Info to INI for external tools
-            try {
-                IniWrite(pid, ConfigManager.IniPath, "LAST_PLAYED", "ExePID")
-                IniWrite(name, ConfigManager.IniPath, "LAST_PLAYED", "ExeName")
-            }
+        ; 2. Start the High-Performance Monitor
+        if IsSet(ProcessManager) {
+            gameTitle := ""
+            try gameTitle := ConfigManager.Games[gameId]["SavedName"]
+            ProcessManager.StartSession(gameTitle || gameId)
         }
+
+        ; 3. Write Session Info to INI for external tools
+        try {
+            IniWrite(pid, ConfigManager.IniPath, "LAST_PLAYED", "ExePID")
+            IniWrite(name, ConfigManager.IniPath, "LAST_PLAYED", "ExeName")
+        }
+    }
 
     ; Helpers for Subclasses
     GetEmulatorPath(section, key) {

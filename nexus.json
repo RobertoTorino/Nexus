@@ -451,13 +451,15 @@
       "ApplicationPath":"E:/PSX GAMES/Ridge Racer Revolution (USA)/Ridge Racer Revolution (USA).cue",
       "HasWindowProfile":1,
       "Id":"GAME_DUCKSTATION_RIDGE_RACER_REVOLUTION_USA",
-      "LastPlayed":"2026-02-04 05:30:54",
+      "LastPlayed":"2026-02-04 05:55:29",
       "LauncherType":"DUCKSTATION",
+      "PlayTimeReadable":"1.8m",
       "SavedName":"[PS1] Ridge Racer Revolution (USA)",
-      "WinH":1080,
-      "WinW":1920,
-      "WinX":0,
-      "WinY":0
+      "TotalPlayTime":108,
+      "WinH":1048,
+      "WinW":1936,
+      "WinX":-8,
+      "WinY":16
     },
     {
       "AddedDate":"2026-02-04 05:08:03",
@@ -675,6 +677,840 @@
       "Id":"GAME_DUCKSTATION_UNKNOWN_VARIABLE_2_RAVENS_RIDGE_USA",
       "LauncherType":"DUCKSTATION",
       "SavedName":"[PS1] Unknown Variable 2 - Raven's Ridge (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/Gran Turismo 4 (USA) (Beta).iso",
+      "Id":"GAME_PCSX2_GRAN_TURISMO_4_USA_BETA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] Gran Turismo 4 (USA) (Beta)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/CD/PAPX_902.03.Gran Turismo 2000 [NTSC-J] [CD].iso",
+      "Id":"GAME_PCSX2_PAPX_902_03_GRAN_TURISMO_2000_NTSC_J_CD",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PAPX 902.03.Gran Turismo 2000 [NTSC-J] [CD]"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/PAPX_905.04.PAPX90524.iso",
+      "Id":"GAME_PCSX2_PAPX_905_04_PAPX90524",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PAPX 905.04.PAPX90524"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Pops/Tekken 3_(ALL VER)/PATCH_4.BIN",
+      "Id":"GAME_PCSX2_PATCH_4",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PATCH 4"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Pops/POPS-VCD-Manager/Common/IGRTHEMES/LopoTRIIGR/PATCH_5.BIN",
+      "Id":"GAME_PCSX2_PATCH_5",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PATCH 5"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Pops/POPS-VCD-Manager/Common/IGRTHEMES/XMB v2/PATCH_5.BIN",
+      "Id":"GAME_PCSX2_PATCH_5_12203015",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PATCH 5"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Pops/Tekken 3_(ALL VER)/PATCH_6.BIN",
+      "Id":"GAME_PCSX2_PATCH_6",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PATCH 6"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/PBPX_955.24.Gran Turismo 4 - Prologue.iso",
+      "Id":"GAME_PCSX2_PBPX_955_24_GRAN_TURISMO_4_PROLOGUE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] PBPX 955.24.Gran Turismo 4 - Prologue"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SCES_508.87.ALPINE RACER 3.iso",
+      "Id":"GAME_PCSX2_SCES_508_87_ALPINE_RACER_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCES 508.87.ALPINE RACER 3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SCPS_150.10.Gran Turismo Concept - 2001 Toky.iso",
+      "Id":"GAME_PCSX2_SCPS_150_10_GRAN_TURISMO_CONCEPT_2001_TOKY",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCPS 150.10.Gran Turismo Concept - 2001 Toky"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SCPS_150.54.Chain Dive.iso",
+      "Id":"GAME_PCSX2_SCPS_150_54_CHAIN_DIVE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCPS 150.54.Chain Dive"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SCPS_559.02.Gran Turismo Concept - 2002.iso",
+      "Id":"GAME_PCSX2_SCPS_559_02_GRAN_TURISMO_CONCEPT_2002",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCPS 559.02.Gran Turismo Concept - 2002"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SCUS_973.28.Gran Turismo 4.iso",
+      "Id":"GAME_PCSX2_SCUS_973_28_GRAN_TURISMO_4",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCUS 973.28.Gran Turismo 4"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SCUS_973.99.God of War.iso",
+      "Id":"GAME_PCSX2_SCUS_973_99_GOD_OF_WAR",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCUS 973.99.God of War"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SCUS_974.36.patched_gt.iso",
+      "Id":"GAME_PCSX2_SCUS_974_36_PATCHED_GT",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCUS 974.36.patched gt"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SCUS_974.81.God of War II.iso",
+      "Id":"GAME_PCSX2_SCUS_974_81_GOD_OF_WAR_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCUS 974.81.God of War II"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SCUS_976.54.Motorstorm Arctic Edge.iso",
+      "Id":"GAME_PCSX2_SCUS_976_54_MOTORSTORM_ARCTIC_EDGE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SCUS 976.54.Motorstorm Arctic Edge"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLES_511.56.SILENT HILL 2 - DIRECTORS CUT.iso",
+      "Id":"GAME_PCSX2_SLES_511_56_SILENT_HILL_2_DIRECTORS_CUT",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 511.56.SILENT HILL 2 - DIRECTORS CUT"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLES_525.19.Pink Pong.iso",
+      "Id":"GAME_PCSX2_SLES_525_19_PINK_PONG",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 525.19.Pink Pong"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLES_525.35.Rumble Roses.iso",
+      "Id":"GAME_PCSX2_SLES_525_35_RUMBLE_ROSES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 525.35.Rumble Roses"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLES_527.52.PLAYBOY - THE MANSION.iso",
+      "Id":"GAME_PCSX2_SLES_527_52_PLAYBOY_THE_MANSION",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 527.52.PLAYBOY - THE MANSION"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLES_532.97.7 SINS.iso",
+      "Id":"GAME_PCSX2_SLES_532_97_7_SINS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 532.97.7 SINS"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLES_534.03.Demolition Girl.iso",
+      "Id":"GAME_PCSX2_SLES_534_03_DEMOLITION_GIRL",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 534.03.Demolition Girl"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLES_545.69.Zombie Hunters 2.iso",
+      "Id":"GAME_PCSX2_SLES_545_69_ZOMBIE_HUNTERS_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 545.69.Zombie Hunters 2"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLES_548.19.Manhunt 2 [Uncut].iso",
+      "Id":"GAME_PCSX2_SLES_548_19_MANHUNT_2_UNCUT",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLES 548.19.Manhunt 2 [Uncut]"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLKA_250.66.Zone of the Enders The 2nd.iso",
+      "Id":"GAME_PCSX2_SLKA_250_66_ZONE_OF_THE_ENDERS_THE_2ND",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLKA 250.66.Zone of the Enders The 2nd"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPM_666.75.Kingdom Hearts II Final Mix.iso",
+      "Id":"GAME_PCSX2_SLPM_666_75_KINGDOM_HEARTS_II_FINAL_MIX",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPM 666.75.Kingdom Hearts II Final Mix"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPM_668.22.Guitar Freaks V-3 Drummania V-3.iso",
+      "Id":"GAME_PCSX2_SLPM_668_22_GUITAR_FREAKS_V_3_DRUMMANIA_V_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPM 668.22.Guitar Freaks V-3 Drummania V-3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Ps2/SLPS_200.15.TEKKEN TAG TOURNAMENT.iso",
+      "Id":"GAME_PCSX2_SLPS_200_15_TEKKEN_TAG_TOURNAMENT",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 200.15.TEKKEN TAG TOURNAMENT"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Ps2/SLPS_250.02.Dead or Alive 2 (Japan).iso",
+      "Id":"GAME_PCSX2_SLPS_250_02_DEAD_OR_ALIVE_2_JAPAN",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 250.02.Dead or Alive 2 (Japan)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Ps2/SLPS_251.00.Tekken 4.iso",
+      "Id":"GAME_PCSX2_SLPS_251_00_TEKKEN_4",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 251.00.Tekken 4"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_251.81.Gunvarl Collection Time Crisis.iso",
+      "Id":"GAME_PCSX2_SLPS_251_81_GUNVARL_COLLECTION_TIME_CRISIS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 251.81.Gunvarl Collection Time Crisis"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Ps2/SLPS_252.30.Soulcalibur II (Japan).iso",
+      "Id":"GAME_PCSX2_SLPS_252_30_SOULCALIBUR_II_JAPAN",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 252.30.Soulcalibur II (Japan)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_252.40.MGS Megumi.iso",
+      "Id":"GAME_PCSX2_SLPS_252_40_MGS_MEGUMI",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 252.40.MGS Megumi"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_252.41.MGS Mori Hinoko.iso",
+      "Id":"GAME_PCSX2_SLPS_252_41_MGS_MORI_HINOKO",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 252.41.MGS Mori Hinoko"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_252.42.MGS Kitagawa Tomomi.iso",
+      "Id":"GAME_PCSX2_SLPS_252_42_MGS_KITAGAWA_TOMOMI",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 252.42.MGS Kitagawa Tomomi"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_252.43.MGS Nemoto Harumi.iso",
+      "Id":"GAME_PCSX2_SLPS_252_43_MGS_NEMOTO_HARUMI",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 252.43.MGS Nemoto Harumi"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_253.43.Gunslinger Girl VolumeI.iso",
+      "Id":"GAME_PCSX2_SLPS_253_43_GUNSLINGER_GIRL_VOLUMEI",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 253.43.Gunslinger Girl VolumeI"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_253.73.GUNSLINGER GIRL VOLUME 2.iso",
+      "Id":"GAME_PCSX2_SLPS_253_73_GUNSLINGER_GIRL_VOLUME_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 253.73.GUNSLINGER GIRL VOLUME 2"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_253.88.Gunslinger Girl Volume 3.iso",
+      "Id":"GAME_PCSX2_SLPS_253_88_GUNSLINGER_GIRL_VOLUME_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 253.88.Gunslinger Girl Volume 3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Ps2/SLPS_254.22.Death by Degrees.iso",
+      "Id":"GAME_PCSX2_SLPS_254_22_DEATH_BY_DEGREES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 254.22.Death by Degrees"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_255.00.NamCollection.iso",
+      "Id":"GAME_PCSX2_SLPS_255_00_NAMCOLLECTION",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.00.NamCollection"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_255.05.NAMCO X CAPCOM.iso",
+      "Id":"GAME_PCSX2_SLPS_255_05_NAMCO_X_CAPCOM",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.05.NAMCO X CAPCOM"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Ps2/SLPS_255.10.Tekken 5.iso",
+      "Id":"GAME_PCSX2_SLPS_255_10_TEKKEN_5",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.10.Tekken 5"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_255.44.ZERO - SHISEI NO KOE.iso",
+      "Id":"GAME_PCSX2_SLPS_255_44_ZERO_SHISEI_NO_KOE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.44.ZERO - SHISEI NO KOE"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_255.50.Cowboy Bebop Tsuioku no Serenade.iso",
+      "Id":"GAME_PCSX2_SLPS_255_50_COWBOY_BEBOP_TSUIOKU_NO_SERENADE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.50.Cowboy Bebop Tsuioku no Serenade"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Ps2/SLPS_255.77.Soulcalibur III (Japan).iso",
+      "Id":"GAME_PCSX2_SLPS_255_77_SOULCALIBUR_III_JAPAN",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 255.77.Soulcalibur III (Japan)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLPS_258.16.Ridge Racer Slot Machine.iso",
+      "Id":"GAME_PCSX2_SLPS_258_16_RIDGE_RACER_SLOT_MACHINE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLPS 258.16.Ridge Racer Slot Machine"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_200.01.TEKKEN TAG TOURNAMENT.iso",
+      "Id":"GAME_PCSX2_SLUS_200_01_TEKKEN_TAG_TOURNAMENT",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 200.01.TEKKEN TAG TOURNAMENT"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_200.71.DOA2 Hardcore.iso",
+      "Id":"GAME_PCSX2_SLUS_200_71_DOA2_HARDCORE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 200.71.DOA2 Hardcore"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_201.48.Zone of the Enders.iso",
+      "Id":"GAME_PCSX2_SLUS_201_48_ZONE_OF_THE_ENDERS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 201.48.Zone of the Enders"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_202.19.Time Crisis II.iso",
+      "Id":"GAME_PCSX2_SLUS_202_19_TIME_CRISIS_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 202.19.Time Crisis II"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_202.28.SILENT HILL 2 [GREATEST HITS].iso",
+      "Id":"GAME_PCSX2_SLUS_202_28_SILENT_HILL_2_GREATEST_HITS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 202.28.SILENT HILL 2 [GREATEST HITS]"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_202.47.TETRIS WORLDS.iso",
+      "Id":"GAME_PCSX2_SLUS_202_47_TETRIS_WORLDS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 202.47.TETRIS WORLDS"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_202.67.Dot Hack Part 1.iso",
+      "Id":"GAME_PCSX2_SLUS_202_67_DOT_HACK_PART_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 202.67.Dot Hack Part 1"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_203.28.Tekken 4.iso",
+      "Id":"GAME_PCSX2_SLUS_203_28_TEKKEN_4",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 203.28.Tekken 4"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_203.44.CodeBreaker v10.iso",
+      "Id":"GAME_PCSX2_SLUS_203_44_CODEBREAKER_V10",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 203.44.CodeBreaker v10"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_203.88.FATAL FRAME.iso",
+      "Id":"GAME_PCSX2_SLUS_203_88_FATAL_FRAME",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 203.88.FATAL FRAME"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_203.91.Terminator Dawn of Fate.iso",
+      "Id":"GAME_PCSX2_SLUS_203_91_TERMINATOR_DAWN_OF_FATE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 203.91.Terminator Dawn of Fate"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_204.69.Xenosaga Episode 1.iso",
+      "Id":"GAME_PCSX2_SLUS_204_69_XENOSAGA_EPISODE_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 204.69.Xenosaga Episode 1"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_205.52.Grand Theft Auto - Vice City.iso",
+      "Id":"GAME_PCSX2_SLUS_205_52_GRAND_THEFT_AUTO_VICE_CITY",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 205.52.Grand Theft Auto - Vice City"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_205.62.Dot Hack Part 2.iso",
+      "Id":"GAME_PCSX2_SLUS_205_62_DOT_HACK_PART_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 205.62.Dot Hack Part 2"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_205.63.Hack - Part 3 – Outbreak.iso",
+      "Id":"GAME_PCSX2_SLUS_205_63_HACK_PART_3_–_OUTBREAK",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 205.63.Hack - Part 3 – Outbreak"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_205.82.SRS - STREET RACING SYNDICATE.iso",
+      "Id":"GAME_PCSX2_SLUS_205_82_SRS_STREET_RACING_SYNDICATE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 205.82.SRS - STREET RACING SYNDICATE"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_206.22.SILENT HILL 3.iso",
+      "Id":"GAME_PCSX2_SLUS_206_22_SILENT_HILL_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 206.22.SILENT HILL 3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_206.43.Soulcalibur II.iso",
+      "Id":"GAME_PCSX2_SLUS_206_43_SOULCALIBUR_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 206.43.Soulcalibur II"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_206.43.Soulcalibur IIa.iso",
+      "Id":"GAME_PCSX2_SLUS_206_43_SOULCALIBUR_IIA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 206.43.Soulcalibur IIa"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_206.45.Time Crisis 3 (USA).iso",
+      "Id":"GAME_PCSX2_SLUS_206_45_TIME_CRISIS_3_USA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 206.45.Time Crisis 3 (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_207.12.GRADIUS V.iso",
+      "Id":"GAME_PCSX2_SLUS_207_12_GRADIUS_V",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 207.12.GRADIUS V"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_207.66.FATAL FRAME II.iso",
+      "Id":"GAME_PCSX2_SLUS_207_66_FATAL_FRAME_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 207.66.FATAL FRAME II"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_207.72.SSX 3.iso",
+      "Id":"GAME_PCSX2_SLUS_207_72_SSX_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 207.72.SSX 3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_207.77.OBSCURE.iso",
+      "Id":"GAME_PCSX2_SLUS_207_77_OBSCURE",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 207.77.OBSCURE"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_207.99.Terminator 3.iso",
+      "Id":"GAME_PCSX2_SLUS_207_99_TERMINATOR_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 207.99.Terminator 3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_208.43.Dead to Rights II.iso",
+      "Id":"GAME_PCSX2_SLUS_208_43_DEAD_TO_RIGHTS_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 208.43.Dead to Rights II"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_208.52.Terminator 3 II.iso",
+      "Id":"GAME_PCSX2_SLUS_208_52_TERMINATOR_3_II",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 208.52.Terminator 3 II"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_208.73.SILENT HILL 4 - THE ROOM.iso",
+      "Id":"GAME_PCSX2_SLUS_208_73_SILENT_HILL_4_THE_ROOM",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 208.73.SILENT HILL 4 - THE ROOM"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_208.92.Xenosaga Episode II (Disc 1).iso",
+      "Id":"GAME_PCSX2_SLUS_208_92_XENOSAGA_EPISODE_II_DISC_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 208.92.Xenosaga Episode II (Disc 1)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_209.27.Time Crisis - Crisis Zone (USA).iso",
+      "Id":"GAME_PCSX2_SLUS_209_27_TIME_CRISIS_CRISIS_ZONE_USA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 209.27.Time Crisis - Crisis Zone (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_209.34.Death by Degrees.iso",
+      "Id":"GAME_PCSX2_SLUS_209_34_DEATH_BY_DEGREES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 209.34.Death by Degrees"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_209.46.Grand Theft Auto - San Andreas.iso",
+      "Id":"GAME_PCSX2_SLUS_209_46_GRAND_THEFT_AUTO_SAN_ANDREAS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 209.46.Grand Theft Auto - San Andreas"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_210.07.KUON.iso",
+      "Id":"GAME_PCSX2_SLUS_210_07_KUON",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 210.07.KUON"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_210.32.Marc Eckos Getting Up.iso",
+      "Id":"GAME_PCSX2_SLUS_210_32_MARC_ECKOS_GETTING_UP",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 210.32.Marc Eckos Getting Up"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_210.59.Tekken 5.iso",
+      "Id":"GAME_PCSX2_SLUS_210_59_TEKKEN_5",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 210.59.Tekken 5"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_210.74.The Guy Game.iso",
+      "Id":"GAME_PCSX2_SLUS_210_74_THE_GUY_GAME",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 210.74.The Guy Game"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_211.33.Xenosaga Episode II (Disc 2).iso",
+      "Id":"GAME_PCSX2_SLUS_211_33_XENOSAGA_EPISODE_II_DISC_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 211.33.Xenosaga Episode II (Disc 2)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_212.09.URBAN REIGN.iso",
+      "Id":"GAME_PCSX2_SLUS_212_09_URBAN_REIGN",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.09.URBAN REIGN"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_212.16.SOUL CALIBUR III.iso",
+      "Id":"GAME_PCSX2_SLUS_212_16_SOUL_CALIBUR_III",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.16.SOUL CALIBUR III"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_212.44.Fatal Frame III The Tormented.iso",
+      "Id":"GAME_PCSX2_SLUS_212_44_FATAL_FRAME_III_THE_TORMENTED",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.44.Fatal Frame III The Tormented"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_212.44.Fatal Frame III The Tormented 1.iso",
+      "Id":"GAME_PCSX2_SLUS_212_44_FATAL_FRAME_III_THE_TORMENTED_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.44.Fatal Frame III The Tormented 1"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_212.58.Dot Hack GU Vol 1.iso",
+      "Id":"GAME_PCSX2_SLUS_212_58_DOT_HACK_GU_VOL_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.58.Dot Hack GU Vol 1"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_212.68.24 THE GAME.iso",
+      "Id":"GAME_PCSX2_SLUS_212_68_24_THE_GAME",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.68.24 THE GAME"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_212.69.Bully.iso",
+      "Id":"GAME_PCSX2_SLUS_212_69_BULLY",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 212.69.Bully"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_213.15.50 Cent Bulletproof.iso",
+      "Id":"GAME_PCSX2_SLUS_213_15_50_CENT_BULLETPROOF",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 213.15.50 Cent Bulletproof"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_213.55.Midnight Club 3 Remix.iso",
+      "Id":"GAME_PCSX2_SLUS_213_55_MIDNIGHT_CLUB_3_REMIX",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 213.55.Midnight Club 3 Remix"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_213.89.Xenosaga Episode III (Disc 1).iso",
+      "Id":"GAME_PCSX2_SLUS_213_89_XENOSAGA_EPISODE_III_DISC_1",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 213.89.Xenosaga Episode III (Disc 1)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_214.17.Xenosaga Episode III (Disc 2).iso",
+      "Id":"GAME_PCSX2_SLUS_214_17_XENOSAGA_EPISODE_III_DISC_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 214.17.Xenosaga Episode III (Disc 2)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_214.23.GTA Liberty City Stories.iso",
+      "Id":"GAME_PCSX2_SLUS_214_23_GTA_LIBERTY_CITY_STORIES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 214.23.GTA Liberty City Stories"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_214.48.Rule of Rose (USA).iso",
+      "Id":"GAME_PCSX2_SLUS_214_48_RULE_OF_ROSE_USA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 214.48.Rule of Rose (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_214.88.Dot Hack GU Vol 2.iso",
+      "Id":"GAME_PCSX2_SLUS_214_88_DOT_HACK_GU_VOL_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 214.88.Dot Hack GU Vol 2"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_214.89.Dot Hack GU Vol 3.iso",
+      "Id":"GAME_PCSX2_SLUS_214_89_DOT_HACK_GU_VOL_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 214.89.Dot Hack GU Vol 3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_215.53.Lumines Plus (USA).iso",
+      "Id":"GAME_PCSX2_SLUS_215_53_LUMINES_PLUS_USA",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 215.53.Lumines Plus (USA)"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_215.90.Grand Theft AutoVC Stories.iso",
+      "Id":"GAME_PCSX2_SLUS_215_90_GRAND_THEFT_AUTOVC_STORIES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 215.90.Grand Theft AutoVC Stories"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_217.31.SILENT HILL - ORIGINS.iso",
+      "Id":"GAME_PCSX2_SLUS_217_31_SILENT_HILL_ORIGINS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 217.31.SILENT HILL - ORIGINS"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_218.99.Silent Hill Shattered Memories.iso",
+      "Id":"GAME_PCSX2_SLUS_218_99_SILENT_HILL_SHATTERED_MEMORIES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 218.99.Silent Hill Shattered Memories"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_291.34.Namco Transmission.iso",
+      "Id":"GAME_PCSX2_SLUS_291_34_NAMCO_TRANSMISSION",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] SLUS 291.34.Namco Transmission"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/SLUS_291.75.Namco Transmission v32.iso",
+      "Id":"GAME_PCSX2_SLUS_291_75_NAMCO_TRANSMISSION_V32",
+      "LastPlayed":"2026-02-04 05:57:35",
+      "LauncherType":"PCSX2",
+      "PlayTimeReadable":"2.6m",
+      "SavedName":"[PS2] SLUS 291.75.Namco Transmission v32",
+      "TotalPlayTime":155
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Pops/CTR (USA) POPSTARTER Mod Fix/TROJAN_0.BIN",
+      "Id":"GAME_PCSX2_TROJAN_0",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] TROJAN 0"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Pops/Tekken 3_(ALL VER)/TROJAN_2.BIN",
+      "Id":"GAME_PCSX2_TROJAN_2",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] TROJAN 2"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Pops/Tekken 3_(ALL VER)/TROJAN_3.BIN",
+      "Id":"GAME_PCSX2_TROJAN_3",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] TROJAN 3"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Pops/Tekken 3_(ALL VER)/TROJAN_8.BIN",
+      "Id":"GAME_PCSX2_TROJAN_8",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] TROJAN 8"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Textures/vulkan_pipelines.bin",
+      "Id":"GAME_PCSX2_VULKAN_PIPELINES",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] vulkan pipelines"
+    },
+    {
+      "AddedDate":"2026-02-04 05:56:36",
+      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Textures/vulkan_shaders.bin",
+      "Id":"GAME_PCSX2_VULKAN_SHADERS",
+      "LauncherType":"PCSX2",
+      "SavedName":"[PS2] vulkan shaders"
+    },
+    {
+      "ApplicationPath":"D:/EMULATORS/VIVANONNO/roms/rv2.zip",
+      "CaptureDir":"captures/GAME_RV2",
+      "EbootIsoPath":"D:/EMULATORS/VIVANONNO/roms/rv2.zip",
+      "GameApplication":"rv2.zip",
+      "HasWindowProfile":1,
+      "Id":"GAME_RV2",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-02-05 00:00:33",
+      "LauncherType":"STANDARD",
+      "PlayTimeReadable":"8s",
+      "SavedName":"RV2",
+      "SnapshotDir":"snapshots/GAME_RV2",
+      "TotalPlayTime":8,
+      "WinH":1080,
+      "WinW":1920,
+      "WinX":0,
+      "WinY":-1080
+    },
+    {
+      "ApplicationPath":"D:/PC_GAMES/Soul Calibur VI/SoulcaliburVI/Binaries/Win64/SoulcaliburVI.exe",
+      "CaptureDir":"captures/GAME_SOULCALIBURVI",
+      "EbootIsoPath":"D:/PC_GAMES/Soul Calibur VI/SoulcaliburVI/Binaries/Win64/SoulcaliburVI.exe",
+      "GameApplication":"SoulcaliburVI.exe",
+      "Id":"GAME_SOULCALIBURVI",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-02-05 00:02:21",
+      "LauncherType":"STANDARD",
+      "PlayTimeReadable":"13.7m",
+      "SavedName":"SOULCALIBURVI",
+      "SnapshotDir":"snapshots/GAME_SOULCALIBURVI",
+      "TotalPlayTime":819
+    },
+    {
+      "ApplicationPath":"E:/STORM_RACER_G/bin/racing.exe",
+      "CaptureDir":"captures/GAME_STORM_RACER_G",
+      "EbootIsoPath":"E:/STORM_RACER_G/bin/racing.exe",
+      "GameApplication":"racing.exe",
+      "Id":"GAME_STORM_RACER_G",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-02-05 00:20:45",
+      "LauncherType":"STANDARD",
+      "PlayTimeReadable":"3.7m",
+      "SavedName":"STORM_RACER_G",
+      "SnapshotDir":"snapshots/GAME_STORM_RACER_G",
+      "TotalPlayTime":221
     }
   ]
 }

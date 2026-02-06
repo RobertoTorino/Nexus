@@ -23,55 +23,51 @@
 
 class WindowManager {
     ; CONFIGURATION PRESETS
-static Presets := Map(
+    static Presets := Map(
         ; --- Basic States ---
-        "SizeFull",       { Mode: "FullScreen" },
-        "SizeWindowed",   { Mode: "Windowed" },
+        "SizeFull", { Mode: "FullScreen" },
+        "SizeWindowed", { Mode: "Windowed" },
         "SizeBorderless", { Mode: "Borderless" },
-        "SizeHidden",     { Mode: "Hidden" },
-        "SizeMinimized",  { Mode: "Minimized" },
-        "SizeMaximized",  { Mode: "Maximized" },
-        "SizeRestored",   { Mode: "Restored" },
-        "SizeTopmost",    { Mode: "Topmost" },
-        "SizeTool",       { Mode: "ToolWindow" },
-        "SizeLayered",    { Mode: "Layered" },
+        "SizeHidden", { Mode: "Hidden" },
+        "SizeMinimized", { Mode: "Minimized" },
+        "SizeMaximized", { Mode: "Maximized" },
+        "SizeRestored", { Mode: "Restored" },
+        "SizeTopmost", { Mode: "Topmost" },
+        "SizeTool", { Mode: "ToolWindow" },
+        "SizeLayered", { Mode: "Layered" },
         "SizeNoActivate", { Mode: "NoActivate" },
-
         ; --- Standard Resolutions ---
-        "Size640x480",    { Width: 640, Height: 480 },
-        "Size800x600",    { Width: 800, Height: 600 },
-        "Size1024x768",   { Width: 1024, Height: 768 },
-        "Size1280x720",   { Width: 1280, Height: 720 },
-        "Size1366x768",   { Width: 1366, Height: 768 },
-        "Size1600x900",   { Width: 1600, Height: 900 },
-        "Size1920x1080",  { Width: 1920, Height: 1080 },
-        "Size1920x1200",  { Width: 1920, Height: 1200 },
-        "Size1920x1440",  { Width: 1920, Height: 1440 },
-        "Size2048x1152",  { Width: 2048, Height: 1152 },
-        "Size2048x1536",  { Width: 2048, Height: 1536 },
-        "Size2560x1440",  { Width: 2560, Height: 1440 },
-        "Size2560x1600",  { Width: 2560, Height: 1600 },
-        "Size3840x2160",  { Width: 3840, Height: 2160 },
-        "Size7680x4320",  { Width: 7680, Height: 4320 },
-
+        "Size640x480", { Width: 640, Height: 480 },
+        "Size800x600", { Width: 800, Height: 600 },
+        "Size1024x768", { Width: 1024, Height: 768 },
+        "Size1280x720", { Width: 1280, Height: 720 },
+        "Size1366x768", { Width: 1366, Height: 768 },
+        "Size1600x900", { Width: 1600, Height: 900 },
+        "Size1920x1080", { Width: 1920, Height: 1080 },
+        "Size1920x1200", { Width: 1920, Height: 1200 },
+        "Size1920x1440", { Width: 1920, Height: 1440 },
+        "Size2048x1152", { Width: 2048, Height: 1152 },
+        "Size2048x1536", { Width: 2048, Height: 1536 },
+        "Size2560x1440", { Width: 2560, Height: 1440 },
+        "Size2560x1600", { Width: 2560, Height: 1600 },
+        "Size3840x2160", { Width: 3840, Height: 2160 },
+        "Size7680x4320", { Width: 7680, Height: 4320 },
         ; --- 1920x1080 Extended Variants ---
-        "SizeBorderless1920",           { Width: 1920, Height: 1080, Mode: "Borderless" },
-        "SizeBorderlessTopmost1920",    { Width: 1920, Height: 1080, Mode: "Borderless", Topmost: true },
-        "SizeBorderlessTool1920",       { Width: 1920, Height: 1080, Mode: "Borderless", ToolWindow: true },
-        "SizeBorderlessLayered1920",    { Width: 1920, Height: 1080, Mode: "Borderless", Layered: true, NoActivate: true },
-        "SizeFakeFullAll1920",          { Width: 1920, Height: 1080, Mode: "Borderless", Topmost: true, Layered: true, ToolWindow: true, NoActivate: true },
-        "SizeWindowedTopLayered1920",   { Width: 1920, Height: 1080, Mode: "Windowed", Topmost: true, Layered: true },
-
+        "SizeBorderless1920", { Width: 1920, Height: 1080, Mode: "Borderless" },
+        "SizeBorderlessTopmost1920", { Width: 1920, Height: 1080, Mode: "Borderless", Topmost: true },
+        "SizeBorderlessTool1920", { Width: 1920, Height: 1080, Mode: "Borderless", ToolWindow: true },
+        "SizeBorderlessLayered1920", { Width: 1920, Height: 1080, Mode: "Borderless", Layered: true, NoActivate: true },
+        "SizeFakeFullAll1920", { Width: 1920, Height: 1080, Mode: "Borderless", Topmost: true, Layered: true, ToolWindow: true, NoActivate: true },
+        "SizeWindowedTopLayered1920", { Width: 1920, Height: 1080, Mode: "Windowed", Topmost: true, Layered: true },
         ; --- 2560x1440 Extended Variants ---
-        "SizeBorderless2560",           { Width: 2560, Height: 1440, Mode: "Borderless" },
-        "SizeBorderlessTopmost2560",    { Width: 2560, Height: 1440, Mode: "Borderless", Topmost: true },
-        "SizeBorderlessLayered2560",    { Width: 2560, Height: 1440, Mode: "Borderless", Layered: true, NoActivate: true },
-        "SizeFakeFullAll2560",          { Width: 2560, Height: 1440, Mode: "Borderless", Topmost: true, Layered: true, ToolWindow: true, NoActivate: true },
-
+        "SizeBorderless2560", { Width: 2560, Height: 1440, Mode: "Borderless" },
+        "SizeBorderlessTopmost2560", { Width: 2560, Height: 1440, Mode: "Borderless", Topmost: true },
+        "SizeBorderlessLayered2560", { Width: 2560, Height: 1440, Mode: "Borderless", Layered: true, NoActivate: true },
+        "SizeFakeFullAll2560", { Width: 2560, Height: 1440, Mode: "Borderless", Topmost: true, Layered: true, ToolWindow: true, NoActivate: true },
         ; --- Utility & Complex ---
         "SizeFakeFull1920", { Width: 1920, Height: 1080, Mode: "Borderless", Topmost: true },
-        "SizeFitScreen",    { Mode: "FitScreen" },
-        "SizeOverscan",     { Mode: "Overscan" }
+        "SizeFitScreen", { Mode: "FitScreen" },
+        "SizeOverscan", { Mode: "Overscan" }
     )
 
     ; State Tracking
@@ -408,7 +404,7 @@ static Presets := Map(
     static MoveToMonitor(targetMonitorIndex) {
         hwnd := this.GetValidHwnd()
         if !hwnd
-        return
+            return
 
         mon := MonitorHelper.GetMonitorGeometry(targetMonitorIndex)
         if !mon {
@@ -417,13 +413,13 @@ static Presets := Map(
         }
 
         ; Get current window size
-        WinGetPos(,, &w, &h, "ahk_id " hwnd)
+        WinGetPos(, , &w, &h, "ahk_id " hwnd)
 
         ; Center on target monitor
         newX := mon.Left + (mon.Width - w) // 2
         newY := mon.Top + (mon.Height - h) // 2
 
-        WinMove(newX, newY,,, "ahk_id " hwnd)
+        WinMove(newX, newY, , , "ahk_id " hwnd)
 
         ; IMPORTANT: Save this new position so the 'Stabilizer' doesn't
         ; snap it back to the old monitor!
@@ -654,15 +650,15 @@ static Presets := Map(
         }
     }
 
-static ApplyHorizontalOverscan(extraPixels) {
+    static ApplyHorizontalOverscan(extraPixels) {
         hwnd := this.GetValidHwnd()
         if !hwnd
-        return
+            return
 
         monIdx := MonitorHelper.GetMonitorIndexFromWindow(hwnd)
         mon := MonitorHelper.GetMonitorGeometry(monIdx)
         if (!mon)
-        return
+            return
 
         newW := mon.Width + extraPixels
         newH := mon.Height
@@ -676,12 +672,12 @@ static ApplyHorizontalOverscan(extraPixels) {
     static ApplyVerticalOverscan(extraPixels) {
         hwnd := this.GetValidHwnd()
         if !hwnd
-        return
+            return
 
         monIdx := MonitorHelper.GetMonitorIndexFromWindow(hwnd)
         mon := MonitorHelper.GetMonitorGeometry(monIdx)
         if (!mon)
-        return
+            return
 
         WinGetPos(, , &w, , "ahk_id " hwnd)
         newW := w

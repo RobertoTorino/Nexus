@@ -11,8 +11,6 @@
 ; --- DEPENDENCY IMPORTS ---
 ; None
 
-#Requires AutoHotkey v2.0
-
 class SnapshotGallery {
     ; -- State --
     static ImageList := []
@@ -64,11 +62,11 @@ class SnapshotGallery {
         this.WinGui.SetFont("s10 Norm")
 
         ; 1. LANGUAGE BUTTON (New)
-        this.BtnLang  := this.AddTitleBtn(TranslationManager.GetCurrentCode(), (*) => this.CycleLanguage(), "w40")
+        this.BtnLang := this.AddTitleBtn(TranslationManager.GetCurrentCode(), (*) => this.CycleLanguage(), "w40")
 
         ; 2. Standard Buttons
-        this.BtnMin   := this.AddTitleBtn("_", (*) => this.WinGui.Minimize())
-        this.BtnMax   := this.AddTitleBtn("□", (*) => this.ToggleMaximize())
+        this.BtnMin := this.AddTitleBtn("_", (*) => this.WinGui.Minimize())
+        this.BtnMax := this.AddTitleBtn("□", (*) => this.ToggleMaximize())
         this.BtnClose := this.AddTitleBtn("✕", (*) => this.Close(), "cRed")
 
         this.WinGui.SetFont("s12 cSilver")
@@ -78,11 +76,11 @@ class SnapshotGallery {
         this.WinPic.OnEvent("DoubleClick", (*) => this.StartFullscreen())
 
         ; --- BUTTONS ---
-        this.BtnPrev   := this.BtnAddTheme(TranslationManager.T("Previous"),  (*) => this.ShowPrev())
-        this.BtnNext   := this.BtnAddTheme(TranslationManager.T("Next"),      (*) => this.ShowNext())
-        this.BtnSlide  := this.BtnAddTheme(TranslationManager.T("Slideshow"), (*) => this.StartSlideshow())
-        this.BtnBrowse := this.BtnAddTheme(TranslationManager.T("Browse"),    (*) => this.BrowseFolder())
-        this.BtnDelete := this.BtnAddTheme(TranslationManager.T("Delete"),    (*) => this.DeleteCurrentImage())
+        this.BtnPrev := this.BtnAddTheme(TranslationManager.T("Previous"), (*) => this.ShowPrev())
+        this.BtnNext := this.BtnAddTheme(TranslationManager.T("Next"), (*) => this.ShowNext())
+        this.BtnSlide := this.BtnAddTheme(TranslationManager.T("Slideshow"), (*) => this.StartSlideshow())
+        this.BtnBrowse := this.BtnAddTheme(TranslationManager.T("Browse"), (*) => this.BrowseFolder())
+        this.BtnDelete := this.BtnAddTheme(TranslationManager.T("Delete"), (*) => this.DeleteCurrentImage())
 
         ; --- INFO TEXT ---
         this.WinInfo := this.WinGui.Add("Text", "x10 y+10 w800 h135 Background2A2A2A cSilver Left", "")
@@ -135,7 +133,7 @@ class SnapshotGallery {
         currX := 15
 
         MoveBtn := (ctrl) => (
-            ctrl.GetPos(,, &bw, &bh),
+            ctrl.GetPos(, , &bw, &bh),
             ctrl.Move(currX, btnY, bw, btnH),
             currX += bw + gap
         )
@@ -175,7 +173,7 @@ class SnapshotGallery {
         this.UpdateWindowedImage()
 
         ; 5. Trigger Resize to recalculate button widths for new text length
-        this.WinGui.GetPos(,, &w, &h)
+        this.WinGui.GetPos(, , &w, &h)
         this.OnWinResize(0, w, h)
     }
 
@@ -241,7 +239,7 @@ class SnapshotGallery {
         return btn
     }
 
-static BtnAddTheme(label, callback) {
+    static BtnAddTheme(label, callback) {
         ; [FIX] Increased multiplier from 11 to 12 and added +15 padding
         ; This prevents text overlap in longer words like "Slideshow"
         tLen := StrLen(label) * 12
@@ -372,7 +370,7 @@ static BtnAddTheme(label, callback) {
         }
     }
 
-; ---- SLIDESHOW & FULLSCREEN ----
+    ; ---- SLIDESHOW & FULLSCREEN ----
 
     ; 1. StartFullscreen now accepts a flag "autoDetect"
     static StartFullscreen(autoDetect := true) {
@@ -468,10 +466,10 @@ static BtnAddTheme(label, callback) {
     static RecycleSilently(path) {
         strBuf := Buffer(StrPut(path, "UTF-16") + 2, 0)
         StrPut(path, strBuf, "UTF-16")
-        shOp := Buffer((A_PtrSize=8?56:32), 0)
-        NumPut("UInt", 3, shOp, (A_PtrSize=8?8:4))
-        NumPut("Ptr", strBuf.Ptr, shOp, (A_PtrSize=8?16:8))
-        NumPut("UShort", 0x54, shOp, (A_PtrSize=8?32:16))
+        shOp := Buffer((A_PtrSize = 8 ? 56 : 32), 0)
+        NumPut("UInt", 3, shOp, (A_PtrSize = 8 ? 8 : 4))
+        NumPut("Ptr", strBuf.Ptr, shOp, (A_PtrSize = 8 ? 16 : 8))
+        NumPut("UShort", 0x54, shOp, (A_PtrSize = 8 ? 32 : 16))
         DllCall("shell32\SHFileOperation", "Ptr", shOp)
     }
 
@@ -496,7 +494,7 @@ static BtnAddTheme(label, callback) {
     }
     static GetMonitorFromHwnd(hwnd) {
         WinGetPos(&x, &y, &w, &h, "ahk_id " hwnd)
-        cX := x + (w//2), cY := y + (h//2)
+        cX := x + (w // 2), cY := y + (h // 2)
         loop MonitorGetCount() {
             MonitorGet(A_Index, &L, &T, &R, &B)
             if (cX >= L && cX < R && cY >= T && cY < B)

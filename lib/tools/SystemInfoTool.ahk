@@ -33,31 +33,31 @@ class SystemInfoTool {
         WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
         this.MainGui.BackColor := "2A2A2A"
-        this.MainGui.SetFont("s10 cWhite", "Segoe UI")
+        this.MainGui.SetFont("s12 cSilver", "Segoe UI")
 
         this.MainGui.OnEvent("Close", (*) => this.Close())
 
         ; --- CUSTOM TITLE BAR ---
         ; Title Text (Handles Dragging)
-        this.MainGui.Add("Text", "x0 y0 w540 h30 +0x200 Background2A2A2A", "  Nexus :: System Information")
+        this.MainGui.Add("Text", "x0 y0 w580 h30 +0x200 Background2A2A2A", "  Nexus :: System Information")
             .OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
 
         ; Close Button (X)
-        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cWhite", "✕")
+        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕")
             .OnEvent("Click", (*) => this.Close())
 
         ; --- LISTVIEW (Fixed Size) ---
         ; y30 = Below Title Bar
         ; h330 = Leaves 40px at bottom for buttons
-        this.ListCtrl := this.MainGui.Add("ListView", "x5 y30 w560 h240 AltSubmit -Hdr -Multi Background2A2A2A cWhite", ["Property", "Value"])
-        this.ListCtrl.ModifyCol(1, 140) ; Property Width
-        this.ListCtrl.ModifyCol(2, 410) ; Value Width
+        this.ListCtrl := this.MainGui.Add("ListView", "x5 y30 w600 h300 AltSubmit -Hdr -Multi Background2A2A2A cSilver", ["Property", "Value"])
+        this.ListCtrl.ModifyCol(1, 150) ; Property Width
+        this.ListCtrl.ModifyCol(2, 445) ; Value Width
 
         ; --- BUTTONS (Fixed Position) ---
-        this.BtnCopy := this.BtnAddTheme("  Copy All  ", (*) => this.CopyToClipboard(), "x5 y280")
+        this.BtnCopy := this.BtnAddTheme("  Copy All  ", (*) => this.CopyToClipboard(), "x5 y340")
         this.BtnRefresh := this.BtnAddTheme("  Refresh  ", (*) => this.LoadInfo(), "x+5 yp")
 
-        this.MainGui.Show("w570 h315")
+        this.MainGui.Show("w610 h375")
         this.LoadInfo()
     }
 

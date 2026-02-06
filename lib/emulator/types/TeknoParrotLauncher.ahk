@@ -140,7 +140,7 @@ class TeknoParrotLauncher extends EmulatorBase {
 
             return info
         } catch {
-             return { Exe: "", Path: "", EmuType: "" }
+            return { Exe: "", Path: "", EmuType: "" }
         }
     }
 

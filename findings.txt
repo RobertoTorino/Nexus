@@ -1,1 +1,4 @@
 Voicemeeter optional
+
+
+AutoHotkeyUX.exe" /Validate "C:\_repositories\Nexus\Nexus.ahk"

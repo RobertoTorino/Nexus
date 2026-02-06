@@ -13,16 +13,16 @@
 
 class VivaNonnoLauncher extends EmulatorBase {
     Launch(gameMap) {
-            ; --- MAP FIX ---
-            game := {}
-            if (Type(gameMap) == "Map") {
-                for k, v in gameMap
-                    game.%k% := v
-            } else {
-                game := gameMap
-            }
-            
-            this.GameId := game.Id 
+        ; --- MAP FIX ---
+        game := {}
+        if (Type(gameMap) == "Map") {
+            for k, v in gameMap
+                game.%k% := v
+        } else {
+            game := gameMap
+        }
+
+        this.GameId := game.Id
 
         emuPath := this.GetEmulatorPath("VIVANONNO_PATH", "VivaNonnoPath")
         if !emuPath

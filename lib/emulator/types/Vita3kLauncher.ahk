@@ -104,7 +104,7 @@ class Vita3kLauncher extends EmulatorBase {
                 ; Fallback: If window wait fails, track the PID we got from Run
                 this.Pid := outPid
                 if (outPid > 0)
-                     this.TrackProcess(outPid, emuPath, this.GameId)
+                    this.TrackProcess(outPid, emuPath, this.GameId)
                 return true
             }
 

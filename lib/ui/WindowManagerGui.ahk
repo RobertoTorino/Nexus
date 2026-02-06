@@ -525,7 +525,7 @@ class WindowManagerGui {
     }
 
     ; --- INSERT THIS AT THE BOTTOM OF YOUR CLASS ---
-static OnMouseMove(wParam, lParam, msg, hwnd) {
+    static OnMouseMove(wParam, lParam, msg, hwnd) {
         ; --- SAFETY GUARD ---
         ; If the main GUI variable is a String (e.g., ""), unset, or not an object, stop immediately.
         if (!WindowManagerGui.HasProp("WinGui") || !IsObject(WindowManagerGui.WinGui))

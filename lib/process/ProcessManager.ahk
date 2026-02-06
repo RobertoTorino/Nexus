@@ -77,7 +77,7 @@ class ProcessManager {
         kbScript := this.GetProcessMemoryKB(ProcessExist())
         if (kbScript >= 0) {
             mbScript := Round(kbScript / 1024, 1)
-            percScript := (mem.HasOwnProp("total")) ? Round((kbScript / mem.total) * 100, 1) : "0"
+            percScript := (mem.HasOwnProp("total") && mem.total > 0) ? Round((kbScript / mem.total) * 100, 2) : "0"
             msg .= " | APP: " mbScript "MB (" percScript "%)"
         } else {
             msg .= " | APP: no-data"
@@ -92,19 +92,22 @@ class ProcessManager {
 
                 if (kbGame > 0) {
                     mbGame := Round(kbGame / 1024, 1)
+
+                    ; [FIX] Calculate Game Percentage
+                    percGame := (mem.HasOwnProp("total") && mem.total > 0) ? Round((kbGame / mem.total) * 100, 1) : "0"
+
                     if (mbGame > this.PeakRAM)
                         this.PeakRAM := mbGame
 
-                    msg .= " | GAME: " mbGame "MB (Peak: " this.PeakRAM "MB)"
+                    ; [FIX] Add Percentage to display
+                    msg .= " | GAME: " mbGame "MB (" percGame "%) [PEAK: " this.PeakRAM "MB]"
                 } else {
                     msg .= " | GAME: no-data (" actualName ")"
                 }
             } else {
-                ; The game name is set, but not running yet -> SHOW WAITING
                 msg .= " | GAME: " gameExeName " [waiting]"
             }
         } else {
-            ; No game selected or set
             msg .= " | GAME: waiting"
         }
 
@@ -131,13 +134,13 @@ class ProcessManager {
         if !hProcess
             return -1
 
-        pm := Buffer((A_PtrSize=8)?72:40, 0)
+        pm := Buffer((A_PtrSize = 8) ? 72 : 40, 0)
         NumPut("UInt", pm.Size, pm, 0)
         if !DllCall("psapi\GetProcessMemoryInfo", "ptr", hProcess, "ptr", pm, "uint", pm.Size) {
             DllCall("CloseHandle", "ptr", hProcess)
             return -1
         }
-        res := Round(NumGet(pm, (A_PtrSize=8)?16:8, "UPtr") / 1024)
+        res := Round(NumGet(pm, (A_PtrSize = 8) ? 16 : 8, "UPtr") / 1024)
         DllCall("CloseHandle", "ptr", hProcess)
         return res
     }

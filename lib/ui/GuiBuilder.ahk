@@ -18,6 +18,8 @@
 #Include ..\config\TeknoParrotManager.ahk
 #Include ..\emulator\LauncherFactory.ahk
 #Include ..\emulator\types\StandardLauncher.ahk
+#Include ..\input\ControllerManager.ahk
+#Include ..\input\GamepadTester.ahk
 #Include ..\media\SnapshotGallery.ahk
 #Include ..\media\MusicPlayer.ahk
 #Include ..\media\VideoPlayer.ahk
@@ -35,6 +37,8 @@
 class GuiBuilder {
     static MainGui := ""
     static UseIcons := true
+
+    static LastPadPress := 0
 
     ; --- [HELPER] Translation Wrappers ---
     static T(text) => TranslationManager.T(text)
@@ -203,7 +207,7 @@ class GuiBuilder {
         this.GameSelector := this.MainGui.Add("Edit", "xp+3 yp+2 w447 h22 Background02A2A2A -E0x200 +ReadOnly -VScroll Center", "")
 
         ; 3. Arrow
-        this.MainGui.SetFont("s18", "Segoe UI")
+        this.MainGui.SetFont("s14", "Segoe UI")
         this.MainGui.Add("Text", "x+2 yp-1 w40 h33 cSilver Background333333 +0x200 +Center", "▼")
         this.MainGui.SetFont("s12", "Segoe UI")
         ; 4. Overlay
@@ -215,10 +219,9 @@ class GuiBuilder {
         this.AddNavBtn(" 🔘 ", (*) => CaptureManager.TakeSnapshot(false), "xp+447 yp +0x200 +Center Background333333 h35 " btnW)
 
         ; Burst Input
-       this.MainGui.Add("Text", "yp w42 h35 x+10 Border Background333333", "")
-       this.BurstInput := this.MainGui.Add("Edit", "xp+1 yp+5 h29 w40 Number Center -E0x200 -Border Limit2 Background333333 cWhite", "5")
-       this.BtnBurstStart := this.AddNavBtn("  ▶️ ", (*) => this.OnBurstSnap(), "x+10 yp-5 Background333333 h35 " btnW)
-
+        this.MainGui.Add("Text", "yp w42 h35 x+10 Border Background333333", "")
+        this.BurstInput := this.MainGui.Add("Edit", "xp+1 yp+5 h29 w40 Number Center -E0x200 -Border Limit2 Background333333 cSilver", "5")
+        this.BtnBurstStart := this.AddNavBtn("  ▶️ ", (*) => this.OnBurstSnap(), "x+10 yp-5 Background333333 h35 " btnW)
 
         ; --- ROW 3 ---
         ; 1. Audio/Video/Icon Manager
@@ -258,7 +261,7 @@ class GuiBuilder {
 
         ; 4. "GPU" Label -> ALWAYS s12
         this.MainGui.SetFont("s12", "Segoe UI")
-        this.AddNavBtn("  GPU  ", (*) => ProcessManager.OpenOverclock(), "x+10 yp Background333333")
+        this.AddNavBtn("  GPU  ", (*) => true, "x+10 yp Background333333")
 
         ; --- START ADVANCED SECTION ---
         ; [TRICK] The "State Swap"
@@ -290,6 +293,10 @@ class GuiBuilder {
 
         ; --- ROW 2 ---
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("RPCS3 Audio Fix") "  ", (*) => AudioManager.ShowGui(), "x5 y+10" . cAdv))
+
+        ; Example inside GuiBuilder Create method's Advanced section:
+        this.AdvancedControls.Push(this.AddNavBtn(" Pad Test  ", (*) => GamepadTester.Show(), "x+10" . cAdv))
+
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Hash Calc / Validator") "  ", (*) => FileValidatorTool.Show(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Purge Logs") "  ", (*) => this.OnClearLogs(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Wipe Full List") "  ", (*) => this.OnClearAllGames(), "x+10" . cAdv))
@@ -341,6 +348,10 @@ class GuiBuilder {
             this.RefreshTopPlayed()
         if (HasProp(this, "UpdateTitle"))
             this.UpdateTitle()
+
+        ; Route controller input to the shared ControllerManager so we don't bind
+        ; to a non-existent GuiBuilder method (previous timer caused runtime error).
+        ControllerManager.Init(this.MainGui.Hwnd)
 
         loadTime := A_TickCount - loadStart
         Logger.Info("Main GUI loaded in " . loadTime . " ms", "GuiBuilder")
@@ -435,52 +446,45 @@ class GuiBuilder {
         }
     }
 
-static UpdateStatusBar() {
-        global CurrentLauncher, SessionStartTick
-        if !this.MainGui
+    static UpdateStatusBar() {
+        if !this.MainGui || !this.StatusText
             return
 
-        ; 1. END SESSION CHECK
-        if (IsSet(CurrentLauncher) && IsObject(CurrentLauncher) && CurrentLauncher.HasProp("Pid") && CurrentLauncher.Pid > 0 && !ProcessExist(CurrentLauncher.Pid)) {
-            if (SessionStartTick > 0) {
-                ConfigManager.AddPlayTime(ConfigManager.CurrentGameId, Round((A_TickCount - SessionStartTick) / 1000))
-                SessionStartTick := 0
+        ; 1. Check if a game is supposedly running
+        procName := ConfigManager.ActiveProcessName
+
+        if (procName != "" && ProcessExist(procName)) {
+            ; --- GAME IS RUNNING ---
+
+            ; Add 1 second to stats (This makes the stats live!)
+            if (ConfigManager.CurrentGameId != "")
+                ConfigManager.AddPlayTime(ConfigManager.CurrentGameId, 1)
+
+            try {
+                if (this.StatusText) {
+                    stats := ProcessManager.GetMonitorText(procName)
+                    this.StatusText.Text := stats
+                }
             }
-            this.RefreshTopPlayed()
-            report := ProcessManager.EndSession()
-            if (report != "")
-                DialogsGui.CustomMsgBox("Session Ended", report)
-            CurrentLauncher := ""
-        }
+        } else {
+            ; --- GAME STOPPED (OR NOT RUNNING) ---
 
-        ; 2. DETERMINE TARGET
-        target := ""
+            ; If we THOUGHT it was running, but now it's gone -> End Session
+            if (ConfigManager.ActiveProcessName != "") {
+                report := ProcessManager.EndSession()
+                if (report != "")
+                    DialogsGui.CustomStatusPop("Session Ended`n" . report)
 
-        ; A. Active Game (PID)
-        if (IsSet(CurrentLauncher) && IsObject(CurrentLauncher) && CurrentLauncher.HasProp("Pid") && CurrentLauncher.Pid > 0) {
-            target := CurrentLauncher.Pid
-        }
+                ConfigManager.ActiveProcessName := "" ; Clear it so we don't trigger this again
+                this.ClearGameGroup()
+                this.RefreshTopPlayed() ; Update the UI immediately
+            }
 
-        ; B. Inactive/Selected Game (Name)
-        if (target == "") {
-            game := ConfigManager.GetCurrentGame()
-            if (game) {
-                 ; Get Executable Name or File Name
-                 if (Type(game) == "Map")
-                     target := game.Has("GameApplication") ? game["GameApplication"] : ""
-                 else
-                     target := HasProp(game, "GameApplication") ? game.GameApplication : ""
-
-                 ; If it's a full path "C:\Emu\Dolphin.exe", strip it to just "Dolphin.exe" for cleaner UI
-                 if (target != "")
-                    SplitPath(target, &target)
+            try {
+                if (this.StatusText)
+                    this.StatusText.Text := ProcessManager.GetMonitorText() ; Show System Stats only
             }
         }
-
-        ; 3. UPDATE UI
-        ; This now sends "Dolphin.exe" to ProcessManager, which will return "Dolphin.exe [waiting]"
-        stats := ProcessManager.GetMonitorText(target)
-        this.StatusText.Text := stats
     }
 
     ; --- [HANDLERS] ---
@@ -548,49 +552,51 @@ static UpdateStatusBar() {
         return btn
     }
 
-static RefreshTopPlayed() {
-        if !this.StatsHeader
-            return
-
-        ; 1. Refresh Counters
+    static RefreshTopPlayed() {
         this.CachedGameCount := ConfigManager.Games.Count
         this.CachedTotalTime := ConfigManager.GetTotalLibraryTime()
 
-        ; 2. Get Top 2 Games
         topList := ConfigManager.GetTopGames(2)
         topLine := ""
 
         if (topList.Length == 0) {
-            topLine := "None"
+            topLine .= "None"
         } else {
             for index, game in topList {
-                ; A. Get Name safely
+                ; Safe Name Access
                 safeName := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
 
-                ; B. [FIX] Read RAW SECONDS (PlayTime), ignore the stale 'PlayTimeReadable'
-                rawSeconds := 0
+                ; Safe Time Access (Prefer Readable, Fallback to Calculation)
+                timeStr := "0s"
+
+                ; Try to get the pre-calculated string
                 if (Type(game) == "Map")
-                    rawSeconds := game.Has("PlayTime") ? game["PlayTime"] : 0
+                    timeStr := (game.Has("PlayTimeReadable") ? game["PlayTimeReadable"] : "")
                 else
-                    rawSeconds := HasProp(game, "PlayTime") ? game.PlayTime : 0
+                    timeStr := (HasProp(game, "PlayTimeReadable") ? game.PlayTimeReadable : "")
 
-                ; C. [FIX] Format the string Live
-                timeStr := ""
-                if (rawSeconds >= 3600)
-                    timeStr := Round(rawSeconds / 3600, 1) "h"
-                else
-                    timeStr := Round(rawSeconds / 60, 0) "m"
+                ; [SAFETY] If string is empty or stale, calculate it manually from raw seconds
+                if (timeStr == "" || timeStr == "0s") {
+                    rawSeconds := (Type(game) == "Map") ? (game.Has("PlayTime") ? game["PlayTime"] : 0) : (HasProp(game, "PlayTime") ? game.PlayTime : 0)
+                    if (rawSeconds > 0) {
+                        timeStr := (rawSeconds >= 3600)
+                            ? Round(rawSeconds / 3600, 1) "h"
+                            : Round(rawSeconds / 60, 0) "m"
+                    }
+                }
 
-                ; D. Build the line
                 topLine .= index . ". " . safeName . " (" . timeStr . ")  "
-
                 if (index < topList.Length)
                     topLine .= "| "
             }
         }
 
-        ; 3. Push to UI
-        this.StatsHeader.Text := topLine
+        if (this.StatsHeader)
+            this.StatsHeader.Text := topLine
+
+        ; [ADDED] Also update title bar while we are here
+        if (HasProp(this, "UpdateTitle"))
+            this.UpdateTitle()
     }
 
     static SelectLastPlayed() {
@@ -645,7 +651,7 @@ static RefreshTopPlayed() {
         this.GameSelector.Value := nameToDisplay
     }
 
-static OnGameChanged(ctrl, *) {
+    static OnGameChanged(ctrl, *) {
         ; 1. Get the name from the text box
         selectedName := Trim(ctrl.Value) ; [FIX] Trim spaces to ensure match
 
@@ -705,10 +711,7 @@ static OnGameChanged(ctrl, *) {
         }
     }
 
-static OnStartAction() {
-        ; [FIX] Import the global variable so we can update it for the Status Bar
-        global CurrentLauncher
-
+    static OnStartAction() {
         if (ConfigManager.CurrentGameId == "") {
             DialogsGui.CustomStatusPop("No game selected")
             return
@@ -718,7 +721,7 @@ static OnStartAction() {
         if (!rawGameData)
             return
 
-        ; Map/Object Universal Adapter
+        ; Universal Adapter (Map -> Object)
         game := {}
         if (Type(rawGameData) = "Map") {
             for key, value in rawGameData {
@@ -732,7 +735,7 @@ static OnStartAction() {
         this.SetBtnHighlight(this.BtnStart, true)
 
         launcherType := HasProp(game, "LauncherType") ? game.LauncherType : "Standard"
-        savedName    := HasProp(game, "SavedName")    ? game.SavedName    : "Unknown Game"
+        savedName := HasProp(game, "SavedName") ? game.SavedName : "Unknown Game"
 
         try {
             launcherInstance := LauncherFactory.GetLauncher(launcherType)
@@ -740,14 +743,20 @@ static OnStartAction() {
 
             if (launcherInstance.Launch(game)) {
 
-                ; [CRITICAL FIX] Tell the rest of the app THIS is the active launcher!
-                CurrentLauncher := launcherInstance
+                ; --- [CRITICAL RESTORATION] ---
+                ; We must set this so UpdateStatusBar knows what to monitor!
+                ; We try to get the PID or ExeName from the launcher.
+                if (launcherInstance.HasProp("Pid") && launcherInstance.Pid > 0) {
+                    ConfigManager.ActiveProcessName := launcherInstance.Pid
+                } else {
+                    ; Fallback to ExeName if PID isn't available
+                    ConfigManager.ActiveProcessName := HasProp(launcherInstance, "ExeName") ? launcherInstance.ExeName : ""
+                }
 
                 ProcessManager.StartSession(savedName)
                 ConfigManager.UpdateLastPlayed(ConfigManager.CurrentGameId)
                 this.UpdateButtonState()
 
-                Logger.Info("Launch sequence completed successfully.", "GuiBuilder")
             } else {
                 DialogsGui.CustomStatusPop("Launch Failed")
             }
@@ -768,6 +777,7 @@ static OnStartAction() {
 
     static OnKillGame(resetUI := true) {
         targetExe := ConfigManager.ActiveProcessName
+
         if (targetExe != "") {
             if IsSet(Logger)
                 Logger.Info("Terminating: " . targetExe, "GuiBuilder")
@@ -945,8 +955,13 @@ static OnStartAction() {
         }
         this.SetBtnHighlight(this.BtnCpu[index], true)
         try {
-            ProcessManager.SetPriority(priorityName)
-            DialogsGui.CustomStatusPop("CPU: " . priorityName)
+            procName := ConfigManager.ActiveProcessName
+            if (procName != "" && ProcessExist(procName)) {
+                ProcessSetPriority(priorityName, procName)
+                DialogsGui.CustomStatusPop("CPU: " . priorityName)
+            } else {
+                DialogsGui.CustomStatusPop("No active game process")
+            }
         } catch {
             DialogsGui.CustomStatusPop("Failed to set CPU priority")
         }
