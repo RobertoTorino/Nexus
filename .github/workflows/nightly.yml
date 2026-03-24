@@ -1,0 +1,210 @@
+name: Nightly / Beta Build
+
+on:
+  push:
+    tags:
+      - 'test-v*'   # Manual beta tags (e.g. test-v1.2.3)
+    branches:
+      - dev         # Auto-nightly on every push to dev
+  workflow_dispatch:  # Manual trigger from GitHub Actions UI
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write      # Required for SLSA provenance
+      attestations: write  # Required for SLSA provenance
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+        with:
+          lfs: true
+
+      - name: Import GPG Public Key
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: pwsh
+        run: |
+          $key = "${{ secrets.GPG_PUBLIC_KEY }}"
+          if (-not $key) { throw "GPG_PUBLIC_KEY secret is not set." }
+          $key | gpg --import
+          gpg --list-keys
+
+      - name: Verify GPG Tag Signature
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: pwsh
+        run: |
+          git verify-tag "${{ github.ref_name }}"
+          Write-Host ":: GPG signature verified for tag ${{ github.ref_name }}"
+
+      - name: Set up PowerShell
+        shell: pwsh
+        run: echo "Using PowerShell $PSVersionTable.PSVersion"
+
+      - name: Compile and Package
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $root = $env:GITHUB_WORKSPACE
+
+          # --- VERSIONING ---
+          # Tag push: test-v1.2.3 -> version = "1.2.3.0", label = "test-v1.2.3"
+          # Branch/manual push: version = nightly-YYYYMMDD-HHMM
+          $refName = "${{ github.ref_name }}"
+          $isBetaTag = $refName -match '^test-v'
+
+          if ($isBetaTag) {
+            $rawVersion = $refName -replace '^test-v', ''
+            while ($rawVersion.Split('.').Count -lt 4) { $rawVersion += ".0" }
+            $version = $rawVersion
+            $buildLabel = $refName
+          } else {
+            $version = "0.0.0.0"
+            $buildLabel = "nightly-$(Get-Date -Format 'yyyyMMdd-HHmm')"
+          }
+
+          Write-Host ":: Build label : $buildLabel"
+          Write-Host ":: File version: $version"
+
+          # --- INJECT VERSION INTO Nexus.ahk ---
+          $scriptPath = Join-Path $root "Nexus.ahk"
+          $content = Get-Content $scriptPath -Raw
+          $content = $content -replace ';@Ahk2Exe-SetFileVersion\s+.*',    ";@Ahk2Exe-SetFileVersion  $version"
+          $content = $content -replace ';@Ahk2Exe-SetProductVersion\s+.*', ";@Ahk2Exe-SetProductVersion $version"
+          Set-Content -Path $scriptPath -Value $content
+
+          function Resolve-FirstExistingPath([string[]]$Candidates, [string]$Label) {
+            foreach ($candidate in $Candidates) {
+              if (Test-Path $candidate) { return (Resolve-Path $candidate).Path }
+            }
+            throw "$Label not found. Checked: $($Candidates -join '; ')"
+          }
+
+          function Resolve-OptionalPath([string[]]$Candidates) {
+            foreach ($candidate in $Candidates) {
+              if (Test-Path $candidate) { return (Resolve-Path $candidate).Path }
+            }
+            return ""
+          }
+
+          # --- BOOTSTRAP AHK2EXE IF NEEDED ---
+          $repoAhkExe      = Join-Path $root "ahk_v2\AutoHotkey64.exe"
+          $repoAhkInstaller= Join-Path $root "ahk_v2\UX\install-ahk2exe.ahk"
+          $repoAhkCompiler = Join-Path $root "ahk_v2\Compiler\Ahk2Exe.exe"
+
+          if (-not (Test-Path $repoAhkCompiler) -and (Test-Path $repoAhkExe) -and (Test-Path $repoAhkInstaller)) {
+            Write-Host ":: Bootstrapping Ahk2Exe from ahk_v2..."
+            $bootstrap = Start-Process -FilePath $repoAhkExe -ArgumentList "`"$repoAhkInstaller`" /Y" -Wait -PassThru -NoNewWindow
+            if ($bootstrap.ExitCode -ne 0) { Write-Warning "Ahk2Exe bootstrap exited with code $($bootstrap.ExitCode)." }
+          }
+
+          # --- PATHS ---
+          $compilerCandidates = @(
+            (Join-Path $root "ahk_v2\Compiler\Ahk2Exe.exe"),
+            (Join-Path $root "ahk\Compiler\Ahk2Exe.exe"),
+            "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe",
+            "C:\Program Files\AutoHotkey\v2\Compiler\Ahk2Exe.exe"
+          )
+
+          $baseCandidates = @(
+            (Join-Path $root "ahk_v2\v2\AutoHotkey64.exe"),
+            (Join-Path $root "ahk_v2\AutoHotkey64.exe"),
+            (Join-Path $root "ahk_v2\AutoHotkey32.exe"),
+            (Join-Path $root "ahk\Compiler\Unicode-64-bit.bin"),
+            (Join-Path $root "ahk_v2\Compiler\Unicode-64-bit.bin"),
+            "C:\Program Files\AutoHotkey\Compiler\Unicode 64-bit.bin",
+            "C:\Program Files\AutoHotkey\v2\Compiler\Unicode 64-bit.bin"
+          )
+
+          $iconCandidates = @(
+            (Join-Path $root "game-configs\artwork\nexus.ico"),
+            (Join-Path $root "game-configs\nexus.ico"),
+            (Join-Path $root "graphics\artwork\nexus.ico"),
+            (Join-Path $root "media\nexus.ico")
+          )
+
+          $compiler = Resolve-FirstExistingPath -Candidates $compilerCandidates -Label "Ahk2Exe compiler"
+          $baseBin  = Resolve-FirstExistingPath -Candidates $baseCandidates     -Label "AutoHotkey base binary"
+          $icon     = Resolve-OptionalPath      -Candidates $iconCandidates
+
+          Write-Host ":: Compiler: $compiler"
+          Write-Host ":: Base    : $baseBin"
+          if ($icon) { Write-Host ":: Icon    : $icon" } else { Write-Host ":: Icon    : none (default)" }
+
+          $output = Join-Path $root "Nexus.exe"
+
+          # --- COMPILE ---
+          Write-Host ":: Compiling..."
+          $argList = "/in `"$scriptPath`" /out `"$output`" /base `"$baseBin`" /silent"
+          if ($icon) { $argList += " /icon `"$icon`"" }
+
+          $cmd = Start-Process -FilePath $compiler -ArgumentList $argList -NoNewWindow -PassThru -Wait
+          if ($cmd.ExitCode -ne 0) { throw "Compilation failed!" }
+
+          # --- STAGING ---
+          $stagingName = "Nexus-$buildLabel"
+          $stagingDir  = Join-Path $root "build_staging\$stagingName"
+          New-Item -ItemType Directory -Path $stagingDir -Force | Out-Null
+
+          # --- COPY ARTIFACTS ---
+          Move-Item $output -Destination (Join-Path $stagingDir "Nexus-$buildLabel.exe") -Force
+
+          # Copy Dependencies
+          $foldersToCopy = @("core", "game-configs", "data", "tools", "music")
+          foreach ($dir in $foldersToCopy) {
+            $src = Join-Path $root $dir
+            if (Test-Path $src) { Copy-Item $src -Destination $stagingDir -Recurse -Force }
+          }
+
+          # Strip build-time-only artwork folder
+          $artworkDir = Join-Path $stagingDir "game-configs\artwork"
+          if (Test-Path $artworkDir) { Remove-Item $artworkDir -Recurse -Force }
+
+          # Runtime output folder (empty)
+          New-Item -ItemType Directory -Path (Join-Path $stagingDir "media") -Force | Out-Null
+
+          $filesToCopy = @("README.md", "readme.txt", "LICENSE", "nexus.db", "sqlite3.dll", "verify-nexus.ps1")
+          foreach ($file in $filesToCopy) {
+            $src = Join-Path $root $file
+            if (Test-Path $src) { Copy-Item $src -Destination $stagingDir -Force }
+          }
+
+          # Clean shipped config files — beta template has BetaAuthEnabled=1
+          Set-Content -Path (Join-Path $stagingDir "nexus.json") -Value "{}" -Encoding UTF8
+          Copy-Item (Join-Path $root "nexus.beta.template.ini") -Destination (Join-Path $stagingDir "nexus.ini") -Force
+
+          # --- HASH ---
+          $exePath  = Join-Path $stagingDir "Nexus-$buildLabel.exe"
+          $hash     = (Get-FileHash $exePath -Algorithm SHA256).Hash.ToUpper()
+          $hashLine = "$hash  Nexus-$buildLabel.exe"
+          $sha256InStaging = Join-Path $stagingDir "Nexus.sha256"
+          $sha256InRoot    = Join-Path $root "Nexus-$buildLabel.sha256"
+          Set-Content -Path $sha256InStaging -Value $hashLine -Encoding UTF8
+          Copy-Item $sha256InStaging -Destination $sha256InRoot -Force
+          Write-Host ":: SHA256: $hash"
+
+          # --- ZIP ---
+          $zipName = "Nexus-$buildLabel.zip"
+          $zipPath = Join-Path $root $zipName
+          Compress-Archive -Path "$stagingDir\*" -DestinationPath $zipPath -Force
+
+      - name: Create GitHub Pre-Release
+        id: release
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b  # v2
+        with:
+          tag_name: ${{ github.ref_name == 'dev' && format('nightly-{0}', github.run_number) || github.ref_name }}
+          name: ${{ github.ref_name == 'dev' && format('Nightly #{0}', github.run_number) || github.ref_name }}
+          body: "**Beta / Nightly build** — use at your own risk.\n\nDownload and extract the ZIP before running Nexus.exe.\nVerify the SHA256 checksum with the included `_verify-nexus.ps1` or the standalone `.sha256` file."
+          files: |
+            Nexus-*.zip
+            Nexus-*.sha256
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate SLSA Provenance
+        uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be  # v2
+        with:
+          subject-path: Nexus-*.zip

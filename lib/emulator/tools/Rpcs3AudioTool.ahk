@@ -80,7 +80,7 @@ class Rpcs3AudioTool {
             if (replaced) {
                 FileDelete(configPath)
                 FileAppend(newContent, configPath)
-                Logger.Info("RPCS3 Audio Device set to: " deviceName, this.__Class)
+                Logger.Info("RPCS3 Audio Device set to: " deviceName)
                 return true
             } else {
                 Logger.Warn("Could not find 'Audio Device' key in config.yml. Is it a fresh install?")

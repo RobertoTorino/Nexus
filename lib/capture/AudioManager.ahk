@@ -40,7 +40,7 @@ class AudioManager {
             DllCall("LoadLibrary", "Str", this.VmDllPath, "Ptr")
             if (DllCall(this.VmDllPath "\VBVMR_Login", "Int") == 0) {
                 this.IsConnected := true
-                Logger.Info("Audio Manager Connected", this.__Class)
+                Logger.Info("Audio Manager Connected")
                 return true
             }
         } catch as err {
@@ -186,7 +186,7 @@ class AudioManager {
 
         Sleep(250)
         this.RestartEngineSoft()
-        Logger.Info("Audio Output " label " switched to: " deviceName, this.__Class)
+        Logger.Info("Audio Output " label " switched to: " deviceName)
     }
 
     static ClearHardwareOutput(busIndex, label) {
@@ -204,7 +204,7 @@ class AudioManager {
         this.RestartEngineSoft()
 
         DialogsGui.CustomTrayTip("Output " label " Cleared", 1)
-        Logger.Info("Audio Output " label " disconnected.", this.__Class)
+        Logger.Info("Audio Output " label " disconnected.")
     }
 
     static LoadSavedHardware(dropdown, iniKey) {

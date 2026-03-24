@@ -9,7 +9,7 @@
 ; ======================================================================
 
 ; --- DEPENDENCY IMPORTS ---
-; None
+#Include WindowManagerGui.ahk
 
 class LoggerGui {
     static MainGui := ""

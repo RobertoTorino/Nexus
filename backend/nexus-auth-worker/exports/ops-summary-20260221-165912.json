@@ -1,0 +1,21 @@
+﻿{
+    "generated_utc":  "2026-02-21T15:59:21Z",
+    "database":  "nexus-beta",
+    "d1_target":  "remote",
+    "lockout_status":  {
+                           "invites_active":  0,
+                           "devices_active":  0,
+                           "refresh_tokens_active":  0,
+                           "fully_locked_down":  true
+                       },
+    "counters":  {
+                     "active_invites":  0,
+                     "revoked_invites":  0,
+                     "active_devices":  0,
+                     "revoked_devices":  0,
+                     "active_refresh_tokens":  0,
+                     "revoked_refresh_tokens":  0
+                 },
+    "active_invites_exported":  true,
+    "active_invites_export_path":  "C:\\_repositories\\Nexus\\backend\\nexus-auth-worker\\exports\\active-invites-daily-20260221-165912.csv"
+}

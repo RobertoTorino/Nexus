@@ -100,8 +100,24 @@ class GameRegistrarManager {
             }
         }
 
-        ; --- RPCS3 DETECTION ---
-        Logger.Info("EBOOT detected, requesting RPCS3 Build choice.", "GameRegistrarManager")
+        ; --- PS3 vs PS4 DETECTION ---
+        Logger.Info("EBOOT detected, requesting platform choice.", "GameRegistrarManager")
+        platform := DialogsGui.AskForChoice("Select Platform", "Which console is this game for?",
+            ["PS3  (RPCS3)", "PS4  (shadPS4)"])
+
+        if (platform == "") {
+            Logger.Warn("Platform selection cancelled.", "GameRegistrarManager")
+            return false
+        }
+
+        ; --- PS4 / SHADPS4 ---
+        if (InStr(platform, "PS4")) {
+            Logger.Info("PS4 selected. Routing to shadPS4.", "GameRegistrarManager")
+            return this.ConfigureEmulator(config, "SHADPS4", "SHADPS4_PATH", "ShadPs4Path")
+        }
+
+        ; --- PS3 / RPCS3 ---
+        Logger.Info("PS3 selected. Requesting RPCS3 Build choice.", "GameRegistrarManager")
         choice := DialogsGui.AskForChoice("Select RPCS3 Build", "Which specialized build is this for?",
             ["Standard RPCS3", "Fighter Build", "Shooter Build", "TCRS Build"])
 
@@ -176,13 +192,14 @@ class GameRegistrarManager {
 
             if (StrReplace(existingPath, "/", "\") == StrReplace(config["Path"], "/", "\")) {
                 gameName := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
-                Logger.Warn("Duplicate detected: [" . gameName . "] already exists with ID: " . id, "GameRegistrarManager")
+                Logger.Warn("Duplicate detected: '" . gameName . "' already exists with ID: " . id, "GameRegistrarManager")
 
                 if (DialogsGui.CustomMsgBox("Game Exists", "The game '" . gameName . "' is already in your library.`nPlay it now?", 0, 4) == "Yes") {
                     ConfigManager.CurrentGameId := id
                     if IsSet(GuiBuilder) {
                         GuiBuilder.RefreshDropdown()
                         GuiBuilder.SelectLastPlayed()
+                        GuiBuilder.OnStartAction()
                     }
                     return true
                 }

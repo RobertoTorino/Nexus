@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
+#Warn All, Off
+
+; Disable hotkey rate limiting to prevent warning dialogs
+A_MaxHotkeysPerInterval := 99999999
+A_HotkeyInterval := 2000
 
 ; ==============================================================================
 ; * @description Project Entry Point - Unified JSON Architecture
@@ -42,13 +47,16 @@
 #Include lib\emulator\types\Vita3kLauncher.ahk
 ; lib\input\
 #Include lib\input\ControllerManager.ahk
-#Include lib\input\GamepadTester.ahk
+#Include lib\input\ControllerTester.ahk
+#Include lib\input\VoiceCommands.ahk
 ; lib\media\
 #Include lib\media\SnapshotGallery.ahk
 #Include lib\media\MusicPlayer.ahk
 #Include lib\media\VideoPlayer.ahk
 ; lib\process\
 #Include lib\process\ProcessManager.ahk
+; lib\security\
+#Include lib\security\AuthManager.ahk
 ; lib\tools\
 #Include lib\tools\AtracConverterTool.ahk
 #Include lib\tools\FileValidatorTool.ahk
@@ -117,13 +125,39 @@ if !FileExist(JsonFilePath) {
 Logger.Info("Configuration File: " . ConfigFilePath, "Nexus.ahk")
 Logger.Info("Games Database: " . JsonFilePath, "Nexus.ahk")
 
+authIndicatorState := "off"
+
+; Optional beta auth bootstrap (non-blocking)
+if (AuthManager.IsEnabled()) {
+    authIndicatorState := "pending"
+    try {
+        AuthManager.Init()
+        if !AuthManager.EnsureSession() {
+            authIndicatorState := "fail"
+            Logger.Warn("Beta auth is enabled but session could not be established.", "Nexus.ahk")
+        } else {
+            authIndicatorState := "ok"
+        }
+    } catch as err {
+        authIndicatorState := "fail"
+        Logger.Warn("Beta auth bootstrap failed: " err.Message, "Nexus.ahk")
+    }
+}
+
 if !AudioManager.Init()
     Logger.Warn("Audio Manager: Voicemeeter not found.")
 try {
     GuiBuilder.Create(StartGame)
+    GuiBuilder.SetAuthIndicator(authIndicatorState)
 } catch as err {
     Logger.Error("GUI Crash: " err.Message)
     MsgBox("Critical UI Error: " err.Message)
+}
+
+; Optional backend health check (deferred so startup remains responsive)
+if (AuthManager.IsEnabled() && AuthManager.IsHealthCheckEnabled()) {
+    GuiBuilder.SetAuthIndicator("pending")
+    SetTimer(RunBetaHealthCheck, -250)
 }
 
 
@@ -148,6 +182,7 @@ A_TrayMenu.Add("Show Dashboard", (*) => GuiBuilder.MainGui.Show())
 A_TrayMenu.Add("System Log", (*) => (WinExist("Nexus :: Logger") ? LoggerGui.Hide() : LoggerGui.Show()))
 A_TrayMenu.Add("Clone Wizard", (*) => CloneGameWizardGui.Show())
 A_TrayMenu.Add("Manage Audio", (*) => AudioManager.ShowGui())
+A_TrayMenu.Add("Clear Beta Auth", (*) => ClearBetaAuthTokens())
 A_TrayMenu.Add("Reload", (*) => Reload())
 A_TrayMenu.Add("Exit", (*) => (SetTimer(ObjBindMethod(ControllerManager, "HandleControllerInput"), 0), ExitApp()))
 
@@ -312,4 +347,32 @@ MainExitHandler(ExitReason, ExitCode) {
     }
 
     return 0
+}
+
+RunBetaHealthCheck() {
+    ok := AuthManager.RunStartupHealthCheck()
+    try GuiBuilder.SetAuthIndicator(ok ? "ok" : "fail")
+}
+
+ClearBetaAuthTokens() {
+    if !AuthManager.IsEnabled() {
+        DialogsGui.CustomTrayTip("Beta auth is currently disabled.", 1)
+        return
+    }
+
+    if (DialogsGui.CustomMsgBox("Clear Beta Auth", "Revoke session and clear local beta auth tokens?", 0, 4) != "Yes")
+        return
+
+    ok := false
+    try ok := AuthManager.RevokeSession()
+
+    if ok {
+        try GuiBuilder.SetAuthIndicator("off")
+        DialogsGui.CustomTrayTip("Beta auth tokens cleared.", 1)
+        Logger.Info("Beta auth tokens revoked and cleared via tray action.", "Nexus.ahk")
+    } else {
+        try GuiBuilder.SetAuthIndicator("fail")
+        DialogsGui.CustomTrayTip("Failed to clear beta auth tokens.", 2)
+        Logger.Warn("Failed to revoke/clear beta auth tokens via tray action.", "Nexus.ahk")
+    }
 }

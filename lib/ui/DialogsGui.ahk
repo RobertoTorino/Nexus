@@ -190,6 +190,25 @@ class DialogsGui {
         return Result
     }
 
+    ; --- FOLDER PICKER (dark-mode via IFileOpenDialog COM) ---
+    static SelectFolder(title := "Select Folder") {
+        try {
+            dlg := ComObject("{DC1C5A9C-E88A-4DDE-A5A1-60F82A20AEF7}", "{D57C7288-D4AD-4768-BE02-9D969532D960}")
+            ComCall(9,  dlg, "uint", 0x60)                               ; SetOptions: FOS_PICKFOLDERS|FOS_FORCEFILESYSTEM
+            ComCall(17, dlg, "wstr", title)                              ; SetTitle
+            if (ComCall(3, dlg, "ptr", 0) != 0)                         ; Show(hwnd=0)
+                return ""
+            ComCall(20, dlg, "ptr*", &pItem := 0)                       ; GetResult -> IShellItem*
+            si := ComValue(0xD, pItem)
+            ComCall(5, si, "int", 0x80058000, "ptr*", &pStr := 0)       ; GetDisplayName(SIGDN_FILESYSPATH)
+            result := StrGet(pStr, "UTF-16")
+            DllCall("ole32\CoTaskMemFree", "ptr", pStr)
+            return result
+        } catch {
+            return ""
+        }
+    }
+
     ; --- HELPERS ---
     static Show(text, title := "Nexus", options := 0) => this.CustomMsgBox(title, text, 0, options)
     static AskForConfirmation(title, text) => (this.CustomMsgBox(title, text, 0, 4) == "Yes")

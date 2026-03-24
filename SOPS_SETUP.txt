@@ -1,0 +1,223 @@
+  ==> Checking SOPS
+  Installing SOPS via winget...
+Found Secrets OPerationS [Mozilla.SOPS] Version 3.7.3
+This application is licensed to you by its owner.    
+Microsoft is not responsible for, nor does it grant any licenses to, third-party packages.
+Downloading https://github.com/mozilla/sops/releases/download/v3.7.3/sops-v3.7.3.exe
+  ██████████████████████████████  28.2 MB / 28.2 MB
+Successfully verified installer hash
+Starting package install...
+Command line alias added: "sops"
+Successfully installed
+  sops sops 3.7.3 [warning] failed to retrieve latest version from upstream: Version information not found in upstream file  [warning] failed to compare current version with latest: Version string empty  (latest)
+
+  ==> Age key
+  Generating new age key...
+age-keygen: warning: writing secret key to a world-readable file
+Public key: age15jwm7ax57pu9lr0qtdph2k83lg4k2s49sxge89lpmvkx83g60q7qfklwn6
+  Key generated.
+  Public key: age15jwm7ax57pu9lr0qtdph2k83lg4k2s49sxge89lpmvkx83g60q7qfklwn6
+
+  ==> Writing .sops.yaml
+  .sops.yaml written.
+
+  ==> Creating encrypted secret files
+error loading config: no matching creation rules found
+  Created: identity.yaml
+error loading config: no matching creation rules found
+  Created: backend.yaml
+error loading config: no matching creation rules found
+  Created: gpg.yaml
+
+  Your age PRIVATE key (store this in Bitwarden / 1Password NOW):
+
+  AGE-SECRET-KEY-16TDDP28Q65YWS26MQ666MLTWUMCW87GFXVLSS36FN7XJR08H2F0QH4H02Z
+
+================================================================
+  2.  Fill in identity:  sops edit secrets\identity.yaml
+  3.  Fill in backend:   sops edit secrets\backend.yaml
+  4.  Export GPG key and store in secrets\gpg.yaml:
+        gpg --armor --export-secret-keys <keyid>
+        sops edit secrets\gpg.yaml
+  5.  Commit:  git add .sops.yaml secrets\ && git commit -m 'Add encrypted secrets'
+
+
+
+Rerun:
+Remove-Item secrets\*.yaml -ErrorAction SilentlyContinue .\_setup-sops.ps1
+
+
+SHADPS4
+
+
+-g, --game <path|ID>          Specify game path to launch
+  -p, --patch <patch_file>      Apply specified patch file
+  -f, --fullscreen <true|false> Specify window initial fullscreen state. Does not overwrite the config file.
+  -h, --help                    Display this help message
+
+Now instead of opening a game with shadps4 {path/to/eboot.bin}, you can now do this:
+shadps4 --game CUSAXXXXX --show-gui --patch {path/to/patch/file}
+Reading the source code or running shadps4 --help will give further info.
+Opening game by ID is done by checking each game install folder, and seeing if there is a folder named CUSAXXXX in them, and if so, opens {installdir}/CUSAXXXXX/eboot.bin.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

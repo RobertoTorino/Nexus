@@ -1,0 +1,1 @@
+Can we add a new feature? Clicking the icon in the UI should open the "\sce_sys\pic0.png" in a full screen borderless window. Pressing escape should close it again. If the pic is not available it should print a message "pic0.png missing or not available"

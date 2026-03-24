@@ -1,0 +1,8 @@
+name = "nexus-auth-worker"
+main = "src/index.ts"
+compatibility_date = "2026-02-21"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "nexus-beta"
+database_id = "07a5529b-09d6-404e-b095-776780d694c9"

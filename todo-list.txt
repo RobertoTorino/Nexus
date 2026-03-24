@@ -1,0 +1,20 @@
+In the advanced utilities section in the GuiBuilderClass.ahk, the button text AT3 Convert is changed to "ATRAC Tool".
+This has to be replaced and translated in the TranslationManager.ahk class.
+
+In the AtracConverterTool.ahk class and IconManagerGui.ahk we have to add convert .AT9 and/or .at9 to .WAV and/or .wav.
+Example "./vgmstream-cli snd0.at9 -o snd0.wav".
+
+In the IconManagerGui.ahk class when adding a game the dialog window can not be moved.
+Also here the button design should be changed and be identical to the ones used in the GuiBuilder.ahk class.
+It is just a text box with a slightly different background color to mimic a button.
+
+In the IconManagerGui.ahk class the image does not hold its size, after clicking the game name again, the size changes to a much smaller size.
+Besides looking for .at3. sound files we have to add .at9 sound files.
+Adding a ShadPS4 games does not find the icon nor does it find the .at9 sound file.
+
+The snapshot button icon, in the GuiBuilder.ahk class, the circle, becomes low resolution again, under for now at least unknown conditions,
+and then clicking it does not show the quick colored flash. Restarting the app sometimes helps fix it again.
+
+In the EmulatorConfigGui.ahk class we have to add a game folder for the RPCS3 emulators.
+
+Icon Manager: Remove too much space from the bottom.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 ; ==============================================================================
-; * @description Music Player (Superslick). Features: Metadata, Visualizer, Edge-to-Edge List.
+; * @description Music Player. Features: Metadata, Visualizer, Edge-to-Edge List.
 ; * @class MusicPlayer
 ; * @location lib/media/MusicPlayer.ahk
 ; * @author Philip
@@ -38,6 +38,16 @@ class MusicPlayer {
     static SliderVol := "", TextVolLabel := "", TextTime := "", SliderSeek := ""
     static ContextMenu := ""
     static TitleText := "", BtnMin := "", BtnMax := "", BtnFull := "", BtnClose := ""
+
+    static IsOpen() {
+        return IsObject(this.MainGui)
+    }
+
+    static IsActive() {
+        if !this.IsOpen()
+            return false
+        return WinActive("ahk_id " this.MainGui.Hwnd)
+    }
 
     ; ---- OPEN PLAYER ----
     static Show() {

@@ -1,0 +1,9 @@
+﻿# SOPS configuration - managed by _setup-sops.ps1
+# Encrypted files in secrets/*.yaml are safe to commit.
+# Your age PRIVATE key lives at: C:/Users/Admin/AppData/Roaming/sops/age/keys.txt
+# Back it up to your password manager - without it nothing can be decrypted.
+
+creation_rules:
+  - path_regex: secrets/.*\.yaml$
+    age: >-
+      age15jwm7ax57pu9lr0qtdph2k83lg4k2s49sxge89lpmvkx83g60q7qfklwn6

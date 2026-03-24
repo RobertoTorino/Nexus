@@ -8,10 +8,13 @@
 ; * @version 1.0.00
 ; ==============================================================================
 
-; Example: When Nexus.ahk calls: launcher := LauncherFactory.GetLauncher(gameObj.LauncherType)
-; If gameObj.LauncherType is "VITA3K_3830" and that case is missing from the switch block above, the Factory returns StandardLauncher.
-; The Standard Launcher doesn't know how to handle Title IDs or special flags, it just runs the file path you gave it.
-; By adding the case, you ensure the robust Vita3kLauncher class handles the request.
+; Example:
+; When Nexus.ahk calls: launcher := LauncherFactory.GetLauncher(gameObj.LauncherType)
+; If gameObj.LauncherType is "VITA3K_3830" and that case is missing from the switch block above,
+; the Factory returns StandardLauncher.
+; The Standard Launcher doesn't know how to handle Title IDs or special flags,
+; it just runs the file path we gave it.
+; By adding the case, we ensure the robust Vita3kLauncher class handles the request.
 
 ; --- DEPENDENCY IMPORTS ---
 #Include EmulatorBase.ahk
@@ -25,6 +28,7 @@
 #Include types/Rpcs3UniversalLauncher.ahk
 #Include types/RedreamLauncher.ahk
 #Include types/ShadPs4Launcher.ahk
+#Include types/ShadPs4GuiLauncher.ahk
 #Include types/VivaNonnoLauncher.ahk
 #Include types/YuzuLauncher.ahk
 
@@ -63,6 +67,7 @@ class LauncherFactory {
             case "REDREAM": return RedreamLauncher()
             case "RPCS3": return Rpcs3UniversalLauncher()
             case "SHADPS4": return ShadPs4Launcher()
+            case "SHADPS4_GUI": return ShadPs4GuiLauncher()
             case "TEKNO": return TeknoParrotLauncher()
             case "VITA3K": return Vita3kLauncher()
             case "VIVANONNO": return VivaNonnoLauncher()

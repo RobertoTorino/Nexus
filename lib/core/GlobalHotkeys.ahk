@@ -11,6 +11,7 @@
 ; --- DEPENDENCY IMPORTS ---
 #Include ..\window\WindowManager.ahk
 #Include ..\capture\AudioManager.ahk
+#Include ..\capture\CaptureManager.ahk
 #Include ..\core\Logger.ahk
 #Include ..\ui\LoggerGui.ahk
 

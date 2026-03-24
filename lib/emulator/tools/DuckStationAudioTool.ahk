@@ -41,7 +41,7 @@ class DuckStationAudioTool {
         try {
             ; DuckStation uses standard INI format
             IniWrite(deviceName, configPath, "Audio", "Device")
-            Logger.Info("DuckStation Audio Device set to: " deviceName, this.__Class)
+            Logger.Info("DuckStation Audio Device set to: " deviceName)
             return true
         } catch as err {
             Logger.Error("Failed to update DuckStation config: " err.Message)

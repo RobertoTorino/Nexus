@@ -35,7 +35,7 @@ class CloneWizardTool {
             return false
 
         ; VALIDATION (NEW: HASH BASED)
-        Logger.Info("Validating source file: " sourceEboot, this.__Class)
+        Logger.Info("Validating source file: " sourceEboot)
 
         ; Calculate hash synchronously
         fileHash := this.GetFileHash(sourceEboot, "MD5")
@@ -55,7 +55,7 @@ class CloneWizardTool {
             return false
         }
 
-        Logger.Info("Validation Passed: " . this.ValidSourceHashes[fileHash], this.__Class)
+        Logger.Info("Validation Passed: " . this.ValidSourceHashes[fileHash])
 
         ; PATH SETUP
         SplitPath(sourceEboot, &ebootName, &usrDir)
@@ -86,7 +86,7 @@ class CloneWizardTool {
         IniWrite(cleanName, ConfigManager.IniPath, "ReservedIDs", newId)
         ConfigManager.AddOrUpdateGame(friendlyName, newPath, buildType)
 
-        Logger.Info("CloneWizardTool: Cloned " oldId " to " newId " as " cleanName, this.__Class)
+        Logger.Info("CloneWizardTool: Cloned " oldId " to " newId " as " cleanName)
         return newPath
     }
 
@@ -94,7 +94,7 @@ class CloneWizardTool {
     static GetFileHash(filePath, algo := "MD5") {
         try {
             ; Use CertUtil via Command Line (Hidden)
-            tmpFile := A_Temp . "\gml_hash_calc.tmp"
+            tmpFile := A_Temp . "\nexus_hash_calc.tmp"
             if FileExist(tmpFile)
                 FileDelete(tmpFile)
 

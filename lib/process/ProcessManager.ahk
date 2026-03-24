@@ -16,11 +16,15 @@ class ProcessManager {
     static SessionStart := 0
     static PeakRAM := 0
     static GameName := ""
+    static ActivePid := 0      ; Required for ControllerManager
+    static CurrentGameId := "" ; Required for Stats
+    static TimerObj := ""
 
     ; INITIALIZATION
     static InitMonitor() {
         try {
             this._wmi := ComObject("WbemScripting.SWbemLocator").ConnectServer(".", "root\cimv2")
+            Logger.Info("ProcessManager: WMI Connected", "ProcessManager")
         } catch as err {
             if IsSet(Logger)
                 Logger.Error("ProcessManager: Failed to init WMI. " err.Message)
@@ -28,39 +32,78 @@ class ProcessManager {
     }
 
     ; SESSION TRACKING
-    static StartSession(name) {
+    static StartSession(gameId := "Unknown", pid := 0) {
+        if (pid == 0) {
+            Logger.Warn("ProcessManager: Blocked invalid StartSession (PID 0)")
+            return
+        }
+
+        if (this.TimerObj)
+            SetTimer(this.TimerObj, 0)
+
         this.SessionStart := A_TickCount
         this.PeakRAM := 0
-        this.GameName := (name != "") ? name : "Unknown Game"
-        if IsSet(Logger)
-            Logger.Info("ProcessManager: Session Started for '" this.GameName "'")
+        this.ActivePid := pid
+        this.CurrentGameId := gameId
+
+        ; Try to get the friendly name for the report
+        try {
+            this.GameName := ConfigManager.Games[gameId]["SavedName"]
+        } catch {
+            this.GameName := gameId
+        }
+
+        Logger.Info("ProcessManager: Session Started for '" this.GameName "' (PID: " pid ")")
+
+        if IsSet(WindowManager) && WindowManager.HasMethod("SetGameContext")
+            WindowManager.SetGameContext("ahk_pid " . pid)
+
+        this.TimerObj := ObjBindMethod(this, "MonitorProcess")
+        SetTimer(this.TimerObj, 1000)
+    }
+
+    static MonitorProcess() {
+        if (this.ActivePid > 0 && !ProcessExist(this.ActivePid)) {
+            this.EndSession()
+        }
     }
 
     static EndSession() {
         if (this.SessionStart == 0)
             return ""
 
-        duration := A_TickCount - this.SessionStart
-        seconds := Round(duration / 1000)
-        h := Floor(seconds / 3600)
-        m := Floor(Mod(seconds, 3600) / 60)
-        s := Mod(seconds, 60)
+        if (this.TimerObj) {
+            SetTimer(this.TimerObj, 0)
+            this.TimerObj := ""
+        }
+
+        duration := (A_TickCount - this.SessionStart) // 1000
+        h := Floor(duration / 3600)
+        m := Floor(Mod(duration, 3600) / 60)
+        s := Mod(duration, 60)
         timeStr := (h > 0 ? h "h " : "") . Format("{:02}m {:02}s", m, s)
 
-        report := "Session Ended: " . this.GameName . "`n"
-        report .= StrReplace(Format("{:16}", ""), " ", Chr(0x2500)) . "`n"
-        report .= "Duration:  " . timeStr . "`n"
-        report .= "Peak RAM:  " . this.PeakRAM . " MB"
+        Logger.Info("ProcessManager: Session Ended. Duration: " timeStr " | Peak RAM: " this.PeakRAM "MB")
 
-        if IsSet(Logger)
-            Logger.Info("ProcessManager: Session Ended. Duration: " timeStr " | Peak RAM: " this.PeakRAM "MB")
+        ; Save Stats to ConfigManager (The Phillip Logic)
+        if (this.CurrentGameId != "" && duration > 1) {
+            try ConfigManager.UpdatePlayStats(this.CurrentGameId, duration)
+            try ConfigManager.SaveGameDatabase()
+        }
 
+        ; Cleanup
+        this.ActivePid := 0
         this.SessionStart := 0
-        return report
+        this.CurrentGameId := ""
+
+        if IsSet(WindowManager) && WindowManager.HasMethod("ClearGameContext")
+            WindowManager.ClearGameContext()
+
+        return "Session Ended: " . this.GameName . " [" . timeStr . "]"
     }
 
-    ; MONITORING
-    static GetMonitorText(gameExeName := "") {
+    ; MONITORING (Your Original High-Detail Logic)
+    static GetMonitorText() {
         mem := this.GetSystemMemoryInfo()
         msg := ""
 
@@ -73,39 +116,25 @@ class ProcessManager {
             msg .= "no-data"
         }
 
-        ; 2. APP RAM
+        ; 2. APP RAM (Nexus Memory)
         kbScript := this.GetProcessMemoryKB(ProcessExist())
         if (kbScript >= 0) {
             mbScript := Round(kbScript / 1024, 1)
-            percScript := (mem.HasOwnProp("total") && mem.total > 0) ? Round((kbScript / mem.total) * 100, 2) : "0"
+            percScript := (mem.total > 0) ? Round((kbScript / mem.total) * 100, 2) : "0"
             msg .= " | APP: " mbScript "MB (" percScript "%)"
-        } else {
-            msg .= " | APP: no-data"
         }
 
-        ; 3. GAME RAM
-        if (gameExeName != "") {
-            pid := ProcessExist(gameExeName)
-            if (pid) {
-                kbGame := this.GetProcessMemoryKB(pid)
-                actualName := ProcessGetName(pid)
+        ; 3. GAME RAM (Live Game Memory)
+        if (this.ActivePid > 0 && ProcessExist(this.ActivePid)) {
+            kbGame := this.GetProcessMemoryKB(this.ActivePid)
+            if (kbGame > 0) {
+                mbGame := Round(kbGame / 1024, 1)
+                percGame := (mem.total > 0) ? Round((kbGame / mem.total) * 100, 1) : "0"
 
-                if (kbGame > 0) {
-                    mbGame := Round(kbGame / 1024, 1)
+                if (mbGame > this.PeakRAM)
+                    this.PeakRAM := mbGame
 
-                    ; [FIX] Calculate Game Percentage
-                    percGame := (mem.HasOwnProp("total") && mem.total > 0) ? Round((kbGame / mem.total) * 100, 1) : "0"
-
-                    if (mbGame > this.PeakRAM)
-                        this.PeakRAM := mbGame
-
-                    ; [FIX] Add Percentage to display
-                    msg .= " | GAME: " mbGame "MB (" percGame "%) [PEAK: " this.PeakRAM "MB]"
-                } else {
-                    msg .= " | GAME: no-data (" actualName ")"
-                }
-            } else {
-                msg .= " | GAME: " gameExeName " [waiting]"
+                msg .= " | GAME: " mbGame "MB (" percGame "%) [PEAK: " this.PeakRAM "MB]"
             }
         } else {
             msg .= " | GAME: waiting"
@@ -114,12 +143,18 @@ class ProcessManager {
         return msg
     }
 
+    static CloseActiveGame() {
+        if (this.ActivePid > 0) {
+            ProcessClose(this.ActivePid)
+        }
+    }
+
     ; HELPERS
     static GetSystemMemoryInfo() {
         ms := Buffer(64, 0)
         NumPut("UInt", 64, ms, 0)
         if !DllCall("kernel32\GlobalMemoryStatusEx", "ptr", ms)
-            return {}
+            return { total: 0, used: 0, load: 0 }
         total := NumGet(ms, 8, "UInt64") / 1024
         avail := NumGet(ms, 16, "UInt64") / 1024
         used := total - avail

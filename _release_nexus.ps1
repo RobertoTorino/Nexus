@@ -78,10 +78,10 @@ do {
 
 Write-Host ":: Creating tag: $newTag"
 
-# --- Tag and push ---
-git tag $newTag
+# --- Tag (signed) and push ---
+git tag -s $newTag -m "Release $newTag"
 git push origin $newTag
-Write-Host ":: Committed and tagged as $newTag."
+Write-Host ":: Committed and tagged (signed) as $newTag."
 
 # --- Update changelog ---
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
@@ -114,7 +114,7 @@ git push
 Write-Host ":: Release complete: $newTag"
 
 # --- Remove old releases ---
-$repo       = "RobertoTorino/game-manager-lite"
+$repo       = "RobertoTorino/Nexus"
 $token      = $env:GITHUB_TOKEN
 $keepLatest = 2
 
@@ -142,7 +142,7 @@ foreach ($tag in $tagsToDelete) {
 }
 
 # --- Workflow cleanup ---
-$repoOwner = "RobertoTorino"; $repoName="game-manager-lite"; $keepRuns=2; $workflowId="release_lite.yml"
+$repoOwner = "RobertoTorino"; $repoName="Nexus"; $keepRuns=2; $workflowId="release.yml"
 $headers = @{ "Accept"="application/vnd.github+json"; "Authorization"="Bearer $token" }
 
 $response = Invoke-RestMethod -Uri "https://api.github.com/_repositories/$repoOwner/$repoName/actions/workflows/$workflowId/runs?per_page=100" -Headers $headers
@@ -181,7 +181,7 @@ if ($currentBranch -ne "main" -and $currentBranch -like "feature/*") {
 
     do
     {
-        $workflowFile = "release_lite.yml"
+        $workflowFile = "release.yml"
         $response = Invoke-RestMethod -Uri "https://api.github.com/_repositories/$repoOwner/$repoName/actions/workflows/$workflowFile/runs?branch=$branch&per_page=1" -Headers $headers
 
         if (-not $response.workflow_runs -or $response.workflow_runs.Count -eq 0)

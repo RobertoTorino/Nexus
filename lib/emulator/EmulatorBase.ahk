@@ -28,15 +28,14 @@ class EmulatorBase {
     Stop() {
         global AppIsExiting
         if (IsSet(AppIsExiting) && AppIsExiting) {
-            Logger.Info("App exiting. Keeping game process alive (PID: " this.Pid ")", this.__Class)
+            Logger.Info("App exiting. Keeping game process alive (PID: " this.Pid ")")
             return
         }
 
         ; 1. END THE MONITORING SESSION
         if IsSet(ProcessManager) {
-            report := ProcessManager.EndSession()
-            if (report != "" && IsSet(DialogsGui))
-                DialogsGui.CustomStatusPop("Session Summary Sent to Log", "Silver")
+            ; New ProcessManager handles logging internally
+            ProcessManager.EndSession()
         }
 
         ; 2. Handle TeknoParrot specifically
@@ -48,7 +47,7 @@ class EmulatorBase {
         ; 3. Standard Kill
         target := this.Pid ? this.Pid : this.ExeName
         if (target && ProcessExist(target)) {
-            Logger.Info("Stopping: " . target, this.__Class)
+            Logger.Info("Stopping: " . target)
             ProcessClose(target)
         }
     }
@@ -67,9 +66,8 @@ class EmulatorBase {
 
         ; 2. Start the High-Performance Monitor
         if IsSet(ProcessManager) {
-            gameTitle := ""
-            try gameTitle := ConfigManager.Games[gameId]["SavedName"]
-            ProcessManager.StartSession(gameTitle || gameId)
+            ; We now send BOTH the ID and the PID to satisfy the new manager
+            ProcessManager.StartSession(String(gameId), Integer(pid))
         }
 
         ; 3. Write Session Info to INI for external tools

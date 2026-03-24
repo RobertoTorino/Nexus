@@ -59,7 +59,7 @@ class YuzuLauncher extends EmulatorBase {
         ; Syntax: yuzu.exe -f -g "C:\Path\To\Game.nsp"
         runCmd := Format('"{1}" -f -g "{2}"', emuPath, gamePath)
 
-        Logger.Info("Launching Yuzu: " . runCmd, this.__Class)
+        Logger.Info("Launching Yuzu: " . runCmd)
 
         try {
             Run(runCmd, emuDir, , &pid)

@@ -13,3 +13,12 @@
 /captures
 /recordings
 /.vscode/
+
+# Local GPG signing identity - legacy fallback (superseded by secrets/identity.yaml)
+.gpg-identity
+
+# SOPS - encrypted secrets live in secrets/*.yaml and ARE committed
+# These patterns guard against accidentally committing plaintext decryptions
+secrets/*.dec.yaml
+secrets/*.decrypted.yaml
+secrets/*.plaintext.yaml

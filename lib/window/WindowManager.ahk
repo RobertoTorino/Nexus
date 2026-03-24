@@ -314,24 +314,32 @@ class WindowManager {
         this.ActiveGameHwnd := 0
         this.ActiveGamePid := 0
 
-        Logger.Debug("WinMgr: Setting Context -> " identifier)
+        ; Safety: Don't process empty calls
+        if (identifier == "" || identifier == "ahk_pid 0")
+            return 0
 
-        if (identifier == "")
-            return
+        identifier := String(identifier)
+        Logger.Debug("WinMgr: Setting Context -> " . identifier)
 
         if InStr(identifier, "ahk_pid") {
             this.ActiveGamePid := Integer(StrReplace(identifier, "ahk_pid ", ""))
 
-            try {
-                exe := WinGetProcessName("ahk_pid " this.ActiveGamePid)
-                if (exe != "")
-                    this.ActiveGameExe := exe
+            ; --- ROBUST SEARCH LOOP ---
+            ; Give the emulator window up to 2 seconds to actually appear
+            Loop 10 {
+                this.ActiveGameHwnd := this.FindRealGameWindow("ahk_pid " . this.ActiveGamePid)
+                if (this.ActiveGameHwnd)
+                    break
+                Sleep 200
             }
-            this.ActiveGameHwnd := this.FindRealGameWindow("ahk_pid " this.ActiveGamePid)
+
+            if (this.ActiveGameHwnd) {
+                try this.ActiveGameExe := WinGetProcessName("ahk_id " . this.ActiveGameHwnd)
+            }
         }
         else {
             this.ActiveGameExe := StrReplace(identifier, "ahk_exe ", "")
-            this.ActiveGameHwnd := this.FindRealGameWindow("ahk_exe " this.ActiveGameExe)
+            this.ActiveGameHwnd := this.FindRealGameWindow("ahk_exe " . this.ActiveGameExe)
             try this.ActiveGamePid := ProcessExist(this.ActiveGameExe)
         }
 
@@ -343,6 +351,14 @@ class WindowManager {
         }
 
         return this.ActiveGameHwnd
+    }
+
+    ; --- RESET CONTEXT (Called when game closes) ---
+    static ClearGameContext() {
+        this.ActiveGameHwnd := 0
+        this.ActiveGamePid := 0
+        this.ActiveGameExe := ""
+        Logger.Debug("WinMgr: Context Cleared")
     }
 
     ; [NEW HELPER] Retries finding the window after a delay

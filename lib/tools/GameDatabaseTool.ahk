@@ -38,6 +38,39 @@ class GameDatabaseTool {
     static GuiWidth := 1000
     static GuiHeight := 600
 
+    static IsOpen() {
+        return IsObject(this.MainGui)
+    }
+
+    static IsActive() {
+        if !this.IsOpen()
+            return false
+        return WinActive("ahk_id " this.MainGui.Hwnd)
+    }
+
+    static VoiceSearch(query) {
+        q := Trim(query)
+        if (q = "")
+            return false
+
+        if !this.IsOpen()
+            return false
+
+        try {
+            this.MainGui.Show()
+            this.MainGui.Restore()
+        }
+
+        ; Voice title lookups should search globally by default.
+        try this.DdlTable.Choose(1)
+        try this.DdlRegion.Choose(1)
+
+        try this.EdtSearch.Value := q
+        Logger.Info("[GameDB] Voice search request: '" q "'", "GameDB")
+        this.OnSearch()
+        return true
+    }
+
     ; INITIALIZATION & SHOW
     static Show() {
         if (this.MainGui) {
@@ -46,16 +79,16 @@ class GameDatabaseTool {
             return
         }
 
-        Logger.Info("[GameDB] Initializing Search Tool...", this.__Class)
+        Logger.Info("[GameDB] Initializing Search Tool...")
 
         ; CHECKS
         if !FileExist(this.DLLPath) {
-            Logger.Info("[GameDB] Critical Error: sqlite3.dll missing.", this.__Class)
+            Logger.Info("[GameDB] Critical Error: sqlite3.dll missing.")
             DialogsGui.CustomMsgBox("Error", "Critical component missing:`n" this.DLLPath)
             return
         }
         if !FileExist(this.DBPath) {
-            Logger.Info("[GameDB] Error: Database file missing.", this.__Class)
+            Logger.Info("[GameDB] Error: Database file missing.")
             DialogsGui.CustomMsgBox("Error", "Database missing:`n" this.DBPath)
             return
         }
@@ -63,18 +96,18 @@ class GameDatabaseTool {
         ; CONNECT
         this.DB := SQLiteDB_Simple()
         if !this.DB.OpenDB(this.DBPath) {
-            Logger.Info("[GameDB] Connection Failed: " this.DB.ErrorMsg, this.__Class)
+            Logger.Info("[GameDB] Connection Failed: " this.DB.ErrorMsg)
             DialogsGui.CustomMsgBox("DB Error", "Failed to open DB:`n" this.DB.ErrorMsg)
             return
         }
-        Logger.Info("[GameDB] Database connected.", this.__Class)
+        Logger.Info("[GameDB] Database connected.")
 
         ; LOAD DATA
         this.LoadMetadata()
 
         ; BUILD GUI
         this.BuildGui()
-        Logger.Info("[GameDB] GUI Created and Shown.", this.__Class)
+        Logger.Info("[GameDB] GUI Created and Shown.")
     }
 
     static LoadMetadata() {
@@ -100,7 +133,7 @@ class GameDatabaseTool {
                     this.TablesWithLinks.Push(tableName)
             }
         } catch as e {
-            Logger.Info("[GameDB] Metadata Error: " e.Message, this.__Class)
+            Logger.Info("[GameDB] Metadata Error: " e.Message)
             DialogsGui.CustomMsgBox("Error", "Error reading DB structure:`n" e.Message)
             return
         }
@@ -118,7 +151,7 @@ class GameDatabaseTool {
             this.Regions.Push(regionName)
 
         this.TableOptions.Push(this.TablesWithLinks*)
-        Logger.Info("[GameDB] Metadata Loaded. Tables: " this.TablesWithLinks.Length ", Regions: " this.Regions.Length, this.__Class)
+        Logger.Info("[GameDB] Metadata Loaded. Tables: " this.TablesWithLinks.Length ", Regions: " this.Regions.Length)
     }
 
     static BuildGui() {
@@ -137,7 +170,7 @@ class GameDatabaseTool {
         this.MainGui.OnEvent("Size", (guiObj, minMax, w, h) => this.OnResize(minMax, w, h))
 
         ; --- CUSTOM TITLE BAR ---
-        this.TitleText := this.MainGui.Add("Text", "x0 y0 w" (this.GuiWidth - 90) " h30 +0x200 Background2A2A2A", "  Nexus :: Game Search Database")
+        this.TitleText := this.MainGui.Add("Text", "x0 y0 w" (this.GuiWidth - 90) " h30 +0x200 Background2A2A2A", "  Nexus :: Game Search Database :: Voice: say title or search + title, say exit to close")
         this.TitleText.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
 
         this.MainGui.SetFont("s10 Norm")
@@ -240,7 +273,7 @@ class GameDatabaseTool {
             return
         }
 
-        Logger.Info("[GameDB] Searching for: '" query "'", this.__Class)
+        Logger.Info("[GameDB] Searching for: '" query "'")
 
         tblFilter := this.DdlTable.Text
         regFilter := this.DdlRegion.Text
@@ -274,19 +307,19 @@ class GameDatabaseTool {
                     counter++
                 }
             } catch as e {
-                Logger.Info("[GameDB] SQL Error on table " tbl ": " e.Message, this.__Class)
+                Logger.Info("[GameDB] SQL Error on table " tbl ": " e.Message)
             }
         }
         this.LvResults.Opt("+Redraw")
 
-        Logger.Info("[GameDB] Search complete. Results: " counter, this.__Class)
+        Logger.Info("[GameDB] Search complete. Results: " counter)
 
         if (counter = 0)
             DialogsGui.CustomMsgBox("No Results", "No matching games found.")
     }
 
     static OnRandom() {
-        Logger.Info("[GameDB] Random browse initiated.", this.__Class)
+        Logger.Info("[GameDB] Random browse initiated.")
         tblFilter := this.DdlTable.Text
         targetTable := ""
 
@@ -311,15 +344,15 @@ class GameDatabaseTool {
                 row[5] := (row[5] = "") ? "<null>" : row[5]
                 this.LvResults.Add(, row*)
             }
-            Logger.Info("[GameDB] Loaded 20 random items from " targetTable, this.__Class)
+            Logger.Info("[GameDB] Loaded 20 random items from " targetTable)
         } catch as e {
-            Logger.Info("[GameDB] Random Query Error: " e.Message, this.__Class)
+            Logger.Info("[GameDB] Random Query Error: " e.Message)
         }
         this.LvResults.Opt("+Redraw")
     }
 
     static OnShowMissing() {
-        Logger.Info("[GameDB] Show Missing Links initiated.", this.__Class)
+        Logger.Info("[GameDB] Show Missing Links initiated.")
         tblFilter := this.DdlTable.Text
         searchTables := (tblFilter = "All") ? this.TablesWithLinks : [tblFilter]
 
@@ -338,11 +371,11 @@ class GameDatabaseTool {
                     counter++
                 }
             } catch as e {
-                Logger.Info("[GameDB] Missing Query Error on " tbl ": " e.Message, this.__Class)
+                Logger.Info("[GameDB] Missing Query Error on " tbl ": " e.Message)
             }
         }
         this.LvResults.Opt("+Redraw")
-        Logger.Info("[GameDB] Found " counter " missing links.", this.__Class)
+        Logger.Info("[GameDB] Found " counter " missing links.")
         if (counter == 0)
             DialogsGui.CustomMsgBox("Info", "No missing links found in current selection.")
     }
@@ -410,7 +443,7 @@ class GameDatabaseTool {
             text := ""
 
         A_Clipboard := text
-        Logger.Info("[GameDB] Copied to clipboard: " text, this.__Class)
+        Logger.Info("[GameDB] Copied to clipboard: " text)
     }
 
     static OnOpenLink() {
@@ -423,7 +456,7 @@ class GameDatabaseTool {
             DialogsGui.CustomMsgBox("Info", "No link available for this game.")
             return
         }
-        Logger.Info("[GameDB] Opening Link: " link, this.__Class)
+        Logger.Info("[GameDB] Opening Link: " link)
         try Run(link)
     }
 

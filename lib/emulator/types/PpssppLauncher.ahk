@@ -15,52 +15,67 @@
 class PpssppLauncher extends EmulatorBase {
 
     Launch(gameObj) {
-        this.GameId := gameObj.Id
+        ; 1. Safe Property Access (Handles Map vs Object distinction)
+        ; We try to get 'EbootIsoPath', but fallback to 'ApplicationPath' which always exists.
+        isoPath := ""
+        gameId := ""
 
+        if (gameObj is Map) {
+            gameId := gameObj.Has("Id") ? gameObj["Id"] : "Unknown"
+            if gameObj.Has("EbootIsoPath")
+                isoPath := gameObj["EbootIsoPath"]
+            else if gameObj.Has("ApplicationPath")
+                isoPath := gameObj["ApplicationPath"]
+        }
+        else {
+            ; It's a standard Object
+            gameId := gameObj.HasOwnProp("Id") ? gameObj.Id : "Unknown"
+            if gameObj.HasOwnProp("EbootIsoPath")
+                isoPath := gameObj.EbootIsoPath
+            else if gameObj.HasOwnProp("ApplicationPath")
+                isoPath := gameObj.ApplicationPath
+        }
+
+        this.GameId := gameId
+
+        ; 2. Get Emulator Path
         emuPath := this.GetEmulatorPath("PPSSPP_PATH", "PpssppPath")
         if !emuPath
             return false
 
         SplitPath(emuPath, &exeName, &emuDir)
 
-        ; Handle "Launch UI Only" (No ROM provided)
-        if (gameObj.EbootIsoPath == "") {
+        ; 3. Handle "Launch UI Only" (No ROM provided)
+        if (isoPath == "") {
             try {
                 Run(emuPath, emuDir, , &newPid)
-                ; Even for the UI, we should track it so it appears in Window Manager
-                this.TrackProcess(newPid, emuPath, gameObj.Id)
+                this.TrackProcess(newPid, emuPath, gameId)
                 return true
             } catch {
                 return false
             }
         }
 
-        ; Clean up any hanging instances before starting
+        ; 4. Cleanup & Launch
         this.KillProcess(exeName)
 
         ; Construct command: "path/to/emu.exe" --fullscreen "path/to/rom.iso"
-        runCmd := Format('"{1}" --fullscreen "{2}"', emuPath, gameObj.EbootIsoPath)
-        Logger.Info("Launching PPSSPP: " runCmd, this.__Class)
+        runCmd := Format('"{1}" --fullscreen "{2}"', emuPath, isoPath)
+        Logger.Info("Launching PPSSPP: " runCmd)
 
         try {
-            ; Start the emulator and capture the PID via &newPid
             Run(runCmd, emuDir, , &newPid)
 
             if (newPid > 0) {
-
-                Logger.Info("PPSSPPLauncher: Process started successfully. PID: " . newPid, "PPSSPPLauncher")
-                ; --- THE SURGICAL FIX ---
-                ; This triggers the ProcessManager session, RAM monitor,
-                ; and updates ConfigManager all in one call.
-                this.TrackProcess(newPid, emuPath, gameObj.Id)
-
-                ; Tell Window Manager which process we are focusing on
+                Logger.Info("PPSSPPLauncher: Process started successfully. PID: " . newPid, "PpssppLauncher")
+                this.TrackProcess(newPid, emuPath, gameId)
                 WindowManager.SetGameContext("ahk_pid " newPid)
                 return true
             }
             return false
         } catch as err {
-            Logger.Error("PPSSPP Launch Failed: " err.Message)
+            ; THIS LINE IS THE KEY:
+            Logger.Error(Format("LAUNCH CRASH: {1} | File: {2} | Line: {3}", err.Message, err.File, err.Line))
             return false
         }
     }

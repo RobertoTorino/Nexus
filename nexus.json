@@ -1,6 +1,34 @@
 ﻿{
   "GAMES":[
     {
+      "ApplicationPath":"D:/RPCS3/games/Assassin's Creed [BLUS30089]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_ASSASSIN'S_CREED_[BLUS30089]",
+      "EbootIsoPath":"D:/RPCS3/games/Assassin's Creed [BLUS30089]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_ASSASSIN'S_CREED_[BLUS30089]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"Assassin's Creed [BLUS30089]",
+      "SnapshotDir":"snapshots/GAME_ASSASSIN'S_CREED_[BLUS30089]",
+      "TotalPlayTime":0
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/Dead to Rights - Retribution [BLUS30278]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_DEAD_TO_RIGHTS_-_RETRIBUTION_[BLUS30278]",
+      "EbootIsoPath":"D:/RPCS3/games/Dead to Rights - Retribution [BLUS30278]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_DEAD_TO_RIGHTS_-_RETRIBUTION_[BLUS30278]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"Dead to Rights - Retribution [BLUS30278]",
+      "SnapshotDir":"snapshots/GAME_DEAD_TO_RIGHTS_-_RETRIBUTION_[BLUS30278]",
+      "TotalPlayTime":0
+    },
+    {
       "AddedDate":"2026-02-04 04:31:42",
       "ApplicationPath":"E:/GAMECUBE GAMES/Capcom vs. SNK 2 EO - Millionaire Fighting 2001 (Europe).rvz",
       "Id":"GAME_DOLPHIN_CAPCOM_VS_SNK_2_EO_MILLIONAIRE_FIGHTING_2001_EUROPE",
@@ -94,15 +122,15 @@
       "ApplicationPath":"E:/GAMECUBE GAMES/Tetris Worlds (USA).rvz",
       "HasWindowProfile":1,
       "Id":"GAME_DOLPHIN_TETRIS_WORLDS_USA",
-      "LastPlayed":"2026-02-04 04:36:58",
+      "LastPlayed":"2026-02-21 23:10:22",
       "LauncherType":"DOLPHIN",
-      "PlayTimeReadable":"6s",
+      "PlayTimeReadable":"4.1m",
       "SavedName":"[GC/WII] Tetris Worlds (USA)",
-      "TotalPlayTime":6,
-      "WinH":519,
-      "WinW":656,
-      "WinX":632,
-      "WinY":280
+      "TotalPlayTime":247,
+      "WinH":1080,
+      "WinW":1920,
+      "WinX":0,
+      "WinY":-1080
     },
     {
       "AddedDate":"2026-02-04 04:31:42",
@@ -130,20 +158,6 @@
       "Id":"GAME_DOLPHIN_WAVE_RACE_BLUE_STORM_USA_7108906",
       "LauncherType":"DOLPHIN",
       "SavedName":"[GC/WII] Wave Race - Blue Storm (USA)"
-    },
-    {
-      "AddedDate":"2026-02-04 05:08:03",
-      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/BIOS.BIN",
-      "Id":"GAME_DUCKSTATION_BIOS",
-      "LauncherType":"DUCKSTATION",
-      "SavedName":"[PS1] BIOS"
-    },
-    {
-      "AddedDate":"2026-02-04 05:08:03",
-      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/BIOS/SCPH-101/BIOS.BIN",
-      "Id":"GAME_DUCKSTATION_BIOS_9290109",
-      "LauncherType":"DUCKSTATION",
-      "SavedName":"[PS1] BIOS"
     },
     {
       "AddedDate":"2026-02-04 05:08:03",
@@ -266,13 +280,6 @@
     },
     {
       "AddedDate":"2026-02-04 05:08:03",
-      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/IGR_Behaviour_Modifiers/PATCH_0.BIN",
-      "Id":"GAME_DUCKSTATION_PATCH_0",
-      "LauncherType":"DUCKSTATION",
-      "SavedName":"[PS1] PATCH 0"
-    },
-    {
-      "AddedDate":"2026-02-04 05:08:03",
       "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/IGR_Behaviour_Modifiers/PATCH_0.BIN",
       "Id":"GAME_DUCKSTATION_PATCH_0_9290109",
       "LauncherType":"DUCKSTATION",
@@ -389,20 +396,6 @@
       "Id":"GAME_DUCKSTATION_PATCH_8_9290109",
       "LauncherType":"DUCKSTATION",
       "SavedName":"[PS1] PATCH 8"
-    },
-    {
-      "AddedDate":"2026-02-04 05:08:03",
-      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/$NOPAL_PATCH/PATCH_9.BIN",
-      "Id":"GAME_DUCKSTATION_PATCH_9",
-      "LauncherType":"DUCKSTATION",
-      "SavedName":"[PS1] PATCH 9"
-    },
-    {
-      "AddedDate":"2026-02-04 05:08:03",
-      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/$NOPAL_PATCH/PATCH_9.BIN",
-      "Id":"GAME_DUCKSTATION_PATCH_9_9290109",
-      "LauncherType":"DUCKSTATION",
-      "SavedName":"[PS1] PATCH 9"
     },
     {
       "AddedDate":"2026-02-04 05:08:03",
@@ -554,13 +547,6 @@
     },
     {
       "AddedDate":"2026-02-04 05:08:03",
-      "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/HDD/__common/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_0.BIN",
-      "Id":"GAME_DUCKSTATION_TROJAN_0",
-      "LauncherType":"DUCKSTATION",
-      "SavedName":"[PS1] TROJAN 0"
-    },
-    {
-      "AddedDate":"2026-02-04 05:08:03",
       "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/USB/POPS/PATCHES/IGR_Behaviour_Modifiers/TROJAN_0.BIN",
       "Id":"GAME_DUCKSTATION_TROJAN_0_9290109",
       "LauncherType":"DUCKSTATION",
@@ -638,13 +624,6 @@
     },
     {
       "AddedDate":"2026-02-04 05:08:03",
-      "ApplicationPath":"E:/PSX GAMES/Capcom vs. SNK Pro (USA)/TROJAN_7.BIN",
-      "Id":"GAME_DUCKSTATION_TROJAN_7",
-      "LauncherType":"DUCKSTATION",
-      "SavedName":"[PS1] TROJAN 7"
-    },
-    {
-      "AddedDate":"2026-02-04 05:08:03",
       "ApplicationPath":"E:/PSX GAMES/_POPSTARTER/TROJAN_7.BIN",
       "Id":"GAME_DUCKSTATION_TROJAN_7_9290093",
       "LauncherType":"DUCKSTATION",
@@ -677,6 +656,104 @@
       "Id":"GAME_DUCKSTATION_UNKNOWN_VARIABLE_2_RAVENS_RIDGE_USA",
       "LauncherType":"DUCKSTATION",
       "SavedName":"[PS1] Unknown Variable 2 - Raven's Ridge (USA)"
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/Enslaved - Odyssey to the West [BLUS30558]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_ENSLAVED_-_ODYSSEY_TO_THE_WEST_[BLUS30558]",
+      "EbootIsoPath":"D:/RPCS3/games/Enslaved - Odyssey to the West [BLUS30558]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_ENSLAVED_-_ODYSSEY_TO_THE_WEST_[BLUS30558]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"Enslaved - Odyssey to the West [BLUS30558]",
+      "SnapshotDir":"snapshots/GAME_ENSLAVED_-_ODYSSEY_TO_THE_WEST_[BLUS30558]",
+      "TotalPlayTime":0
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/Final Fantasy X + X-2 - HD Remaster [BLUS31211]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_FINAL_FANTASY_X_+_X-2_-_HD_REMASTER_[BLUS31211]",
+      "EbootIsoPath":"D:/RPCS3/games/Final Fantasy X + X-2 - HD Remaster [BLUS31211]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_FINAL_FANTASY_X_+_X-2_-_HD_REMASTER_[BLUS31211]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"Final Fantasy X + X-2 - HD Remaster [BLUS31211]",
+      "SnapshotDir":"snapshots/GAME_FINAL_FANTASY_X_+_X-2_-_HD_REMASTER_[BLUS31211]",
+      "TotalPlayTime":0
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/Grand Theft Auto - Episodes from Liberty City [BLUS30524]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_GRAND_THEFT_AUTO_-_EPISODES_FROM_LIBERTY_CITY_[BLUS30524]",
+      "EbootIsoPath":"D:/RPCS3/games/Grand Theft Auto - Episodes from Liberty City [BLUS30524]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_GRAND_THEFT_AUTO_-_EPISODES_FROM_LIBERTY_CITY_[BLUS30524]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"Grand Theft Auto - Episodes from Liberty City [BLUS30524]",
+      "SnapshotDir":"snapshots/GAME_GRAND_THEFT_AUTO_-_EPISODES_FROM_LIBERTY_CITY_[BLUS30524]",
+      "TotalPlayTime":0
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/Grand Theft Auto - San Andreas [BLUS31584]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_GRAND_THEFT_AUTO_-_SAN_ANDREAS_[BLUS31584]",
+      "EbootIsoPath":"D:/RPCS3/games/Grand Theft Auto - San Andreas [BLUS31584]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_GRAND_THEFT_AUTO_-_SAN_ANDREAS_[BLUS31584]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"Grand Theft Auto - San Andreas [BLUS31584]",
+      "SnapshotDir":"snapshots/GAME_GRAND_THEFT_AUTO_-_SAN_ANDREAS_[BLUS31584]",
+      "TotalPlayTime":0
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/Grand Theft Auto IV & Episodes from Liberty City [BLUS30682]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_GRAND_THEFT_AUTO_IV_&_EPISODES_FROM_LIBERTY_CITY_[BLUS30682]",
+      "EbootIsoPath":"D:/RPCS3/games/Grand Theft Auto IV & Episodes from Liberty City [BLUS30682]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_GRAND_THEFT_AUTO_IV_&_EPISODES_FROM_LIBERTY_CITY_[BLUS30682]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"Grand Theft Auto IV & Episodes from Liberty City [BLUS30682]",
+      "SnapshotDir":"snapshots/GAME_GRAND_THEFT_AUTO_IV_&_EPISODES_FROM_LIBERTY_CITY_[BLUS30682]",
+      "TotalPlayTime":0
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/Grand Theft Auto IV [BLUS30127]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_GRAND_THEFT_AUTO_IV_[BLUS30127]",
+      "EbootIsoPath":"D:/RPCS3/games/Grand Theft Auto IV [BLUS30127]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_GRAND_THEFT_AUTO_IV_[BLUS30127]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"Grand Theft Auto IV [BLUS30127]",
+      "SnapshotDir":"snapshots/GAME_GRAND_THEFT_AUTO_IV_[BLUS30127]",
+      "TotalPlayTime":0
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/MotorStorm - Pacific Rift [BCUS98155]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_MOTORSTORM_-_PACIFIC_RIFT_[BCUS98155]",
+      "EbootIsoPath":"D:/RPCS3/games/MotorStorm - Pacific Rift [BCUS98155]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_MOTORSTORM_-_PACIFIC_RIFT_[BCUS98155]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"MotorStorm - Pacific Rift [BCUS98155]",
+      "SnapshotDir":"snapshots/GAME_MOTORSTORM_-_PACIFIC_RIFT_[BCUS98155]",
+      "TotalPlayTime":0
     },
     {
       "AddedDate":"2026-02-04 05:56:36",
@@ -1425,13 +1502,6 @@
     },
     {
       "AddedDate":"2026-02-04 05:56:36",
-      "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Pops/CTR (USA) POPSTARTER Mod Fix/TROJAN_0.BIN",
-      "Id":"GAME_PCSX2_TROJAN_0",
-      "LauncherType":"PCSX2",
-      "SavedName":"[PS2] TROJAN 0"
-    },
-    {
-      "AddedDate":"2026-02-04 05:56:36",
       "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/Pops/Tekken 3_(ALL VER)/TROJAN_2.BIN",
       "Id":"GAME_PCSX2_TROJAN_2",
       "LauncherType":"PCSX2",
@@ -1466,6 +1536,828 @@
       "SavedName":"[PS2] vulkan shaders"
     },
     {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/101-in-1 Megamix (NPEH-00068).iso",
+      "Id":"GAME_PPSSPP_101_IN_1_MEGAMIX_NPEH_00068",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] 101-in-1 Megamix (NPEH-00068)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/50 Cent® Bulletproof G Unit Edition (ULUS-10128).iso",
+      "Id":"GAME_PPSSPP_50_CENT®_BULLETPROOF_G_UNIT_EDITION_ULUS_10128",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] 50 Cent® Bulletproof G Unit Edition (ULUS-10128)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/7 Wonders (ULUS-10227).iso",
+      "Id":"GAME_PPSSPP_7_WONDERS_ULUS_10227",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] 7 Wonders (ULUS-10227)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Activision Hits Remixed (ULUS-10186).iso",
+      "Id":"GAME_PPSSPP_ACTIVISION_HITS_REMIXED_ULUS_10186",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Activision Hits Remixed (ULUS-10186)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Archer Maclean_s Mercury (ULES-00011).iso",
+      "Id":"GAME_PPSSPP_ARCHER_MACLEAN_S_MERCURY_ULES_00011",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Archer Maclean s Mercury (ULES-00011)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Assassin_s Creed Bloodlines (ULES-01367).iso",
+      "Id":"GAME_PPSSPP_ASSASSIN_S_CREED_BLOODLINES_ULES_01367",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Assassin s Creed Bloodlines (ULES-01367)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Atari Classics Evolved (ULUS-10325).iso",
+      "Id":"GAME_PPSSPP_ATARI_CLASSICS_EVOLVED_ULUS_10325",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Atari Classics Evolved (ULUS-10325)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Bejeweled 2 (NPEG-00036).iso",
+      "Id":"GAME_PPSSPP_BEJEWELED_2_NPEG_00036",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Bejeweled 2 (NPEG-00036)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/BLAZBLUE CONTINUUM SHIFT Ⅱ (ULUS-10579).iso",
+      "Id":"GAME_PPSSPP_BLAZBLUE_CONTINUUM_SHIFT_Ⅱ_ULUS_10579",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] BLAZBLUE CONTINUUM SHIFT Ⅱ (ULUS-10579)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/BLAZBLUE Portable (ULUS-10519).iso",
+      "Id":"GAME_PPSSPP_BLAZBLUE_PORTABLE_ULUS_10519",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] BLAZBLUE Portable (ULUS-10519)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/BUBBLE BOBBLE EVOLUTION (ULES-00303).iso",
+      "Id":"GAME_PPSSPP_BUBBLE_BOBBLE_EVOLUTION_ULES_00303",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] BUBBLE BOBBLE EVOLUTION (ULES-00303)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/BURNOUT DOMINATOR (ULES-00703).iso",
+      "Id":"GAME_PPSSPP_BURNOUT_DOMINATOR_ULES_00703",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] BURNOUT DOMINATOR (ULES-00703)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Burnout Legends (ULUS-10025).iso",
+      "Id":"GAME_PPSSPP_BURNOUT_LEGENDS_ULUS_10025",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Burnout Legends (ULUS-10025)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/B-Boy (ULUS-10363).iso",
+      "Id":"GAME_PPSSPP_B_BOY_ULUS_10363",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] B-Boy (ULUS-10363)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/CAPCOM CLASSICS COLLECTION RELOADED (ULUS-10134).iso",
+      "Id":"GAME_PPSSPP_CAPCOM_CLASSICS_COLLECTION_RELOADED_ULUS_10134",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] CAPCOM CLASSICS COLLECTION RELOADED (ULUS-10134)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Capcom Classics Collection Remixed (ULES-00347).iso",
+      "Id":"GAME_PPSSPP_CAPCOM_CLASSICS_COLLECTION_REMIXED_ULES_00347",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Capcom Classics Collection Remixed (ULES-00347)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Castlevania The Dracula X Chronicles (ULUS-10277).iso",
+      "Id":"GAME_PPSSPP_CASTLEVANIA_THE_DRACULA_X_CHRONICLES_ULUS_10277",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Castlevania The Dracula X Chronicles (ULUS-10277)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/CODED ARMS (ULUS-10019).iso",
+      "Id":"GAME_PPSSPP_CODED_ARMS_ULUS_10019",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] CODED ARMS (ULUS-10019)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Crash Tag Team Racing (ULUS-10044).iso",
+      "Id":"GAME_PPSSPP_CRASH_TAG_TEAM_RACING_ULUS_10044",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Crash Tag Team Racing (ULUS-10044)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Crash® of the Titans (ULUS-10304).iso",
+      "Id":"GAME_PPSSPP_CRASH®_OF_THE_TITANS_ULUS_10304",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Crash® of the Titans (ULUS-10304)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Crazy Taxi Fare Wars (ULUS-10273).iso",
+      "Id":"GAME_PPSSPP_CRAZY_TAXI_FARE_WARS_ULUS_10273",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Crazy Taxi Fare Wars (ULUS-10273)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Daxter (NPUG-80329).iso",
+      "Id":"GAME_PPSSPP_DAXTER_NPUG_80329",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Daxter (NPUG-80329)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/DEAD OR ALIVE Paradise (ULUS-10521).iso",
+      "Id":"GAME_PPSSPP_DEAD_OR_ALIVE_PARADISE_ULUS_10521",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DEAD OR ALIVE Paradise (ULUS-10521)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Def Jam® Fight For NY The Takeover (ULUS-10100).iso",
+      "Id":"GAME_PPSSPP_DEF_JAM®_FIGHT_FOR_NY_THE_TAKEOVER_ULUS_10100",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Def Jam® Fight For NY The Takeover (ULUS-10100)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/DJMAX Fever (ULUS-10403).iso",
+      "Id":"GAME_PPSSPP_DJMAX_FEVER_ULUS_10403",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX Fever (ULUS-10403)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/DJMAX PORTABLE 3 (ULUS-10538).iso",
+      "Id":"GAME_PPSSPP_DJMAX_PORTABLE_3_ULUS_10538",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX PORTABLE 3 (ULUS-10538)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/DJMAX PORTABLE BLACK SQUARE (ULKS-46189).iso",
+      "Id":"GAME_PPSSPP_DJMAX_PORTABLE_BLACK_SQUARE_ULKS_46189",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX PORTABLE BLACK SQUARE (ULKS-46189)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/DJMAX PORTABLE CLAZZIQUAI EDITION (ULKS-46190).iso",
+      "Id":"GAME_PPSSPP_DJMAX_PORTABLE_CLAZZIQUAI_EDITION_ULKS_46190",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX PORTABLE CLAZZIQUAI EDITION (ULKS-46190)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/DJMAX PORTABLE Hottunes (ULKS-46240).iso",
+      "Id":"GAME_PPSSPP_DJMAX_PORTABLE_HOTTUNES_ULKS_46240",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX PORTABLE Hottunes (ULKS-46240)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/DJMAX PORTABLE i (ULKS-46059).iso",
+      "Id":"GAME_PPSSPP_DJMAX_PORTABLE_I_ULKS_46059",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJMAX PORTABLE i (ULKS-46059)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/DJ Max Portable 2 (ULKS-46116).iso",
+      "Id":"GAME_PPSSPP_DJ_MAX_PORTABLE_2_ULKS_46116",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] DJ Max Portable 2 (ULKS-46116)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/EA Replay (ULES-00592).iso",
+      "Id":"GAME_PPSSPP_EA_REPLAY_ULES_00592",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] EA Replay (ULES-00592)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Everybody_s Stress Buster GREEN (NPEG-00046).iso",
+      "Id":"GAME_PPSSPP_EVERYBODY_S_STRESS_BUSTER_GREEN_NPEG_00046",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Everybody s Stress Buster GREEN (NPEG-00046)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/EXIT 2 (ULES-00620).iso",
+      "Id":"GAME_PPSSPP_EXIT_2_ULES_00620",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] EXIT 2 (ULES-00620)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/GODS EATER BURST (ULES-01519).iso",
+      "Id":"GAME_PPSSPP_GODS_EATER_BURST_ULES_01519",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] GODS EATER BURST (ULES-01519)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/God of War Chains of Olympus (NPEG-00023).iso",
+      "Id":"GAME_PPSSPP_GOD_OF_WAR_CHAINS_OF_OLYMPUS_NPEG_00023",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] God of War Chains of Olympus (NPEG-00023)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/God of War® Ghost of Sparta (NPUG-80508).iso",
+      "Id":"GAME_PPSSPP_GOD_OF_WAR®_GHOST_OF_SPARTA_NPUG_80508",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] God of War® Ghost of Sparta (NPUG-80508)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/GRADIUS COLLECTION (ULUS-10103).iso",
+      "Id":"GAME_PPSSPP_GRADIUS_COLLECTION_ULUS_10103",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] GRADIUS COLLECTION (ULUS-10103)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Grand Theft Auto Vice City Stories (ULUS-10160).iso",
+      "Id":"GAME_PPSSPP_GRAND_THEFT_AUTO_VICE_CITY_STORIES_ULUS_10160",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Grand Theft Auto Vice City Stories (ULUS-10160)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Gran Turismo® (UCUS-98632).iso",
+      "Id":"GAME_PPSSPP_GRAN_TURISMO®_UCUS_98632",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Gran Turismo® (UCUS-98632)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/GUILTYGEAR XX ΛCORE PLUS (ULUS-10409).iso",
+      "Id":"GAME_PPSSPP_GUILTYGEAR_XX_ΛCORE_PLUS_ULUS_10409",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] GUILTYGEAR XX ΛCORE PLUS (ULUS-10409)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/GUILTY GEAR JUDGMENT (ULUS-10104).iso",
+      "Id":"GAME_PPSSPP_GUILTY_GEAR_JUDGMENT_ULUS_10104",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] GUILTY GEAR JUDGMENT (ULUS-10104)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/GunPey (ULUX80236).iso",
+      "Id":"GAME_PPSSPP_GUNPEY_ULUX80236",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] GunPey (ULUX80236)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Hot Pixel (ULUS-10298).iso",
+      "Id":"GAME_PPSSPP_HOT_PIXEL_ULUS_10298",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Hot Pixel (ULUS-10298)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Jak & Daxter® The Lost Frontier (NPUG-80330).iso",
+      "Id":"GAME_PPSSPP_JAK_DAXTER®_THE_LOST_FRONTIER_NPUG_80330",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Jak & Daxter® The Lost Frontier (NPUG-80330)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Jetpack Joyride (NPUZ-00292).iso",
+      "Id":"GAME_PPSSPP_JETPACK_JOYRIDE_NPUZ_00292",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Jetpack Joyride (NPUZ-00292)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Juiced 2 Hot Import Nights (ULUS-10312).iso",
+      "Id":"GAME_PPSSPP_JUICED_2_HOT_IMPORT_NIGHTS_ULUS_10312",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Juiced 2 Hot Import Nights (ULUS-10312)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/KINGDOM HEARTS Birth by Sleep (ULUS-10505).iso",
+      "Id":"GAME_PPSSPP_KINGDOM_HEARTS_BIRTH_BY_SLEEP_ULUS_10505",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] KINGDOM HEARTS Birth by Sleep (ULUS-10505)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Kurohyou 2.iso",
+      "Id":"GAME_PPSSPP_KUROHYOU_2",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Kurohyou 2"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Kurohyou 2 - Ashura Chapter (NPJH50562).iso",
+      "Id":"GAME_PPSSPP_KUROHYOU_2_ASHURA_CHAPTER_NPJH50562",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Kurohyou 2 - Ashura Chapter (NPJH50562)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Kurohyou - Ryu ga Gotoku Shinshou (NPJH50333).iso",
+      "Id":"GAME_PPSSPP_KUROHYOU_RYU_GA_GOTOKU_SHINSHOU_NPJH50333",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Kurohyou - Ryu ga Gotoku Shinshou (NPJH50333)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/LEMMINGS (UCUS-98647).iso",
+      "Id":"GAME_PPSSPP_LEMMINGS_UCUS_98647",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] LEMMINGS (UCUS-98647)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/LUMINES II (ULES-00553).iso",
+      "HasWindowProfile":1,
+      "Id":"GAME_PPSSPP_LUMINES_II_ULES_00553",
+      "LastPlayed":"2026-02-20 22:09:48",
+      "LauncherType":"PPSSPP",
+      "PlayTimeReadable":"2.0h",
+      "SavedName":"[PSP] LUMINES II (ULES-00553)",
+      "TotalPlayTime":7376,
+      "WinH":843,
+      "WinW":1220,
+      "WinX":350,
+      "WinY":-962
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/LUMINES (ULES-00043).iso",
+      "HasWindowProfile":1,
+      "Id":"GAME_PPSSPP_LUMINES_ULES_00043",
+      "LastPlayed":"2026-02-21 22:40:36",
+      "LauncherType":"PPSSPP",
+      "PlayTime":36,
+      "PlayTimeReadable":"1.9h",
+      "SavedName":"[PSP] LUMINES (ULES-00043)",
+      "TotalPlayTime":6834,
+      "WinH":843,
+      "WinW":1220,
+      "WinX":350,
+      "WinY":-962
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Manhunt 2 (ULES-00756).iso",
+      "Id":"GAME_PPSSPP_MANHUNT_2_ULES_00756",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Manhunt 2 (ULES-00756)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Manhunt 2 (ULUS-10280).iso",
+      "Id":"GAME_PPSSPP_MANHUNT_2_ULUS_10280",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Manhunt 2 (ULUS-10280)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Mega Man Maverick Hunter X (ULES-00251).iso",
+      "Id":"GAME_PPSSPP_MEGA_MAN_MAVERICK_HUNTER_X_ULES_00251",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Mega Man Maverick Hunter X (ULES-00251)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Midnight Club 3 DUB Edition (ULUS-10021).iso",
+      "Id":"GAME_PPSSPP_MIDNIGHT_CLUB_3_DUB_EDITION_ULUS_10021",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Midnight Club 3 DUB Edition (ULUS-10021)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Midnight Club L.A. Remix (ULUS-10383).iso",
+      "Id":"GAME_PPSSPP_MIDNIGHT_CLUB_L_A_REMIX_ULUS_10383",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Midnight Club L.A. Remix (ULUS-10383)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Midway Arcade TreasuresExtended Play (ULUS-10059).iso",
+      "Id":"GAME_PPSSPP_MIDWAY_ARCADE_TREASURESEXTENDED_PLAY_ULUS_10059",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Midway Arcade TreasuresExtended Play (ULUS-10059)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/MONSTER HUNTER FREEDOM 2 (ULES-00851).iso",
+      "Id":"GAME_PPSSPP_MONSTER_HUNTER_FREEDOM_2_ULES_00851",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] MONSTER HUNTER FREEDOM 2 (ULES-00851)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/MONSTER HUNTER FREEDOM(TM) (ULES-00318).iso",
+      "Id":"GAME_PPSSPP_MONSTER_HUNTER_FREEDOM_TM_ULES_00318",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] MONSTER HUNTER FREEDOM(TM) (ULES-00318)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/MONSTER HUNTER FREEDOM UNITE (ULES-01213).iso",
+      "Id":"GAME_PPSSPP_MONSTER_HUNTER_FREEDOM_UNITE_ULES_01213",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] MONSTER HUNTER FREEDOM UNITE (ULES-01213)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Mortal Kombat Unchained (ULUS-10102).iso",
+      "Id":"GAME_PPSSPP_MORTAL_KOMBAT_UNCHAINED_ULUS_10102",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Mortal Kombat Unchained (ULUS-10102)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/MotorStorm® Arctic Edge (UCES-01250).iso",
+      "Id":"GAME_PPSSPP_MOTORSTORM®_ARCTIC_EDGE_UCES_01250",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] MotorStorm® Arctic Edge (UCES-01250)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/NAMCO MUSEUM BATTLE COLLECTION (UCES-00116).iso",
+      "Id":"GAME_PPSSPP_NAMCO_MUSEUM_BATTLE_COLLECTION_UCES_00116",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NAMCO MUSEUM BATTLE COLLECTION (UCES-00116)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/NEED FOR SPEED Carbon OTC (ULUS-10114).iso",
+      "Id":"GAME_PPSSPP_NEED_FOR_SPEED_CARBON_OTC_ULUS_10114",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NEED FOR SPEED Carbon OTC (ULUS-10114)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/NEED FOR SPEED MOST WANTED 5-1-0 (ULES-00196).iso",
+      "Id":"GAME_PPSSPP_NEED_FOR_SPEED_MOST_WANTED_5_1_0_ULES_00196",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NEED FOR SPEED MOST WANTED 5-1-0 (ULES-00196)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Need For Speed Underground Rivals (ULUS-10007).iso",
+      "Id":"GAME_PPSSPP_NEED_FOR_SPEED_UNDERGROUND_RIVALS_ULUS_10007",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Need For Speed Underground Rivals (ULUS-10007)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/NEOGEO HEROES ~Ultimate Shooting~ (NPEH-00086).iso",
+      "Id":"GAME_PPSSPP_NEOGEO_HEROES_ULTIMATE_SHOOTING_NPEH_00086",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NEOGEO HEROES ~Ultimate Shooting~ (NPEH-00086)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/NETWORK UTILITY DISC.ISO",
+      "Id":"GAME_PPSSPP_NETWORK_UTILITY_DISC",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NETWORK UTILITY DISC"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/NUMBLAST (NPEG-00011).iso",
+      "Id":"GAME_PPSSPP_NUMBLAST_NPEG_00011",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] NUMBLAST (NPEG-00011)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Pac-Man World 3 (ULUS-10055).iso",
+      "Id":"GAME_PPSSPP_PAC_MAN_WORLD_3_ULUS_10055",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Pac-Man World 3 (ULUS-10055)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Pac-Man World Rally (ULUS-10149).iso",
+      "Id":"GAME_PPSSPP_PAC_MAN_WORLD_RALLY_ULUS_10149",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Pac-Man World Rally (ULUS-10149)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Phantasy Star Portable 2 (ULES-01439).iso",
+      "Id":"GAME_PPSSPP_PHANTASY_STAR_PORTABLE_2_ULES_01439",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Phantasy Star Portable 2 (ULES-01439)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/PLAYSTATION®Network Collection Puzzle (UCES-01159).iso",
+      "Id":"GAME_PPSSPP_PLAYSTATION®NETWORK_COLLECTION_PUZZLE_UCES_01159",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] PLAYSTATION®Network Collection Puzzle (UCES-01159)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Portable Island - Tenohira no Resort (Japan).iso",
+      "Id":"GAME_PPSSPP_PORTABLE_ISLAND_TENOHIRA_NO_RESORT_JAPAN",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Portable Island - Tenohira no Resort (Japan)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Portable Island - Tenohira no Resort (Japan) (v1.02).iso",
+      "Id":"GAME_PPSSPP_PORTABLE_ISLAND_TENOHIRA_NO_RESORT_JAPAN_V1_02",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Portable Island - Tenohira no Resort (Japan) (v1.02)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/POWER STONE COLLECTION (ULUS-10171).iso",
+      "Id":"GAME_PPSSPP_POWER_STONE_COLLECTION_ULUS_10171",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] POWER STONE COLLECTION (ULUS-10171)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Ratchet & Clank Size Matters (UCUS-98633).iso",
+      "Id":"GAME_PPSSPP_RATCHET_CLANK_SIZE_MATTERS_UCUS_98633",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Ratchet & Clank Size Matters (UCUS-98633)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Resistance Retribution (UCUS-98668).iso",
+      "Id":"GAME_PPSSPP_RESISTANCE_RETRIBUTION_UCUS_98668",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Resistance Retribution (UCUS-98668)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/RIDGE RACER 2 (UCES-00422).iso",
+      "Id":"GAME_PPSSPP_RIDGE_RACER_2_UCES_00422",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] RIDGE RACER 2 (UCES-00422)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/RIDGE RACER PRE PRODUCTION (UCES-00002).iso",
+      "Id":"GAME_PPSSPP_RIDGE_RACER_PRE_PRODUCTION_UCES_00002",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] RIDGE RACER PRE PRODUCTION (UCES-00002)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/RIDGE RACER (ULUS-10001).iso",
+      "Id":"GAME_PPSSPP_RIDGE_RACER_ULUS_10001",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] RIDGE RACER (ULUS-10001)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/SEGA Genesis® Collection (ULUS-10192).iso",
+      "Id":"GAME_PPSSPP_SEGA_GENESIS®_COLLECTION_ULUS_10192",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SEGA Genesis® Collection (ULUS-10192)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/SEGA MEGA DRIVE® Collection (ULES-00556).iso",
+      "Id":"GAME_PPSSPP_SEGA_MEGA_DRIVE®_COLLECTION_ULES_00556",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SEGA MEGA DRIVE® Collection (ULES-00556)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Shrek Smash n_ Crash Racing (ULUS-10194).iso",
+      "Id":"GAME_PPSSPP_SHREK_SMASH_N_CRASH_RACING_ULUS_10194",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Shrek Smash n  Crash Racing (ULUS-10194)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Silent Hill Origins (ULES-00869).iso",
+      "Id":"GAME_PPSSPP_SILENT_HILL_ORIGINS_ULES_00869",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Silent Hill Origins (ULES-00869)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Silent Hill Shattered Memories (ULUS-10450).iso",
+      "Id":"GAME_PPSSPP_SILENT_HILL_SHATTERED_MEMORIES_ULUS_10450",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Silent Hill Shattered Memories (ULUS-10450)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/SNK Arcade Classics Vol. 1 (ULES-01105).iso",
+      "Id":"GAME_PPSSPP_SNK_ARCADE_CLASSICS_VOL_1_ULES_01105",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SNK Arcade Classics Vol. 1 (ULES-01105)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/SOULCALIBUR Broken Destiny (ULUS-10457).iso",
+      "Id":"GAME_PPSSPP_SOULCALIBUR_BROKEN_DESTINY_ULUS_10457",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SOULCALIBUR Broken Destiny (ULUS-10457)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/SPACE INVADERS EVOLUTION (ULES-00348).iso",
+      "Id":"GAME_PPSSPP_SPACE_INVADERS_EVOLUTION_ULES_00348",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SPACE INVADERS EVOLUTION (ULES-00348)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/SPACE INVADERS EXTREME (ULES-01078).iso",
+      "Id":"GAME_PPSSPP_SPACE_INVADERS_EXTREME_ULES_01078",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] SPACE INVADERS EXTREME (ULES-01078)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/STREET FIGHTER ALPHA3 MAX (ULUS-10062).iso",
+      "Id":"GAME_PPSSPP_STREET_FIGHTER_ALPHA3_MAX_ULUS_10062",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] STREET FIGHTER ALPHA3 MAX (ULUS-10062)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/TEKKEN 6 (NPJH50184).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_6_NPJH50184",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN 6 (NPJH50184)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/TEKKEN 6 (ULUS-10466).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_6_ULUS_10466",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN 6 (ULUS-10466)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/TEKKEN DARK RESURRECTION (UCAS-40099).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_DARK_RESURRECTION_UCAS_40099",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN DARK RESURRECTION (UCAS-40099)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/TEKKEN DARK RESURRECTION (UCKS-45027).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_DARK_RESURRECTION_UCKS_45027",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN DARK RESURRECTION (UCKS-45027)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/TEKKEN DARK RESURRECTION (ULJS-00048}.iso",
+      "Id":"GAME_PPSSPP_TEKKEN_DARK_RESURRECTION_ULJS_00048",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN DARK RESURRECTION (ULJS-00048}"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/TEKKEN DARK RESURRECTION (ULUS-10139).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_DARK_RESURRECTION_ULUS_10139",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN DARK RESURRECTION (ULUS-10139)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/TEKKEN DARK RESURRECTION v2 (UCES00356).iso",
+      "Id":"GAME_PPSSPP_TEKKEN_DARK_RESURRECTION_V2_UCES00356",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] TEKKEN DARK RESURRECTION v2 (UCES00356)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/The 3rd Birthday (ULUS-10567).iso",
+      "Id":"GAME_PPSSPP_THE_3RD_BIRTHDAY_ULUS_10567",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] The 3rd Birthday (ULUS-10567)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/The Fast and the Furious (ULUS-10198).iso",
+      "Id":"GAME_PPSSPP_THE_FAST_AND_THE_FURIOUS_ULUS_10198",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] The Fast and the Furious (ULUS-10198)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Tomb Raider Anniversary (ULUS-10253).iso",
+      "Id":"GAME_PPSSPP_TOMB_RAIDER_ANNIVERSARY_ULUS_10253",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Tomb Raider Anniversary (ULUS-10253)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/ULUS-10280 Manhunt 2 (USA) [Uncensored].iso",
+      "Id":"GAME_PPSSPP_ULUS_10280_MANHUNT_2_USA_UNCENSORED",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] ULUS-10280 Manhunt 2 (USA) [Uncensored]"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/What Did I Do To Deserve This (ULUS-10456).iso",
+      "Id":"GAME_PPSSPP_WHAT_DID_I_DO_TO_DESERVE_THIS_ULUS_10456",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] What Did I Do To Deserve This (ULUS-10456)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Wipeout Pure (UCES-00001).iso",
+      "Id":"GAME_PPSSPP_WIPEOUT_PURE_UCES_00001",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Wipeout Pure (UCES-00001)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/WipEout® Pulse (UCES-00465).iso",
+      "Id":"GAME_PPSSPP_WIPEOUT®_PULSE_UCES_00465",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] WipEout® Pulse (UCES-00465)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Xyanide Resurrection (ULES-00634).iso",
+      "Id":"GAME_PPSSPP_XYANIDE_RESURRECTION_ULES_00634",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Xyanide Resurrection (ULES-00634)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/Z.H.P. Unlosing Ranger VS Darkdeath Evilman (NPEH-00099).iso",
+      "Id":"GAME_PPSSPP_Z_H_P_UNLOSING_RANGER_VS_DARKDEATH_EVILMAN_NPEH_00099",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] Z.H.P. Unlosing Ranger VS Darkdeath Evilman (NPEH-00099)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/一騎当千 XROSS IMPACT (NPJH-50222).iso",
+      "Id":"GAME_PPSSPP_一騎当千_XROSS_IMPACT_NPJH_50222",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] 一騎当千 XROSS IMPACT (NPJH-50222)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/一騎当千　Eloquent Fist (ULJS-00152).iso",
+      "Id":"GAME_PPSSPP_一騎当千　ELOQUENT_FIST_ULJS_00152",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] 一騎当千　Eloquent Fist (ULJS-00152)"
+    },
+    {
+      "AddedDate":"2026-02-08 09:00:25",
+      "ApplicationPath":"D:/PSP PLAYSTATION PORTABLE/PSP GAMES/萌え萌え大戦争☆げんだいばーん ＋(ぷらす) (ULJS-00411).iso",
+      "Id":"GAME_PPSSPP_萌え萌え大戦争☆げんだいばーん_＋_ぷらす_ULJS_00411",
+      "LauncherType":"PPSSPP",
+      "SavedName":"[PSP] 萌え萌え大戦争☆げんだいばーん ＋(ぷらす) (ULJS-00411)"
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/Ridge Racer 7 [BLUS30001]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_RIDGE_RACER_7_[BLUS30001]",
+      "EbootIsoPath":"D:/RPCS3/games/Ridge Racer 7 [BLUS30001]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_RIDGE_RACER_7_[BLUS30001]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"Ridge Racer 7 [BLUS30001]",
+      "SnapshotDir":"snapshots/GAME_RIDGE_RACER_7_[BLUS30001]",
+      "TotalPlayTime":0
+    },
+    {
       "ApplicationPath":"D:/EMULATORS/VIVANONNO/roms/rv2.zip",
       "CaptureDir":"captures/GAME_RV2",
       "EbootIsoPath":"D:/EMULATORS/VIVANONNO/roms/rv2.zip",
@@ -1485,32 +2377,264 @@
       "WinY":-1080
     },
     {
+      "AddedDate":"2026-03-09 21:57:24",
+      "ApplicationPath":"E:\\SHADPS4_GAMES\\CUSA00512\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "HasWindowProfile":1,
+      "Id":"GAME_SHADPS4_CUSA00512",
+      "LastPlayed":"2026-03-10 00:26:50",
+      "LauncherType":"SHADPS4",
+      "PlayTimeReadable":"3.2m",
+      "SavedName":"[PS4] CUSA00512",
+      "TotalPlayTime":193,
+      "WinH":1080,
+      "WinW":1920,
+      "WinX":0,
+      "WinY":0
+    },
+    {
+      "AddedDate":"2026-03-09 21:57:24",
+      "ApplicationPath":"E:\\SHADPS4_GAMES\\CUSA01127\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_CUSA01127",
+      "LastPlayed":"2026-03-09 22:27:53",
+      "LauncherType":"SHADPS4",
+      "PlayTimeReadable":"1.1m",
+      "SavedName":"[PS4] CUSA01127",
+      "TotalPlayTime":66
+    },
+    {
+      "AddedDate":"2026-03-09 21:57:24",
+      "ApplicationPath":"E:\\SHADPS4_GAMES\\CUSA09171\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_CUSA09171",
+      "LastPlayed":"2026-03-09 22:27:17",
+      "LauncherType":"SHADPS4",
+      "PlayTimeReadable":"3s",
+      "SavedName":"[PS4] CUSA09171",
+      "TotalPlayTime":3
+    },
+    {
+      "AddedDate":"2026-03-09 21:57:24",
+      "ApplicationPath":"E:\\SHADPS4_GAMES\\CUSA10851\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_CUSA10851",
+      "LastPlayed":"2026-03-09 22:26:58",
+      "LauncherType":"SHADPS4",
+      "PlayTimeReadable":"32s",
+      "SavedName":"[PS4] CUSA10851",
+      "TotalPlayTime":32
+    },
+    {
+      "AddedDate":"2026-03-09 21:57:24",
+      "ApplicationPath":"E:\\SHADPS4_GAMES\\CUSA11624\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "HasWindowProfile":1,
+      "Id":"GAME_SHADPS4_CUSA11624",
+      "LastPlayed":"2026-03-22 17:55:26",
+      "LauncherType":"SHADPS4",
+      "PlayTimeReadable":"1.3h",
+      "SavedName":"[PS4] CUSA11624",
+      "TotalPlayTime":4691,
+      "WinH":1080,
+      "WinW":1920,
+      "WinX":0,
+      "WinY":0
+    },
+    {
+      "AddedDate":"2026-03-09 21:57:24",
+      "ApplicationPath":"E:\\SHADPS4_GAMES\\CUSA13643\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_CUSA13643",
+      "LastPlayed":"2026-03-09 22:26:20",
+      "LauncherType":"SHADPS4",
+      "PlayTimeReadable":"29s",
+      "SavedName":"[PS4] CUSA13643",
+      "TotalPlayTime":29
+    },
+    {
+      "AddedDate":"2026-03-09 21:57:24",
+      "ApplicationPath":"E:\\SHADPS4_GAMES\\CUSA35016\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_CUSA35016",
+      "LastPlayed":"2026-03-09 22:25:35",
+      "LauncherType":"SHADPS4",
+      "PlayTimeReadable":"19s",
+      "SavedName":"[PS4] CUSA35016",
+      "TotalPlayTime":19
+    },
+    {
+      "AddedDate":"2026-03-07 11:54:18",
+      "ApplicationPath":"E:\\SHADPS4_GAMES\\Detroit Become Human [CUSA08308]\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_DETROIT_BECOME_HUMAN_CUSA08308",
+      "LastPlayed":"2026-03-09 22:00:33",
+      "LauncherType":"SHADPS4",
+      "PlayTimeReadable":"3s",
+      "SavedName":"[PS4] Detroit Become Human [CUSA08308]",
+      "TotalPlayTime":3
+    },
+    {
+      "AddedDate":"2026-03-07 11:54:18",
+      "ApplicationPath":"E:\\SHADPS4_GAMES\\Galaga [CUSA03865]\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "HasWindowProfile":1,
+      "Id":"GAME_SHADPS4_GALAGA_CUSA03865",
+      "LastPlayed":"2026-03-07 17:11:35",
+      "LauncherType":"SHADPS4",
+      "PlayTimeReadable":"3.1m",
+      "SavedName":"[PS4] Galaga [CUSA03865]",
+      "TotalPlayTime":184,
+      "WinH":1080,
+      "WinW":1920,
+      "WinX":0,
+      "WinY":0
+    },
+    {
+      "AddedDate":"2026-03-05 23:36:17",
+      "ApplicationPath":"E:\\SHADPS4_GAMES\\Horizon Zero Dawn [CUSA24705]\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_HORIZON_ZERO_DAWN_CUSA24705",
+      "LauncherType":"SHADPS4",
+      "SavedName":"[PS4] Horizon Zero Dawn [CUSA24705]"
+    },
+    {
+      "AddedDate":"2026-03-07 11:54:18",
+      "ApplicationPath":"E:\\SHADPS4_GAMES\\Martha is Dead [CUSA24747]\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_MARTHA_IS_DEAD_CUSA24747",
+      "LauncherType":"SHADPS4",
+      "SavedName":"[PS4] Martha is Dead [CUSA24747]"
+    },
+    {
       "ApplicationPath":"D:/PC_GAMES/Soul Calibur VI/SoulcaliburVI/Binaries/Win64/SoulcaliburVI.exe",
       "CaptureDir":"captures/GAME_SOULCALIBURVI",
       "EbootIsoPath":"D:/PC_GAMES/Soul Calibur VI/SoulcaliburVI/Binaries/Win64/SoulcaliburVI.exe",
       "GameApplication":"SoulcaliburVI.exe",
+      "HasWindowProfile":1,
       "Id":"GAME_SOULCALIBURVI",
       "IsPatchable":"false",
-      "LastPlayed":"2026-02-05 00:02:21",
+      "LastPlayed":"2026-02-20 23:06:34",
       "LauncherType":"STANDARD",
-      "PlayTimeReadable":"13.7m",
+      "PlayTimeReadable":"19.9m",
       "SavedName":"SOULCALIBURVI",
       "SnapshotDir":"snapshots/GAME_SOULCALIBURVI",
-      "TotalPlayTime":819
+      "TotalPlayTime":1194,
+      "WinH":1080,
+      "WinW":1920,
+      "WinX":0,
+      "WinY":0
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/Soulcalibur IV [BLUS30160]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_SOULCALIBUR_IV_[BLUS30160]",
+      "EbootIsoPath":"D:/RPCS3/games/Soulcalibur IV [BLUS30160]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_SOULCALIBUR_IV_[BLUS30160]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"Soulcalibur IV [BLUS30160]",
+      "SnapshotDir":"snapshots/GAME_SOULCALIBUR_IV_[BLUS30160]",
+      "TotalPlayTime":0
     },
     {
       "ApplicationPath":"E:/STORM_RACER_G/bin/racing.exe",
-      "CaptureDir":"captures/GAME_STORM_RACER_G",
+      "CaptureDir":"captures/GAME_STORM_RACER",
       "EbootIsoPath":"E:/STORM_RACER_G/bin/racing.exe",
       "GameApplication":"racing.exe",
-      "Id":"GAME_STORM_RACER_G",
+      "HasWindowProfile":1,
+      "Id":"GAME_STORM_RACER",
       "IsPatchable":"false",
-      "LastPlayed":"2026-02-05 00:20:45",
+      "LastPlayed":"2026-03-24 18:52:12",
       "LauncherType":"STANDARD",
-      "PlayTimeReadable":"3.7m",
+      "PlayTimeReadable":"10.3m",
+      "SavedName":"STORM_RACER",
+      "SnapshotDir":"snapshots/GAME_STORM_RACER",
+      "TotalPlayTime":619,
+      "WinH":1360,
+      "WinW":2410,
+      "WinX":-245,
+      "WinY":-140
+    },
+    {
+      "ApplicationPath":"E:/ARCADE GAMES RPCS3/T7/TEKKEN_7_FRR2_108_EN/TekkenGame/Binaries/Win64/TekkenGame-Win64-Shipping.exe",
+      "CaptureDir":"captures/GAME_TEKKEN_7_FR_2_ENG",
+      "EbootIsoPath":"E:/ARCADE GAMES RPCS3/T7/TEKKEN_7_FRR2_108_EN/TekkenGame/Binaries/Win64/TekkenGame-Win64-Shipping.exe",
+      "GameApplication":"TekkenGame-Win64-Shipping.exe",
+      "Id":"GAME_TEKKEN_7_FR_2_ENG",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-02-07 02:38:14",
+      "LauncherType":"STANDARD",
+      "PlayTimeReadable":"8.5m",
+      "SavedName":"TEKKEN_7_FR_2_ENG",
+      "SnapshotDir":"snapshots/GAME_TEKKEN_7_FR_2_ENG",
+      "TotalPlayTime":508
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/The Last of Us [BCUS98174]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_THE_LAST_OF_US_[BCUS98174]",
+      "EbootIsoPath":"D:/RPCS3/games/The Last of Us [BCUS98174]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_THE_LAST_OF_US_[BCUS98174]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"The Last of Us [BCUS98174]",
+      "SnapshotDir":"snapshots/GAME_THE_LAST_OF_US_[BCUS98174]",
+      "TotalPlayTime":0
+    },
+    {
+      "ApplicationPath":"C:\\TP\\TeknoParrotUi.exe",
+      "ExeName":"DOA5A.exe",
+      "GameApplication":"TeknoParrotUi.exe",
+      "Id":"GAME_TP_DOA5_xml",
+      "LauncherType":"TEKNO",
+      "ProfileFile":"DOA5.xml",
+      "SavedName":"DEAD_OR_ALIVE_5_ULTIMATE_ARCADE"
+    },
+    {
+      "ApplicationPath":"C:\\TP\\TeknoParrotUi.exe",
+      "ExeName":"racing.exe",
+      "GameApplication":"TeknoParrotUi.exe",
+      "Id":"GAME_TP_SRG_xml",
+      "LastPlayed":"2026-02-08 18:54:33",
+      "LauncherType":"TEKNO",
+      "PlayTimeReadable":"4.3m",
+      "ProfileFile":"SRG.xml",
       "SavedName":"STORM_RACER_G",
-      "SnapshotDir":"snapshots/GAME_STORM_RACER_G",
-      "TotalPlayTime":221
+      "TotalPlayTime":257
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/Uncharted - Drake's Fortune [BCUS98103]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_UNCHARTED_-_DRAKE'S_FORTUNE_[BCUS98103]",
+      "EbootIsoPath":"D:/RPCS3/games/Uncharted - Drake's Fortune [BCUS98103]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_UNCHARTED_-_DRAKE'S_FORTUNE_[BCUS98103]",
+      "IsPatchable":"false",
+      "LastPlayed":"Never",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "SavedName":"Uncharted - Drake's Fortune [BCUS98103]",
+      "SnapshotDir":"snapshots/GAME_UNCHARTED_-_DRAKE'S_FORTUNE_[BCUS98103]",
+      "TotalPlayTime":0
+    },
+    {
+      "ApplicationPath":"D:/RPCS3/games/Watch_Dogs [BLUS31176]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_WATCH_DOGS_[BLUS31176]",
+      "EbootIsoPath":"D:/RPCS3/games/Watch_Dogs [BLUS31176]/PS3_GAME/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_WATCH_DOGS_[BLUS31176]",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-03-09 22:01:40",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"",
+      "PlayTimeReadable":"14s",
+      "SavedName":"Watch_Dogs [BLUS31176]",
+      "SnapshotDir":"snapshots/GAME_WATCH_DOGS_[BLUS31176]",
+      "TotalPlayTime":14
     }
   ]
 }

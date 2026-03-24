@@ -52,7 +52,7 @@ class TeknoParrotManager {
             IniWrite(tpPath, ConfigManager.IniPath, "TEKNO_PATH", "TeknoPath")
         }
 
-        Logger.Info("TP Manager: Opening Picker. TP Path: " tpPath, this.__Class)
+        Logger.Info("TP Manager: Opening Picker. TP Path: " tpPath)
         SplitPath(tpPath, , &tpDir)
         this.TpRootDir := tpDir
 
@@ -69,15 +69,15 @@ class TeknoParrotManager {
         this.UserCount := 0
         this.SystemCount := 0
 
-        Logger.Info("TP Manager: Scanning User Profiles...", this.__Class)
+        Logger.Info("TP Manager: Scanning User Profiles...")
         this.ScanProfiles(userDir, "User")
 
         if DirExist(systemDir) {
-            Logger.Info("TP Manager: Scanning System Profiles...", this.__Class)
+            Logger.Info("TP Manager: Scanning System Profiles...")
             this.ScanProfiles(systemDir, "System")
         }
 
-        Logger.Info("TP Manager: Scan Complete. Found " this.UserCount " User, " this.SystemCount " System.", this.__Class)
+        Logger.Info("TP Manager: Scan Complete. Found " this.UserCount " User, " this.SystemCount " System.")
 
         if (this.ProfileMap.Count == 0) {
             DialogsGui.CustomTrayTip("No XML profiles found", 2)
@@ -195,24 +195,32 @@ class TeknoParrotManager {
         OnMessage(0x0216, this.OnWindowMove.Bind(this))
     }
 
-    static OnWindowMove(wParam, lParam, msg, hwnd) {
-        ; 1. Ensure we only affect the Picker Window
-        if (!this.PickerGui || hwnd != this.PickerGui.Hwnd)
-            return
+static OnWindowMove(wParam, lParam, msg, hwnd) {
+        ; --- CRASH FIX START ---
+        ; safely get the Picker HWND. If it fails (window destroyed), set it to 0.
+        pickerHwnd := 0
+        try {
+            if (this.PickerGui)
+                pickerHwnd := this.PickerGui.Hwnd
+        }
 
-        ; 2. Ensure Main Window exists to snap TO
+        ; If the Picker window doesn't exist, OR if the window moving isn't the Picker...
+        ; (This stops the Main GUI movement from crashing the script)
+        if (!pickerHwnd || hwnd != pickerHwnd)
+            return
+        ; --- CRASH FIX END ---
+
+        ; Ensure Main Window exists to snap TO
         if (!IsSet(GuiBuilder) || !GuiBuilder.MainGui)
             return
 
-        ; 3. Get Main Window Position
+        ; --- SNAPPING LOGIC ---
         try {
             WinGetPos(&mX, &mY, &mW, &mH, "ahk_id " GuiBuilder.MainGui.Hwnd)
         } catch {
-            return ; Main window might be hidden or closed
+            return
         }
 
-        ; 4. Get Current Drag Coordinates from lParam pointer
-        ; Struct RECT { int left; int top; int right; int bottom; }
         curX := NumGet(lParam, 0, "Int")
         curY := NumGet(lParam, 4, "Int")
         curR := NumGet(lParam, 8, "Int")
@@ -220,31 +228,24 @@ class TeknoParrotManager {
 
         width := curR - curX
         height := curB - curY
-        snapDist := 20 ; Pixels
+        snapDist := 20
 
-        ; --- X AXIS SNAP ---
-        ; Snap Left side to Main Right
+        ; Snap X
         if (Abs(curX - (mX + mW)) < snapDist)
             curX := mX + mW
-        ; Snap Right side to Main Left
         else if (Abs((curX + width) - mX) < snapDist)
             curX := mX - width
-        ; Snap Left to Main Left (Align)
         else if (Abs(curX - mX) < snapDist)
             curX := mX
 
-        ; --- Y AXIS SNAP ---
-        ; Snap Top to Main Bottom
+        ; Snap Y
         if (Abs(curY - (mY + mH)) < snapDist)
             curY := mY + mH
-        ; Snap Bottom to Main Top
         else if (Abs((curY + height) - mY) < snapDist)
             curY := mY - height
-        ; Snap Top to Main Top (Align)
         else if (Abs(curY - mY) < snapDist)
             curY := mY
 
-        ; 5. Write back new coordinates
         NumPut("Int", curX, lParam, 0)
         NumPut("Int", curY, lParam, 4)
         NumPut("Int", curX + width, lParam, 8)
@@ -359,23 +360,23 @@ class TeknoParrotManager {
         }
     }
 
-    static RegisterTeknoGame(data) {
-        Logger.Info("TP Manager: Starting registration for " data.Title, this.__Class)
+static RegisterTeknoGame(data) {
+        Logger.Info("TP Manager: Starting registration for " . data.Title)
 
+        ; --- STEP 1: CALCULATE ID FIRST (Critical Fix) ---
+        ; We must create safeId BEFORE we try to use it in RegisterGame
         safeTitle := Utilities.SanitizeName(data.Title)
-        safeId := "GAME_TP_" RegExReplace(data.File, "[^A-Za-z0-9]", "_")
 
+        ; Sanitize filename to create a safe ID (e.g., "GAME_TP_MarioKart_xml")
+        safeFile := RegExReplace(data.File, "[^A-Za-z0-9]", "_")
+        safeId := "GAME_TP_" . safeFile
+
+        ; --- STEP 2: GET USER INPUT ---
         userInput := DialogsGui.AskForString("Add TeknoParrot Game", "Display Name:", safeTitle)
+        friendlyName := (userInput != "") ? Utilities.SanitizeName(userInput) : safeTitle
 
-        friendlyName := ""
-        if (userInput != "")
-            friendlyName := Utilities.SanitizeName(userInput)
-
-        if (friendlyName == "")
-            friendlyName := safeTitle
-
+        ; --- STEP 3: BUILD THE OBJECT ---
         tpPath := this.GetPath()
-
         newGame := {
             ApplicationPath: tpPath,
             GameApplication: "TeknoParrotUi.exe",
@@ -386,15 +387,20 @@ class TeknoParrotManager {
             Id: safeId
         }
 
+        ; --- STEP 4: REGISTER TO DATABASE ---
+        ; Now safeId and newGame exist, so this will work
         ConfigManager.RegisterGame(safeId, newGame)
+
+        ; Update State
         ConfigManager.CurrentGameId := safeId
         ConfigManager.UpdateLastPlayed(safeId)
 
-        Logger.Info("TP Manager: Successfully registered " safeId, this.__Class)
+        Logger.Info("TP Manager: Successfully registered " . safeId)
 
+        ; --- STEP 5: REFRESH UI ---
         if IsSet(GuiBuilder) {
             GuiBuilder.RefreshDropdown()
-            DialogsGui.CustomTrayTip("Added: " friendlyName, 1)
+            DialogsGui.CustomTrayTip("Added: " . friendlyName, 1)
         }
     }
 }

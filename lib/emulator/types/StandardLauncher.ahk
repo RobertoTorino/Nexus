@@ -58,7 +58,7 @@ class StandardLauncher extends EmulatorBase {
         this.OldPids := this.GetFastProcessMap()
 
         if IsSet(Logger)
-            Logger.Info("StandardLauncher: Starting " . exeName, this.__Class)
+            Logger.Info("StandardLauncher: Starting " . exeName)
 
         try {
             ; 4. EXECUTE
@@ -135,7 +135,7 @@ class StandardLauncher extends EmulatorBase {
                 ; If we found a windowed process, it's definitively the game
                 if (hwnd) {
                     if IsSet(Logger)
-                        Logger.Info("StandardLauncher: Detected Child Process -> " name " (" pid ")", this.__Class)
+                        Logger.Info("StandardLauncher: Detected Child Process -> " name " (" pid ")")
 
                     ; Hand over to ProcessManager
                     this.TrackProcess(pid, name, this.GameId)

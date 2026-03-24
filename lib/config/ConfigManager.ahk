@@ -24,6 +24,7 @@ class ConfigManager {
     ; INITIALIZATION & LOADING
     static Init() {
         Logger.Info("Initializing ConfigManager...", "ConfigManager")
+        this.EnsureRuntimeBootstrap()
         this.BackupConfig()
 
         this.LoadSettings()
@@ -35,6 +36,62 @@ class ConfigManager {
             this.SanityCheck()
         }
         return success
+    }
+
+    static EnsureRuntimeBootstrap() {
+        try {
+            ; Runtime folders required on first launch
+            if !DirExist(this.RootDir . "\data")
+                DirCreate(this.RootDir . "\data")
+            if !DirExist(this.RootDir . "\media")
+                DirCreate(this.RootDir . "\media")
+            if !DirExist(this.RootDir . "\media\snapshots")
+                DirCreate(this.RootDir . "\media\snapshots")
+            if !DirExist(this.RootDir . "\media\captures")
+                DirCreate(this.RootDir . "\media\captures")
+
+            ; Create default INI on first run when missing
+            if !FileExist(this.IniPath) {
+                defaultIni := "[SETTINGS]`n"
+                    . "AudioFormat=wav`n"
+                    . "SnapShotFormat=png`n"
+                    . "LastGalleryPath=`n"
+                    . "LastMusicPath=`n"
+                    . "LastVideoPath=`n"
+                    . "DebugVoiceCatalog=0`n"
+                    . "VoiceDbRequirePrefix=0`n"
+                    . "VoiceDbRequireWakeWord=0`n"
+                    . "VoiceDbWakeWord=nexus`n"
+                    . "VoiceDbUseConfidenceGate=0`n"
+                    . "VoiceDbConfidenceMin=0.25`n"
+                    . "VoiceDbHybridStt=0`n"
+                    . "VoiceDbHybridSttTimeoutMs=7000`n"
+                    . "VoiceUseWhisper=0`n"
+                    . "VoiceWhisperTimeoutMs=10000`n"
+                    . "VoiceUseConfidenceGate=0`n"
+                    . "VoiceConfidenceMin=0.40`n"
+                    . "VoiceLowConfidenceTipCooldownMs=3000`n"
+                    . "VoiceDebugDeferredMs=1500`n"
+                    . "BetaAuthEnabled=0`n"
+                    . "BetaAuthHealthCheckOnStartup=0`n`n"
+                    . "[LAST_PLAYED]`n"
+                    . "GameID=`n"
+                    . "GameTitle=`n"
+                    . "LauncherType=`n"
+                    . "ExePath=`n"
+                    . "TimeStamp=`n"
+                FileAppend(defaultIni, this.IniPath, "UTF-8")
+                Logger.Info("ConfigMgr: Created default nexus.ini", "ConfigManager")
+            }
+
+            ; Create default JSON database on first run when missing
+            if !FileExist(this.JsonPath) {
+                FileAppend('{"GAMES":[]}', this.JsonPath, "UTF-8")
+                Logger.Info("ConfigMgr: Created default nexus.json", "ConfigManager")
+            }
+        } catch as err {
+            Logger.Warn("ConfigMgr: Runtime bootstrap failed: " . err.Message, "ConfigManager")
+        }
     }
 
     static LoadGamesFromJson() {
@@ -136,7 +193,7 @@ class ConfigManager {
             dirty := false
             isMap := (Type(game) == "Map")
 
-            ; --- 1. REPAIR: Ensure ID matches Key ---
+            ; --- REPAIR: Ensure ID matches Key ---
             currentId := ""
             if (isMap)
                 currentId := game.Has("Id") ? game["Id"] : ""
@@ -151,7 +208,7 @@ class ConfigManager {
                 dirty := true
             }
 
-            ; --- 2. REPAIR: ApplicationPath (Legacy Support) ---
+            ; --- REPAIR: ApplicationPath (Legacy Support) ---
             appPath := ""
             if (isMap)
                 appPath := game.Has("ApplicationPath") ? game["ApplicationPath"] : ""
@@ -191,7 +248,7 @@ class ConfigManager {
             if (dirty)
                 repairedCount++
 
-            ; --- 3. VALIDATE ---
+            ; --- VALIDATE ---
             try {
                 this.ValidateGameData(game)
             } catch as err {
@@ -225,7 +282,7 @@ class ConfigManager {
     ; CORE GAME MANAGEMENT
 
     ; Retrieves the currently selected game object
-static GetCurrentGame() {
+    static GetCurrentGame() {
         ; 1. PRIORITY: Check the Live Variable first
         if (this.CurrentGameId != "" && this.Games.Has(this.CurrentGameId)) {
             return this.Games[this.CurrentGameId]
@@ -264,7 +321,7 @@ static GetCurrentGame() {
     }
 
 
-static RegisterGame(gameId, dataObj, saveToDisk := true) {
+    static RegisterGame(gameId, dataObj, saveToDisk := true) {
         try {
             this.ValidateGameData(dataObj)
         } catch as err {
@@ -322,6 +379,14 @@ static RegisterGame(gameId, dataObj, saveToDisk := true) {
             this.SaveGames()
             if (this.CurrentGameId == gameId)
                 this.CurrentGameId := ""
+            ; Clear LAST_PLAYED if it points to the deleted game (regardless of what's selected now)
+            try {
+                if (IniRead(this.IniPath, "LAST_PLAYED", "GameID", "") == gameId) {
+                    IniDelete(this.IniPath, "LAST_PLAYED", "GameID")
+                    IniDelete(this.IniPath, "LAST_PLAYED", "ExeName")
+                    IniDelete(this.IniPath, "LAST_PLAYED", "ExePID")
+                }
+            }
             return true
         }
         return false
@@ -561,14 +626,53 @@ static RegisterGame(gameId, dataObj, saveToDisk := true) {
     }
 
     static BackupConfig() {
-            try {
-                if FileExist(this.JsonPath)
-                    FileCopy(this.JsonPath, StrReplace(this.JsonPath, ".json", ".bak.json"), true)
+        try {
+            if FileExist(this.JsonPath)
+                FileCopy(this.JsonPath, StrReplace(this.JsonPath, ".json", ".bak.json"), true)
 
-                if FileExist(this.IniPath)
-                    FileCopy(this.IniPath, StrReplace(this.IniPath, ".ini", ".bak.ini"), true)
+            if FileExist(this.IniPath)
+                FileCopy(this.IniPath, StrReplace(this.IniPath, ".ini", ".bak.ini"), true)
 
-                Logger.Info("ConfigMgr: Safety backups created.", "ConfigManager")
-            }
+            Logger.Info("ConfigMgr: Safety backups created.", "ConfigManager")
         }
+    }
+
+    ; [PATCH] Compatibility for ProcessManager 2.0
+
+    ; Updates playtime in memory only (No disk write = No lag)
+    static UpdatePlayStats(gameId := "", seconds := 0) {
+        if (gameId == "" || !this.Games.Has(gameId))
+            return
+
+        game := this.Games[gameId]
+
+        ; Logic from your original AddPlayTime, but without saving
+        currentTotal := (Type(game) == "Map")
+            ? (game.Has("TotalPlayTime") ? game["TotalPlayTime"] : 0)
+            : (game.HasOwnProp("TotalPlayTime") ? game.TotalPlayTime : 0)
+
+        newTotal := currentTotal + seconds
+
+        if (Type(game) == "Map") {
+            game["TotalPlayTime"] := newTotal
+            game["PlayTimeReadable"] := this.FormatSeconds(newTotal)
+            game["LastPlayed"] := FormatTime(, "yyyy-MM-dd HH:mm:ss")
+        } else {
+            game.TotalPlayTime := newTotal
+            game.PlayTimeReadable := this.FormatSeconds(newTotal)
+            game.LastPlayed := FormatTime(, "yyyy-MM-dd HH:mm:ss")
+        }
+    }
+
+    ; Alias for ProcessManager to call your existing save logic
+    static SaveGameDatabase() {
+        this.SaveGames()
+    }
+
+    normalOut := "Speakers (Realtek High Definition Audio)"
+    normalIn  := "Microphone (Realtek High Definition Audio)"
+
+    recOut := "Voicemeeter Input (VB-Audio Voicemeeter VAIO)"
+    recIn  := "Voicemeeter Out B1 (VB-Audio Voicemeeter VAIO)"
+
 }

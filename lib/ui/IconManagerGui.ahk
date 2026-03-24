@@ -20,10 +20,17 @@ class IconManagerGui {
 
     ; State
     static CurrentGame := {}
-    static CurrentPaths := { Icon0: "", Pic1: "", Snd0: "", Snd0Wav: "" }
+    static CurrentPaths := { Icon0: "", Pic0: "", Pic1: "", Snd0: "", Snd0Wav: "" }
     static CurrentMonitor := 1
     static TempWavCreated := false
     static LoopTimerFunc := ""
+
+    ; flat-button helper — Text control that mimics a button
+    static BtnAddTheme(guiObj, label, callback, options) {
+        btn := guiObj.Add("Text", options " +0x200 Center +Border Background333333", label)
+        btn.OnEvent("Click", callback)
+        return btn
+    }
 
     ; 1. GUI CREATION
     static Show() {
@@ -34,73 +41,78 @@ class IconManagerGui {
 
         this.MainGui := Gui("-Caption +Border +ToolWindow +AlwaysOnTop", "Nexus :: Icon Manager")
         this.MainGui.BackColor := "2A2A2A"
-        this.MainGui.SetFont("s9 cWhite", "Segoe UI")
         this.MainGui.OnEvent("Close", (*) => this.Close())
         this.MainGui.OnEvent("Escape", (*) => this.Close())
 
-        if IsSet(WindowManagerGui)
-            ; ---- Snap Gui ----
-            WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
+        ; Total window width
+        guiW := 805
 
-        guiW := 705
-        guiH := 550
-
-        ; Title Bar
-        title := this.MainGui.Add("Text", "x0 y0 w" (guiW - 30) " h30 +0x200 Background2A2A2A", "   Nexus :: Icon Manager")
+        ; Title Bar (s11)
+        this.MainGui.SetFont("s11 cSilver", "Segoe UI")
+        title := this.MainGui.Add("Text", "x0 y0 w" (guiW - 30) " h30 +0x200 Background333333", "   Nexus :: Icon Manager")
         title.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
-        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕").OnEvent("Click", (*) => this.Close())
+        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background333333 cRed", "✕").OnEvent("Click", (*) => this.Close())
 
-        ; Left Column
-        this.MainGui.Add("Text", "x10 h24 y+5 Border +0x200 Center", "  Search:  ")
-        this.SearchBox := this.MainGui.Add("Edit", "x+5 yp w243 Background333333 cWhite")
+        this.MainGui.SetFont("s11 cSilver", "Segoe UI")
+
+        ; Game path
+        this.LblPath := this.MainGui.Add("Text", "x10 h25 y+10 w785 Center +0x200 Background333333 Border", "  -")
+        ; Icon path
+        this.LblIconStatus := this.MainGui.Add("Text", "x10 h25 y+5 w785 Center +0x200 Background333333 Border", "  -")
+        ; Sound path
+        this.LblSoundStatus := this.MainGui.Add("Text", "x10 h25 y+5 w785 Center +0x200 Background333333 Border", "  -")
+
+        ; s12 for all remaining controls
+        this.MainGui.SetFont("s12 cSilver", "Segoe UI")
+
+        ; --- LEFT COLUMN ---
+        this.MainGui.Add("Text", "x10 h30 y+10 +0x200 Background333333 Center", "  Search:  ")
+
+        ; Search box
+        this.SearchBox := this.MainGui.Add("Edit", "x+5 yp w227 Background333333")
         this.SearchBox.OnEvent("Change", (*) => this.FilterList())
-        ; List box
-        this.GameList := this.MainGui.Add("ListBox", "x10 y+10 w300 h430 Background333333 cWhite", [])
+
+        ; Game list
+        this.GameList := this.MainGui.Add("ListBox", "x10 y+15 w300 h330 Background333333", [])
         this.GameList.OnEvent("Change", (*) => this.OnGameSelect())
-        this.BtnBrowse := this.MainGui.Add("Button", "x10 y+10 h24 w300 Background333333", "Add New...")
-        this.BtnBrowse.OnEvent("Click", (*) => this.BrowseAndAddGame())
-        ; Right Column
-        xCol2 := 330
-        this.LblGameTitle := this.MainGui.Add("Text", "x" xCol2 " y33 w365 h25 +0x200 cAqua", "Select a game...")
-        this.MainGui.Add("Text", "x" xCol2 " y+5 w75", "Path:")
-        this.LblPath := this.MainGui.Add("Edit", "x" xCol2 " yp+20 w365 h20 ReadOnly Background2A2A2A cGray -Border", "-")
 
-        this.MainGui.Add("Text", "x" xCol2 " y+5 w35", "Icon:")
-        this.LblIconStatus := this.MainGui.Add("Text", "x+5 yp w365 cGray", "-")
-        this.MainGui.Add("Text", "x" xCol2 " y+5 w35", "Sound:")
-        this.LblSoundStatus := this.MainGui.Add("Text", "x+5 yp w365 cGray", "-")
+        ; Bottom buttons
+        this.BtnAdd := this.BtnAddTheme(this.MainGui, "  + Add New  ", (*) => this.ShowAddGameDialog(), "x10 y+15 h26 Center Background333333")
+        this.BtnRemove := this.BtnAddTheme(this.MainGui, "  ✕ Remove Selected  ", (*) => this.RemoveSelectedGame(), "x+10 h26 Center Background333333")
 
-        ; Preview
-        this.PicPreview := this.MainGui.Add("Picture", "x" xCol2 " y+10 w365 h176 +Border Background000000", "")
+        ; --- RIGHT COLUMN ---
+        xCol2 := 320
+        rW := guiW - xCol2 - 8   ; 480
+
+        ; Correct ICON0 aspect ratio: original 320 × 176 px
+        picH := Round(rW * 176 / 320)
+
+        this.MainGui.SetFont("s10 cSilver", "Segoe UI")
+        ; Preview — aspect-correct ICON0 (320 × 176 native)
+        this.PicPreview := this.MainGui.Add("Picture", "x" xCol2 " y135 w" rW " h" picH " Background333333", "")
         this.PicPreview.OnEvent("Click", (*) => this.ShowPic1Window())
-        this.MainGui.Add("Text", "x" xCol2 " y+5 cGray", "(Click image to view PIC1.PNG background)")
+
+        ; Text line
+        hintY  := 122 + picH + 4
+        this.MainGui.SetFont("s10 cSilver", "Segoe UI")
+        this.MainGui.Add("Text", "x" xCol2 " y" hintY " w" rW " h26 +0x200 ", "Click image to view fullscreen background")
 
         ; Sound Controls
-        ySound := 350
-        this.BtnPlay := this.MainGui.Add("Text", "x" xCol2 " y" ySound " h26 Border Center Disabled", "  Play Sound  ")
-        this.BtnPlay.OnEvent("Click", (*) => this.PlaySnd0())
-        this.BtnStop := this.MainGui.Add("Text", "x+10 yp h26 Border Disabled", "  Stop  ")
-        this.BtnStop.OnEvent("Click", (*) => this.StopSound())
-        this.ChkLoop := this.MainGui.Add("CheckBox", "x+15 yp+5 cWhite", "Loop Sound")
+        this.MainGui.SetFont("s12 cSilver", "Segoe UI")
+        soundY := hintY + 88
+        this.BtnPlay := this.BtnAddTheme(this.MainGui, "  ▶  Play  ", (*) => this.PlaySnd0(), "x" xCol2 " y" soundY " h26")
+        this.BtnStop := this.BtnAddTheme(this.MainGui, "  ■  Stop  ", (*) => this.StopSound(), "x+8 yp h26")
+        this.ChkLoop := this.MainGui.Add("CheckBox", "x+12 yp+5", "Loop")
 
-        ; Management (Ps3Media)
-        yAction := 400
-        this.MainGui.Add("GroupBox", "x" xCol2 " y" yAction " w450 h130 cWhite", "Ps3Media Library")
+        ; Action Buttons (single row)
+        ;btnW    := 113
+        actionY := soundY + 36
+        this.BtnCopyIcon   := this.BtnAddTheme(this.MainGui, "  Save Icon  ",   (*) => this.CopyAsset("ICON0"), "x" xCol2 " y" actionY " h26 Background333333" )
+        this.BtnCopyPic    := this.BtnAddTheme(this.MainGui, "  Save Pic  ",    (*) => this.CopyAsset("PIC1"),  "x+6 yp h26 Background333333" )
+        this.BtnCopyWav    := this.BtnAddTheme(this.MainGui, "  Save Audio  ",  (*) => this.CopyAsset("WAV"),   "x+6 yp h26 Background333333" )
+        this.BtnOpenFolder := this.BtnAddTheme(this.MainGui, "  Open Folder  ", (*) => this.OpenMediaFolder(), "x+6 yp h26 Background333333"  )
 
-        this.BtnCopyIcon := this.MainGui.Add("Button", "xp+10 yp+25 w130 h30 Disabled", "Save Icon0")
-        this.BtnCopyIcon.OnEvent("Click", (*) => this.CopyAsset("ICON0"))
-
-        this.BtnCopyPic := this.MainGui.Add("Button", "x+10 yp w130 h30 Disabled", "Save Pic1")
-        this.BtnCopyPic.OnEvent("Click", (*) => this.CopyAsset("PIC1"))
-
-        this.BtnCopyWav := this.MainGui.Add("Button", "x" xCol2 + 10 " y+10 w130 h30 Disabled", "Save Audio (.wav)")
-        this.BtnCopyWav.OnEvent("Click", (*) => this.CopyAsset("WAV"))
-
-        this.BtnOpenFolder := this.MainGui.Add("Button", "x+10 yp w130 h30", "Open Media Folder")
-        this.BtnOpenFolder.OnEvent("Click", (*) => this.OpenMediaFolder())
-
-        this.MainGui.Add("Text", "x" xCol2 + 10 " y+10 w400 cGray", "Library Path: /Ps3Media/<GameID>/")
-
+        guiH := actionY + 100
         this.PopulateGameList()
         this.MainGui.Show("w" guiW " h" guiH)
     }
@@ -127,11 +139,13 @@ class IconManagerGui {
     static PopulateGameList() {
         this.AllGames := []
         for id, game in ConfigManager.Games {
-            name := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
-            launcher := (Type(game) == "Map") ? game["LauncherType"] : game.LauncherType
-            appPath := (Type(game) == "Map") ? game["ApplicationPath"] : game.ApplicationPath
+            name     := (Type(game) == "Map") ? game["SavedName"]     : game.SavedName
+            launcher := (Type(game) == "Map") ? game["LauncherType"]  : game.LauncherType
+            appPath  := (Type(game) == "Map") ? game["ApplicationPath"] : game.ApplicationPath
 
-            if (InStr(launcher, "RPCS3") || InStr(appPath, "EBOOT.BIN")) {
+            isPs3  := InStr(launcher, "RPCS3")   || InStr(appPath, "EBOOT.BIN")
+            isPs4  := InStr(launcher, "ShadPS4") || InStr(appPath, "sce_sys")
+            if (isPs3 || isPs4) {
                 this.AllGames.Push({ Name: name, Id: id, Data: game })
             }
         }
@@ -161,20 +175,118 @@ class IconManagerGui {
         }
     }
 
+    static RemoveSelectedGame() {
+        selectedName := this.GameList.Text
+        if (selectedName == "") {
+            DialogsGui.CustomTrayTip("Select a game first.", 2)
+            return
+        }
+        gameId := ""
+        for g in this.AllGames {
+            if (g.Name == selectedName) {
+                gameId := g.Id
+                break
+            }
+        }
+        if (gameId == "") {
+            DialogsGui.CustomTrayTip("Game not found.", 2)
+            return
+        }
+        if !DialogsGui.AskForConfirmation("Remove Game", "Remove '" selectedName "' from the library?")
+            return
+        ConfigManager.Games.Delete(gameId)
+        ConfigManager.SaveGames()
+        this.CurrentGame := {}
+        this.CurrentPaths := { Icon0: "", Pic0: "", Pic1: "", Snd0: "", Snd0Wav: "" }
+        this.LblPath.Text := "-"
+        this.LblIconStatus.Text := "-"
+        this.LblSoundStatus.Text := "-"
+        this.PicPreview.Value := ""
+        this.PopulateGameList()
+        DialogsGui.CustomTrayTip("Removed: " selectedName, 2)
+    }
+
     ; 3. BROWSE & ADD
-    static BrowseAndAddGame() {
-        folder := DirSelect(, 3, "Select Game Folder (containing EBOOT.BIN)")
-        if (folder == "")
+    static ShowAddGameDialog() {
+        dlg := Gui("+Owner" this.MainGui.Hwnd " -Caption +Border +AlwaysOnTop +ToolWindow", "Add Game")
+        dlg.BackColor := "2A2A2A"
+        dlg.SetFont("s12 cSilver", "Segoe UI")
+        dW := 640
+
+        titleBar := dlg.Add("Text", "x0 y0 w" (dW - 30) " h28 +0x200 Background333333", "   Nexus :: Add PS3 / PS4 Game")
+        titleBar.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, dlg.Hwnd))
+        dlg.Add("Text", "x+0 yp w30 h28 +0x200 Center Background333333 cRed", "✕").OnEvent("Click", (*) => dlg.Destroy())
+
+        dlg.Add("Text", "x10 y+10 w" (dW - 20), "Select the game root folder (e.g. 'BlazBlue Calamity Trigger')")
+        dlg.Add("Text", "x10 y+3 w" (dW - 20), "PS3: GameName\PS3_GAME\USRDIR\EBOOT.BIN")
+        dlg.Add("Text", "x10 y+3 w" (dW - 20), "PS4 (ShadPS4): GameName\sce_sys\icon0.png")
+
+        ; Add game folder with explorer like window
+        editPath := dlg.Add("Edit", "x10 y+12 w" (dW - 60) " h30 Background333333")
+
+        ; Select a game folder to add
+        btnBrw := dlg.Add("Text", "x+5 yp w28 h30 Border +0x200 Center Background333333", "…")
+        btnBrw.OnEvent("Click", (*) => (p := DirSelect(, 3, "Select Game Root Folder"), p != "" ? editPath.Value := p : 0))
+
+        dlg.Add("Text", "x10 y+14 w" (dW - 20) " h1 Background333333")
+        addFn := (ctrl, *) => (
+            folder := Trim(editPath.Value),
+            folder != "" && DirExist(folder)
+                ? (this.BrowseAndAddGame(folder), dlg.Destroy())
+                : DialogsGui.CustomTrayTip("Please enter a valid folder path.", 2)
+        )
+
+        ; Add game button
+        btnOk := dlg.Add("Button", "x10 y+5 h30 Default Center Background333333", "  Add Game  ")
+        btnOk.OnEvent("Click", addFn)
+
+        ; Cancel button
+        dlg.Add("Button", "x+8 yp h30 Center Background333333", "  Cancel  ").OnEvent("Click", (*) => dlg.Destroy())
+        dlg.OnEvent("Escape", (*) => dlg.Destroy())
+        dlg.Show("w" dW)
+    }
+
+    static BrowseAndAddGame(folder) {
+        if (folder == "" || !DirExist(folder))
             return
 
+        ; Search for EBOOT.BIN (PS3) or sce_sys/eboot.bin (PS4/ShadPS4)
         targetPath := ""
-        if FileExist(folder . "\EBOOT.BIN")
-            targetPath := folder . "\EBOOT.BIN"
-        else if FileExist(folder . "\USRDIR\EBOOT.BIN")
-            targetPath := folder . "\USRDIR\EBOOT.BIN"
+        launcherType := "RPCS3"
+
+        for tryPath in [folder . "\EBOOT.BIN",
+                        folder . "\USRDIR\EBOOT.BIN",
+                        folder . "\PS3_GAME\USRDIR\EBOOT.BIN",
+                        folder . "\PS3_GAME\EBOOT.BIN"] {
+            if FileExist(tryPath) {
+                targetPath := tryPath
+                launcherType := "RPCS3"
+                break
+            }
+        }
 
         if (targetPath == "") {
-            DialogsGui.CustomMsgBox("Error", "Could not find EBOOT.BIN in this folder.", 0x10)
+            for tryPath in [folder . "\eboot.bin",
+                            folder . "\eboot.elf"] {
+                if FileExist(tryPath) {
+                    targetPath := tryPath
+                    launcherType := "ShadPS4"
+                    break
+                }
+            }
+        }
+
+        ; ShadPS4 assets-only (no executable in this folder, but sce_sys present)
+        if (targetPath == "" && DirExist(folder . "\sce_sys")) {
+            targetPath := folder . "\sce_sys\icon0.png"
+            launcherType := "ShadPS4"
+        }
+
+        if (targetPath == "") {
+            DialogsGui.CustomMsgBox("Error",
+                "Could not detect a game in this folder.`n`n"
+                "PS3: GameName\PS3_GAME\USRDIR\EBOOT.BIN`n"
+                "PS4: GameName\eboot.bin  or  GameName\sce_sys\", 0x10)
             return
         }
 
@@ -183,7 +295,7 @@ class IconManagerGui {
         for id, game in ConfigManager.Games {
             existingPath := (Type(game) == "Map") ? game["ApplicationPath"] : game.ApplicationPath
             if (existingPath == safePath) {
-                DialogsGui.CustomTrayTip("Found: Game is already in library.", 1)
+                DialogsGui.CustomTrayTip("Skip, game is already in library.", 1)
                 existingName := (Type(game) == "Map") ? game["SavedName"] : game.SavedName
                 this.GameList.Choose(existingName)
                 this.OnGameSelect()
@@ -191,16 +303,21 @@ class IconManagerGui {
             }
         }
 
-        SplitPath(folder, &folderName)
+        ; Derive a clean game name — skip generic subfolder names
+        SplitPath(folder, &folderName, &folderDir)
+        while (folderName = "PS3_GAME" || folderName = "USRDIR" || folderName = "sce_sys") {
+            folder := folderDir
+            SplitPath(folder, &folderName, &folderDir)
+        }
         gameName := folderName
-        gameId := "GAME_" . StrUpper(StrReplace(gameName, " ", "_"))
+        gameId   := (launcherType = "ShadPS4" ? "PS4_" : "GAME_") . StrUpper(StrReplace(gameName, " ", "_"))
 
         newGame := {
             Id: gameId,
             SavedName: gameName,
             ApplicationPath: safePath,
-            LauncherType: "RPCS3",
-            GameApplication: "EBOOT.BIN",
+            LauncherType: launcherType,
+            GameApplication: (launcherType = "ShadPS4" ? "eboot.bin" : "EBOOT.BIN"),
             SnapshotDir: "snapshots/" . gameId,
             CaptureDir: "captures/" . gameId,
             EbootIsoPath: safePath,
@@ -212,7 +329,7 @@ class IconManagerGui {
 
         ConfigManager.Games[gameId] := newGame
         ConfigManager.SaveGames()
-        DialogsGui.CustomTrayTip("New game added to library!", 2)
+        DialogsGui.CustomTrayTip("New game added: " gameName, 2)
 
         this.PopulateGameList()
         try this.GameList.Choose(gameName)
@@ -229,48 +346,73 @@ class IconManagerGui {
             return
 
         appPath := StrReplace(appPath, "/", "\")
-        SplitPath(appPath, , &parentDir)
-        rootDir := parentDir
+        SplitPath(appPath, , &dirOfEboot)      ; e.g. …\PS3_GAME\USRDIR  or …\sce_sys
+        SplitPath(dirOfEboot, , &dirOfUsrdir)  ; e.g. …\PS3_GAME         or …\GameName
+        SplitPath(dirOfUsrdir, , &dirOfRoot)   ; e.g. …\GameName
 
-        this.LblGameTitle.Text := (Type(gameData) == "Map") ? gameData["SavedName"] : gameData.SavedName
-        this.LblPath.Text := rootDir
+        this.LblPath.Text := dirOfEboot
 
-        searchPaths := [rootDir, rootDir . "\..", rootDir . "\..\PS3_GAME", rootDir . "\PS3_GAME"]
-        this.CurrentPaths := { Icon0: "", Pic1: "", Snd0: "" }
+        ; Build candidate paths covering PS3 (RPCS3) and PS4 (ShadPS4) layouts
+        searchPaths := [
+            dirOfEboot,
+            dirOfUsrdir,
+            dirOfRoot,
+            dirOfUsrdir . "\PS3_GAME",
+            dirOfEboot  . "\PS3_GAME",
+            ; ShadPS4 — assets live in sce_sys (lowercase names)
+            dirOfUsrdir . "\sce_sys",
+            dirOfRoot   . "\sce_sys"
+        ]
+        this.CurrentPaths := { Icon0: "", Pic0: "", Pic1: "", Snd0: "", Snd0Wav: "" }
 
         for path in searchPaths {
-            if (this.CurrentPaths.Icon0 == "" && FileExist(path . "\ICON0.PNG"))
-                this.CurrentPaths.Icon0 := path . "\ICON0.PNG"
-            if (this.CurrentPaths.Pic1 == "" && FileExist(path . "\PIC1.PNG"))
-                this.CurrentPaths.Pic1 := path . "\PIC1.PNG"
+            ; ICON0 — uppercase (PS3) then lowercase (PS4)
+            if (this.CurrentPaths.Icon0 == "") {
+                for name in ["ICON0.PNG", "icon0.png"] {
+                    if FileExist(path . "\" . name) {
+                        this.CurrentPaths.Icon0 := path . "\" . name
+                        break
+                    }
+                }
+            }
+            ; PIC1 / PIC0 — pick best available
+            if (this.CurrentPaths.Pic1 == "") {
+                for name in ["PIC1.PNG", "pic1.png"] {
+                    if FileExist(path . "\" . name) {
+                        this.CurrentPaths.Pic1 := path . "\" . name
+                        break
+                    }
+                }
+            }
+            if (this.CurrentPaths.Pic0 == "") {
+                for name in ["PIC0.PNG", "pic0.png"] {
+                    if FileExist(path . "\" . name) {
+                        this.CurrentPaths.Pic0 := path . "\" . name
+                        break
+                    }
+                }
+            }
+            ; Sound
             if (this.CurrentPaths.Snd0 == "" && FileExist(path . "\SND0.AT3"))
                 this.CurrentPaths.Snd0 := path . "\SND0.AT3"
         }
 
-        this.BtnCopyIcon.Enabled := false
-        this.BtnCopyPic.Enabled := false
-        this.BtnCopyWav.Enabled := false
-
         if (this.CurrentPaths.Icon0) {
             this.PicPreview.Value := this.CurrentPaths.Icon0
-            this.LblIconStatus.Text := "" . this.CurrentPaths.Icon0
-            this.BtnCopyIcon.Enabled := true
+            this.LblIconStatus.Text := this.CurrentPaths.Icon0
         } else {
             this.PicPreview.Value := ""
-            this.LblIconStatus.Text := "ICON0.PNG not found."
+            this.LblIconStatus.Text := "icon file not found (ICON0.PNG / icon0.png)"
         }
 
-        if (this.CurrentPaths.Pic1) {
-            this.BtnCopyPic.Enabled := true
-        }
+        picLabel := this.CurrentPaths.Pic1 != "" ? this.CurrentPaths.Pic1
+                  : this.CurrentPaths.Pic0 != "" ? this.CurrentPaths.Pic0 : ""
+        ; LblSoundStatus / BtnCopyPic feedback handled below
 
         if (this.CurrentPaths.Snd0) {
-            this.LblSoundStatus.Text := "Found SND0.AT3"
-            this.BtnPlay.Enabled := true
-            this.BtnCopyWav.Enabled := true
+            this.LblSoundStatus.Text := this.CurrentPaths.Snd0
         } else {
-            this.LblSoundStatus.Text := "SND0.AT3 not found."
-            this.BtnPlay.Enabled := false
+            this.LblSoundStatus.Text := "sound file not found (SND0.AT3 / snd0.at9"
         }
     }
 
@@ -307,7 +449,7 @@ class IconManagerGui {
     }
 
     static ConvertAudio(src, dest) {
-        this.LblSoundStatus.Text := "Converting AT3..."
+        this.LblSoundStatus.Text := "Converting ATTRAC..."
         converter := "core\vgmstream-cli.exe"
         if !FileExist(converter) {
             DialogsGui.CustomMsgBox("Error", "Missing core\vgmstream-cli.exe", 0x10)
@@ -333,60 +475,95 @@ class IconManagerGui {
             this.LoopTimerFunc := ""
         }
         try SoundPlay("NonExistentFile.wav")
-        this.BtnStop.Enabled := false
-        this.BtnPlay.Enabled := (this.CurrentPaths.Snd0 != "")
         this.LblSoundStatus.Text := "Stopped."
     }
 
     ; 6. PIC1 & FULLSCREEN
     static ShowPic1Window() {
-        if (!this.CurrentPaths.Pic1) {
-            DialogsGui.CustomTrayTip("PIC1.PNG not found.", 2)
+        ; Prefer PIC1, fall back to PIC0 (ShadPS4)
+        imgPath := this.CurrentPaths.Pic1 != "" ? this.CurrentPaths.Pic1
+                 : this.CurrentPaths.Pic0 != "" ? this.CurrentPaths.Pic0 : ""
+        if (imgPath == "") {
+            DialogsGui.CustomTrayTip("No background image found (PIC1.PNG / PIC0.PNG / pic0.png).", 2)
             return
         }
+        Logger.Info("ShowPic1Window: opening " imgPath, "IconManagerGui")
 
-        ; FIX: Check if Object before destroying
         if IsObject(this.PicGui)
             this.PicGui.Destroy()
 
-        this.PicGui := Gui("+Owner" . this.MainGui.Hwnd . " +AlwaysOnTop", "PIC1 Viewer")
-        this.PicGui.BackColor := "Black"
-        this.PicGui.SetFont("s10 cWhite", "Segoe UI")
+        picW  := 800
+        picH  := 450
+        tbarH := 28
+        statH := 24
 
-        guiW := 800
-        guiH := 450
-        this.PicGui.Add("Picture", "x0 y0 w" guiW " h" guiH, this.CurrentPaths.Pic1).OnEvent("Click", (*) => this.ToggleFullscreen())
-        this.PicGui.Add("Text", "x10 y" (guiH + 10) " w" guiW " Center", "Click image for Fullscreen (ESC to close, S to switch monitor)")
-        this.PicGui.Show("w" guiW " h" (guiH + 40))
+        this.PicGui := Gui("-Caption +Border +ToolWindow +AlwaysOnTop", "Nexus :: Background Viewer")
+        this.PicGui.BackColor := "1A1A1A"
+        this.PicGui.SetFont("s11 cSilver", "Segoe UI")
+
+        ; Custom title bar
+        tbar := this.PicGui.Add("Text", "x0 y0 w" (picW - 30) " h" tbarH " +0x200 Background2A2A2A", "  Nexus :: Background Viewer")
+        tbar.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.PicGui.Hwnd))
+        this.PicGui.Add("Text", "x+0 yp w30 h" tbarH " +0x200 Center Background2A2A2A cRed", "✕")
+            .OnEvent("Click", (*) => (this.PicGui.Destroy(), this.PicGui := ""))
+
+        ; Picture
+        this.PicGui.Add("Picture", "x0 y" tbarH " w" picW " h" picH, imgPath)
+            .OnEvent("Click", (*) => this.ToggleFullscreen())
+
+        ; Status bar
+        this.PicGui.Add("Text", "x0 y" (tbarH + picH) " w" picW " h" statH " +0x200 Center Background2A2A2A",
+            "Click image for fullscreen  |  ESC = close  |  S = switch monitor")
+
+        this.PicGui.OnEvent("Escape", (*) => (this.PicGui.Destroy(), this.PicGui := ""))
+        this.PicGui.Show("w" picW " h" (tbarH + picH + statH))
     }
 
     static ToggleFullscreen() {
-        ; FIX: Check if Object
         if IsObject(this.FullscreenGui) {
+            Logger.Info("ToggleFullscreen: closing", "IconManagerGui")
             this.FullscreenGui.Destroy()
             this.FullscreenGui := ""
             return
         }
-        this.FullscreenGui := Gui("-Caption +AlwaysOnTop +ToolWindow", "Fullscreen Pic1")
+
+        imgPath := this.CurrentPaths.Pic1 != "" ? this.CurrentPaths.Pic1
+                 : this.CurrentPaths.Pic0 != "" ? this.CurrentPaths.Pic0 : ""
+        if (imgPath == "") {
+            Logger.Warn("ToggleFullscreen: no image path available", "IconManagerGui")
+            return
+        }
+        Logger.Info("ToggleFullscreen: opening " imgPath, "IconManagerGui")
+
+        this.FullscreenGui := Gui("-Caption +AlwaysOnTop +ToolWindow", "Fullscreen Pic")
         this.FullscreenGui.BackColor := "Black"
-        this.FullscreenGui.Add("Picture", "x0 y0", this.CurrentPaths.Pic1)
+        this.FullscreenGui.Add("Picture", "x0 y0", imgPath)
         this.FullscreenGui.OnEvent("Escape", (*) => this.ToggleFullscreen())
-        HotIfWinActive("ahk_id " . this.FullscreenGui.Hwnd)
-        Hotkey "s", (*) => this.SwitchMonitor()
+
+        hwnd := this.FullscreenGui.Hwnd
+        HotIfWinActive("ahk_id " hwnd)
+        Hotkey "s", (*) => this.SwitchMonitor(), "On"
         HotIfWinActive()
+
+        this.CurrentMonitor := 1
         this.SwitchMonitor(true)
+        ; Explicitly activate so the S hotkey fires immediately
+        WinActivate("ahk_id " hwnd)
+        Logger.Info("ToggleFullscreen: registered S hotkey for hwnd=" hwnd, "IconManagerGui")
     }
 
     static SwitchMonitor(firstRun := false) {
         if (!this.FullscreenGui)
             return
         count := MonitorGetCount()
-        if (!firstRun) {
+        if (!firstRun)
             this.CurrentMonitor++
-        }
-        if (this.CurrentMonitor > count) this.CurrentMonitor := 1
-            MonitorGet(this.CurrentMonitor, &L, &T, &R, &B)
-        width := R - L
+        if (this.CurrentMonitor > count)
+            this.CurrentMonitor := 1
+
+        Logger.Info("SwitchMonitor: monitor=" this.CurrentMonitor "/" count " firstRun=" firstRun, "IconManagerGui")
+        MonitorGet(this.CurrentMonitor, &L, &T, &R, &B)
+        width  := R - L
         height := B - T
         this.FullscreenGui.Show("x" L " y" T " w" width " h" height)
         try {
@@ -415,7 +592,7 @@ class IconManagerGui {
                 sourcePath := this.CurrentPaths.Icon0
                 destFile := "ICON0.PNG"
             case "PIC1":
-                sourcePath := this.CurrentPaths.Pic1
+                sourcePath := this.CurrentPaths.Pic1 != "" ? this.CurrentPaths.Pic1 : this.CurrentPaths.Pic0
                 destFile := "PIC1.PNG"
             case "WAV":
                 rawWav := StrReplace(this.CurrentPaths.Snd0, ".AT3", ".wav")

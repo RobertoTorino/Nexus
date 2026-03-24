@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0
 ; ==============================================================================
+; Description: Handles TeknoParrot launching.
 ; Class: TeknoParrotLauncher
 ; Location: lib/emulator/types/TeknoParrotLauncher.ahk
-; Description: Handles TeknoParrot launching.
-;              - V1.2.09: Fixes EmulatorMap Crash & XML Parsing Logic
+; * @author Philip
+; * @date 2026/01/17
+; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
@@ -177,14 +179,13 @@ class TeknoParrotLauncher extends EmulatorBase {
         }
     }
 
-    Stop() {
-        ; 1. Manually trigger the session end report because we are overriding Base.Stop()
-        if IsSet(ProcessManager)
-            ProcessManager.EndSession()
-
-        ; 2. Nuke everything
+Stop() {
+        ; 1. Nuke the processes first
         Logger.Info("TP Launcher: Stopping PID " this.Pid, "TeknoParrotLauncher")
         WindowManager.ForceKillAll()
+
+        ; 2. Let the MonitorProcess timer handle the EndSession automatically,
+        ; but we clear our local references.
         this.Pid := 0
         this.TpPid := 0
     }

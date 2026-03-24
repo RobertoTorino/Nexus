@@ -4,75 +4,131 @@
 ; * @class ControllerManager
 ; * @location lib/input/ControllerManager.ahk
 ; * @author Philip
-; * @date 2026/01/25
 ; * @version 1.0.00
 ; ==============================================================================
 
 ; --- DEPENDENCY IMPORTS ---
+; None
 
 class ControllerManager {
     static ActiveID := 1
-    static LastPress := 0
-    static RepeatDelay := 150
-    static TargetHwnd := 0
     static TimerObj := ""
+    static LastPress := 0
+    static ExitHoldStart := 0
+    static TargetHwnd := 0
 
-    ; Face Button Mappings (Standard XInput / Generic USB)
-    static BindEnter := 1 ; Cross / A
-    static BindBack  := 2 ; Circle / B
+    ; --- CONFIGURATION ---
+    static Btn_Snap     := 9   ; Share
+    static Btn_Burst    := 13  ; PS Button
+    static Btn_Exit1    := 9   ; Share
+    static Btn_Exit2    := 10  ; Options
 
     static Init(hwnd := 0) {
         this.TargetHwnd := hwnd
 
-        ; Stop existing timer if re-initializing
-        if (this.TimerObj)
-            SetTimer(this.TimerObj, 0)
-
-        ; Bind method correctly to preserve 'this' context
-        this.TimerObj := ObjBindMethod(this, "HandleControllerInput")
-        SetTimer(this.TimerObj, 50)
-    }
-
-    static HandleControllerInput() {
-        ; 1. Focus Check (Zero Impact if app is in background)
-        if (this.TargetHwnd != 0) {
-            if !WinActive("ahk_id " this.TargetHwnd) && !WinActive("NexusGameListPopup")
-                return
+        ; Auto-detect controller
+        Loop 8 {
+            if (GetKeyState(A_Index "JoyName")) {
+                this.ActiveID := A_Index
+                break
+            }
         }
 
-        ; 2. Input Throttling
-        if (A_TickCount - this.LastPress < this.RepeatDelay)
+        ; CRITICAL FIX: Only turn off if it's actually an object
+        if (IsObject(this.TimerObj))
+            SetTimer(this.TimerObj, 0)
+
+        this.TimerObj := ObjBindMethod(this, "Tick")
+        SetTimer(this.TimerObj, 20)
+    }
+
+    static Tick() {
+        id := this.ActiveID "Joy"
+
+        ; 1. CHECK IF GAME IS RUNNING
+        gameRunning := false
+        try {
+            if (IsSet(ProcessManager) && ProcessManager.ActivePid > 0)
+                gameRunning := true
+        }
+
+        if (!gameRunning) {
+            if (WinActive("ahk_id " . this.TargetHwnd))
+                this.HandleMenu(id)
+            return
+        }
+
+        ; --- READ BUTTONS ---
+        bExit1 := GetKeyState(id . this.Btn_Exit1) ; Share
+        bExit2 := GetKeyState(id . this.Btn_Exit2) ; Options
+        bBurst := GetKeyState(id . this.Btn_Burst) ; PS Button
+
+        ; --- EXIT COMBO (Share + Options) ---
+        if (bExit1 && bExit2) {
+            if (this.ExitHoldStart == 0) {
+                this.ExitHoldStart := A_TickCount
+                SoundBeep(1000, 50)
+            }
+
+            elapsed := A_TickCount - this.ExitHoldStart
+
+            if (elapsed < 1500) {
+                ToolTip("EXITING IN: " . Round((1500 - elapsed) / 1000, 1) . "s")
+            } else {
+                ToolTip()
+                SoundBeep(500, 500)
+                ProcessManager.CloseActiveGame()
+                this.ExitHoldStart := 0
+                this.LastPress := A_TickCount + 3000
+            }
+            return
+        }
+
+        if (this.ExitHoldStart > 0) {
+            ToolTip()
+            this.ExitHoldStart := 0
+            this.LastPress := A_TickCount + 200
+        }
+
+        ; --- SNAPSHOTS (Cooldown 500ms) ---
+        if (A_TickCount - this.LastPress > 500) {
+            ; Single Snapshot: Share (9) ONLY if Options (10) is NOT pressed
+            if (bExit1 && !bExit2) {
+                if IsSet(CaptureManager) {
+                    CaptureManager.TakeSnapshot(false)
+                    this.LastPress := A_TickCount
+                }
+            }
+            ; Burst Snapshot: PS Button (13)
+            else if (bBurst) {
+                if IsSet(GuiBuilder) && GuiBuilder.HasMethod("OnBurstSnap") {
+                    GuiBuilder.OnBurstSnap()
+                    this.LastPress := A_TickCount
+                }
+            }
+        }
+    }
+
+    ; --- MENU NAVIGATION ---
+    static HandleMenu(id) {
+        if (A_TickCount - this.LastPress < 150)
             return
 
-        ; 3. Read Controller
-        ; If no controller connected, GetKeyState returns 0 immediately, minimal impact.
-        idPrefix := this.ActiveID "Joy"
-        pov := GetKeyState(idPrefix "POV")
+        pov := GetKeyState(id "POV")
+        if (pov != -1) {
+            if (pov == 0) {
+                Send("{Up}")
+                this.LastPress := A_TickCount
+            }
+            else if (pov == 18000) {
+                Send("{Down}")
+                this.LastPress := A_TickCount
+            }
+        }
 
-        action := ""
-
-        ; Navigation (D-Pad)
-        if (pov == 0)
-            action := "{Up}"
-        else if (pov == 18000)
-            action := "{Down}"
-        else if (pov == 27000)
-            action := "{Left}"
-        else if (pov == 9000)
-            action := "{Right}"
-        ; Action Buttons
-        else if GetKeyState(idPrefix . this.BindEnter)
-            action := "{Enter}", this.RepeatDelay := 400 ; Longer delay for confirm
-        else if GetKeyState(idPrefix . this.BindBack)
-            action := "{Esc}", this.RepeatDelay := 400
-
-        ; Execute
-        if (action != "") {
-            Send(action)
-            this.LastPress := A_TickCount
-        } else {
-            ; Reset delay to fast scroll when button released
-            this.RepeatDelay := 150
+        if GetKeyState(id "2") {
+            Send("{Enter}")
+            this.LastPress := A_TickCount + 300
         }
     }
 }

@@ -19,7 +19,9 @@
 #Include ..\emulator\LauncherFactory.ahk
 #Include ..\emulator\types\StandardLauncher.ahk
 #Include ..\input\ControllerManager.ahk
-#Include ..\input\GamepadTester.ahk
+#Include ..\input\ControllerTester.ahk
+#Include ..\input\VoiceCommands.ahk
+#Include ..\input\VoiceCommandCatalog.ahk
 #Include ..\media\SnapshotGallery.ahk
 #Include ..\media\MusicPlayer.ahk
 #Include ..\media\VideoPlayer.ahk
@@ -33,6 +35,7 @@
 #Include ..\ui\IconManagerGui.ahk
 #Include ..\ui\PatchManagerGui.ahk
 #Include ..\config\TranslationManager.ahk
+
 
 class GuiBuilder {
     static MainGui := ""
@@ -86,6 +89,7 @@ class GuiBuilder {
     static LastAudioState := -1
     static LastVideoState := -1
     static TimerStatusObj := "", TimerRecObj := "", TimerTitleObj := ""
+    static Voice := ""    ; holds VoiceCommands instance if initialized
 
     ; --- CONTROLS ---
     static GameSelector := ""
@@ -103,6 +107,11 @@ class GuiBuilder {
 
     static CachedGameCount := 0
     static CachedTotalTime := "0h"
+    static AuthDot := ""
+    static AuthDotState := "off"
+    ; Microphone Voice Indicator
+    static MicIcon := ""
+    static VoiceModeBtn := ""
 
     ; --- [METHOD] Create ---
     static Create(startCallback := "") {
@@ -115,6 +124,15 @@ class GuiBuilder {
             this.StartGameCallback := startCallback
 
         guiW := 805
+
+        ; Initialize voice command recognizer if available
+        try {
+            ; Instantiate VoiceCommands, supplying logger (HWND passed previously was wrong)
+            this.Voice := VoiceCommands(Logger)
+        } catch {
+            ; VoiceCommands class might not be present or fail; ignore
+            Logger.Warn("VoiceCommands: ", "No voice commands received.")
+        }
 
         this.TimerStatusObj := ObjBindMethod(this, "UpdateStatusBar")
         this.TimerRecObj := ObjBindMethod(this, "UpdateRecordingTimers")
@@ -130,6 +148,8 @@ class GuiBuilder {
 
         ; [HOTKEY] F9 Translation Toggle
         Hotkey "F9", (*) => this.ToggleLanguage(), "On"
+        ; [HOTKEY] Ctrl+F10 Voice Catalog Debug Toggle
+        Hotkey "^F10", (*) => this.ToggleVoiceCatalogDebug(), "On"
 
         ; --- TOOLBAR ---
         titleText := "Nexus :: " Chr(169) "" A_YYYY ""
@@ -140,7 +160,11 @@ class GuiBuilder {
         this.TitleControl.OnEvent("Click", DragWin)
         this.TitleControl.OnEvent("DoubleClick", ToggleMode)
 
-        this.MainGui.Add("Text", "x+20 h30 +0x200 Center -Border", "-  A:").OnEvent("Click", DragWin)
+        this.AuthDot := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border cSilver", "●")
+        this.AuthDot.OnEvent("Click", DragWin)
+        this.SetAuthIndicator(this.AuthDotState)
+
+        this.MainGui.Add("Text", "x+12 h30 +0x200 Center -Border", "   A:").OnEvent("Click", DragWin)
         this.TimerAudio := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00  ")
         this.TimerAudio.OnEvent("Click", DragWin)
         this.TimerAudio.OnEvent("DoubleClick", ToggleMode)
@@ -157,7 +181,10 @@ class GuiBuilder {
         BtnAppReload := this.MainGui.Add("Text", "x+10 yp h30 +0x200 +Center Background2A2A2A cSilver", "↻")
         BtnAppReload.OnEvent("Click", (*) => Reload())
 
+        ; Open help window
         this.AddNavBtn("  ?  ", (*) => this.ShowHelp(), "x+3 yp-3 h35 -Border")
+
+        ; Open system info window
         this.AddNavBtn("  i  ", (*) => SystemInfoTool.Show(), "x+0 yp h35 -Border")
 
         this.MainGui.Add("Text", "x+0 yp-3 w30 h35 +0x200 Center Background2A2A2A", "_").OnEvent("Click", (*) => this.MainGui.Minimize())
@@ -194,6 +221,49 @@ class GuiBuilder {
         ; --- ROW 2 ---
         this.MainGui.SetFont("s14", "Segoe UI")
         this.BtnStart := this.AddNavBtn("  ▶️  ", (*) => this.OnStartAction(), "x5 y+10 h35 Background333333 " btnW)
+
+        startFn := (*) => this.OnStartAction()
+        restartFn := (*) => this.OnRestartAction()
+        exitFn := (*) => this.OnExitAction()
+        helpFn := (*) => this.ShowHelp()
+        browserFn := (*) => this.OnFileBrowser()
+        databaseFn := (*) => GameDatabaseTool.Show()
+        galleryFn := (*) => this.OnOpenGallery()
+        snapshotFn := (*) => CaptureManager.TakeSnapshot(false)
+        focusFn := (*) => this.OnFocusGame()
+        musicFn := (*) => MusicPlayer.Show()
+        videoFn := (*) => VideoPlayer.Show()
+        ; voice will call startFn as well
+        ; make sure we have a valid recogniser (the initial try/catch above
+        ; may have created it already). the constructor requires the HWND.
+        if !IsObject(this.Voice) {
+            try {
+                this.Voice := VoiceCommands(Logger)
+            } catch {
+                ; ignore if it failed or the class is absent
+            }
+        }
+
+        voiceDebugEnabled := this.IsVoiceCatalogDebugEnabled()
+        if IsObject(this.Voice)
+            this.Voice.debugHeard := voiceDebugEnabled
+
+        voiceCallbacks := Map(
+            "start", startFn,
+            "restart", restartFn,
+            "exit", exitFn,
+            "help", helpFn,
+            "browser", browserFn,
+            "database", databaseFn,
+            "gallery", galleryFn,
+            "snapshot", snapshotFn,
+            "focus", focusFn,
+            "music", musicFn,
+            "video", videoFn
+        )
+        ; voice toggle (F8)
+        Hotkey("*F8", (*) => this.ToggleVoiceListening())
+
         this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10 h35 Background333333 " btnW)
         this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10 h35 Background333333 " btnW)
 
@@ -208,15 +278,27 @@ class GuiBuilder {
 
         ; 3. Arrow
         this.MainGui.SetFont("s14", "Segoe UI")
-        this.MainGui.Add("Text", "x+2 yp-1 w40 h33 cSilver Background333333 +0x200 +Center", "▼")
+        arrow := this.MainGui.Add("Text", "x+2 yp-1 w40 h33 cSilver Background333333 +0x200 +Center", "▼")
         this.MainGui.SetFont("s12", "Segoe UI")
-        ; 4. Overlay
-        BtnOverlay := this.MainGui.Add("Text", "xp-400 yp-2 w490 h35 BackgroundTrans")
-        BtnOverlay.OnEvent("Click", (*) => this.OpenGameList(ConfigManager.GetSortedList())) ; controls the inner width
+
+        ; 4. Overlay - compute bounds based on selector + arrow
+        this.GameSelector.GetPos(&gx, &gy, &gw, &gh)
+        arrow.GetPos(&ax, &ay, &aw, &ah)
+        overlayX := gx
+        overlayW := (ax + aw) - gx
+        BtnOverlay := this.MainGui.Add("Text", "x" . overlayX . " yp-2 w" . overlayW . " h35 BackgroundTrans")
 
         ; --- CAMERA SECTION ---
         this.MainGui.SetFont("s14 Bold", "Segoe UI")
-        this.AddNavBtn(" 🔘 ", (*) => CaptureManager.TakeSnapshot(false), "xp+447 yp +0x200 +Center Background333333 h35 " btnW)
+        ; create the snapshot button and keep a reference so the overlay callback
+        ; can determine whether we clicked on the camera icon.
+        snapX := overlayX + overlayW + 10
+        snapOpts := "x" . snapX . " yp +0x200 +Center Background333333 h35 " . btnW
+        this.BtnSnap := this.AddNavBtn(" 🔘 ", (btn, *) => (this.FlashButton(btn), CaptureManager.TakeSnapshot(false)), snapOpts)
+
+        ; modify overlay handler so that clicks falling over the snap button are
+        ; redirected to the snapshot logic instead of opening the game list.
+        BtnOverlay.OnEvent("Click", ObjBindMethod(this, "OverlayClick"))
 
         ; Burst Input
         this.MainGui.Add("Text", "yp w42 h35 x+10 Border Background333333", "")
@@ -230,7 +312,21 @@ class GuiBuilder {
 
         this.BtnRecAudio := this.AddNavBtn(this.Label("🔴", "Rec Audio"), (btn, *) => this.OnRecAudioClick(btn), "x5 y+10 Background333333 " btnW)
         this.BtnRecVideo := this.AddNavBtn(this.Label("🎬", "Rec Video"), (btn, *) => this.OnRecVideoClick(btn), "x+10 Background333333 " btnW)
-        this.AddNavBtn(this.Label("🖼️", "Icon Manager"), (*) => IconManagerGui.Show(), "x+10 Background333333 " btnW)
+
+        ;this.BtnSpeechSetup := this.AddNavBtn("S1", (*) => this.OpenSpeechWizard(), "x+10 Background333333 " btnW)
+        ;this.BtnSpeechControlPanel := this.AddNavBtn("S2", (*) => this.OpenSpeechControlPanel(), "x+10 Background333333 " btnW)
+        ;this.BtnMicPrivacySettings := this.AddNavBtn("S3", (*) => this.OpenMicPrivacySettings(), "x+10 Background333333 " btnW)
+
+        ; Microphone Voice Indicator (F8 toggles color)
+        this.MicIcon := this.MainGui.Add("Text", "x+10 h34 w40 cSilver +0x200 +Center +Border Background333333", "🎤")
+        this.MicIcon.OnEvent("Click", (*) => this.ToggleVoiceListening())
+
+        ; Voice mode indicator — click to toggle Whisper ↔ SAPI
+        whisperOn := IsObject(this.Voice) && this.Voice.IsWhisperMode()
+        this.VoiceModeBtn := this.MainGui.Add("Text", "x+2 h34 w28 +0x200 +Center +Border Background333333 " (whisperOn ? "cFF8800" : "cSilver"), whisperOn ? "W" : "S")
+        this.VoiceModeBtn.OnEvent("Click", (*) => this.ToggleVoiceMode())
+
+        this.AddNavBtn(this.Label("🖼️", "Icon Manager"), (*) => IconManagerGui.Show(), "x+10 yp Background333333 " btnW)
 
         ; --- CPU SECTION ---
         NextX := this.UseIcons ? "x+10" : "x5"
@@ -289,20 +385,21 @@ class GuiBuilder {
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("View Logs") "  ", (*) => this.OnViewLogs(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("View System Config") "  ", (*) => ConfigViewerGui.ShowGui("INI"), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Show Games Config") "  ", (*) => ConfigViewerGui.ShowGui(), "x+10" . cAdv))
-        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("AT3 Convert") "  ", (*) => AtracConverterTool.Show(), "x+10" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("ATRAC Tool") "  ", (*) => AtracConverterTool.Show(), "x+10" . cAdv))
 
         ; --- ROW 2 ---
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("RPCS3 Audio Fix") "  ", (*) => AudioManager.ShowGui(), "x5 y+10" . cAdv))
-
         ; Example inside GuiBuilder Create method's Advanced section:
-        this.AdvancedControls.Push(this.AddNavBtn(" Pad Test  ", (*) => GamepadTester.Show(), "x+10" . cAdv))
-
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Hash Calc / Validator") "  ", (*) => FileValidatorTool.Show(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Purge Logs") "  ", (*) => this.OnClearLogs(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Wipe Full List") "  ", (*) => this.OnClearAllGames(), "x+10" . cAdv))
 
+        ; --- ROW 3 ---
+        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Controller Test") "  ", (*) => ControllerTester.Show(), "x5 y+10" . cAdv))
+
+        ; --- ROW 4 ---
         ; Hide Button (Blue Text)
-        this.BtnHideAdvanced := this.AddNavBtn("  ▲ " this.T("Hide Advanced") "  ", (*) => this.ToggleAdvanced(false), "x+10 c05FBE4" . cAdv)
+        this.BtnHideAdvanced := this.AddNavBtn("  ▲ " this.T("Hide Advanced") "  ", (*) => this.ToggleAdvanced(false), "x5 y+10 c05FBE4" . cAdv)
         this.AdvancedControls.Push(this.BtnHideAdvanced)
 
         ; --- MASK / BANNER ---
@@ -340,6 +437,10 @@ class GuiBuilder {
         this.MainGui.Show("AutoSize w" guiW)
         this.MainGui.Opt("+AlwaysOnTop")
 
+        ; Defer voice setup/diagnostics until after render to minimize startup time.
+        if IsObject(this.Voice)
+            SetTimer(() => this.InitializeVoiceSystem(voiceCallbacks, voiceDebugEnabled), -50)
+
         if (HasProp(this, "ToggleTimers"))
             this.ToggleTimers(true)
         if (HasProp(this, "SelectLastPlayed"))
@@ -358,7 +459,30 @@ class GuiBuilder {
         DialogsGui.CustomStatusPop("GUI Load Time: " . loadTime . "ms")
     }
 
+
     ; --- HANDLERS ---
+    static OverlayClick(*) {
+        ; determine mouse position relative to the main GUI
+        MouseGetPos(&mx, &my)
+        this.MainGui.GetPos(&gx, &gy)
+        lx := mx - gx
+        ly := my - gy
+
+        ; fetch the current snap button bounds
+        sx := 0, sy := 0, sw := 0, sh := 0
+        if IsObject(this.BtnSnap)
+            this.BtnSnap.GetPos(&sx, &sy, &sw, &sh)
+
+        if (lx >= sx && lx <= sx + sw && ly >= sy && ly <= sy + sh) {
+            ; clicked on the snapshot icon
+            if IsObject(this.BtnSnap)
+                this.FlashButton(this.BtnSnap)
+            CaptureManager.TakeSnapshot(false)
+        } else {
+            this.OpenGameList(ConfigManager.GetSortedList())
+        }
+    }
+
     static OnClearPath(btnCtrl := "") {
         if (btnCtrl)
             this.FlashButton(btnCtrl)
@@ -433,10 +557,24 @@ class GuiBuilder {
             return
 
         try {
-            if CaptureManager.IsRecordingAudio
-                this.TimerAudio.Text := "   " . CaptureManager.GetDuration("Audio") . "  "
-            if CaptureManager.IsRecordingVideo
-                this.TimerVideo.Text := "  " . CaptureManager.GetDuration("Video") . "  "
+            if CaptureManager.IsRecordingAudio {
+                duration := "00:00:00"
+                try {
+                    duration := CaptureManager.GetAudioDuration()
+                } catch {
+                    duration := "00:00:00"
+                }
+                this.TimerAudio.Text := "   " . duration . "  "
+            }
+            if CaptureManager.IsRecordingVideo {
+                duration := "00:00:00"
+                try {
+                    duration := CaptureManager.GetVideoDuration()
+                } catch {
+                    duration := "00:00:00"
+                }
+                this.TimerVideo.Text := "  " . duration . "  "
+            }
             if (!CaptureManager.IsRecordingAudio && !CaptureManager.IsRecordingVideo) {
                 if (this.TimerRecObj)
                     SetTimer(this.TimerRecObj, 0)
@@ -450,40 +588,14 @@ class GuiBuilder {
         if !this.MainGui || !this.StatusText
             return
 
-        ; 1. Check if a game is supposedly running
-        procName := ConfigManager.ActiveProcessName
+        ; 1. GET DATA (Passive Mode)
+        ; We just ask ProcessManager: "What is the current status?"
+        ; It will return "SYSTEM: ... | GAME: ..." automatically.
+        stats := ProcessManager.GetMonitorText()
 
-        if (procName != "" && ProcessExist(procName)) {
-            ; --- GAME IS RUNNING ---
-
-            ; Add 1 second to stats (This makes the stats live!)
-            if (ConfigManager.CurrentGameId != "")
-                ConfigManager.AddPlayTime(ConfigManager.CurrentGameId, 1)
-
-            try {
-                if (this.StatusText) {
-                    stats := ProcessManager.GetMonitorText(procName)
-                    this.StatusText.Text := stats
-                }
-            }
-        } else {
-            ; --- GAME STOPPED (OR NOT RUNNING) ---
-
-            ; If we THOUGHT it was running, but now it's gone -> End Session
-            if (ConfigManager.ActiveProcessName != "") {
-                report := ProcessManager.EndSession()
-                if (report != "")
-                    DialogsGui.CustomStatusPop("Session Ended`n" . report)
-
-                ConfigManager.ActiveProcessName := "" ; Clear it so we don't trigger this again
-                this.ClearGameGroup()
-                this.RefreshTopPlayed() ; Update the UI immediately
-            }
-
-            try {
-                if (this.StatusText)
-                    this.StatusText.Text := ProcessManager.GetMonitorText() ; Show System Stats only
-            }
+        ; 2. UPDATE UI
+        try {
+            this.StatusText.Text := stats
         }
     }
 
@@ -497,9 +609,107 @@ class GuiBuilder {
             this.StatusText.Text := statusText
     }
 
+    static SetAuthIndicator(state := "off") {
+        this.AuthDotState := state
+
+        color := "Silver"
+        switch state {
+            case "ok":
+                color := "05FBE4"
+            case "fail":
+                color := "Red"
+            case "pending":
+                color := "FF8800"
+            default:
+                color := "Silver"
+        }
+
+        if (this.HasProp("AuthDot") && IsObject(this.AuthDot)) {
+            this.AuthDot.SetFont("c" color)
+            this.AuthDot.Redraw()
+        }
+    }
+
+    static ToggleVoiceListening() {
+        if !IsObject(this.Voice)
+            return
+
+        if this.Voice.IsWhisperMode() {
+            if this.Voice.IsWhisperActive()
+                return  ; already recording, ignore repeated press
+            if (this.HasProp("MicIcon") && IsObject(this.MicIcon)) {
+                this.MicIcon.SetFont("cFF8800")  ; orange = recording
+                this.MicIcon.Redraw()
+            }
+            this.SetVoiceStatus("Listening...")
+            this.Voice.onWhisperDone := ObjBindMethod(this, "_OnWhisperCmdDone")
+            this.Voice.TriggerWhisperCmd()
+            return
+        }
+
+        newState := !this.Voice.listening
+        this.Voice.Enable(newState)
+        if (this.HasProp("MicIcon") && IsObject(this.MicIcon)) {
+            this.MicIcon.SetFont(newState ? "c05FBE4" : "cSilver")
+            this.MicIcon.Redraw()
+        }
+        stateText := newState ? "ON" : "OFF"
+        Logger.Info("VoiceCommands: listening " stateText, "VoiceCommands")
+        try DialogsGui.CustomTrayTip("Voice listening: " stateText)
+    }
+
+    static _OnWhisperCmdDone(resultText := "") {
+        if (this.HasProp("MicIcon") && IsObject(this.MicIcon)) {
+            this.MicIcon.SetFont("cSilver")
+            this.MicIcon.Redraw()
+        }
+        hint := (resultText != "") ? "Heard: " SubStr(resultText, 1, 50) : "Ready"
+        this.SetVoiceStatus(hint)
+    }
+
+    static ToggleVoiceMode() {
+        if !IsObject(this.Voice)
+            return
+
+        nowWhisper := this.Voice.IsWhisperMode()
+        this.Voice.SetWhisperMode(!nowWhisper)
+        newWhisper := !nowWhisper
+
+        if (this.HasProp("VoiceModeBtn") && IsObject(this.VoiceModeBtn)) {
+            this.VoiceModeBtn.SetFont(newWhisper ? "cFF8800" : "cSilver")
+            this.VoiceModeBtn.Value := newWhisper ? "W" : "S"
+            this.VoiceModeBtn.Redraw()
+        }
+        ; In SAPI mode reset mic icon to off-state silver
+        if (!newWhisper && this.HasProp("MicIcon") && IsObject(this.MicIcon)) {
+            this.MicIcon.SetFont("cSilver")
+            this.MicIcon.Redraw()
+        }
+        modeLabel := newWhisper ? "Whisper (tap F8 to speak)" : "SAPI (F8 to toggle)"
+        this.SetVoiceStatus("Voice mode: " modeLabel)
+        try DialogsGui.CustomTrayTip("Voice mode: " (newWhisper ? "Whisper" : "SAPI"))
+    }
+
     static OnRecAudioClick(btnCtrl) {
         this.FlashButton(btnCtrl)
+
+        starting := !CaptureManager.IsRecordingAudio
+        if (starting && GetKeyState("Shift", "P")) {
+            CaptureManager.SetSessionForceVoicemeeter(true)
+            DialogsGui.CustomTrayTip("Recording will use Voicemeeter", 1)
+        }
+
+        useVM := starting ? CaptureManager.GetUseVoicemeeterForThisSession() : false
+        if (starting && IsObject(this.Voice))
+            this.Voice.UseVoicemeeter(useVM)
+
         CaptureManager.ToggleAudioRecording()
+
+        ; Switch back to direct mic after stopping
+        if (!CaptureManager.IsRecordingAudio && IsObject(this.Voice)) {
+            this.Voice.UseVoicemeeter(false)
+        }
+
         if (CaptureManager.IsRecordingAudio)
             SetTimer(this.TimerRecObj, 1000)
         else
@@ -508,7 +718,24 @@ class GuiBuilder {
 
     static OnRecVideoClick(btnCtrl) {
         this.FlashButton(btnCtrl)
+
+        starting := !CaptureManager.IsRecordingVideo
+        if (starting && GetKeyState("Shift", "P")) {
+            CaptureManager.SetSessionForceVoicemeeter(true)
+            DialogsGui.CustomTrayTip("Recording will use Voicemeeter", 1)
+        }
+
+        useVM := starting ? CaptureManager.GetUseVoicemeeterForThisSession() : false
+        if (starting && IsObject(this.Voice))
+            this.Voice.UseVoicemeeter(useVM)
+
         CaptureManager.ToggleVideoRecording()
+
+        ; Switch back to direct mic after stopping
+        if (!CaptureManager.IsRecordingVideo && IsObject(this.Voice)) {
+            this.Voice.UseVoicemeeter(false)
+        }
+
         if (CaptureManager.IsRecordingVideo)
             SetTimer(this.TimerRecObj, 1000)
         else
@@ -1108,11 +1335,150 @@ class GuiBuilder {
         btnObj.Redraw()
     }
 
+    static OpenSpeechWizard() {
+        Send "#^s"  ; Win+Ctrl+S
+    }
+
+    static OpenSpeechControlPanel() {
+        Run 'control.exe /name Microsoft.SpeechRecognition'
+    }
+
+    static OpenMicPrivacySettings() {
+        Run "ms-settings:privacy-microphone"
+    }
+
     static ShowHelp() {
         ; Use the Translation Manager to get the big block of text
         helpText := TranslationManager.T("HELP_TEXT_MAIN")
 
         ; Pass it to the Viewer (which now centers itself on the Owner)
-        DialogsGui.ShowTextViewer("NEXUS :: Help", helpText, 500, 875)
+        DialogsGui.ShowTextViewer("NEXUS :: Help", helpText, 675, 950)
+    }
+
+    static IsVoiceCatalogDebugEnabled() {
+        enabled := IniRead(ConfigManager.IniPath, "SETTINGS", "DebugVoiceCatalog", "0")
+        return (enabled = "1")
+    }
+
+    static ToggleVoiceCatalogDebug() {
+        current := this.IsVoiceCatalogDebugEnabled()
+        next := current ? "0" : "1"
+
+        try IniWrite(next, ConfigManager.IniPath, "SETTINGS", "DebugVoiceCatalog")
+
+        stateText := (next = "1") ? "ON" : "OFF"
+        Logger.Info("VoiceCommands: DebugVoiceCatalog " stateText, "VoiceCommands")
+        if (this.StatusText)
+            this.StatusText.Text := "Voice catalog debug: " stateText
+        try DialogsGui.CustomTrayTip("Voice catalog debug: " stateText)
+    }
+
+    static OnVoiceUnmatched(text, raw := "") {
+        normalized := Trim(text)
+        if (normalized = "")
+            return
+
+        firstToken := StrSplit(normalized, " ")[1]
+        if (firstToken = "help" || firstToken = "halp" || firstToken = "aide"
+            || firstToken = "aiuto" || firstToken = "ayuda"
+            || normalized = "question" || normalized = "question mark") {
+            try this.ShowHelp()
+            Logger.Info("Voice Help fallback: " normalized, "VoiceCommands")
+            return
+        }
+
+        if MusicPlayer.IsOpen() {
+            if (normalized = "fullscreen" || normalized = "full screen") {
+                MusicPlayer.ToggleFullScreen()
+                Logger.Info("Voice Music fullscreen", "VoiceCommands")
+                return
+            }
+        }
+    }
+
+    static ShouldExecuteVoiceCommand(key, text := "", raw := "") {
+        query := Trim(text)
+
+        if MusicPlayer.IsOpen() {
+            if (query = "play") {
+                MusicPlayer.TogglePlay()
+                Logger.Info("Voice Music play", "VoiceCommands")
+                return false
+            }
+
+            if (query = "stop") {
+                MusicPlayer.Hide()
+                Logger.Info("Voice Music stop/close", "VoiceCommands")
+                return false
+            }
+
+            if (query = "fullscreen" || query = "full screen") {
+                MusicPlayer.ToggleFullScreen()
+                Logger.Info("Voice Music fullscreen", "VoiceCommands")
+                return false
+            }
+
+            if (key = "start" || key = "exit")
+                return false
+        }
+
+        return true
+    }
+
+    static GetVoiceDebugDeferredMs() {
+        value := "1500"
+        try value := IniRead(ConfigManager.IniPath, "SETTINGS", "VoiceDebugDeferredMs", "1500")
+
+        ms := 1500
+        try ms := Integer(value)
+        catch
+            ms := 1500
+
+        if (ms < 0)
+            ms := 0
+        if (ms > 10000)
+            ms := 10000
+
+        return ms
+    }
+
+    static InitializeVoiceSystem(voiceCallbacks, voiceDebugEnabled := false) {
+        if !IsObject(this.Voice)
+            return
+
+        setupStart := A_TickCount
+        try {
+            VoiceCommandCatalog.RegisterAll(this.Voice, voiceCallbacks)
+            this.Voice.SetUnmatchedHandler((text, raw) => this.OnVoiceUnmatched(text, raw))
+            this.Voice.SetCommandFilter((key, text, raw) => this.ShouldExecuteVoiceCommand(key, text, raw))
+            this.Voice.Commit()
+            this.Voice.Enable(false)
+
+            if (voiceDebugEnabled) {
+                deferMs := this.GetVoiceDebugDeferredMs()
+                SetTimer(() => (
+                    VoiceCommandCatalog.LogCatalog(Logger),
+                    this.Voice.LogSapiAudioInputs()
+                ), -deferMs)
+            }
+
+            Logger.Info("Voice setup loaded in " (A_TickCount - setupStart) " ms", "VoiceCommands")
+        } catch as err {
+            Logger.Warn("Voice setup deferred init failed: " err.Message, "VoiceCommands")
+        }
+    }
+
+    static SetVoiceStatus(msg, maxLen := 64) {
+        if !this.StatusText
+            return
+
+        text := Trim(msg)
+        if (text = "")
+            return
+
+        if (StrLen(text) > maxLen)
+            text := SubStr(text, 1, maxLen - 1) . "…"
+
+        try this.StatusText.Text := text
     }
 }

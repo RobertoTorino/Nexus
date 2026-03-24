@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 ; ==============================================================================
-; * @description ATRAC3 (AT3) to WAV Converter. Features: Batch Conversion, Auto-Install (core folder).
+; * @description ATRAC3 ATRAC9 (AT3/AT9) to WAV Converter.
 ; * @class AtracConverterTool
 ; * @location lib/tools/AtracConverterTool.ahk
 ; * @author Philip
@@ -16,7 +16,7 @@ class AtracConverterTool {
     static ListCtrl := ""
     static TempDir := A_Temp . "\core"
     static CLIExe := ""
-
+    static ConvertedCount := 0
     ; Window State
     static PrevPos := { x: 0, y: 0, w: 600, h: 400 }
 
@@ -50,7 +50,7 @@ class AtracConverterTool {
         btnY := guiH - 35
 
         ; CREATE GUI
-        this.MainGui := Gui("-Caption +Border +AlwaysOnTop +ToolWindow +MinSize500x300", "ATRAC3 Converter")
+        this.MainGui := Gui("-Caption +Border +AlwaysOnTop +ToolWindow +MinSize500x300", "ATRAC Converter")
 
         ; ---- Snap Gui ----
         WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
@@ -63,7 +63,7 @@ class AtracConverterTool {
         this.MainGui.OnEvent("DropFiles", (guiObj, ctrl, files, *) => this.OnDropFiles(files))
 
         ; --- CUSTOM TITLE BAR ---
-        this.TitleText := this.MainGui.Add("Text", "x0 y0 w" (guiW - 90) " h" titleH " +0x200 Background2A2A2A", "   ATRAC3 Converter")
+        this.TitleText := this.MainGui.Add("Text", "x0 y0 w" (guiW - 90) " h" titleH " +0x200 Background2A2A2A", "   Nexus :: AT3 / AT9 Converter")
         this.TitleText.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
 
         this.MainGui.SetFont("s10 Norm")

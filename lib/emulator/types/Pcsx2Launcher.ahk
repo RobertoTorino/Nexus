@@ -32,7 +32,7 @@ class Pcsx2Launcher extends EmulatorBase {
 
         ; --- FIX 1: TRACK UI SESSION ---
         if (rawPath == "") {
-            Logger.Info("PCSX2: No ISO selected, launching UI.", this.__Class)
+            Logger.Info("PCSX2: No ISO selected, launching UI.")
             try {
                 Run(emuPath, emuDir, , &guiPid)
                 if (guiPid > 0)
@@ -53,7 +53,7 @@ class Pcsx2Launcher extends EmulatorBase {
         ; 5. Launch Arguments
         ; -batch (Exit on close) -fullscreen -- (File separator)
         runCmd := Format('"{1}" -batch -fullscreen -- "{2}"', emuPath, isoPath)
-        Logger.Info("Launching PCSX2: " runCmd, this.__Class)
+        Logger.Info("Launching PCSX2: " runCmd)
 
         try {
             ; --- FIX 2: REMOVE LEGACY "UseErrorLevel" ---
@@ -69,7 +69,7 @@ class Pcsx2Launcher extends EmulatorBase {
                 ; Wait up to 3 seconds for the window to appear so we can snap it
                 if WinWait("ahk_pid " newPid, , 3) {
                     WindowManager.SetGameContext("ahk_pid " newPid, 1)
-                    Logger.Info("PCSX2 Launched & Moved (PID: " newPid ")", this.__Class)
+                    Logger.Info("PCSX2 Launched & Moved (PID: " newPid ")")
                     return true
                 }
 
