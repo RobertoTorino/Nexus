@@ -5,7 +5,7 @@ on:
     tags:
       - 'test-v*'   # Manual beta tags (e.g. test-v1.2.3)
     branches:
-      - dev         # Auto-nightly on every push to dev
+      - develop         # Auto-nightly on every push to develop
   workflow_dispatch:  # Manual trigger from GitHub Actions UI
 
 jobs:
@@ -195,7 +195,7 @@ jobs:
         uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b  # v2
         with:
           tag_name: ${{ github.ref_name == 'dev' && format('nightly-{0}', github.run_number) || github.ref_name }}
-          name: ${{ github.ref_name == 'dev' && format('Nightly #{0}', github.run_number) || github.ref_name }}
+          name: "Nightly #${{ github.run_number }}"
           body: "**Beta / Nightly build** — use at your own risk.\n\nDownload and extract the ZIP before running Nexus.exe.\nVerify the SHA256 checksum with the included `_verify-nexus.ps1` or the standalone `.sha256` file."
           files: |
             Nexus-*.zip

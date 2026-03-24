@@ -4,7 +4,8 @@ on:
   push:
     tags:
       - 'v*'      # Stable releases only
-
+    branches:
+      - main         # Auto-nightly on every push to develop
 jobs:
   build:
     runs-on: windows-latest
