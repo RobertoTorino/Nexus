@@ -139,7 +139,7 @@ Voicemeeter makes it possible to reroute your audio streams so you can listen to
 In Voicemeeter Basic, FFmpeg must record a B-bus (B1/B2/B3), and audio only reaches that bus if you explicitly enable it on the Virtual Input strip.
 That's why I prefer Voicemeeter Banana.
 
-## My settings for Voicemeeter Banana:
+## Example settings for Voicemeeter Banana:
 
 #### Hardware Out
 * A1: Mi TV -2 (Intel(R) Display Audio) - This is sound from my 2nd monitor (a TV) connected with my laptop through HDMI.

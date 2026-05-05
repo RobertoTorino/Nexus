@@ -8,6 +8,12 @@
 ; * @version 1.0.00
 ; ==============================================================================
 
+;The AHK StandardLauncher does exactly this:
+;Snapshot all running PIDs before launch via CreateToolhelp32Snapshot
+;Launch the .bat (don't track its PID)
+;Poll every 1 s for up to 15 s, comparing the current process list against the snapshot
+;First new PID with a visible window = the real game → hand off to the tracker
+
 ; --- DEPENDENCY IMPORTS ---
 #Include ..\EmulatorBase.ahk
 #Include ..\..\window\WindowManager.ahk

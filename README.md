@@ -53,11 +53,14 @@ If you start the app a mic icon will appear in your system tray, that indicates 
 * play,
 * stop,
 * fullscreen, full screen are handled directly.
+
 #### In Database window:
 * saying a query performs search;
 * close intent words like close, quit, exit, stop, fermer, chiudi, cerrar, закрыть, выити close DB.
+
 #### Optional DB search prefixes:
 * search, find, lookup, look up, buscar, recherche, chercher, cerca, ricerca, 搜索, 搜, 查找, 検索, искать, поиск, наити.
+
 #### Others
 * burst aliases exist in catalog (rapid, 连拍, 連写, raffica, rafaga, rafale, серия, очередь) but are not active right now because no burst callback is registered in
 
@@ -122,25 +125,22 @@ Place Nexus in a central location.
 With the combination of positioning and resizing you can achieve a perfect full screen window.                                                  
 Check the settings folder for some of the (JConfig) screen settings that gave me the basis for a perfect screen.                                           
 Some games have phantom windows (sometimes more than one, good examples are Dead or Alive 5 and Tekken 7).
-"Manage All Windows" shows an overview of windows which can be managed.
 
 ---
 
 ### Capture Audio or Video (with sound)
 
-I used some additional tools for this:
+Additional tools used:
 * Voicemeeter Banana: [voicemeeter](https://vb-audio.com/Voicemeeter/potato.htm)
 * Vgmstream: [vgmstream](https://vgmstream.org/)
 * Ffmpeg: [ffmpeg](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z")
-
-### Other tools used
 * SoundVolumeView: [SoundVolumeView](https://www.nirsoft.net/utils/sound_volume_view.html)
 
 Voicemeeter makes it possible to reroute your audio streams so you can listen to the audio that is being recorded.   
 In Voicemeeter Basic, FFmpeg must record a B-bus (B1/B2/B3), and audio only reaches that bus if you explicitly enable it on the Virtual Input strip.
 That's why I prefer Voicemeeter Banana.
 
-## My Settings for Voicemeeter Banana:
+## Example Settings for Voicemeeter Banana:
 
 #### Hardware Out
 * A1: Mi TV -2 (Intel(R) Display Audio) - This is sound from my 2nd monitor (a TV) connected with my laptop through HDMI.
