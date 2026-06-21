@@ -55,8 +55,6 @@ A_HotkeyInterval := 2000
 #Include lib\media\VideoPlayer.ahk
 ; lib\process\
 #Include lib\process\ProcessManager.ahk
-; lib\security\
-#Include lib\security\AuthManager.ahk
 ; lib\tools\
 #Include lib\tools\AtracConverterTool.ahk
 #Include lib\tools\FileValidatorTool.ahk
@@ -127,22 +125,6 @@ Logger.Info("Games Database: " . JsonFilePath, "Nexus.ahk")
 
 authIndicatorState := "off"
 
-; Optional beta auth bootstrap (non-blocking)
-if (AuthManager.IsEnabled()) {
-    authIndicatorState := "pending"
-    try {
-        AuthManager.Init()
-        if !AuthManager.EnsureSession() {
-            authIndicatorState := "fail"
-            Logger.Warn("Beta auth is enabled but session could not be established.", "Nexus.ahk")
-        } else {
-            authIndicatorState := "ok"
-        }
-    } catch as err {
-        authIndicatorState := "fail"
-        Logger.Warn("Beta auth bootstrap failed: " err.Message, "Nexus.ahk")
-    }
-}
 
 if !AudioManager.Init()
     Logger.Warn("Audio Manager: Voicemeeter not found.")
@@ -153,13 +135,6 @@ try {
     Logger.Error("GUI Crash: " err.Message)
     MsgBox("Critical UI Error: " err.Message)
 }
-
-; Optional backend health check (deferred so startup remains responsive)
-if (AuthManager.IsEnabled() && AuthManager.IsHealthCheckEnabled()) {
-    GuiBuilder.SetAuthIndicator("pending")
-    SetTimer(RunBetaHealthCheck, -250)
-}
-
 
 ; Read the INI
 try {
@@ -182,7 +157,6 @@ A_TrayMenu.Add("Show Dashboard", (*) => GuiBuilder.MainGui.Show())
 A_TrayMenu.Add("System Log", (*) => (WinExist("Nexus :: Logger") ? LoggerGui.Hide() : LoggerGui.Show()))
 A_TrayMenu.Add("Clone Wizard", (*) => CloneGameWizardGui.Show())
 A_TrayMenu.Add("Manage Audio", (*) => AudioManager.ShowGui())
-A_TrayMenu.Add("Clear Beta Auth", (*) => ClearBetaAuthTokens())
 A_TrayMenu.Add("Reload", (*) => Reload())
 A_TrayMenu.Add("Exit", (*) => (SetTimer(ObjBindMethod(ControllerManager, "HandleControllerInput"), 0), ExitApp()))
 
@@ -347,32 +321,4 @@ MainExitHandler(ExitReason, ExitCode) {
     }
 
     return 0
-}
-
-RunBetaHealthCheck() {
-    ok := AuthManager.RunStartupHealthCheck()
-    try GuiBuilder.SetAuthIndicator(ok ? "ok" : "fail")
-}
-
-ClearBetaAuthTokens() {
-    if !AuthManager.IsEnabled() {
-        DialogsGui.CustomTrayTip("Beta auth is currently disabled.", 1)
-        return
-    }
-
-    if (DialogsGui.CustomMsgBox("Clear Beta Auth", "Revoke session and clear local beta auth tokens?", 0, 4) != "Yes")
-        return
-
-    ok := false
-    try ok := AuthManager.RevokeSession()
-
-    if ok {
-        try GuiBuilder.SetAuthIndicator("off")
-        DialogsGui.CustomTrayTip("Beta auth tokens cleared.", 1)
-        Logger.Info("Beta auth tokens revoked and cleared via tray action.", "Nexus.ahk")
-    } else {
-        try GuiBuilder.SetAuthIndicator("fail")
-        DialogsGui.CustomTrayTip("Failed to clear beta auth tokens.", 2)
-        Logger.Warn("Failed to revoke/clear beta auth tokens via tray action.", "Nexus.ahk")
-    }
 }

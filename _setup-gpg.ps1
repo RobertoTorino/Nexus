@@ -49,25 +49,7 @@ if (-not $existingKey) {
     $name  = $null
     $email = $null
 
-    # --- Try SOPS-encrypted secrets/identity.yaml first (preferred) ---
-    $sopsIdentity = Join-Path $PSScriptRoot "secrets\identity.yaml"
-    if ((Get-Command sops -ErrorAction SilentlyContinue) -and (Test-Path $sopsIdentity)) {
-        try {
-            $ageKeyFile = Join-Path $env:APPDATA "sops\age\keys.txt"
-            if (Test-Path $ageKeyFile) { $env:SOPS_AGE_KEY_FILE = $ageKeyFile }
-            $jsonOut = sops decrypt --output-type json $sopsIdentity 2>$null
-            if ($jsonOut) {
-                $id     = $jsonOut | ConvertFrom-Json
-                $name   = $id.name
-                $email  = $id.email
-                Write-Host "  Loaded identity from secrets\identity.yaml (SOPS)" -ForegroundColor DarkGray
-            }
-        } catch {
-            Write-Host "  Could not decrypt secrets\identity.yaml - will fall back." -ForegroundColor DarkGray
-        }
-    }
-
-    # --- Fall back to legacy .gpg-identity ---
+    # --- Load identity from local .gpg-identity if present ---
     $legacyIdentity = Join-Path $PSScriptRoot ".gpg-identity"
     if ((-not $name -or -not $email) -and (Test-Path $legacyIdentity)) {
         Get-Content $legacyIdentity | ForEach-Object {
