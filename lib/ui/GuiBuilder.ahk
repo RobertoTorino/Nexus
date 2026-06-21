@@ -173,7 +173,7 @@ class GuiBuilder {
         this.TimerVideo := this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " 00:00:00 ")
         this.TimerVideo.OnEvent("Click", DragWin)
         this.TimerVideo.OnEvent("DoubleClick", ToggleMode)
-        this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " - ").OnEvent("Click", DragWin)
+        this.MainGui.Add("Text", "x+0 h30 +0x200 Center -Border", " ").OnEvent("Click", DragWin)
 
         ; --- TOOLBAR BUTTONS ---
         this.MainGui.SetFont("s12 cSilver", "Segoe UI")
@@ -302,7 +302,7 @@ class GuiBuilder {
 
         ; Burst Input
         this.MainGui.Add("Text", "yp w42 h35 x+10 Border Background333333", "")
-        this.BurstInput := this.MainGui.Add("Edit", "xp+1 yp+5 h29 w40 Number Center -E0x200 -Border Limit2 Background333333 cSilver", "5")
+        this.BurstInput := this.MainGui.Add("Edit", "xp+1 yp+5 h29 w40 Number Center -E0x200 -Border Limit2 Background333333 cRed", "5")
         this.BtnBurstStart := this.AddNavBtn("  ▶️ ", (*) => this.OnBurstSnap(), "x+10 yp-5 Background333333 h35 " btnW)
 
         ; --- ROW 3 ---

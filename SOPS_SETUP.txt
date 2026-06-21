@@ -47,19 +47,6 @@ Rerun:
 Remove-Item secrets\*.yaml -ErrorAction SilentlyContinue .\_setup-sops.ps1
 
 
-SHADPS4
-
-
--g, --game <path|ID>          Specify game path to launch
-  -p, --patch <patch_file>      Apply specified patch file
-  -f, --fullscreen <true|false> Specify window initial fullscreen state. Does not overwrite the config file.
-  -h, --help                    Display this help message
-
-Now instead of opening a game with shadps4 {path/to/eboot.bin}, you can now do this:
-shadps4 --game CUSAXXXXX --show-gui --patch {path/to/patch/file}
-Reading the source code or running shadps4 --help will give further info.
-Opening game by ID is done by checking each game install folder, and seeing if there is a folder named CUSAXXXX in them, and if so, opens {installdir}/CUSAXXXXX/eboot.bin.
-
 
 
 

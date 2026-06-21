@@ -29,6 +29,17 @@
       "TotalPlayTime":0
     },
     {
+      "ApplicationPath":"D:/DOA-Xtreme-Venus-Vacation/DOA-Xtreme-Venus-Vacation.exe",
+      "CaptureDir":"captures/GAME_DOA_XTREME_VENUS_VACATION",
+      "EbootIsoPath":"D:/DOA-Xtreme-Venus-Vacation/DOA-Xtreme-Venus-Vacation.exe",
+      "GameApplication":"DOA-Xtreme-Venus-Vacation.exe",
+      "Id":"GAME_DOA_XTREME_VENUS_VACATION",
+      "IsPatchable":"false",
+      "LauncherType":"STANDARD",
+      "SavedName":"DOA_XTREME_VENUS_VACATION",
+      "SnapshotDir":"snapshots/GAME_DOA_XTREME_VENUS_VACATION"
+    },
+    {
       "AddedDate":"2026-02-04 04:31:42",
       "ApplicationPath":"E:/GAMECUBE GAMES/Capcom vs. SNK 2 EO - Millionaire Fighting 2001 (Europe).rvz",
       "Id":"GAME_DOLPHIN_CAPCOM_VS_SNK_2_EO_MILLIONAIRE_FIGHTING_2001_EUROPE",
@@ -740,6 +751,25 @@
       "SavedName":"Grand Theft Auto IV [BLUS30127]",
       "SnapshotDir":"snapshots/GAME_GRAND_THEFT_AUTO_IV_[BLUS30127]",
       "TotalPlayTime":0
+    },
+    {
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/PPSSPPWindowsGold/games/Lumines 2 (US).iso",
+      "CaptureDir":"captures/GAME_LUMINES_2_US_PPSSPP",
+      "EbootIsoPath":"C:/Users/Admin/Desktop/Games/PPSSPPWindowsGold/games/Lumines 2 (US).iso",
+      "GameApplication":"Lumines 2 (US).iso",
+      "HasWindowProfile":1,
+      "Id":"GAME_LUMINES_2_US_PPSSPP",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-06-17 22:06:11",
+      "LauncherType":"PPSSPP",
+      "PlayTimeReadable":"39.9m",
+      "SavedName":"LUMINES_2_US_PPSSPP",
+      "SnapshotDir":"snapshots/GAME_LUMINES_2_US_PPSSPP",
+      "TotalPlayTime":2394,
+      "WinH":900,
+      "WinW":1600,
+      "WinX":160,
+      "WinY":90
     },
     {
       "ApplicationPath":"D:/RPCS3/games/MotorStorm - Pacific Rift [BCUS98155]/PS3_GAME/USRDIR/EBOOT.BIN",
@@ -2577,6 +2607,21 @@
       "WinW":2410,
       "WinX":-245,
       "WinY":-140
+    },
+    {
+      "ApplicationPath":"E:/RPCS3/RPCS3 TEKKEN/RPCS3/dev_hdd0/game/NPJB00001/USRDIR/EBOOT.BIN",
+      "CaptureDir":"captures/GAME_TEKKEN_5_DR_RPCS3",
+      "EbootIsoPath":"E:/RPCS3/RPCS3 TEKKEN/RPCS3/dev_hdd0/game/NPJB00001/USRDIR/EBOOT.BIN",
+      "GameApplication":"EBOOT.BIN",
+      "Id":"GAME_TEKKEN_5_DR_RPCS3",
+      "IsPatchable":"true",
+      "LastPlayed":"2026-05-08 20:17:41",
+      "LauncherType":"RPCS3",
+      "PatchGroup":"Tekken 6 BR",
+      "PlayTimeReadable":"12s",
+      "SavedName":"TEKKEN_5_DR_RPCS3",
+      "SnapshotDir":"snapshots/GAME_TEKKEN_5_DR_RPCS3",
+      "TotalPlayTime":12
     },
     {
       "ApplicationPath":"E:/ARCADE GAMES RPCS3/T7/TEKKEN_7_FRR2_108_EN/TekkenGame/Binaries/Win64/TekkenGame-Win64-Shipping.exe",
