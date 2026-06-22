@@ -10,11 +10,11 @@
 
 ; Example:
 ; When Nexus.ahk calls: launcher := LauncherFactory.GetLauncher(gameObj.LauncherType)
-; If gameObj.LauncherType is "VITA3K_3830" and that case is missing from the switch block above,
+; If gameObj.LauncherType is "PCSX2X6" and that case is missing from the switch block above,
 ; the Factory returns StandardLauncher.
-; The Standard Launcher doesn't know how to handle Title IDs or special flags,
+; The Standard Launcher doesn't know how to handle emulator-specific arguments,
 ; it just runs the file path we gave it.
-; By adding the case, we ensure the robust Vita3kLauncher class handles the request.
+; By adding the case, we ensure the correct emulator launcher class handles the request.
 
 ; --- DEPENDENCY IMPORTS ---
 #Include EmulatorBase.ahk
@@ -22,6 +22,7 @@
 #Include types/Vita3kLauncher.ahk
 #Include types/PpssppLauncher.ahk
 #Include types/Pcsx2Launcher.ahk
+#Include types/Pcsx2x6Launcher.ahk
 #Include types/DuckStationLauncher.ahk
 #Include types/TeknoParrotLauncher.ahk
 #Include types/DolphinLauncher.ahk
@@ -41,7 +42,9 @@ class LauncherFactory {
         type := StrUpper(launcherType)
 
         ; Map variants to their core class keys
-        if InStr(type, "RPCS3")
+        if (type = "PCSX2X6")
+            targetKey := "PCSX2X6"
+        else if InStr(type, "RPCS3")
             targetKey := "RPCS3"
         else if InStr(type, "VITA3K")
             targetKey := "VITA3K"
@@ -63,6 +66,7 @@ class LauncherFactory {
             case "DOLPHIN": return DolphinLauncher()
             case "DUCKSTATION": return DuckStationLauncher()
             case "PCSX2": return Pcsx2Launcher()
+            case "PCSX2X6": return Pcsx2x6Launcher()
             case "PPSSPP": return PpssppLauncher()
             case "REDREAM": return RedreamLauncher()
             case "RPCS3": return Rpcs3UniversalLauncher()

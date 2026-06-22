@@ -18,6 +18,7 @@ class RomScanner {
     static PrefixMap := Map(
         "PPSSPP",     "[PSP]",
         "PCSX2",      "[PS2]",
+        "PCSX2X6",    "[ARCADE]",
         "DUCKSTATION", "[PS1]",
         "RPCS3",      "[PS3]",
         "VITA3K",     "[VITA]",

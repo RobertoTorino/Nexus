@@ -31,8 +31,60 @@ TM_Lang_ES() {
         "View Logs", "Ver Logs",
         "Show Games Config", "Config Juegos",
         "View System Config", "Config Sistema",
-        "AT3 Convert", "Conv. AT3",
-        "RPCS3 Audio Fix", "Reparar Audio",
+      "Sound Manager", "Gestor de Sonido",
+      "Emulator Audio Config", "Configuración de Audio del Emulador",
+      "Hardware Output Mapping", "Mapeo de Salida de Hardware",
+      "Route Game Audio (Strip 3)", "Enrutar audio del juego (Pista 3)",
+      "Capture Backend", "Backend de captura",
+      "Backend:", "Backend:",
+      "Save", "Guardar",
+      "Refresh Device List ↻", "Actualizar lista de dispositivos ↻",
+      "Clear", "Borrar",
+      "Mute", "Silencio",
+      "Hard Reset (Relaunch VoiceMeeter App)", "Reinicio duro (Reabrir VoiceMeeter)",
+      "Out A1", "Salida A1",
+      "Out A2", "Salida A2",
+      "Out A3", "Salida A3",
+      "Install Loopback Helper", "Instalar asistente de loopback",
+      "Test Loopback 3s", "Probar loopback 3 s",
+      "Help", "Ayuda",
+      "Check for Updates", "Buscar actualizaciones",
+      "Choose an option", "Elige una opción",
+      "Status:", "Estado:",
+      "Ready", "Listo",
+      "Saved backend:", "Backend guardado:",
+      "Capture backend saved:", "Backend de captura guardado:",
+      "Loopback helper installed", "Asistente de loopback instalado",
+      "Loopback install failed", "Error al instalar el asistente de loopback",
+      "Install Error", "Error de instalación",
+      "Could not install loopback helper.", "No se pudo instalar el asistente de loopback.",
+      "FFmpeg missing", "Falta FFmpeg",
+      "Capture Test", "Prueba de captura",
+      "FFmpeg missing:", "Falta FFmpeg:",
+      "Loopback helper missing", "Falta asistente de loopback",
+      "Loopback helper is missing and could not be installed.", "Falta el asistente de loopback y no pudo instalarse.",
+      "Running 3s loopback test...", "Ejecutando prueba de loopback de 3 s...",
+      "Loopback test saved:", "Prueba de loopback guardada:",
+      "Loopback test capture saved", "Captura de prueba de loopback guardada",
+      "Loopback test failed", "Prueba de loopback fallida",
+      "Loopback test failed. No valid output file was generated.", "La prueba de loopback falló. No se generó un archivo de salida válido.",
+      "Update check finished", "Comprobación de actualizaciones finalizada",
+      "Update Check", "Comprobar actualizaciones",
+      "Update Decision", "Decisión de actualización",
+      "Apply All Updates", "Aplicar todas las actualizaciones",
+      "Install Helper", "Instalar asistente",
+      "Download FFmpeg", "Descargar FFmpeg",
+      "Download Nexus", "Descargar Nexus",
+      "Skip", "Omitir",
+      "Helper local", "Helper local",
+      "FFmpeg local", "FFmpeg local",
+      "Nexus local", "Nexus local",
+      "Latest", "Última",
+      "Stable", "Estable",
+      "Nightly", "Nocturna",
+      "Selected release", "Versión seleccionada",
+      "None", "Ninguna",
+      "AT3 Convert", "Conv. AT3",
         "Pad Test", "Test Mando",
         "Hash Calc / Validator", "Validar Hash",
         "Wipe Full List", "Borrar Todo",
@@ -47,6 +99,30 @@ TM_Lang_ES() {
         "GALLERY_HELP_2", "Doble clic para pantalla completa.",
         "GALLERY_HELP_3", "Pulsa M en pantalla completa para cambiar monitor.",
         "GALLERY_HELP_4", "Pulsa DELETE para borrar la imagen.",
+
+        "HELP_TEXT_SOUND_MANAGER", "
+        (
+1. MODO DE SONIDO:
+   - Auto usa primero el asistente de loopback.
+   - Loopback captura el dispositivo de reproducción de Windows actual.
+   - DShow usa el dispositivo de entrada directo configurado.
+   - Voicemeeter mantiene el flujo de enrutado clásico.
+
+2. CONFIGURACIÓN DE SONIDO DE WINDOWS:
+   - Configura como salida predeterminada los altavoces o auriculares que quieres escuchar.
+   - Deja el micrófono como dispositivo de entrada para los comandos de voz.
+   - Si el audio sale por un dispositivo no predeterminado, cambia a DShow o Voicemeeter.
+
+3. ASISTENTE DE LOOPBACK:
+   - Pulsa Instalar asistente de loopback si el helper integrado falta.
+   - Pulsa Probar loopback 3 s para verificar que el audio del sistema se captura.
+
+4. ACTUALIZACIONES:
+   - Usa el botón de comprobación para comparar el helper, FFmpeg y Nexus.
+
+5. RUTEO LEGADO:
+   - Voicemeeter sigue disponible para usuarios que necesiten ruteo manual por buses.
+        )",
 
             "HELP_TEXT_GAMEPAD", "
             (

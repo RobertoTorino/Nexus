@@ -43,20 +43,9 @@ class Vita3kLauncher extends EmulatorBase {
             return false
         }
 
-        ; Determine Emulator Version (Standard vs 3830)
-        iniSection := "VITA3K_PATH"
-        iniKey := "Vita3kPath"
-        typeLabel := "Standard"
-
-        if (game.HasProp("LauncherType") && game.LauncherType == "VITA3K_3830") {
-            iniSection := "VITA3K_3830_PATH"
-            iniKey := "Vita3k3830Path"
-            typeLabel := "Build 3830"
-        }
-
-        emuPath := IniRead(ConfigManager.IniPath, iniSection, iniKey, "")
+        emuPath := IniRead(ConfigManager.IniPath, "VITA3K_PATH", "Vita3kPath", "")
         if (emuPath == "" || !FileExist(emuPath)) {
-            DialogsGui.CustomMsgBox("Emulator Error", "Vita3K Executable not found for: " . typeLabel, 0x10)
+            DialogsGui.CustomMsgBox("Emulator Error", "Vita3K Executable not found.", 0x10)
             return false
         }
 
@@ -70,7 +59,7 @@ class Vita3kLauncher extends EmulatorBase {
             return false
         }
 
-        Logger.Info("Vita3K Launching ID: " . titleId . " using " . typeLabel, "Vita3kLauncher")
+        Logger.Info("Vita3K Launching ID: " . titleId, "Vita3kLauncher")
 
         ; Prepare Capture
         if IsSet(CaptureManager)

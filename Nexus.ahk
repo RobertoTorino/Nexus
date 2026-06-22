@@ -216,10 +216,12 @@ StartGame(*) {
         switch launcherType {
             case "RPCS3", "FIGHTER", "SHOOTER", "TCRS", "RPCS3_FIGHTER", "RPCS3_SHOOTER", "RPCS3_TCRS":
                 CurrentLauncher := Rpcs3UniversalLauncher()
-            case "VITA3K", "VITA3K_3830":
+            case "VITA3K":
                 CurrentLauncher := Vita3kLauncher()
             case "PCSX2":
                 CurrentLauncher := Pcsx2Launcher()
+            case "PCSX2X6":
+                CurrentLauncher := Pcsx2x6Launcher()
             case "PPSSPP":
                 CurrentLauncher := PpssppLauncher()
             case "DUCKSTATION":

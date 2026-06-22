@@ -31,8 +31,61 @@ TM_Lang_CN() {
         "View Logs", "查看日志",
         "Show Games Config", "游戏配置",
         "View System Config", "系统配置",
-        "AT3 Convert", "AT3 转换",
-        "RPCS3 Audio Fix", "RPCS3 音频修复",
+      "Sound Manager", "声音管理器",
+      "Emulator Audio Config", "模拟器音频配置",
+      "Hardware Output Mapping", "硬件输出映射",
+      "Route Game Audio (Strip 3)", "路由游戏音频（第3轨）",
+      "Capture Backend", "采集后端",
+      "Backend:", "后端：",
+      "Save", "保存",
+      "Refresh Device List ↻", "刷新设备列表 ↻",
+      "Clear", "清除",
+      "Mute", "静音",
+      "Hard Reset (Relaunch VoiceMeeter App)", "硬重置（重启 VoiceMeeter）",
+      "Out A1", "A1输出",
+      "Out A2", "A2输出",
+      "Out A3", "A3输出",
+      "Install Loopback Helper", "安装回环助手",
+      "Test Loopback 3s", "3秒回环测试",
+      "Help", "帮助",
+      "Check for Updates", "检查更新",
+      "Choose an option", "请选择一个选项",
+      "Status:", "状态：",
+      "Ready", "就绪",
+      "Saved backend:", "已保存后端：",
+      "Capture backend saved:", "采集后端已保存：",
+      "Loopback helper installed", "回环助手已安装",
+      "Loopback install failed", "回环助手安装失败",
+      "Install Error", "安装错误",
+      "Could not install loopback helper.", "无法安装回环助手。",
+      "FFmpeg missing", "未找到 FFmpeg",
+      "Capture Test", "采集测试",
+      "FFmpeg missing:", "缺少 FFmpeg：",
+      "Loopback helper missing", "缺少回环助手",
+      "Loopback helper is missing and could not be installed.", "缺少回环助手且无法自动安装。",
+      "Running 3s loopback test...", "正在运行3秒回环测试...",
+      "Loopback test saved:", "回环测试已保存：",
+      "Loopback test capture saved", "回环测试录音已保存",
+      "Loopback test failed", "回环测试失败",
+      "Loopback test failed. No valid output file was generated.", "回环测试失败，未生成有效输出文件。",
+      "Update check finished", "更新检查完成",
+      "Update Check", "更新检查",
+      "Update Decision", "更新选择",
+      "Apply All Updates", "应用全部更新",
+      "Install Helper", "安装助手",
+      "Download FFmpeg", "下载 FFmpeg",
+      "Download Nexus", "下载 Nexus",
+      "Skip", "跳过",
+      "Helper local", "助手本地版本",
+      "FFmpeg local", "FFmpeg 本地版本",
+      "Nexus local", "Nexus 本地版本",
+      "Latest", "最新",
+      "Stable", "稳定版",
+      "Nightly", "夜间版",
+      "Selected release", "选定版本",
+      "None", "无",
+      "AT3 Convert", "AT3 转换",
+      "Sound Manager", "声音管理器",
         "Pad Test", "测试手柄",
         "Hash Calc / Validator", "哈希校验",
         "Wipe Full List", "清空完整列表", ; <--- NEW
@@ -47,6 +100,30 @@ TM_Lang_CN() {
         "GALLERY_HELP_2", "双击图片进入全屏模式。",
         "GALLERY_HELP_3", "全屏时按 M 键切换显示器。",
         "GALLERY_HELP_4", "按 DELETE 键删除图片。",
+
+        "HELP_TEXT_SOUND_MANAGER", "
+        (
+1. 声音模式：
+   - Auto 会优先使用回环助手。
+   - Loopback 会捕获当前 Windows 默认播放设备的音频。
+   - DShow 使用你配置的直接输入设备。
+   - Voicemeeter 保留旧的路由流程。
+
+2. Windows 声音设置：
+   - 将默认输出设备设为你想听到声音的扬声器或耳机。
+   - 将麦克风保持为语音命令使用的输入设备。
+   - 如果播放设备不是默认设备，请切换到 DShow 或 Voicemeeter。
+
+3. 回环助手：
+   - 如果内置助手缺失，点击“安装回环助手”。
+   - 点击“3秒回环测试”确认系统音频正在被捕获。
+
+4. 更新：
+   - 使用更新检查按钮比较助手、FFmpeg 和 Nexus 本体。
+
+5. 旧路由：
+   - 对于仍需手动总线路由的用户，Voicemeeter 仍然可用。
+        )",
 
             "HELP_TEXT_GAMEPAD", "
             (

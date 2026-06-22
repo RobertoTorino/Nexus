@@ -181,8 +181,8 @@ class GuiBuilder {
         BtnAppReload := this.MainGui.Add("Text", "x+10 yp h30 +0x200 +Center Background2A2A2A cSilver", "↻")
         BtnAppReload.OnEvent("Click", (*) => Reload())
 
-        ; Open help window
-        this.AddNavBtn("  ?  ", (*) => this.ShowHelp(), "x+3 yp-3 h35 -Border")
+        ; Open help menu
+        this.AddNavBtn("  ?  ", (*) => this.ShowHelpMenu(), "x+3 yp-3 h35 -Border")
 
         ; Open system info window
         this.AddNavBtn("  i  ", (*) => SystemInfoTool.Show(), "x+0 yp h35 -Border")
@@ -388,7 +388,7 @@ class GuiBuilder {
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("ATRAC Tool") "  ", (*) => AtracConverterTool.Show(), "x+10" . cAdv))
 
         ; --- ROW 2 ---
-        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("RPCS3 Audio Fix") "  ", (*) => AudioManager.ShowGui(), "x5 y+10" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Sound Manager") "  ", (*) => AudioManager.ShowGui(), "x5 y+10" . cAdv))
         ; Example inside GuiBuilder Create method's Advanced section:
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Hash Calc / Validator") "  ", (*) => FileValidatorTool.Show(), "x+10" . cAdv))
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Purge Logs") "  ", (*) => this.OnClearLogs(), "x+10" . cAdv))
@@ -1345,6 +1345,21 @@ class GuiBuilder {
 
     static OpenMicPrivacySettings() {
         Run "ms-settings:privacy-microphone"
+    }
+
+    static ShowHelpMenu() {
+        choice := DialogsGui.AskForChoice("NEXUS :: " this.T("Help"), this.T("Choose an option"), [
+            this.T("Help"),
+            this.T("Check for Updates")
+        ])
+
+        if (choice = this.T("Help")) {
+            this.ShowHelp()
+            return
+        }
+
+        if (choice = this.T("Check for Updates"))
+            AudioManager.CheckCaptureToolUpdates()
     }
 
     static ShowHelp() {

@@ -180,7 +180,9 @@ Run this from within the folder where ffmpeg is located.
 ### Overclock GPU
 For use in this app, MSI Afterburner is used: [MSI Afterburner](https://www.msi.com/Landing/afterburner/graphics-cards)
 
-### For Development only
+---
+
+## For Development only:
 #### Project tree
 ```
 |   Nexus.ahk
@@ -399,6 +401,50 @@ this.AddPathRow(gui, "RetroArch:", "RETROARCH_PATH", "RetroArchPath")
 [ ] Added #Include and case in LauncherFactory.ahk.
 [ ] Added file extensions to GameRegistrarManager.ahk.
 [ ] Added path setting row in EmulatorConfigGui.ahk.
+
+### Practical Example: PCSX2x6 (.acgame)
+
+Use this when arcade dumps should launch with `pcsx2-qt.exe` by opening an `.acgame` file.
+
+#### 1. Launcher Type / Key
+- Preferred new key: `PCSX2X6`
+
+#### 2. File Extension Recognition
+In `lib/config/GameRegistrarManager.ahk`, map `.acgame` to your launcher key:
+
+````
+else if (ext ~= "i)^(acgame)$") {
+    config.Launcher := "PCSX2X6"
+    return this.FinalizeRegistration(config)
+}
+````
+
+#### 3. Factory Registration
+In `lib/emulator/LauncherFactory.ahk`, add or repoint the switch case:
+
+````
+case "PCSX2X6":
+    return Pcsx2Launcher()
+````
+
+#### 4. Emulator Path Config
+Set emulator executable to `pcsx2-qt.exe`.
+Use the dedicated key `PCSX2X6_PATH` / `Pcsx2x6Path`.
+
+#### 5. Expected Launch Behavior
+Given this game file:
+
+````
+C:\Users\Admin\Desktop\Games\Namco246-256\Games\Ace Driver 3 AC PCSX2x6\roms\acedriv3\acedriv3.acgame
+````
+
+Nexus should launch:
+
+````
+pcsx2-qt.exe "acedriv3.acgame"
+````
+
+No compatibility alias is used.
 
 ---
 

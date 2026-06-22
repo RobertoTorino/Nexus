@@ -43,7 +43,9 @@ class TranslationManager {
             ; Special Case: Long Blocks of Text or Special Keys
             if (text == "HELP_TEXT_MAIN")
                 return this.GetEnglishHelp()
-         if (text == "HELP_TEXT_GAMEPAD" || text == "HELP_TEXT_ControllerTester")
+            if (text == "HELP_TEXT_SOUND_MANAGER")
+                return this.GetEnglishSoundManagerHelp()
+            if (text == "HELP_TEXT_GAMEPAD" || text == "HELP_TEXT_ControllerTester")
             return this.GetEnglishControllerTesterHelp()
 
             ; NEW: Handle Gallery Help Keys for English
@@ -130,6 +132,32 @@ class TranslationManager {
        - Use View Logs to look for errors.
         )"
     }
+
+     static GetEnglishSoundManagerHelp() {
+          return "
+          (
+1. SOUND MODE:
+    - Auto uses the loopback helper first.
+    - Loopback captures the current Windows playback device.
+    - DShow uses the configured direct input device.
+    - Voicemeeter keeps the legacy routing workflow.
+
+2. WINDOWS SOUND SETTINGS:
+    - Set your default output device to the speakers or headset you want to hear.
+    - Leave your microphone as the input device for voice commands.
+    - If playback is on a non-default device, switch AudioBackend to DShow or Voicemeeter.
+
+3. LOOPBACK HELPER:
+    - Click Install Loopback Helper if the bundled helper is missing.
+    - Click Test Loopback 3s to verify that system audio is being captured.
+
+4. UPDATES:
+    - Use the update check button to compare the bundled helper, FFmpeg, and Nexus itself.
+
+5. LEGACY ROUTING:
+    - Voicemeeter is still available for users who need manual bus routing.
+          )"
+     }
 
       static GetEnglishControllerTesterHelp() {
             return "

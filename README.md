@@ -131,12 +131,20 @@ Some games have phantom windows (sometimes more than one, good examples are Dead
 ### Capture Audio or Video (with sound)
 
 Additional tools used:
-* Voicemeeter Banana: [voicemeeter](https://vb-audio.com/Voicemeeter/potato.htm)
+* Audio Capture helper (WASAPI loopback): [audio-capture](https://github.com/huxinhai/audio-capture)
+* Voicemeeter Banana (optional fallback): [voicemeeter](https://vb-audio.com/Voicemeeter/potato.htm)
 * Vgmstream: [vgmstream](https://vgmstream.org/)
 * Ffmpeg: [ffmpeg](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z")
 * SoundVolumeView: [SoundVolumeView](https://www.nirsoft.net/utils/sound_volume_view.html)
 
-Voicemeeter makes it possible to reroute your audio streams so you can listen to the audio that is being recorded.   
+Nexus now supports loopback capture through the standalone `audio_capture` helper (WASAPI on Windows), which allows recording system audio while you still hear playback.
+If the helper is available (or auto-installed), Nexus can capture audio/video without Voicemeeter setup.
+Voicemeeter remains available as a fallback profile when needed.
+Bundled helper asset: [audio_capture-windows-x64.exe](https://github.com/huxinhai/audio-capture/releases/download/v2.0.0/audio_capture-windows-x64.exe) (stored as `core/audio_capture.exe`).
+
+### Deprecated: Voicemeeter Banana Routing (Legacy)
+
+Voicemeeter makes it possible to reroute your audio streams so you can listen to the audio that is being recorded.
 In Voicemeeter Basic, FFmpeg must record a B-bus (B1/B2/B3), and audio only reaches that bus if you explicitly enable it on the Virtual Input strip.
 That's why I prefer Voicemeeter Banana.
 
@@ -156,6 +164,9 @@ That's why I prefer Voicemeeter Banana.
 In Windows Go to Settings/System/Sound and set this:
 * Output: Voicemeeter AUX Input
 * Input: Voicemeeter Out B1
+
+#### Emulator Sound Settings
+In your emulator settings set audio output to Voicemeeter AUX Input
 
 #### Example of Audio Devices on your System
 * Mi TV -2 (Intel(R) Display Audio)

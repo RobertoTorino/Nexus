@@ -21,7 +21,7 @@ class GameRegistrarManager {
         Logger.Info("AddGame sequence initiated.", "GameRegistrarManager")
 
         path := FileSelect(3, , "Select Game Executable, ISO, or EBOOT",
-            "All Supported (*.exe; *.bat; *.lnk; *.iso; *.cso; *.bin; *.cue; *.chd; *.pbp; *.elf; *.rvz; *.wbfs; *.gcm)")
+            "All Supported (*.exe; *.bat; *.lnk; *.iso; *.cso; *.bin; *.cue; *.chd; *.pbp; *.elf; *.rvz; *.wbfs; *.gcm; *.acgame)")
 
         if (path == "") {
             Logger.Warn("File selection cancelled by user.", "GameRegistrarManager")
@@ -50,6 +50,11 @@ class GameRegistrarManager {
         if (fileName ~= "i)^eboot\.(bin|elf)$") {
             Logger.Info("Routing to EBOOT handler.", "GameRegistrarManager")
             if !this.HandleEboot(config)
+                return false
+        }
+        else if (ext ~= "i)^(acgame)$") {
+            Logger.Info("Routing to PCSX2x6 handler.", "GameRegistrarManager")
+            if !this.HandleAcGame(config)
                 return false
         }
         else if (ext ~= "i)^(iso|cso|bin|cue|chd|pbp|rvz|wbfs|gcm)$") {
@@ -85,19 +90,7 @@ class GameRegistrarManager {
         ; --- VITA3K DETECTION ---
         if (config["Path"] ~= "i)(app|ux0|mai)") {
             Logger.Info("Vita3K structure detected.", "GameRegistrarManager")
-            choice := DialogsGui.AskForChoice("Select Vita3K Build", "Which emulator version?",
-                ["Standard Vita3K", "Vita3K Build 3830"])
-
-            if (choice == "") {
-                Logger.Warn("Vita3K selection cancelled.", "GameRegistrarManager")
-                return false
-            }
-
-            if (choice == "Vita3K Build 3830") {
-                return this.ConfigureEmulator(config, "VITA3K_3830", "VITA3K_3830", "Vita3k3830Path")
-            } else {
-                return this.ConfigureEmulator(config, "VITA3K", "VITA3K_PATH", "Vita3kPath")
-            }
+            return this.ConfigureEmulator(config, "VITA3K", "VITA3K_PATH", "Vita3kPath")
         }
 
         ; --- PS3 vs PS4 DETECTION ---
@@ -162,6 +155,11 @@ class GameRegistrarManager {
         }
 
         return this.ConfigureEmulator(config, choice, choice "_PATH", iniKey)
+    }
+
+    static HandleAcGame(config) {
+        ; Dedicated route for arcade-ready PCSX2x6 launch files.
+        return this.ConfigureEmulator(config, "PCSX2X6", "PCSX2X6_PATH", "Pcsx2x6Path")
     }
 
     static ConfigureEmulator(config, type, iniSec, iniKey) {

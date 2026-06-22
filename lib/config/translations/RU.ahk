@@ -31,13 +31,65 @@ TM_Lang_RU() {
         "View Logs", "Показать логи",
         "Show Games Config", "Конфиг игр",
         "View System Config", "Конфиг системы",
+      "Sound Manager", "Менеджер звука",
+      "Emulator Audio Config", "Настройки аудио эмулятора",
+      "Hardware Output Mapping", "Сопоставление аппаратных выходов",
+      "Route Game Audio (Strip 3)", "Маршрут аудио игры (Дорожка 3)",
+      "Capture Backend", "Бэкенд захвата",
+      "Backend:", "Бэкенд:",
+      "Save", "Сохранить",
+      "Refresh Device List ↻", "Обновить список устройств ↻",
+      "Clear", "Очистить",
+      "Mute", "Без звука",
+      "Hard Reset (Relaunch VoiceMeeter App)", "Жёсткий сброс (перезапуск VoiceMeeter)",
+      "Out A1", "Выход A1",
+      "Out A2", "Выход A2",
+      "Out A3", "Выход A3",
+      "Install Loopback Helper", "Установить loopback helper",
+      "Test Loopback 3s", "Проверить loopback 3 с",
+      "Help", "Справка",
+      "Check for Updates", "Проверить обновления",
+      "Choose an option", "Выберите действие",
+      "Status:", "Статус:",
+      "Ready", "Готово",
+      "Saved backend:", "Бэкенд сохранён:",
+      "Capture backend saved:", "Бэкенд захвата сохранён:",
+      "Loopback helper installed", "Loopback helper установлен",
+      "Loopback install failed", "Не удалось установить loopback helper",
+      "Install Error", "Ошибка установки",
+      "Could not install loopback helper.", "Не удалось установить loopback helper.",
+      "FFmpeg missing", "FFmpeg отсутствует",
+      "Capture Test", "Тест захвата",
+      "FFmpeg missing:", "FFmpeg отсутствует:",
+      "Loopback helper missing", "Loopback helper отсутствует",
+      "Loopback helper is missing and could not be installed.", "Loopback helper отсутствует и не может быть установлен.",
+      "Running 3s loopback test...", "Выполняется тест loopback 3 с...",
+      "Loopback test saved:", "Тест loopback сохранён:",
+      "Loopback test capture saved", "Запись теста loopback сохранена",
+      "Loopback test failed", "Тест loopback не удался",
+      "Loopback test failed. No valid output file was generated.", "Тест loopback не удался. Валидный файл вывода не был создан.",
+      "Update check finished", "Проверка обновлений завершена",
+      "Update Check", "Проверка обновлений",
+      "Update Decision", "Выбор обновления",
+         "Apply All Updates", "Применить все обновления",
+      "Install Helper", "Установить helper",
+      "Download FFmpeg", "Скачать FFmpeg",
+      "Download Nexus", "Скачать Nexus",
+      "Skip", "Пропустить",
+         "Helper local", "Локальный helper",
+         "FFmpeg local", "Локальный FFmpeg",
+         "Nexus local", "Локальный Nexus",
+         "Latest", "Последняя",
+         "Stable", "Стабильная",
+         "Nightly", "Ночная",
+         "Selected release", "Выбранный релиз",
+         "None", "Нет",
         "Hide Advanced", "Скрыть",
         "Show Advanced Utilities", "Показать расширенные утилиты",
         "Patch Game", "Патч игры",
 
         ; --- ADVANCED UTILITIES ---
         "AT3 Convert", "Конв. AT3",
-        "RPCS3 Audio Fix", "Фикс аудио",
         "Pad Test", "Тест геймпада",
         "Hash Calc / Validator", "Хэш проверка",
         "Wipe List", "Очистить список",
@@ -50,6 +102,30 @@ TM_Lang_RU() {
         "GALLERY_HELP_2", "Дважды щёлкните по изображению для полноэкранного режима.",
         "GALLERY_HELP_3", "В полноэкранном режиме нажмите M для смены монитора.",
         "GALLERY_HELP_4", "Нажмите DELETE, чтобы удалить изображение в корзину.",
+
+        "HELP_TEXT_SOUND_MANAGER", "
+        (
+1. РЕЖИМ АУДИО:
+   - Auto сначала использует loopback helper.
+   - Loopback захватывает текущее Windows-устройство воспроизведения.
+   - DShow использует настроенное прямое устройство ввода.
+   - Voicemeeter сохраняет старый сценарий маршрутизации.
+
+2. НАСТРОЙКИ ЗВУКА WINDOWS:
+   - Установите выход по умолчанию на колонки или наушники, которые хотите слышать.
+   - Оставьте микрофон входом для голосовых команд.
+   - Если воспроизведение идёт через не-умолчательное устройство, переключитесь на DShow или Voicemeeter.
+
+3. LOOPBACK HELPER:
+   - Нажмите Установить loopback helper, если встроенный helper отсутствует.
+   - Нажмите Проверить loopback 3 с, чтобы убедиться, что системный звук захватывается.
+
+4. ОБНОВЛЕНИЯ:
+   - Используйте кнопку проверки, чтобы сравнить helper, FFmpeg и Nexus.
+
+5. LEGACY ROUTING:
+   - Voicemeeter остаётся доступным для тех, кому нужен ручной bus routing.
+        )",
 
             "HELP_TEXT_GAMEPAD", "
             (

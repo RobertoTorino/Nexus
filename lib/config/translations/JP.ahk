@@ -32,8 +32,60 @@ TM_Lang_JP() {
         "View Logs", "ログ表示",
         "Show Games Config", "ゲーム設定",
         "View System Config", "システム設定",
-        "AT3 Convert", "AT3 変換",
-        "RPCS3 Audio Fix", "RPCS3 音声修正",
+      "Sound Manager", "サウンド管理",
+      "Emulator Audio Config", "エミュレータ音声設定",
+      "Hardware Output Mapping", "ハードウェア出力割り当て",
+      "Route Game Audio (Strip 3)", "ゲーム音声をルーティング (Strip 3)",
+      "Capture Backend", "キャプチャバックエンド",
+      "Backend:", "バックエンド：",
+      "Save", "保存",
+      "Refresh Device List ↻", "デバイス一覧を更新 ↻",
+      "Clear", "クリア",
+      "Mute", "ミュート",
+      "Hard Reset (Relaunch VoiceMeeter App)", "ハードリセット（VoiceMeeter を再起動）",
+      "Out A1", "A1 出力",
+      "Out A2", "A2 出力",
+      "Out A3", "A3 出力",
+      "Install Loopback Helper", "ループバックヘルパーをインストール",
+      "Test Loopback 3s", "3秒ループバックテスト",
+      "Help", "ヘルプ",
+      "Check for Updates", "更新を確認",
+      "Choose an option", "項目を選択してください",
+      "Status:", "状態：",
+      "Ready", "準備完了",
+      "Saved backend:", "保存したバックエンド：",
+      "Capture backend saved:", "キャプチャバックエンドを保存しました：",
+      "Loopback helper installed", "ループバックヘルパーをインストールしました",
+      "Loopback install failed", "ループバックヘルパーのインストールに失敗しました",
+      "Install Error", "インストールエラー",
+      "Could not install loopback helper.", "ループバックヘルパーをインストールできませんでした。",
+      "FFmpeg missing", "FFmpeg がありません",
+      "Capture Test", "キャプチャテスト",
+      "FFmpeg missing:", "FFmpeg がありません：",
+      "Loopback helper missing", "ループバックヘルパーがありません",
+      "Loopback helper is missing and could not be installed.", "ループバックヘルパーが見つからず、インストールできませんでした。",
+      "Running 3s loopback test...", "3秒ループバックテストを実行中...",
+      "Loopback test saved:", "ループバックテストを保存しました：",
+      "Loopback test capture saved", "ループバックテストの保存に成功しました",
+      "Loopback test failed", "ループバックテストに失敗しました",
+      "Loopback test failed. No valid output file was generated.", "ループバックテストに失敗しました。有効な出力ファイルが生成されませんでした。",
+      "Update check finished", "更新確認が完了しました",
+      "Update Check", "更新確認",
+      "Update Decision", "更新の選択",
+      "Apply All Updates", "すべての更新を適用",
+      "Install Helper", "ヘルパーをインストール",
+      "Download FFmpeg", "FFmpeg をダウンロード",
+      "Download Nexus", "Nexus をダウンロード",
+      "Skip", "スキップ",
+      "Helper local", "ヘルパーのローカル版",
+      "FFmpeg local", "FFmpeg のローカル版",
+      "Nexus local", "Nexus のローカル版",
+      "Latest", "最新",
+      "Stable", "安定版",
+      "Nightly", "ナイトリー",
+      "Selected release", "選択されたリリース",
+      "None", "なし",
+      "AT3 Convert", "AT3 変換",
         "Pad Test", "パッドテスト",
         "Hash Calc / Validator", "ハッシュ計算",
         "Wipe Full List", "リスト完全消去", ; <--- NEW
@@ -48,6 +100,30 @@ TM_Lang_JP() {
         "GALLERY_HELP_2", "ダブルクリックで全画面表示。",
         "GALLERY_HELP_3", "全画面時に M でモニター切替。",
         "GALLERY_HELP_4", "DELETE キーで画像を削除。",
+
+        "HELP_TEXT_SOUND_MANAGER", "
+        (
+1. オーディオモード:
+   - Auto はまずループバックヘルパーを使います。
+   - Loopback は現在の Windows 再生デバイスをキャプチャします。
+   - DShow は設定した直接入力デバイスを使います。
+   - Voicemeeter は従来のルーティングを維持します。
+
+2. Windows のサウンド設定:
+   - 既定の出力を、聞きたいスピーカーまたはヘッドセットに設定してください。
+   - 音声コマンド用にマイクは入力のままにしてください。
+   - 再生先が既定以外の場合は、DShow または Voicemeeter に切り替えてください。
+
+3. ループバックヘルパー:
+   - 内蔵ヘルパーがない場合は「ループバックヘルパーをインストール」をクリックします。
+   - 「3秒ループバックテスト」でシステム音声がキャプチャされるか確認します。
+
+4. 更新:
+   - 更新確認ボタンでヘルパー、FFmpeg、Nexus を比較します。
+
+5. レガシー配線:
+   - 手動バスルーティングが必要な場合、Voicemeeter は引き続き利用できます。
+        )",
 
             "HELP_TEXT_GAMEPAD", "
             (

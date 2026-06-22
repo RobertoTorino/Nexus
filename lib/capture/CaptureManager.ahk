@@ -23,6 +23,7 @@
 
 class CaptureManager {
     static FfmpegPath := "core\ffmpeg.exe"
+    static AudioCaptureHelperPath := "core\audio_capture.exe"
     static IsRecordingVideo := false
     static IsRecordingAudio := false
     static VideoPid := 0
@@ -202,14 +203,20 @@ class CaptureManager {
             return
         }
 
-        useVM := this.GetUseVoicemeeterForThisSession()
-        if !this._EnsureVideoAudioReady(useVM, &audioDevice) {
+        backend := this._ResolveAudioBackend()
+        useVM := (backend = "dshow") ? this.GetUseVoicemeeterForThisSession() : false
+        if !this._EnsureVideoAudioReady(useVM, &audioDevice, backend) {
             this._ResetSessionOverrides()
             return
         }
 
-        Logger.Info("Recording mode: " (useVM ? "VOICEMEETER" : "NORMAL"), "CaptureManager")
-        DialogsGui.CustomTrayTip(useVM ? "Using Voicemeeter" : "Using Direct Mic", 1)
+        if (backend = "loopback") {
+            Logger.Info("Recording mode: LOOPBACK_HELPER", "CaptureManager")
+            DialogsGui.CustomTrayTip("Using Loopback Helper", 1)
+        } else {
+            Logger.Info("Recording mode: " (useVM ? "VOICEMEETER" : "NORMAL"), "CaptureManager")
+            DialogsGui.CustomTrayTip(useVM ? "Using Voicemeeter" : "Using Direct Mic", 1)
+        }
 
         saveDir := this.GetSaveDir("captures")
         this.LastSaveDir := saveDir
@@ -221,16 +228,22 @@ class CaptureManager {
         w := A_ScreenWidth
         h := A_ScreenHeight
 
-        args := ' -f gdigrab -framerate ' fps ' -offset_x 0 -offset_y 0 -video_size ' w 'x' h ' -i desktop'
-        args .= ' -f dshow -audio_buffer_size 50 -i audio="' audioDevice '"'
-        args .= ' -c:v libx264 -preset ultrafast -crf 18 -pix_fmt yuv420p'
-        args .= ' -c:a aac -b:a 192k'
-        args .= ' -movflags +faststart+frag_keyframe+empty_moov+default_base_moof "' outFile '"'
-
         pid := 0
         showMode := (IniRead(ConfigManager.IniPath, "CAPTURE", "ShowFFmpegConsole", "0") = "1") ? "" : "Hide"
 
-        if this._RunFfmpeg(args, &pid, showMode) {
+        if (backend = "loopback") {
+            cmd := this._BuildVideoLoopbackCommand(outFile, fps, w, h)
+            ok := this._RunCommand(cmd, &pid, showMode)
+        } else {
+            args := ' -f gdigrab -framerate ' fps ' -offset_x 0 -offset_y 0 -video_size ' w 'x' h ' -i desktop'
+            args .= ' -f dshow -audio_buffer_size 50 -i audio="' audioDevice '"'
+            args .= ' -c:v libx264 -preset ultrafast -crf 18 -pix_fmt yuv420p'
+            args .= ' -c:a aac -b:a 192k'
+            args .= ' -movflags +faststart+frag_keyframe+empty_moov+default_base_moof "' outFile '"'
+            ok := this._RunFfmpeg(args, &pid, showMode)
+        }
+
+        if ok {
             this.VideoPid := pid
             this.IsRecordingVideo := true
             this.StartTimeVideo := A_TickCount
@@ -282,25 +295,39 @@ class CaptureManager {
             return
         }
 
-        useVM := this.GetUseVoicemeeterForThisSession()
-        audioDevice := this.GetAudioDeviceName(useVM)
-        if (audioDevice = "") {
-            this._ResetSessionOverrides()
-            return
-        }
+        backend := this._ResolveAudioBackend()
+        useVM := (backend = "dshow") ? this.GetUseVoicemeeterForThisSession() : false
+        audioDevice := ""
 
-        Logger.Info("Recording mode: " (useVM ? "VOICEMEETER" : "NORMAL"), "CaptureManager")
-        DialogsGui.CustomTrayTip(useVM ? "Using Voicemeeter" : "Using Direct Mic", 1)
+        if (backend = "dshow") {
+            audioDevice := this.GetAudioDeviceName(useVM)
+            if (audioDevice = "") {
+                this._ResetSessionOverrides()
+                return
+            }
+            Logger.Info("Recording mode: " (useVM ? "VOICEMEETER" : "NORMAL"), "CaptureManager")
+            DialogsGui.CustomTrayTip(useVM ? "Using Voicemeeter" : "Using Direct Mic", 1)
+        } else {
+            Logger.Info("Recording mode: LOOPBACK_HELPER", "CaptureManager")
+            DialogsGui.CustomTrayTip("Using Loopback Helper", 1)
+        }
 
         saveDir := this.GetSaveDir("recordings")
         this.LastSaveDir := saveDir
         outFile := saveDir "\Audio_" FormatTime(, "yyyyMMdd_HHmmss") ".wav"
 
-        args := ' -f dshow -i audio="' audioDevice '" -acodec pcm_s16le -ar 48000 -ac 2 -y "' outFile '"'
         pid := 0
         showMode := (IniRead(ConfigManager.IniPath, "CAPTURE", "ShowFFmpegConsole", "0") = "1") ? "" : "Hide"
 
-        if this._RunFfmpeg(args, &pid, showMode) {
+        if (backend = "loopback") {
+            cmd := this._BuildAudioLoopbackCommand(outFile)
+            ok := this._RunCommand(cmd, &pid, showMode)
+        } else {
+            args := ' -f dshow -i audio="' audioDevice '" -acodec pcm_s16le -ar 48000 -ac 2 -y "' outFile '"'
+            ok := this._RunFfmpeg(args, &pid, showMode)
+        }
+
+        if ok {
             this.AudioPid := pid
             this.IsRecordingAudio := true
             this.StartTimeAudio := A_TickCount
@@ -340,26 +367,107 @@ class CaptureManager {
     static _RunFfmpeg(args, &pid, show := "Hide") {
         exe := this.GetFfmpegExe()
         cmd := '"' exe '"' args
-        Logger.Info("FFmpeg cmd: " cmd, "CaptureManager")
+        return this._RunCommand(cmd, &pid, show)
+    }
+
+    static _RunCommand(cmd, &pid, show := "Hide") {
+        Logger.Info("Capture cmd: " cmd, "CaptureManager")
 
         try {
             Run(cmd, , show, &pid)
             if (pid <= 0) {
-                Logger.Error("FFmpeg failed to start (pid<=0).", "CaptureManager")
+                Logger.Error("Capture command failed to start (pid<=0).", "CaptureManager")
                 return false
             }
             Sleep(250)
             if !ProcessExist(pid) {
-                Logger.Error("FFmpeg exited immediately after launch (pid=" pid ").", "CaptureManager")
+                Logger.Error("Capture command exited immediately after launch (pid=" pid ").", "CaptureManager")
                 pid := 0
                 return false
             }
             return true
         } catch as err {
-            Logger.Error("FFmpeg Run error: " err.Message, "CaptureManager")
+            Logger.Error("Capture Run error: " err.Message, "CaptureManager")
             pid := 0
             return false
         }
+    }
+
+    static _ResolveAudioBackend() {
+        v := StrLower(Trim(IniRead(ConfigManager.IniPath, "CAPTURE", "AudioBackend", "auto")))
+
+        if (v = "loopback" || v = "helper" || v = "audiocapture" || v = "audio-capture") {
+            return this._EnsureLoopbackHelperReady(true) ? "loopback" : "dshow"
+        }
+
+        if (v = "dshow" || v = "voicemeeter" || v = "normal")
+            return "dshow"
+
+        ; auto mode: prefer helper loopback for no-setup monitoring, fallback to existing dshow mode.
+        return this._EnsureLoopbackHelperReady(false) ? "loopback" : "dshow"
+    }
+
+    static _GetAudioCaptureHelperExe() => A_ScriptDir "\\" this.AudioCaptureHelperPath
+
+    static _EnsureLoopbackHelperReady(strict := false) {
+        helperExe := this._GetAudioCaptureHelperExe()
+        if FileExist(helperExe)
+            return true
+
+        autoInstall := IniRead(ConfigManager.IniPath, "CAPTURE", "AutoInstallLoopbackHelper", "1")
+        if (autoInstall != "1")
+            return false
+
+        if this._TryInstallLoopbackHelper()
+            return true
+
+        if (strict) {
+            DialogsGui.CustomMsgBox("Capture Setup", "Loopback helper could not be installed automatically.`nFalling back to DirectShow audio input mode.")
+        }
+        return false
+    }
+
+    static _TryInstallLoopbackHelper() {
+        helperExe := this._GetAudioCaptureHelperExe()
+        if FileExist(helperExe)
+            return true
+
+        url := "https://github.com/huxinhai/audio-capture/releases/download/v2.0.0/audio_capture-windows-x64.exe"
+        tmp := A_Temp "\\nexus_audio_capture.exe"
+        try {
+            Download(url, tmp)
+            DirCreate(A_ScriptDir "\\core")
+            FileMove(tmp, helperExe, 1)
+            Logger.Info("Loopback helper installed: " helperExe, "CaptureManager")
+            return FileExist(helperExe)
+        } catch as err {
+            Logger.Warn("Loopback helper install failed: " err.Message, "CaptureManager")
+            try {
+                if FileExist(tmp)
+                    FileDelete(tmp)
+            }
+            return false
+        }
+    }
+
+    static _BuildAudioLoopbackCommand(outFile) {
+        helperExe := this._GetAudioCaptureHelperExe()
+        ffmpegExe := this.GetFfmpegExe()
+        inner := '"' helperExe '" --sample-rate 48000 --channels 2 --bit-depth 16 2>nul'
+        inner .= ' | "' ffmpegExe '" -f s16le -ar 48000 -ac 2 -i pipe:0'
+        inner .= ' -acodec pcm_s16le -ar 48000 -ac 2 -y "' outFile '"'
+        return A_ComSpec ' /d /c "' inner '"'
+    }
+
+    static _BuildVideoLoopbackCommand(outFile, fps, w, h) {
+        helperExe := this._GetAudioCaptureHelperExe()
+        ffmpegExe := this.GetFfmpegExe()
+        inner := '"' helperExe '" --sample-rate 48000 --channels 2 --bit-depth 16 2>nul'
+        inner .= ' | "' ffmpegExe '" -f gdigrab -framerate ' fps ' -offset_x 0 -offset_y 0 -video_size ' w 'x' h ' -i desktop'
+        inner .= ' -f s16le -ar 48000 -ac 2 -i pipe:0 -map 0:v:0 -map 1:a:0'
+        inner .= ' -c:v libx264 -preset ultrafast -crf 18 -pix_fmt yuv420p -c:a aac -b:a 192k'
+        inner .= ' -movflags +faststart+frag_keyframe+empty_moov+default_base_moof "' outFile '"'
+        return A_ComSpec ' /d /c "' inner '"'
     }
 
     static _KillPid(pid) {
@@ -393,7 +501,12 @@ class CaptureManager {
             || (IsSet(AudioManager) && AudioManager.IsConnected))
     }
 
-    static _EnsureVideoAudioReady(useVM, &audioDevice) {
+    static _EnsureVideoAudioReady(useVM, &audioDevice, backend := "dshow") {
+        if (backend = "loopback") {
+            audioDevice := "loopback"
+            return true
+        }
+
         audioDevice := this.GetAudioDeviceName(useVM)
         requireVM := this._RequireVoicemeeterForVideo()
 
