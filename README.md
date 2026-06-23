@@ -6,7 +6,7 @@
 # Nexus (Nexus)
 ![NEXUS-rounded-corners.png](game-configs/artwork/NEXUS-small.png)
 
-#### The app was created to get a perfect borderless full screen view when running a game and also to make it easy switching a game window between 2 monitors.
+#### The app was initially created to get a perfect borderless full screen view when running a game and also to make it quick and simple to switch a game window between 2 monitors, but it became much more...
 
 ### Summary of the NEXUS Logic:
 * **Boot**: Nexus.ahk calls ConfigManager.Init().
@@ -49,7 +49,7 @@ If you start the app a mic icon will appear in your system tray, that indicates 
 * video: video, movie, 视频, ビデオ, film, фильм
 
 ### Special Behavior
-#### In Music window:
+#### In Music window say this:
 * play,
 * stop,
 * fullscreen, full screen are handled directly.
@@ -62,7 +62,7 @@ If you start the app a mic icon will appear in your system tray, that indicates 
 * search, find, lookup, look up, buscar, recherche, chercher, cerca, ricerca, 搜索, 搜, 查找, 検索, искать, поиск, наити.
 
 #### Others
-* burst aliases exist in catalog (rapid, 连拍, 連写, raffica, rafaga, rafale, серия, очередь) but are not active right now because no burst callback is registered in
+* burst aliases exist in catalog (rapid, 连拍, 連写, raffica, rafaga, rafale, серия, очередь) but are not active right now because no burst callback is registered.
 
 ### Game settings:
 * If in-game display settings are available use borderless (preferred). See examples in the media folder.
@@ -95,29 +95,30 @@ Place Nexus in a central location.
 * Easy move window between monitors.
 
 ### Game Features:
-* Run all games, .iso. .cso, pbp, eboot.bin, .bat, .xml, .exe.
+* Run all games, .iso. .cso, pbp, eboot.bin, .bat, .xml, .exe, .acgame.
 * Run RPCS3 games direct in fullscreen mode skipping the frontend.
 * Run PCSX2 games direct in fullscreen mode skipping the frontend.
+* Run PCSX2x6 games direct in fullscreen mode skipping the frontend.
 * Run PPSSPP games direct in fullscreen mode skipping the frontend.
 * Run DuckStation games direct in fullscreen mode skipping the frontend.
-* Run games that only run through a .bat file.
-* Autodetect TeknoParrot game profiles and run the game in fullscreen.
+* Run PC games direct that can only run through a .bat file.
+* Autodetect TeknoParrot game profiles and run the game in fullscreen skipping the frontend.
 * Manage emulator profiles.
-* Patch EBOOT.BIN and clone game.
+* Patch EBOOT.BIN and clone games.
 * Run Arcade games that need special versions of RPCS3.
-* Save games for quick re-run.
+* Save game titles for quick re-run.
 
 ### Process:
 * Change CPU process priority.
 * RAM usage overview, system, app and game.
-* Optional GPU overclock with Afterburner
+* Optional GPU overclock with Afterburner (manual installation).
 
 ### Media:
 * Take snapshots + burst snapshots (max. 99).
 * Audio recording.
 * Music player (uses legacy Windows Media Player).
 * Video capture.
-* Video player (loads external player).
+* Video player, loads external player: [smplayer](https://github.com/smplayer-dev/smplayer).
 * Image viewer.
 * And more...
 
@@ -129,7 +130,6 @@ Some games have phantom windows (sometimes more than one, good examples are Dead
 ---
 
 ### Capture Audio or Video (with sound)
-
 Additional tools used:
 * Audio Capture helper (WASAPI loopback): [audio-capture](https://github.com/huxinhai/audio-capture)
 * Voicemeeter Banana (optional fallback): [voicemeeter](https://vb-audio.com/Voicemeeter/potato.htm)
@@ -143,7 +143,6 @@ Voicemeeter remains available as a fallback profile when needed.
 Bundled helper asset: [audio_capture-windows-x64.exe](https://github.com/huxinhai/audio-capture/releases/download/v2.0.0/audio_capture-windows-x64.exe) (stored as `core/audio_capture.exe`).
 
 ### Deprecated: Voicemeeter Banana Routing (Legacy)
-
 Voicemeeter makes it possible to reroute your audio streams so you can listen to the audio that is being recorded.
 In Voicemeeter Basic, FFmpeg must record a B-bus (B1/B2/B3), and audio only reaches that bus if you explicitly enable it on the Virtual Input strip.
 That's why I prefer Voicemeeter Banana.
@@ -193,7 +192,7 @@ Run this from within the folder where ffmpeg is located.
 For use in this app, MSI Afterburner is used: [MSI Afterburner](https://www.msi.com/Landing/afterburner/graphics-cards)
 
 ### Namco 357 + 369 game id's
-In advanced utilities the Clone Wizard can be used to change the game id's, usefully because all Namco games use the same game id `SCEEXE000`
+In advanced utilities the Clone Wizard can be used to change the game id's, mainly implemented because all Namco 357/369 games use the same game id `SCEEXE000` which means every games needs it's own emulator.
 
 | Game                                                        | Year     | Namco System   | Compatible with RPCS3 (MD5) | Firmware                | Location | Original ID | Custom ID |
 |-------------------------------------------------------------|----------|:---------------|:----------------------------|:------------------------|:---------|-------------|-----------|
@@ -231,3 +230,28 @@ In advanced utilities the Clone Wizard can be used to change the game id's, usef
 **RobertoTorino**
 
 ![qrcode_gh.png](game-configs/artwork/qrcode-gh.png)
+
+---
+
+A big thanks to all developers for:
+* AHK
+* AUDIO_CAPTURE
+* DOLPHIN
+* DS4WINDOWS
+* DUCKSTATION
+* FFMPEG
+* PCSX2
+* MSI AFTERBURNER
+* PCSX2x6
+* PPSSPP
+* REDREAM
+* RPCS3
+* RPCS3 NAMCO 357/369
+* SHADPS4
+* SOUNDVOLUMEVIEW
+* SQLITE
+* TEKNOPARROT
+* VGMSTREAM
+* VITA3K
+* VIVANONNO
+* YUZU
