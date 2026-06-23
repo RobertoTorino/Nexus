@@ -123,6 +123,7 @@ class GuiBuilder {
         if (startCallback)
             this.StartGameCallback := startCallback
 
+        ; UI width
         guiW := 805
 
         ; Initialize voice command recognizer if available
@@ -144,7 +145,7 @@ class GuiBuilder {
         this.MainGui.Add("Button", "x-100 y-100 w0 h0 Default", "")
         this.MainGui.OnEvent("Close", (*) => ExitApp())
         this.MainGui.SetFont("s11 cSilver", "Segoe UI")
-        this.MainGui.BackColor := "2A2A2A"
+        this.MainGui.BackColor := "101010"
 
         ; [HOTKEY] F9 Translation Toggle
         Hotkey "F9", (*) => this.ToggleLanguage(), "On"
@@ -156,7 +157,7 @@ class GuiBuilder {
         DragWin := (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd)
         ToggleMode := (*) => this.ToggleUiMode()
 
-        this.TitleControl := this.MainGui.Add("Text", "x0 y0 w" (guiW - 345) " h30 +0x200 Background2A2A2A", titleText)
+        this.TitleControl := this.MainGui.Add("Text", "x0 y0 w" (guiW - 345) " h30 +0x200 Background101010", titleText)
         this.TitleControl.OnEvent("Click", DragWin)
         this.TitleControl.OnEvent("DoubleClick", ToggleMode)
 
@@ -178,7 +179,7 @@ class GuiBuilder {
         ; --- TOOLBAR BUTTONS ---
         this.MainGui.SetFont("s12 cSilver", "Segoe UI")
 
-        BtnAppReload := this.MainGui.Add("Text", "x+10 yp h30 +0x200 +Center Background2A2A2A cSilver", "↻")
+        BtnAppReload := this.MainGui.Add("Text", "x+10 yp h30 +0x200 +Center Background101010 cSilver", "↻")
         BtnAppReload.OnEvent("Click", (*) => Reload())
 
         ; Open help menu
@@ -187,7 +188,7 @@ class GuiBuilder {
         ; Open system info window
         this.AddNavBtn("  i  ", (*) => SystemInfoTool.Show(), "x+0 yp h35 -Border")
 
-        this.MainGui.Add("Text", "x+0 yp-3 w30 h35 +0x200 Center Background2A2A2A", "_").OnEvent("Click", (*) => this.MainGui.Minimize())
+        this.MainGui.Add("Text", "x+0 yp-3 w30 h35 +0x200 Center Background101010", "_").OnEvent("Click", (*) => this.MainGui.Minimize())
         this.MainGui.Add("Text", "x+-4 yp+5 w30 h30 +0x200 Center cRed", "✕").OnEvent("Click", (*) => ExitApp())
         this.MainGui.Add("Text", "x0 y+2 w" guiW " h1 Background333333")
 
@@ -197,30 +198,30 @@ class GuiBuilder {
 
         this.MainGui.SetFont(this.UseIcons ? "s14" : "s12")
 
-        this.AddNavBtn(this.Label("➕", "Set Launch Path"), (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 y40 c05FBE4 Background333333 " btnW)
-        this.AddNavBtn(this.Label("🕹️", "Profiles"), (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10 Background333333 " btnW)
-        this.AddNavBtn(this.Label("🧹", "Delete Game"), (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background333333 " btnW)
-        this.AddNavBtn(this.Label("⚙️", "Emulators"), (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10 Background333333 " btnW)
+        this.AddNavBtn(this.Label("➕", "Set Launch Path"), (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 y40 c05FBE4 Background101010 " btnW)
+        this.AddNavBtn(this.Label("🕹️", "Profiles"), (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("🧹", "Delete Game"), (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("⚙️", "Emulators"), (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10 Background101010 " btnW)
 
         ; KISS: Just a standard button. No disabling. No font tricks.
-        this.AddNavBtn(this.Label("🩹", "Patch Game"), (btn, *) => (this.FlashButton(btn), this.OnPatchGame()), "x+10 Background333333 " btnW)
-        this.AddNavBtn(this.Label("🗑️", "Clear Path"), (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+10 Background333333 " btnW)
-        this.AddNavBtn(this.Label("🔧", "Restore Path"), (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "x+10 Background333333 " btnW)
+        this.AddNavBtn(this.Label("🩹", "Patch Game"), (btn, *) => (this.FlashButton(btn), this.OnPatchGame()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("🗑️", "Clear Path"), (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("🔧", "Restore Path"), (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "x+10 Background101010 " btnW)
 
         NextX := this.UseIcons ? "x+10" : "x5"
         NextY := this.UseIcons ? "yp" : "y+10"
-        this.AddNavBtn(this.Label("🔲", "Window Manager"), (btn, *) => (this.FlashButton(btn), WindowManagerGui.Show()), NextX " " NextY " Background333333 " btnW)
-        this.AddNavBtn(this.Label("🎯", "Focus"), (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), "x+10 Background333333 " btnW)
-        this.AddNavBtn(this.Label("🎵", "Music"), (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+10 Background333333 " btnW)
-        this.AddNavBtn(this.Label("🎞️", "Video"), (btn, *) => (this.FlashButton(btn), VideoPlayer.Show()), "x+10 Background333333 " btnW)
-        this.AddNavBtn(this.Label("🌄", "Gallery"), (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "x+10 Background333333 " btnW)
-        this.AddNavBtn(this.Label("📦", "Database"), (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "x+10 Background333333 " btnW)
-        this.AddNavBtn(this.Label("📝", "Notes"), (btn, *) => (this.FlashButton(btn), this.OnNotes()), "x+10 Background333333 " btnW)
-        this.AddNavBtn(this.Label("📁", "Browser"), (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10 Background333333 " btnW)
+        this.AddNavBtn(this.Label("🔲", "Window Manager"), (btn, *) => (this.FlashButton(btn), WindowManagerGui.Show()), NextX " " NextY " Background101010 " btnW)
+        this.AddNavBtn(this.Label("🎯", "Focus"), (btn, *) => (this.FlashButton(btn), this.OnFocusGame()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("🎵", "Music"), (btn, *) => (this.FlashButton(btn), MusicPlayer.Show()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("🎞️", "Video"), (btn, *) => (this.FlashButton(btn), VideoPlayer.Show()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("🌄", "Gallery"), (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("📦", "Database"), (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("📝", "Notes"), (btn, *) => (this.FlashButton(btn), this.OnNotes()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("📁", "Browser"), (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10 Background101010 " btnW)
 
         ; --- ROW 2 ---
         this.MainGui.SetFont("s14", "Segoe UI")
-        this.BtnStart := this.AddNavBtn("  ▶️  ", (*) => this.OnStartAction(), "x5 y+10 h35 Background333333 " btnW)
+        this.BtnStart := this.AddNavBtn("  ▶️  ", (*) => this.OnStartAction(), "x5 y+10 h35 Background101010 " btnW)
 
         startFn := (*) => this.OnStartAction()
         restartFn := (*) => this.OnRestartAction()
@@ -264,8 +265,8 @@ class GuiBuilder {
         ; voice toggle (F8)
         Hotkey("*F8", (*) => this.ToggleVoiceListening())
 
-        this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10 h35 Background333333 " btnW)
-        this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10 h35 Background333333 " btnW)
+        this.BtnRestart := this.AddNavBtn(" ♻️ ", (*) => this.OnRestartAction(), "x+10 h35 Background101010 " btnW)
+        this.BtnExit := this.AddNavBtn(" ❌ ", (*) => this.OnExitAction(), "x+10 h35 Background101010 " btnW)
 
         this.MainGui.SetFont("s12", "Segoe UI")
 
@@ -274,11 +275,11 @@ class GuiBuilder {
         this.MainGui.Add("Text", "x+10 yp w480 h35 Background333333")
 
         ; 2. Edit Box
-        this.GameSelector := this.MainGui.Add("Edit", "xp+3 yp+2 w447 h22 Background02A2A2A -E0x200 +ReadOnly -VScroll Center", "")
+        this.GameSelector := this.MainGui.Add("Edit", "xp+3 yp+2 w447 h22 Background101010 -E0x200 +ReadOnly -VScroll Center", "")
 
         ; 3. Arrow
         this.MainGui.SetFont("s14", "Segoe UI")
-        arrow := this.MainGui.Add("Text", "x+2 yp-1 w40 h33 cSilver Background333333 +0x200 +Center", "▼")
+        arrow := this.MainGui.Add("Text", "x+2 yp-2 w40 h35 cSilver Background333333 +0x200 +Center", "▼")
         this.MainGui.SetFont("s12", "Segoe UI")
 
         ; 4. Overlay - compute bounds based on selector + arrow
@@ -293,7 +294,7 @@ class GuiBuilder {
         ; create the snapshot button and keep a reference so the overlay callback
         ; can determine whether we clicked on the camera icon.
         snapX := overlayX + overlayW + 10
-        snapOpts := "x" . snapX . " yp +0x200 +Center Background333333 h35 " . btnW
+        snapOpts := "x" . snapX . " yp+2 +0x200 +Center Background101010 h35 " . btnW
         this.BtnSnap := this.AddNavBtn(" 🔘 ", (btn, *) => (this.FlashButton(btn), CaptureManager.TakeSnapshot(false)), snapOpts)
 
         ; modify overlay handler so that clicks falling over the snap button are
@@ -301,37 +302,37 @@ class GuiBuilder {
         BtnOverlay.OnEvent("Click", ObjBindMethod(this, "OverlayClick"))
 
         ; Burst Input
-        this.MainGui.Add("Text", "yp w42 h35 x+10 Border Background333333", "")
-        this.BurstInput := this.MainGui.Add("Edit", "xp+1 yp+5 h29 w40 Number Center -E0x200 -Border Limit2 Background333333 cRed", "5")
-        this.BtnBurstStart := this.AddNavBtn("  ▶️ ", (*) => this.OnBurstSnap(), "x+10 yp-5 Background333333 h35 " btnW)
+        this.MainGui.Add("Text", "yp w42 h35 x+10 Border Background101010", "")
+        this.BurstInput := this.MainGui.Add("Edit", "xp+1 yp+5 h29 w40 Number Center -E0x200 -Border Limit2 Background101010 cRed", "5")
+        this.BtnBurstStart := this.AddNavBtn("  ▶️ ", (*) => this.OnBurstSnap(), "x+10 yp-5 Background101010 h35 " btnW)
 
         ; --- ROW 3 ---
         ; 1. Audio/Video/Icon Manager
         ; Use global mode (Icons=s14, Text=s12)
         this.MainGui.SetFont(this.UseIcons ? "s14 Norm" : "s12 Norm", "Segoe UI")
 
-        this.BtnRecAudio := this.AddNavBtn(this.Label("🔴", "Rec Audio"), (btn, *) => this.OnRecAudioClick(btn), "x5 y+10 Background333333 " btnW)
-        this.BtnRecVideo := this.AddNavBtn(this.Label("🎬", "Rec Video"), (btn, *) => this.OnRecVideoClick(btn), "x+10 Background333333 " btnW)
+        this.BtnRecAudio := this.AddNavBtn(this.Label("🔴", "Rec Audio"), (btn, *) => this.OnRecAudioClick(btn), "x5 y+10 Background101010 " btnW)
+        this.BtnRecVideo := this.AddNavBtn(this.Label("🎬", "Rec Video"), (btn, *) => this.OnRecVideoClick(btn), "x+10 Background101010 " btnW)
 
-        ;this.BtnSpeechSetup := this.AddNavBtn("S1", (*) => this.OpenSpeechWizard(), "x+10 Background333333 " btnW)
-        ;this.BtnSpeechControlPanel := this.AddNavBtn("S2", (*) => this.OpenSpeechControlPanel(), "x+10 Background333333 " btnW)
-        ;this.BtnMicPrivacySettings := this.AddNavBtn("S3", (*) => this.OpenMicPrivacySettings(), "x+10 Background333333 " btnW)
+        ;this.BtnSpeechSetup := this.AddNavBtn("S1", (*) => this.OpenSpeechWizard(), "x+10 Background101010 " btnW)
+        ;this.BtnSpeechControlPanel := this.AddNavBtn("S2", (*) => this.OpenSpeechControlPanel(), "x+10 Background101010 " btnW)
+        ;this.BtnMicPrivacySettings := this.AddNavBtn("S3", (*) => this.OpenMicPrivacySettings(), "x+10 Background101010 " btnW)
 
         ; Microphone Voice Indicator (F8 toggles color)
-        this.MicIcon := this.MainGui.Add("Text", "x+10 h34 w40 cSilver +0x200 +Center +Border Background333333", "🎤")
+        this.MicIcon := this.MainGui.Add("Text", "x+10 h34 w40 cSilver +0x200 +Center +Border Background101010", "🎤")
         this.MicIcon.OnEvent("Click", (*) => this.ToggleVoiceListening())
 
         ; Voice mode indicator — click to toggle Whisper ↔ SAPI
         whisperOn := IsObject(this.Voice) && this.Voice.IsWhisperMode()
-        this.VoiceModeBtn := this.MainGui.Add("Text", "x+2 h34 w28 +0x200 +Center +Border Background333333 " (whisperOn ? "cFF8800" : "cSilver"), whisperOn ? "W" : "S")
+        this.VoiceModeBtn := this.MainGui.Add("Text", "x+2 h34 w28 +0x200 +Center +Border Background101010 " (whisperOn ? "cFF8800" : "cSilver"), whisperOn ? "W" : "S")
         this.VoiceModeBtn.OnEvent("Click", (*) => this.ToggleVoiceMode())
 
-        this.AddNavBtn(this.Label("🖼️", "Icon Manager"), (*) => IconManagerGui.Show(), "x+10 yp Background333333 " btnW)
+        this.AddNavBtn(this.Label("🖼️", "Icon Manager"), (*) => IconManagerGui.Show(), "x+10 yp Background101010 " btnW)
 
         ; --- CPU SECTION ---
         NextX := this.UseIcons ? "x+10" : "x5"
         NextY := this.UseIcons ? "yp" : "y+10"
-        cBtn := " Background333333"
+        cBtn := " Background101010"
         this.BtnCpu := []
 
         ; 2. "CPU" Label -> Render as a button for perfect alignment, but pass empty callback ""
@@ -357,7 +358,7 @@ class GuiBuilder {
 
         ; 4. "GPU" Label -> ALWAYS s12
         this.MainGui.SetFont("s12", "Segoe UI")
-        this.AddNavBtn("  GPU  ", (*) => true, "x+10 yp Background333333")
+        this.AddNavBtn("  GPU  ", (*) => true, "x+10 yp Background101010")
 
         ; --- START ADVANCED SECTION ---
         ; [TRICK] The "State Swap"
@@ -373,7 +374,7 @@ class GuiBuilder {
         this.AdvancedControls := []
 
         ; Add explicit height (h30) to cAdv ensures boxes are never too tall
-        cAdv := " h30 Background333333"
+        cAdv := " h30 Background101010"
 
         ; Marker for positioning
         marker := this.MainGui.Add("Text", "x5 y+10 w0 h0", "")
@@ -406,7 +407,7 @@ class GuiBuilder {
         this.BtnHideAdvanced.GetPos(, &lastY, , &lastH)
         totalH := (lastY + lastH) - advY
 
-        this.BannerControl := this.MainGui.Add("Text", "x5 y" advY " w" (guiW - 10) " h" totalH " Border Right Background333333", "▼ " this.T("Show Advanced Utilities") " ▼  ")
+        this.BannerControl := this.MainGui.Add("Text", "x5 y" advY " w" (guiW - 10) " h" totalH " Border Right Background101010", "▼ " this.T("Show Advanced Utilities") " ▼  ")
         this.BannerControl.OnEvent("Click", (*) => this.ToggleAdvanced(true))
 
         ; [RESTORE] Restore the original Icon Mode state so the rest of the app behaves normally
@@ -418,7 +419,7 @@ class GuiBuilder {
         this.MainGui.SetFont("s10", "Segoe UI")
 
         this.MainGui.Add("Text", "x0 y+10 w" guiW " h1 Background333333")
-        this.StatsHeader := this.MainGui.Add("Text", "x5 y+0 w" (guiW - 10) " h24 +0x200 vStatsHeader Background333333", "Loading Statistics...")
+        this.StatsHeader := this.MainGui.Add("Text", "x5 y+0 w" (guiW - 10) " h24 +0x200 vStatsHeader Background101010", "Loading Statistics...")
         this.MainGui.Add("Text", "x0 y+0 w" guiW " h1 Background333333")
 
         ; [STATUS BAR]
@@ -458,7 +459,6 @@ class GuiBuilder {
         Logger.Info("Main GUI loaded in " . loadTime . " ms", "GuiBuilder")
         DialogsGui.CustomStatusPop("GUI Load Time: " . loadTime . "ms")
     }
-
 
     ; --- HANDLERS ---
     static OverlayClick(*) {
@@ -600,7 +600,6 @@ class GuiBuilder {
     }
 
     ; --- [HANDLERS] ---
-
     static SetRecordingStatus(isRecording, activeExe := "") {
         if !this.MainGui
             return
@@ -1130,19 +1129,19 @@ class GuiBuilder {
         notesGui.SetFont("s14 Norm cWhite", "Segoe UI")
 
         existingNotes := (Type(game) == "Map") ? (game.Has("Notes") ? game["Notes"] : "") : (game.HasProp("Notes") ? game.Notes : "")
-        editCtrl := notesGui.Add("Edit", "x15 y+10 w500 h300 Background333333 cWhite -E0x200 -VScroll -HScroll", existingNotes)
+        editCtrl := notesGui.Add("Edit", "x15 y+10 w500 h300 Background101010 cWhite -E0x200 -VScroll -HScroll", existingNotes)
 
         notesGui.SetFont("s9 cSilver")
 
-        btnStamp := notesGui.Add("Text", "x15 y+15 w70 h30 +0x200 Center Background333333", "Stamp")
+        btnStamp := notesGui.Add("Text", "x15 y+15 w70 h30 +0x200 Center Background101010", "Stamp")
         btnStamp.OnEvent("Click", (*) => EditPaste(FormatTime(, "MM-dd hh:mm tt") . ": ", editCtrl))
-        btnSave := notesGui.Add("Text", "x+10 yp w110 h30 +0x200 Center Background333333", "Save & Close")
+        btnSave := notesGui.Add("Text", "x+10 yp w110 h30 +0x200 Center Background101010", "Save & Close")
         btnSave.OnEvent("Click", (*) => (
             ConfigManager.UpdateGameNotes(id, editCtrl.Value),
             DialogsGui.CustomStatusPop("Notes Saved"),
             notesGui.Destroy()
         ))
-        btnCancel := notesGui.Add("Text", "x+10 yp w70 h30 +0x200 Center Background333333", "Cancel")
+        btnCancel := notesGui.Add("Text", "x+10 yp w70 h30 +0x200 Center Background101010", "Cancel")
         btnCancel.OnEvent("Click", (*) => notesGui.Destroy())
         notesGui.OnEvent("Escape", (*) => notesGui.Destroy())
         notesGui.Show()
@@ -1247,12 +1246,12 @@ class GuiBuilder {
         screenY := NumGet(pt, 4, "int")
 
         PopupGui := Gui("-Caption +ToolWindow +AlwaysOnTop +Owner" this.MainGui.Hwnd, "NexusGameListPopup")
-        PopupGui.BackColor := "2A2A2A"
+        PopupGui.BackColor := "101010"
         PopupGui.SetFont("s11", "Segoe UI")
         PopupGui.MarginX := 2, PopupGui.MarginY := 2
 
         ; 3. Search Box
-        SearchBox := PopupGui.Add("Edit", "w" popupWidth " h26 Background333333 cWhite Center", "")
+        SearchBox := PopupGui.Add("Edit", "w" popupWidth " h26 Background101010 cWhite Center", "")
         SearchBox.SetFont("s10 Italic")
         try DllCall("SendMessage", "Ptr", SearchBox.Hwnd, "UInt", 0x1501, "Ptr", 1, "WStr", "Type to search...", "Ptr")
 

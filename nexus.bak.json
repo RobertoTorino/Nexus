@@ -786,6 +786,213 @@
       "TotalPlayTime":0
     },
     {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Ace Driver 3 AC PCSX2x6/roms/acedriv3/acedriv3.acgame",
+      "HasWindowProfile":1,
+      "Id":"GAME_PCSX2X6_ACEDRIV3",
+      "LastPlayed":"2026-06-23 18:59:43",
+      "LauncherType":"PCSX2X6",
+      "PlayTimeReadable":"7.1m",
+      "SavedName":"[ARCADE] acedriv3",
+      "TotalPlayTime":427,
+      "WinH":1038,
+      "WinW":1938,
+      "WinX":-9,
+      "WinY":21
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Battle Gear 3 AC 2x6 PCSX2x6/roms/batlgr3/batlgr3.acgame",
+      "Id":"GAME_PCSX2X6_BATLGR3",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] batlgr3"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Battle Gear 3 Tuned AC 2x6 PCSX2x6/roms/batlgr3tnd/batlgr3tnd.acgame",
+      "Id":"GAME_PCSX2X6_BATLGR3TND",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] batlgr3tnd"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Bloody Roar 3 AC 2x6 PCSX2x6/Bloody Roar 3.acgame",
+      "Id":"GAME_PCSX2X6_BLOODY_ROAR_3",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Bloody Roar 3"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Capcom Fighting Jam  AC 2x6 PCSXx6/Capcom Fighting Jam.acgame",
+      "Id":"GAME_PCSX2X6_CAPCOM_FIGHTING_JAM",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Capcom Fighting Jam"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Cobra The Arcade AC 2x6 PCSX2x6/Cobra The Arcade.acgame",
+      "Id":"GAME_PCSX2X6_COBRA_THE_ARCADE",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Cobra The Arcade"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Fate Unlimited Codes AC 2x6 PCSXx6/Fate - Unlimited Codes.acgame",
+      "Id":"GAME_PCSX2X6_FATE_UNLIMITED_CODES",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Fate - Unlimited Codes"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Kinnikuman Muscle Grand Prix AC 2x6 PCSXx6/Kinnikuman Muscle Grand Prix.acgame",
+      "Id":"GAME_PCSX2X6_KINNIKUMAN_MUSCLE_GRAND_PRIX",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Kinnikuman Muscle Grand Prix"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Kinnikuman Muscle Grand Prix 2 AC 2x6 PCSXx6/Kinnikuman Muscle Grand Prix 2.acgame",
+      "Id":"GAME_PCSX2X6_KINNIKUMAN_MUSCLE_GRAND_PRIX_2",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Kinnikuman Muscle Grand Prix 2"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Mobile Suit Gundam - Gundam vs. Gundam NEXT AC 2x6 PCSXx6/Mobile Suit Gundam - Gundam vs. Gundam NEXT.acgame",
+      "Id":"GAME_PCSX2X6_MOBILE_SUIT_GUNDAM_GUNDAM_VS_GUNDAM_NEXT",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Mobile Suit Gundam - Gundam vs. Gundam NEXT"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Mobile Suit Gundam Zeta - A.E.U.G. vs. Titans DX AC 2x6 PCSXx6/Mobile Suit Gundam Zeta - A.E.U.G. vs. Titans DX.acgame",
+      "Id":"GAME_PCSX2X6_MOBILE_SUIT_GUNDAM_ZETA_A_E_U_G_VS_TITANS_DX",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Mobile Suit Gundam Zeta - A.E.U.G. vs. Titans DX"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Ridge Racer V - Arcade Battle AC 2x6 PCSXx6/NM00001 Ridge Racer V - Arcade Battle.acgame",
+      "Id":"GAME_PCSX2X6_NM00001_RIDGE_RACER_V_ARCADE_BATTLE",
+      "LastPlayed":"2026-06-23 17:37:10",
+      "LauncherType":"PCSX2X6",
+      "PlayTimeReadable":"49s",
+      "SavedName":"[ARCADE] NM00001 Ridge Racer V - Arcade Battle",
+      "TotalPlayTime":49
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Vampire Night AC PCSX2x6/NM00003 Vampire Night.acgame",
+      "Id":"GAME_PCSX2X6_NM00003_VAMPIRE_NIGHT",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] NM00003 Vampire Night"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Wangan Midnight R AC 2x6 PCSX2x6/NM00005 Wangan Midnight R.acgame",
+      "Id":"GAME_PCSX2X6_NM00005_WANGAN_MIDNIGHT_R",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] NM00005 Wangan Midnight R"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Wangan Midnight AC 2x6 PCSX2x6/NM00008 Wangan Midnight.acgame",
+      "Id":"GAME_PCSX2X6_NM00008_WANGAN_MIDNIGHT",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] NM00008 Wangan Midnight"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Moto GP AC 2x6 PCSX2x6/NM00039 MotoGP.acgame",
+      "Id":"GAME_PCSX2X6_NM00039_MOTOGP",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] NM00039 MotoGP"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Quiz & Variety Suku Suku Inufuku 2 AC 2x6 PCSXx6/Quiz & Variety Suku Suku Inufuku 2.acgame",
+      "Id":"GAME_PCSX2X6_QUIZ_VARIETY_SUKU_SUKU_INUFUKU_2",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Quiz & Variety Suku Suku Inufuku 2"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Sengoku Basara X AC 2x6 PCSXx6/Sengoku Basara X.acgame",
+      "Id":"GAME_PCSX2X6_SENGOKU_BASARA_X",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Sengoku Basara X"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Soul Calibur 2 AC PCSX2x6/Soul Calibur 2.acgame",
+      "Id":"GAME_PCSX2X6_SOUL_CALIBUR_2",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Soul Calibur 2"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Soul Calibur 3 AC PCSX2x6/Soul Calibur 3.acgame",
+      "Id":"GAME_PCSX2X6_SOUL_CALIBUR_3",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Soul Calibur 3"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Super Dragon Ball Z AC 2x6 PCSXx6/Super Dragon Ball Z.acgame",
+      "Id":"GAME_PCSX2X6_SUPER_DRAGON_BALL_Z",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Super Dragon Ball Z"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Tekken Collection AC 2x6 PCSX2x6/PCSX2x6 Main Folder/tekken4.acgame",
+      "Id":"GAME_PCSX2X6_TEKKEN4",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] tekken4"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Tekken Collection AC 2x6 PCSX2x6/PCSX2x6 Main Folder/tekken5.acgame",
+      "Id":"GAME_PCSX2X6_TEKKEN5",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] tekken5"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Tekken Collection AC 2x6 PCSX2x6/PCSX2x6 Main Folder/tekken51.acgame",
+      "Id":"GAME_PCSX2X6_TEKKEN51",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] tekken51"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Tekken Collection AC 2x6 PCSX2x6/PCSX2x6 Main Folder/tekken5dr.acgame",
+      "Id":"GAME_PCSX2X6_TEKKEN5DR",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] tekken5dr"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/The Battle of YuYu Hakusho AC 2x6 PCSXx6/The Battle of YuYu Hakusho.acgame",
+      "Id":"GAME_PCSX2X6_THE_BATTLE_OF_YUYU_HAKUSHO",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] The Battle of YuYu Hakusho"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Time Crisis 3 AC 2x6 PCSX2x6/Time Crisis 3.acgame",
+      "Id":"GAME_PCSX2X6_TIME_CRISIS_3",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Time Crisis 3"
+    },
+    {
+      "AddedDate":"2026-06-22 23:12:57",
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Time Crisis 4 AC 2x6 PCSX2x6/Time Crisis 4.acgame",
+      "Id":"GAME_PCSX2X6_TIME_CRISIS_4",
+      "LauncherType":"PCSX2X6",
+      "SavedName":"[ARCADE] Time Crisis 4"
+    },
+    {
       "AddedDate":"2026-02-04 05:56:36",
       "ApplicationPath":"D:/PS2 PLAYSTATION 2/Org/DVD/Gran Turismo 4 (USA) (Beta).iso",
       "Id":"GAME_PCSX2_GRAN_TURISMO_4_USA_BETA",

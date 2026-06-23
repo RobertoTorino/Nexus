@@ -45,7 +45,8 @@ class Pcsx2x6Launcher extends EmulatorBase {
 
         ; 5. Launch Arguments
         ; PCSX2x6 expects direct game-file invocation: pcsx2-qt.exe "file.acgame"
-        runCmd := Format('"{1}" "{2}"', emuPath, gamePath)
+        ; runCmd := Format('"{1}" "{2}"', emuPath, gamePath)
+        runCmd := Format('"{1}" -batch -fullscreen -- "{2}"', emuPath, gamePath)
         Logger.Info("Launching PCSX2x6: " runCmd)
 
         try {
