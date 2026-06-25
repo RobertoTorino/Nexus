@@ -15,6 +15,20 @@
       "TotalPlayTime":0
     },
     {
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/PCSX2x6_complete/roms/cobrata/cobrata.acgame",
+      "CaptureDir":"captures/GAME_COBRATA_PCSX2X6",
+      "EbootIsoPath":"C:/Users/Admin/Desktop/Games/PCSX2x6_complete/roms/cobrata/cobrata.acgame",
+      "GameApplication":"cobrata.acgame",
+      "Id":"GAME_COBRATA_PCSX2X6",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-06-24 02:08:20",
+      "LauncherType":"PCSX2X6",
+      "PlayTimeReadable":"1.6m",
+      "SavedName":"COBRATA_PCSX2X6",
+      "SnapshotDir":"snapshots/GAME_COBRATA_PCSX2X6",
+      "TotalPlayTime":97
+    },
+    {
       "ApplicationPath":"D:/RPCS3/games/Dead to Rights - Retribution [BLUS30278]/PS3_GAME/USRDIR/EBOOT.BIN",
       "CaptureDir":"captures/GAME_DEAD_TO_RIGHTS_-_RETRIBUTION_[BLUS30278]",
       "EbootIsoPath":"D:/RPCS3/games/Dead to Rights - Retribution [BLUS30278]/PS3_GAME/USRDIR/EBOOT.BIN",
@@ -683,6 +697,20 @@
       "TotalPlayTime":0
     },
     {
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/PCSX2x6_complete/roms/fateulc/fateulc.acgame",
+      "CaptureDir":"captures/GAME_FATEULC_PCSX2X6",
+      "EbootIsoPath":"C:/Users/Admin/Desktop/Games/PCSX2x6_complete/roms/fateulc/fateulc.acgame",
+      "GameApplication":"fateulc.acgame",
+      "Id":"GAME_FATEULC_PCSX2X6",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-06-24 02:13:03",
+      "LauncherType":"PCSX2X6",
+      "PlayTimeReadable":"3.3m",
+      "SavedName":"FATEULC_PCSX2X6",
+      "SnapshotDir":"snapshots/GAME_FATEULC_PCSX2X6",
+      "TotalPlayTime":199
+    },
+    {
       "ApplicationPath":"D:/RPCS3/games/Final Fantasy X + X-2 - HD Remaster [BLUS31211]/PS3_GAME/USRDIR/EBOOT.BIN",
       "CaptureDir":"captures/GAME_FINAL_FANTASY_X_+_X-2_-_HD_REMASTER_[BLUS31211]",
       "EbootIsoPath":"D:/RPCS3/games/Final Fantasy X + X-2 - HD Remaster [BLUS31211]/PS3_GAME/USRDIR/EBOOT.BIN",
@@ -804,8 +832,11 @@
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Battle Gear 3 AC 2x6 PCSX2x6/roms/batlgr3/batlgr3.acgame",
       "Id":"GAME_PCSX2X6_BATLGR3",
+      "LastPlayed":"2026-06-24 02:04:54",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] batlgr3"
+      "PlayTimeReadable":"2.8m",
+      "SavedName":"[ARCADE] batlgr3",
+      "TotalPlayTime":168
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
@@ -825,29 +856,41 @@
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Capcom Fighting Jam  AC 2x6 PCSXx6/Capcom Fighting Jam.acgame",
       "Id":"GAME_PCSX2X6_CAPCOM_FIGHTING_JAM",
+      "LastPlayed":"2026-06-24 02:05:04",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] Capcom Fighting Jam"
+      "PlayTimeReadable":"2s",
+      "SavedName":"[ARCADE] Capcom Fighting Jam",
+      "TotalPlayTime":2
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Cobra The Arcade AC 2x6 PCSX2x6/Cobra The Arcade.acgame",
       "Id":"GAME_PCSX2X6_COBRA_THE_ARCADE",
+      "LastPlayed":"2026-06-24 02:05:14",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] Cobra The Arcade"
+      "PlayTimeReadable":"3s",
+      "SavedName":"[ARCADE] Cobra The Arcade",
+      "TotalPlayTime":3
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Fate Unlimited Codes AC 2x6 PCSXx6/Fate - Unlimited Codes.acgame",
       "Id":"GAME_PCSX2X6_FATE_UNLIMITED_CODES",
+      "LastPlayed":"2026-06-24 02:05:26",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] Fate - Unlimited Codes"
+      "PlayTimeReadable":"3s",
+      "SavedName":"[ARCADE] Fate - Unlimited Codes",
+      "TotalPlayTime":3
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Kinnikuman Muscle Grand Prix AC 2x6 PCSXx6/Kinnikuman Muscle Grand Prix.acgame",
       "Id":"GAME_PCSX2X6_KINNIKUMAN_MUSCLE_GRAND_PRIX",
+      "LastPlayed":"2026-06-24 02:05:37",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] Kinnikuman Muscle Grand Prix"
+      "PlayTimeReadable":"5s",
+      "SavedName":"[ARCADE] Kinnikuman Muscle Grand Prix",
+      "TotalPlayTime":5
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
@@ -860,8 +903,11 @@
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Mobile Suit Gundam - Gundam vs. Gundam NEXT AC 2x6 PCSXx6/Mobile Suit Gundam - Gundam vs. Gundam NEXT.acgame",
       "Id":"GAME_PCSX2X6_MOBILE_SUIT_GUNDAM_GUNDAM_VS_GUNDAM_NEXT",
+      "LastPlayed":"2026-06-24 02:05:46",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] Mobile Suit Gundam - Gundam vs. Gundam NEXT"
+      "PlayTimeReadable":"3s",
+      "SavedName":"[ARCADE] Mobile Suit Gundam - Gundam vs. Gundam NEXT",
+      "TotalPlayTime":3
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
@@ -884,8 +930,11 @@
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Vampire Night AC PCSX2x6/NM00003 Vampire Night.acgame",
       "Id":"GAME_PCSX2X6_NM00003_VAMPIRE_NIGHT",
+      "LastPlayed":"2026-06-24 02:05:57",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] NM00003 Vampire Night"
+      "PlayTimeReadable":"4s",
+      "SavedName":"[ARCADE] NM00003 Vampire Night",
+      "TotalPlayTime":4
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
@@ -926,15 +975,21 @@
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Soul Calibur 2 AC PCSX2x6/Soul Calibur 2.acgame",
       "Id":"GAME_PCSX2X6_SOUL_CALIBUR_2",
+      "LastPlayed":"2026-06-24 01:56:49",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] Soul Calibur 2"
+      "PlayTimeReadable":"5.3m",
+      "SavedName":"[ARCADE] Soul Calibur 2",
+      "TotalPlayTime":320
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Soul Calibur 3 AC PCSX2x6/Soul Calibur 3.acgame",
       "Id":"GAME_PCSX2X6_SOUL_CALIBUR_3",
+      "LastPlayed":"2026-06-24 02:01:03",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] Soul Calibur 3"
+      "PlayTimeReadable":"4.0m",
+      "SavedName":"[ARCADE] Soul Calibur 3",
+      "TotalPlayTime":240
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
@@ -946,30 +1001,47 @@
     {
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Tekken Collection AC 2x6 PCSX2x6/PCSX2x6 Main Folder/tekken4.acgame",
+      "HasWindowProfile":1,
       "Id":"GAME_PCSX2X6_TEKKEN4",
+      "LastPlayed":"2026-06-24 01:40:15",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] tekken4"
+      "PlayTimeReadable":"6.6m",
+      "SavedName":"[ARCADE] tekken4",
+      "TotalPlayTime":396,
+      "WinH":1038,
+      "WinW":1938,
+      "WinX":-9,
+      "WinY":21
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Tekken Collection AC 2x6 PCSX2x6/PCSX2x6 Main Folder/tekken5.acgame",
       "Id":"GAME_PCSX2X6_TEKKEN5",
+      "LastPlayed":"2026-06-24 01:43:47",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] tekken5"
+      "PlayTimeReadable":"3.3m",
+      "SavedName":"[ARCADE] tekken5",
+      "TotalPlayTime":198
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Tekken Collection AC 2x6 PCSX2x6/PCSX2x6 Main Folder/tekken51.acgame",
       "Id":"GAME_PCSX2X6_TEKKEN51",
+      "LastPlayed":"2026-06-24 01:47:29",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] tekken51"
+      "PlayTimeReadable":"3.5m",
+      "SavedName":"[ARCADE] tekken51",
+      "TotalPlayTime":209
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Tekken Collection AC 2x6 PCSX2x6/PCSX2x6 Main Folder/tekken5dr.acgame",
       "Id":"GAME_PCSX2X6_TEKKEN5DR",
+      "LastPlayed":"2026-06-24 01:50:58",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] tekken5dr"
+      "PlayTimeReadable":"3.2m",
+      "SavedName":"[ARCADE] tekken5dr",
+      "TotalPlayTime":192
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
@@ -982,15 +1054,21 @@
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Time Crisis 3 AC 2x6 PCSX2x6/Time Crisis 3.acgame",
       "Id":"GAME_PCSX2X6_TIME_CRISIS_3",
+      "LastPlayed":"2026-06-24 02:01:44",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] Time Crisis 3"
+      "PlayTimeReadable":"5s",
+      "SavedName":"[ARCADE] Time Crisis 3",
+      "TotalPlayTime":5
     },
     {
       "AddedDate":"2026-06-22 23:12:57",
       "ApplicationPath":"C:/Users/Admin/Desktop/Games/Namco246-256/Games/Time Crisis 4 AC 2x6 PCSX2x6/Time Crisis 4.acgame",
       "Id":"GAME_PCSX2X6_TIME_CRISIS_4",
+      "LastPlayed":"2026-06-24 02:01:57",
       "LauncherType":"PCSX2X6",
-      "SavedName":"[ARCADE] Time Crisis 4"
+      "PlayTimeReadable":"4s",
+      "SavedName":"[ARCADE] Time Crisis 4",
+      "TotalPlayTime":4
     },
     {
       "AddedDate":"2026-02-04 05:56:36",
@@ -2651,6 +2729,25 @@
       "WinW":2400,
       "WinX":-240,
       "WinY":-135
+    },
+    {
+      "ApplicationPath":"C:/Users/Admin/Desktop/Games/PCSX2x6/roms/rrvac/rrvac.acgame",
+      "CaptureDir":"captures/GAME_RRVAC_PCSX2X6",
+      "EbootIsoPath":"C:/Users/Admin/Desktop/Games/PCSX2x6/roms/rrvac/rrvac.acgame",
+      "GameApplication":"rrvac.acgame",
+      "HasWindowProfile":1,
+      "Id":"GAME_RRVAC_PCSX2X6",
+      "IsPatchable":"false",
+      "LastPlayed":"2026-06-25 21:58:02",
+      "LauncherType":"PCSX2X6",
+      "PlayTimeReadable":"6.7m",
+      "SavedName":"RRVAC_PCSX2X6",
+      "SnapshotDir":"snapshots/GAME_RRVAC_PCSX2X6",
+      "TotalPlayTime":403,
+      "WinH":1038,
+      "WinW":1938,
+      "WinX":-9,
+      "WinY":21
     },
     {
       "ApplicationPath":"D:/EMULATORS/VIVANONNO/roms/rv2.zip",

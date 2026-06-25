@@ -24,7 +24,7 @@ class VideoPlayer {
     static TitleText := "", BtnMin := "", BtnMax := "", BtnFull := "", BtnClose := ""
 
     ; Bottom Controls
-    static BtnPlay := "", BtnStop := "", BtnRefresh := "", BtnDelete := "", BtnCopy := "", BtnBrowse := ""
+    static BtnPlay := "", BtnStop := "", BtnRefresh := "", BtnDelete := "", BtnCopy := "", BtnBrowse := "", BtnEdit := ""
 
     ; ---- OPEN MANAGER ----
     static Show() {
@@ -103,6 +103,7 @@ class VideoPlayer {
         this.BtnDelete := this.BtnAddTheme("  Delete  ", (*) => this.DeleteVideo(), "x+0 yp")
         this.BtnCopy := this.BtnAddTheme("  Copy  ", (*) => this.CopyVideo(), "x+0 yp")
         this.BtnBrowse := this.BtnAddTheme("  Browse  ", (*) => this.BrowseFolder(), "x+0 yp")
+        this.BtnEdit := this.BtnAddTheme("  Edit Video  ", (*) => this.EditVideo(), "x+0 yp")
 
         this.MainGui.Show("w" guiW " h" guiH)
         this.LoadVideos()
@@ -221,6 +222,10 @@ class VideoPlayer {
 
             xNext += w5
             this.BtnBrowse.Move(xNext, btnY)
+            this.BtnBrowse.GetPos(, , &w6)
+
+            xNext += w6
+            this.BtnEdit.Move(xNext, btnY)
         }
     }
 
@@ -337,7 +342,7 @@ class VideoPlayer {
         if (path == "") {
             return
         }
-        targetDir := DirSelect("*C:\", 3, "Select folder to copy video to")
+        targetDir := DialogsGui.SelectFolder("Select folder to copy video to", this.MainGui.Hwnd)
         if (targetDir == "") {
             return
         }
@@ -350,8 +355,53 @@ class VideoPlayer {
         }
     }
 
+    static EditVideo() {
+        path := this.GetSelectedPath()
+        if (path == "") {
+            DialogsGui.CustomMsgBox("No Selection", "Select a video to edit first.")
+            return
+        }
+
+        exePath := ""
+        try exePath := IniRead(ConfigManager.IniPath, "SETTINGS", "LosslessCutPath", "")
+        if (exePath != "" && FileExist(exePath)) {
+            try {
+                Run('"' exePath '" "' path '"')
+                return
+            } catch {
+                ; Fall through to picker if stored path fails.
+            }
+        }
+
+        try {
+            Run('LosslessCut.exe "' path '"')
+            return
+        } catch as err {
+            this.MainGui.Opt("-AlwaysOnTop")
+            selectedExe := FileSelect(3 + 4096, exePath, "Select LosslessCut.exe", "LosslessCut.exe")
+            this.MainGui.Opt("+AlwaysOnTop")
+            if (selectedExe == "") {
+                DialogsGui.CustomMsgBox("Error", "LosslessCut.exe not found and no file was selected.`n" err.Message)
+                return
+            }
+
+            if !FileExist(selectedExe) {
+                DialogsGui.CustomMsgBox("Error", "Selected file does not exist:`n" selectedExe)
+                return
+            }
+
+            try IniWrite(selectedExe, ConfigManager.IniPath, "SETTINGS", "LosslessCutPath")
+
+            try {
+                Run('"' selectedExe '" "' path '"')
+            } catch as launchErr {
+                DialogsGui.CustomMsgBox("Error", "Could not launch selected editor:`n" launchErr.Message)
+            }
+        }
+    }
+
     static BrowseFolder() {
-        selected := DirSelect("*" this.VideoDir, 3, "Select Video Folder")
+        selected := DialogsGui.SelectFolder("Select Video Folder", this.MainGui.Hwnd)
         if (selected != "") {
             this.VideoDir := selected
             this.LoadVideos()

@@ -191,12 +191,12 @@ class DialogsGui {
     }
 
     ; --- FOLDER PICKER (dark-mode via IFileOpenDialog COM) ---
-    static SelectFolder(title := "Select Folder") {
+    static SelectFolder(title := "Select Folder", ownerHwnd := 0) {
         try {
             dlg := ComObject("{DC1C5A9C-E88A-4DDE-A5A1-60F82A20AEF7}", "{D57C7288-D4AD-4768-BE02-9D969532D960}")
             ComCall(9,  dlg, "uint", 0x60)                               ; SetOptions: FOS_PICKFOLDERS|FOS_FORCEFILESYSTEM
             ComCall(17, dlg, "wstr", title)                              ; SetTitle
-            if (ComCall(3, dlg, "ptr", 0) != 0)                         ; Show(hwnd=0)
+            if (ComCall(3, dlg, "ptr", ownerHwnd) != 0)                 ; Show(hwnd)
                 return ""
             ComCall(20, dlg, "ptr*", &pItem := 0)                       ; GetResult -> IShellItem*
             si := ComValue(0xD, pItem)
