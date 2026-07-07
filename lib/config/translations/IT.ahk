@@ -93,7 +93,7 @@ TM_Lang_IT() {
         "Hide Advanced", "Nascondi Avanzate",
         "Show Advanced Utilities", "Mostra Utilità",
         "Patch Game", "Applica Patch",
-      "BUILD PS5 LINUX IMAGE", "Crea immagine PS5 Linux",
+      "Build PS5 Linux Image", "Crea immagine PS5 Linux",
       "Open Balena Etcher", "Apri Balena Etcher",
       "Open Build Guide", "Apri guida build",
       "Build PS5 Linux image subtitle", "Compila l'immagine PS5 Linux in WSL, poi scrivi il file .img con Balena Etcher.",

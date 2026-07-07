@@ -87,7 +87,7 @@ TM_Lang_RU() {
         "Hide Advanced", "Скрыть",
         "Show Advanced Utilities", "Показать расширенные утилиты",
         "Patch Game", "Патч игры",
-      "BUILD PS5 LINUX IMAGE", "Собрать образ PS5 Linux",
+      "Build PS5 Linux Image", "Собрать образ PS5 Linux",
       "Open Balena Etcher", "Открыть Balena Etcher",
       "Open Build Guide", "Открыть инструкцию по сборке",
       "Build PS5 Linux image subtitle", "Соберите образ PS5 Linux в WSL, затем запишите .img через Balena Etcher.",

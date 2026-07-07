@@ -127,8 +127,8 @@ You do not need a separate launcher. The "Patch" button acts as your mode switch
 
 ### Capture Audio or Capture Video with Audio
 
-You need some additional tools for this:
-* Voicemeeter Banana: [voicemeeter](https://vb-audio.com/Voicemeeter/potato.htm)
+#### You need some additional tools for this:
+* Voicemeeter Banana: [voicemeeter](https://vb-audio.com/Voicemeeter/potato.htm) (deprecated)
 * Vgmstream: [vgmstream](https://vgmstream.org/)
 * Ffmpeg: [ffmpeg](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z")
 
@@ -309,6 +309,27 @@ tree /F | Out-File tree.txt -Encoding utf8
 
 
 ### Steps for Adding a New Emulator
+### Phase 1 Update (Registry + Wizard MVP)
+Emulator metadata is now centralized in `lib/emulator/EmulatorRegistry.ahk`.
+
+This registry is consumed by:
+- `lib/ui/EmulatorConfigGui.ahk` (configure-emulator rows)
+- `lib/config/GameRegistrarManager.ahk` (file filter + ISO selection routing)
+- `lib/emulator/tools/RomScanner.ahk` (name prefixes)
+- `lib/emulator/LauncherFactory.ahk` (launcher alias normalization)
+
+Wizard MVP is available in UI as **Emu Wizard** and implemented in:
+- `lib/ui/EmulatorWizardGui.ahk`
+
+Current MVP scope:
+- Pick an emulator from registry
+- Browse/save executable path into `nexus.ini`
+- Review ROM extensions and INI mapping
+
+Next iteration scope:
+- Create new emulator profiles from UI
+- Emulator-specific settings editor
+
 ### Step 1: Create the Launcher Class
 Create a new file in lib/emulator/types/.
 * Naming Convention: [Name]Launcher.ahk (e.g., RetroArchLauncher.ahk).

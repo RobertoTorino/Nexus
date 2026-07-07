@@ -13,13 +13,10 @@
 #Include DialogsGui.ahk
 #Include ..\window\WindowManager.ahk
 #Include ..\emulator\tools\RomScanner.ahk
+#Include ..\emulator\EmulatorRegistry.ahk
 
 class EmulatorConfigGui {
     static MainGui := ""
-
-    ; Added 'RomExts' to define supported file types
-    static Emulators := [{ Name: "DOLPHIN", Section: "DOLPHIN_PATH", Key: "DolphinPath", RomExts: ["gcm", "iso", "rvz", "wbfs"] }, { Name: "DUCKSTATION", Section: "DUCKSTATION_PATH", Key: "DuckStationPath", RomExts: ["bin", "chd", "cue", "iso"] }, { Name: "PCSX2", Section: "PCSX2_PATH", Key: "Pcsx2Path", RomExts: ["bin", "chd", "gz", "iso"] }, { Name: "PCSX2X6", Section: "PCSX2X6_PATH", Key: "Pcsx2x6Path", RomExts: ["acgame"] }, { Name: "PPSSPP", Section: "PPSSPP_PATH", Key: "PpssppPath", RomExts: ["cso", "elf", "iso", "pbp"] }, { Name: "REDREAM", Section: "REDREAM_PATH", Key: "RedreamPath", RomExts: ["gdi", "cdi", "chd"] }, { Name: "RPCS3", Section: "RPCS3_PATH", Key: "Rpcs3Path", RomExts: ["EBOOT.BIN"] }, { Name: "RPCS3_FIGHTER", Section: "RPCS3_FIGHTER_PATH", Key: "Rpcs3FighterPath", RomExts: ["EBOOT.BIN"] }, { Name: "RPCS3_SHOOTER", Section: "RPCS3_SHOOTER_PATH", Key: "Rpcs3ShooterPath", RomExts: ["EBOOT.BIN"] }, { Name: "RPCS3_TCRS", Section: "RPCS3_TCRS_PATH", Key: "Rpcs3TcrsPath", RomExts: ["EBOOT.BIN"] }, { Name: "SHADPS4", Section: "SHADPS4_PATH", Key: "ShadPs4Path", RomExts: ["bin"] }, { Name: "SHADPS4_GUI", Section: "SHADPS4_GUI_PATH", Key: "ShadPs4GuiPath" }, { Name: "TEKNO", Section: "TEKNO_PATH", Key: "TeknoPath" }, { Name: "VITA3K", Section: "VITA3K_PATH", Key: "Vita3kPath" }, { Name: "VIVANONNO", Section: "VIVANONNO_PATH", Key: "VivaNonnoPath", RomExts: ["zip"] }, { Name: "YUZU", Section: "YUZU_PATH", Key: "YuzuPath", RomExts: ["nsp", "xci"] },
-    ]
 
     static Show() {
         if (this.MainGui)
@@ -39,7 +36,7 @@ class EmulatorConfigGui {
         this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕").OnEvent("Click", (*) => this.MainGui.Destroy())
 
         y := 45
-        for index, emu in this.Emulators {
+        for index, emu in EmulatorRegistry.GetAll() {
             this.MainGui.Add("Button", "x-100 y-100 w0 h0 Default", "")
             currentPath := IniRead(ConfigManager.IniPath, emu.Section, emu.Key, "")
 

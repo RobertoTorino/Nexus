@@ -32,24 +32,15 @@
 #Include types/ShadPs4GuiLauncher.ahk
 #Include types/VivaNonnoLauncher.ahk
 #Include types/YuzuLauncher.ahk
+#Include EmulatorRegistry.ahk
 
 class LauncherFactory {
     ; We store the instances here so we don't have to re-create them
     static _instances := Map()
 
     static GetLauncher(launcherType) {
-        ; Normalize the type to handle your RPCS3/VITA variants
-        type := StrUpper(launcherType)
-
-        ; Map variants to their core class keys
-        if (type = "PCSX2X6")
-            targetKey := "PCSX2X6"
-        else if InStr(type, "RPCS3")
-            targetKey := "RPCS3"
-        else if InStr(type, "VITA3K")
-            targetKey := "VITA3K"
-        else
-            targetKey := type
+        ; Normalize variants (for example RPCS3_FIGHTER -> RPCS3)
+        targetKey := EmulatorRegistry.ResolveLauncherClassKey(launcherType)
 
         ; If we already created this launcher before, just return it!
         if this._instances.Has(targetKey)

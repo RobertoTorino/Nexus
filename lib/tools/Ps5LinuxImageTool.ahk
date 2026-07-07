@@ -15,11 +15,11 @@ class Ps5LinuxImageTool {
     static T(text) => TranslationManager.T(text)
 
     static Show() {
-        g := Gui("+AlwaysOnTop -Caption +Border +Owner" . (IsSet(GuiBuilder) ? GuiBuilder.MainGui.Hwnd : ""), this.T("BUILD PS5 LINUX IMAGE"))
+        g := Gui("+AlwaysOnTop -Caption +Border +Owner" . (IsSet(GuiBuilder) ? GuiBuilder.MainGui.Hwnd : ""), this.T("Build PS5 Linux Image"))
         g.BackColor := "101010"
         g.SetFont("s10 cWhite", "Segoe UI")
 
-        g.Add("Text", "x20 y15 w390 h24 +0x200", this.T("BUILD PS5 LINUX IMAGE"))
+        g.Add("Text", "x20 y15 w390 h24 +0x200", this.T("Build PS5 Linux Image"))
 
         g.SetFont("s11 Bold cA0A0A0", "Segoe UI")
         helpBtn := g.Add("Text", "x+5 yp w24 h24 +0x200 +Center +Border Background1A1A1A", "?")
@@ -57,6 +57,6 @@ class Ps5LinuxImageTool {
 
     static ShowHelp() {
         helpText := this.T("HELP_TEXT_PS5_LINUX_IMAGE")
-        DialogsGui.ShowTextViewer("Nexus :: BUILD PS5 LINUX IMAGE :: Help", helpText, 650, 500)
+        DialogsGui.ShowTextViewer("Nexus :: Build PS5 Linux Image :: Help", helpText, 650, 500)
     }
 }

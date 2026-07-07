@@ -92,7 +92,7 @@ TM_Lang_JP() {
         "Hide Advanced", "詳細を隠す",
         "Show Advanced Utilities", "詳細ツールを表示",
         "Patch Game", "パッチ適用",
-      "BUILD PS5 LINUX IMAGE", "PS5 Linux イメージ作成",
+      "Build PS5 Linux Image", "PS5 Linux イメージ作成",
       "Open Balena Etcher", "Balena Etcher を開く",
       "Open Build Guide", "ビルドガイドを開く",
       "Build PS5 Linux image subtitle", "WSL で PS5 Linux イメージをビルドし、Balena Etcher で .img を書き込みます。",

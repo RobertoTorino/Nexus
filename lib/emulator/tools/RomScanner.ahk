@@ -12,24 +12,9 @@
 #Include ..\..\config\ConfigManager.ahk
 #Include ..\..\ui\DialogsGui.ahk
 #Include ..\..\core\Logger.ahk
+#Include ..\EmulatorRegistry.ahk
 
 class RomScanner {
-
-    static PrefixMap := Map(
-        "PPSSPP",     "[PSP]",
-        "PCSX2",      "[PS2]",
-        "PCSX2X6",    "[ARCADE]",
-        "DUCKSTATION", "[PS1]",
-        "RPCS3",      "[PS3]",
-        "VITA3K",     "[VITA]",
-        "DOLPHIN",    "[GC/WII]",
-        "TEKNO",      "[ARCADE]",
-        "REDREAM",    "[DC]",
-        "SHADPS4",    "[PS4]",
-        "SHADPS4_GUI", "[PS4]",
-        "VIVANONNO",  "[RR]",
-        "YUZU",       "[SW]"
-    )
 
     static Scan(emulatorName, extensionList) {
         iniSection := "ROM_PATHS"
@@ -52,7 +37,8 @@ class RomScanner {
         Logger.Info("Starting Scan :: Emu: " . emulatorName, "RomScanner")
         addedCount := 0
         skippedCount := 0
-        prefix := this.PrefixMap.Has(emulatorName) ? this.PrefixMap[emulatorName] . " " : ""
+        prefixTag := EmulatorRegistry.GetRomPrefix(emulatorName)
+        prefix := (prefixTag != "") ? prefixTag . " " : ""
 
         ; --- VIVANONNO / TEKNO ZIP FIX ---
         ; If scanning for Arcade, force add .zip to the allowed list if not present

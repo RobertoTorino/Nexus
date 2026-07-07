@@ -10,6 +10,7 @@
 
 ; --- DEPENDENCY IMPORTS ---
 #Include EmulatorConfigGui.ahk
+#Include EmulatorWizardGui.ahk
 #Include CloneGameWizardGui.ahk
 #Include WindowManagerGui.ahk
 #Include ..\capture\AudioManager.ahk
@@ -203,6 +204,7 @@ class GuiBuilder {
         this.AddNavBtn(this.Label("🕹️", "Profiles"), (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10 Background101010 " btnW)
         this.AddNavBtn(this.Label("🧹", "Delete Game"), (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background101010 " btnW)
         this.AddNavBtn(this.Label("⚙️", "Emulators"), (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("🪄", "Emu Wizard"), (btn, *) => (this.FlashButton(btn), EmulatorWizardGui.Show()), "x+10 Background101010 " btnW)
 
         ; KISS: Just a standard button. No disabling. No font tricks.
         this.AddNavBtn(this.Label("🩹", "Patch Game"), (btn, *) => (this.FlashButton(btn), this.OnPatchGame()), "x+10 Background101010 " btnW)
@@ -398,7 +400,7 @@ class GuiBuilder {
 
         ; --- ROW 3 ---
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Controller Test") "  ", (*) => ControllerTester.Show(), "x5 y+10" . cAdv))
-        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("BUILD PS5 LINUX IMAGE") "  ", (*) => Ps5LinuxImageTool.Show(), "x+10" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Build PS5 Linux Image") "  ", (*) => Ps5LinuxImageTool.Show(), "x+10" . cAdv))
 
         ; --- ROW 4 ---
         ; Hide Button (Blue Text)

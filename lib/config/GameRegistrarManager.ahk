@@ -13,6 +13,7 @@
 #Include ..\core\Utilities.ahk
 #Include ..\ui\DialogsGui.ahk
 #Include TeknoParrotManager.ahk
+#Include ..\emulator\EmulatorRegistry.ahk
 
 class GameRegistrarManager {
 
@@ -20,8 +21,11 @@ class GameRegistrarManager {
     static AddGame() {
         Logger.Info("AddGame sequence initiated.", "GameRegistrarManager")
 
+        gameFileFilter := EmulatorRegistry.BuildGameFileFilter()
+        isoExtRegex := EmulatorRegistry.GetIsoExtRegex()
+
         path := FileSelect(3, , "Select Game Executable, ISO, or EBOOT",
-            "All Supported (*.exe; *.bat; *.lnk; *.iso; *.cso; *.bin; *.cue; *.chd; *.pbp; *.elf; *.rvz; *.wbfs; *.gcm; *.acgame)")
+            gameFileFilter)
 
         if (path == "") {
             Logger.Warn("File selection cancelled by user.", "GameRegistrarManager")
@@ -57,7 +61,7 @@ class GameRegistrarManager {
             if !this.HandleAcGame(config)
                 return false
         }
-        else if (ext ~= "i)^(iso|cso|bin|cue|chd|pbp|rvz|wbfs|gcm)$") {
+        else if (isoExtRegex != "" && ext ~= "i)^(" . isoExtRegex . ")$") {
             Logger.Info("Routing to ISO handler.", "GameRegistrarManager")
             if !this.HandleIso(config)
                 return false
@@ -90,7 +94,7 @@ class GameRegistrarManager {
         ; --- VITA3K DETECTION ---
         if (config["Path"] ~= "i)(app|ux0|mai)") {
             Logger.Info("Vita3K structure detected.", "GameRegistrarManager")
-            return this.ConfigureEmulator(config, "VITA3K", "VITA3K_PATH", "Vita3kPath")
+            return this.ConfigureByRegistry(config, "VITA3K")
         }
 
         ; --- PS3 vs PS4 DETECTION ---
@@ -106,7 +110,7 @@ class GameRegistrarManager {
         ; --- PS4 / SHADPS4 ---
         if (InStr(platform, "PS4")) {
             Logger.Info("PS4 selected. Routing to shadPS4.", "GameRegistrarManager")
-            return this.ConfigureEmulator(config, "SHADPS4", "SHADPS4_PATH", "ShadPs4Path")
+            return this.ConfigureByRegistry(config, "SHADPS4")
         }
 
         ; --- PS3 / RPCS3 ---
@@ -121,23 +125,24 @@ class GameRegistrarManager {
 
         switch choice {
             case "Standard RPCS3":
-                return this.ConfigureEmulator(config, "RPCS3", "RPCS3_PATH", "Rpcs3Path")
+                return this.ConfigureByRegistry(config, "RPCS3")
             case "Fighter Build":
                 config["PatchGroup"] := "T6BR"
                 config["IsPatchable"] := true
-                return this.ConfigureEmulator(config, "FIGHTER", "RPCS3_FIGHTER", "Rpcs3FighterPath")
+                return this.ConfigureEmulator(config, "FIGHTER", "RPCS3_FIGHTER_PATH", "Rpcs3FighterPath")
             case "Shooter Build":
                 config["IsPatchable"] := true
-                return this.ConfigureEmulator(config, "SHOOTER", "RPCS3_SHOOTER", "Rpcs3ShooterPath")
+                return this.ConfigureEmulator(config, "SHOOTER", "RPCS3_SHOOTER_PATH", "Rpcs3ShooterPath")
             case "TCRS Build":
-                return this.ConfigureEmulator(config, "TCRS", "RPCS3_TCRS", "Rpcs3TcrsPath")
+                return this.ConfigureEmulator(config, "TCRS", "RPCS3_TCRS_PATH", "Rpcs3TcrsPath")
         }
         return false
     }
 
     static HandleIso(config) {
         Logger.Info("ISO/ROM detected, requesting platform choice.", "GameRegistrarManager")
-        choice := DialogsGui.AskForChoice("Select Platform", "Select Emulator:", ["PCSX2", "DUCKSTATION", "PPSSPP", "DOLPHIN"])
+        choices := EmulatorRegistry.GetIsoChoiceNames()
+        choice := DialogsGui.AskForChoice("Select Platform", "Select Emulator:", choices)
 
         if (choice == "") {
             Logger.Warn("ISO Platform selection cancelled.", "GameRegistrarManager")
@@ -145,21 +150,21 @@ class GameRegistrarManager {
         }
 
         Logger.Info("User selected platform: " . choice, "GameRegistrarManager")
-
-        iniKey := ""
-        switch choice {
-            case "PCSX2":       iniKey := "Pcsx2Path"
-            case "DUCKSTATION": iniKey := "DuckStationPath"
-            case "PPSSPP":      iniKey := "PpssppPath"
-            case "DOLPHIN":     iniKey := "DolphinPath"
-        }
-
-        return this.ConfigureEmulator(config, choice, choice "_PATH", iniKey)
+        return this.ConfigureByRegistry(config, choice)
     }
 
     static HandleAcGame(config) {
         ; Dedicated route for arcade-ready PCSX2x6 launch files.
-        return this.ConfigureEmulator(config, "PCSX2X6", "PCSX2X6_PATH", "Pcsx2x6Path")
+        return this.ConfigureByRegistry(config, "PCSX2X6")
+    }
+
+    static ConfigureByRegistry(config, type) {
+        meta := EmulatorRegistry.GetIniMeta(type)
+        if !IsObject(meta) {
+            Logger.Error("Registry metadata missing for launcher type: " . type, "GameRegistrarManager")
+            return false
+        }
+        return this.ConfigureEmulator(config, type, meta.Section, meta.Key)
     }
 
     static ConfigureEmulator(config, type, iniSec, iniKey) {
