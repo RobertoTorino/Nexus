@@ -107,6 +107,7 @@ Place Nexus in a central location.
 * Patch EBOOT.BIN and clone games.
 * Run Arcade games that need special versions of RPCS3.
 * Save game titles for quick re-run.
+* Create PS5 Linux image
 
 ### Process:
 * Change CPU process priority.
@@ -120,6 +121,7 @@ Place Nexus in a central location.
 * Video capture.
 * Video player, loads external player: [smplayer](https://github.com/smplayer-dev/smplayer).
 * Image viewer.
+* Video editor Lossless Cut: [Lossless Cut](https://github.com/mifi/lossless-cut/releases/tag/v3.69.0)
 * And more...
 
 ### Phantom Windows, JConfig, Settings
@@ -240,6 +242,7 @@ A big thanks to all developers for:
 * DS4WINDOWS
 * DUCKSTATION
 * FFMPEG
+* LOSSLESS CUT
 * PCSX2
 * MSI AFTERBURNER
 * PCSX2x6

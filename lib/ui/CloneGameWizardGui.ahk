@@ -32,8 +32,8 @@ class CloneGameWizardGui {
         ; ---- Snap Gui ----
         WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
-        this.MainGui.BackColor := "2A2A2A"
-        this.MainGui.SetFont("s10 q5 cWhite", "Segoe UI")
+        this.MainGui.BackColor := "101010"
+        this.MainGui.SetFont("s10 q5 cSilver", "Segoe UI")
         this.MainGui.OnEvent("Close", (*) => this.Destroy())
         ; Get rid of the ugly blue focus color
         this.MainGui.Add("Button", "x-100 y-100 w0 h0 Default", "")

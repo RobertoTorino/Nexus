@@ -99,7 +99,6 @@ foreach ($file in $includeFiles) {
 }
 Set-Content -Path "$distFolder\nexus.json" -Value "{}" -Encoding UTF8
 Copy-Item $templateIni -Destination "$distFolder\nexus.ini" -Force
-Copy-Item "$distFolder\Nexus.sha256" -Destination "$distFolder" -Force
 
 Write-Host ":: BUILD SUCCESS!" -ForegroundColor Green
 Write-Host "   EXE: $distFolder\$appName-$version.exe"

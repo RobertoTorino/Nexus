@@ -92,6 +92,10 @@ TM_Lang_JP() {
         "Hide Advanced", "詳細を隠す",
         "Show Advanced Utilities", "詳細ツールを表示",
         "Patch Game", "パッチ適用",
+      "BUILD PS5 LINUX IMAGE", "PS5 Linux イメージ作成",
+      "Open Balena Etcher", "Balena Etcher を開く",
+      "Open Build Guide", "ビルドガイドを開く",
+      "Build PS5 Linux image subtitle", "WSL で PS5 Linux イメージをビルドし、Balena Etcher で .img を書き込みます。",
 
         ; --- NEW GALLERY KEYS ---
         "Previous", "前へ", "Next", "次へ", "Slideshow", "スライドショー", "Browse", "参照", "Delete", "削除",
@@ -124,6 +128,47 @@ TM_Lang_JP() {
 5. レガシー配線:
    - 手動バスルーティングが必要な場合、Voicemeeter は引き続き利用できます。
         )",
+
+      "HELP_TEXT_PS5_LINUX_IMAGE", "
+      (
+Windows で独自イメージを作成するには、まず管理者権限の PowerShell で次を実行して WSL をインストールします:
+
+   wsl --install
+
+Ubuntu をインストールします。まず利用可能なディストリビューションを確認:
+
+   wsl --list --online
+
+次にインストール:
+
+   wsl --install Ubuntu-26.04
+
+Docker をインストール:
+
+   sudo apt update
+   sudo apt install docker.io -y
+   sudo service docker start
+   sudo usermod -aG docker $USER
+
+その後、クローンしてビルドします:
+
+   cd ~/
+   git clone https://github.com/ps5-linux/ps5-linux-image
+   cd ps5-linux-image
+   chmod +x ./build_image.sh
+   sudo bash ./build_image.sh --distro ubuntu2604
+
+完成したイメージは次に出力されます:
+
+   output/ps5-ubuntu2604.img
+
+USB にイメージを書き込み:
+
+- 最小容量: 64 GB。外付け SSD を強く推奨します。
+- Balena Etcher (https://etcher.balena.io/) をダウンロードし、.img ファイルを選択し、
+  USB ドライブを選んで Flash をクリックします。
+- フォーマットの警告メッセージは無視してください。
+      )",
 
             "HELP_TEXT_GAMEPAD", "
             (

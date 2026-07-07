@@ -31,6 +31,7 @@
 #Include ..\tools\FileValidatorTool.ahk
 #Include ..\tools\GameDatabaseTool.ahk
 #Include ..\tools\PatchServiceTool.ahk
+#Include ..\tools\Ps5LinuxImageTool.ahk
 #Include ..\ui\ConfigViewerGui.ahk
 #Include ..\ui\IconManagerGui.ahk
 #Include ..\ui\PatchManagerGui.ahk
@@ -397,6 +398,7 @@ class GuiBuilder {
 
         ; --- ROW 3 ---
         this.AdvancedControls.Push(this.AddNavBtn("  " this.T("Controller Test") "  ", (*) => ControllerTester.Show(), "x5 y+10" . cAdv))
+        this.AdvancedControls.Push(this.AddNavBtn("  " this.T("BUILD PS5 LINUX IMAGE") "  ", (*) => Ps5LinuxImageTool.Show(), "x+10" . cAdv))
 
         ; --- ROW 4 ---
         ; Hide Button (Blue Text)

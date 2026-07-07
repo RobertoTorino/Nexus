@@ -92,6 +92,10 @@ TM_Lang_CN() {
         "Hide Advanced", "隐藏高级",
         "Show Advanced Utilities", "显示高级工具",
         "Patch Game", "应用补丁",
+      "BUILD PS5 LINUX IMAGE", "构建 PS5 Linux 镜像",
+      "Open Balena Etcher", "打开 Balena Etcher",
+      "Open Build Guide", "打开构建指南",
+      "Build PS5 Linux image subtitle", "先在 WSL 中构建 PS5 Linux 镜像，然后用 Balena Etcher 刷写 .img 文件。",
 
         ; --- NEW GALLERY KEYS ---
         "Previous", "上一张", "Next", "下一张", "Slideshow", "幻灯片", "Browse", "浏览", "Delete", "删除",
@@ -124,6 +128,47 @@ TM_Lang_CN() {
 5. 旧路由：
    - 对于仍需手动总线路由的用户，Voicemeeter 仍然可用。
         )",
+
+      "HELP_TEXT_PS5_LINUX_IMAGE", "
+      (
+在 Windows 上自行构建镜像时，请先以管理员身份在 PowerShell 中执行以下命令安装 WSL：
+
+   wsl --install
+
+安装 Ubuntu。先查看可用发行版：
+
+   wsl --list --online
+
+然后安装：
+
+   wsl --install Ubuntu-26.04
+
+安装 Docker：
+
+   sudo apt update
+   sudo apt install docker.io -y
+   sudo service docker start
+   sudo usermod -aG docker $USER
+
+接着克隆并构建：
+
+   cd ~/
+   git clone https://github.com/ps5-linux/ps5-linux-image
+   cd ps5-linux-image
+   chmod +x ./build_image.sh
+   sudo bash ./build_image.sh --distro ubuntu2604
+
+构建完成后的镜像位于：
+
+   output/ps5-ubuntu2604.img
+
+将镜像刷写到 USB：
+
+- U 盘最低容量 64 GB，强烈建议使用外接 SSD。
+- 下载 Balena Etcher（https://etcher.balena.io/），选择 .img 文件，
+  选择你的 USB 设备，然后点击 Flash。
+- 忽略系统弹出的格式化提示。
+      )",
 
             "HELP_TEXT_GAMEPAD", "
             (

@@ -377,6 +377,7 @@ class VideoPlayer {
             Run('LosslessCut.exe "' path '"')
             return
         } catch as err {
+            DialogsGui.CustomMsgBox("LosslessCut Not Found", "LosslessCut.exe is not installed or could not be found.`n`nSelect LosslessCut.exe to continue.")
             this.MainGui.Opt("-AlwaysOnTop")
             selectedExe := FileSelect(3 + 4096, exePath, "Select LosslessCut.exe", "LosslessCut.exe")
             this.MainGui.Opt("+AlwaysOnTop")

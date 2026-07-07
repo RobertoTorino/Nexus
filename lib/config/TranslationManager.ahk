@@ -45,6 +45,8 @@ class TranslationManager {
                 return this.GetEnglishHelp()
             if (text == "HELP_TEXT_SOUND_MANAGER")
                 return this.GetEnglishSoundManagerHelp()
+            if (text == "HELP_TEXT_PS5_LINUX_IMAGE")
+                return this.GetEnglishPs5LinuxImageHelp()
             if (text == "HELP_TEXT_GAMEPAD" || text == "HELP_TEXT_ControllerTester")
             return this.GetEnglishControllerTesterHelp()
 
@@ -158,6 +160,49 @@ class TranslationManager {
     - Voicemeeter is still available for users who need manual bus routing.
           )"
      }
+
+    static GetEnglishPs5LinuxImageHelp() {
+        return "
+        (
+For Windows build your own image, first run this in PowerShell as administrator to install WSL:
+
+    wsl --install
+
+Install Ubuntu, first check for available distros:
+
+    wsl --list --online
+
+Then install:
+
+    wsl --install Ubuntu-26.04
+
+Install Docker:
+
+    sudo apt update
+    sudo apt install docker.io -y
+    sudo service docker start
+    sudo usermod -aG docker $USER
+
+Then clone and build:
+
+    cd ~/
+    git clone https://github.com/ps5-linux/ps5-linux-image
+    cd ps5-linux-image
+    chmod +x ./build_image.sh
+    sudo bash ./build_image.sh --distro ubuntu2604
+
+The finished image is written to:
+
+    output/ps5-ubuntu2604.img
+
+Flash the image to USB:
+
+- Minimum drive size: 64 GB. An external SSD is strongly recommended.
+- Download Balena Etcher (https://etcher.balena.io/), select the .img file,
+  select your USB drive, and click Flash.
+- Ignore the format message.
+        )"
+    }
 
       static GetEnglishControllerTesterHelp() {
             return "

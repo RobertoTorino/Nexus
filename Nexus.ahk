@@ -61,6 +61,7 @@ A_HotkeyInterval := 2000
 #Include lib\tools\GameDatabaseTool.ahk
 #Include lib\tools\CloneWizardTool.ahk
 #Include lib\tools\PatchServiceTool.ahk
+#Include lib\tools\Ps5LinuxImageTool.ahk
 #Include lib\tools\SystemInfoTool.ahk
 ; lib\ui\
 #Include lib\ui\DialogsGui.ahk

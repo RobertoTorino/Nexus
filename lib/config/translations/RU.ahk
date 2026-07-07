@@ -87,6 +87,10 @@ TM_Lang_RU() {
         "Hide Advanced", "Скрыть",
         "Show Advanced Utilities", "Показать расширенные утилиты",
         "Patch Game", "Патч игры",
+      "BUILD PS5 LINUX IMAGE", "Собрать образ PS5 Linux",
+      "Open Balena Etcher", "Открыть Balena Etcher",
+      "Open Build Guide", "Открыть инструкцию по сборке",
+      "Build PS5 Linux image subtitle", "Соберите образ PS5 Linux в WSL, затем запишите .img через Balena Etcher.",
 
         ; --- ADVANCED UTILITIES ---
         "AT3 Convert", "Конв. AT3",
@@ -126,6 +130,47 @@ TM_Lang_RU() {
 5. LEGACY ROUTING:
    - Voicemeeter остаётся доступным для тех, кому нужен ручной bus routing.
         )",
+
+      "HELP_TEXT_PS5_LINUX_IMAGE", "
+      (
+Чтобы собрать свой образ в Windows, сначала выполните это в PowerShell от имени администратора для установки WSL:
+
+   wsl --install
+
+Установите Ubuntu. Сначала проверьте доступные дистрибутивы:
+
+   wsl --list --online
+
+Затем установите:
+
+   wsl --install Ubuntu-26.04
+
+Установите Docker:
+
+   sudo apt update
+   sudo apt install docker.io -y
+   sudo service docker start
+   sudo usermod -aG docker $USER
+
+Далее клонируйте репозиторий и соберите образ:
+
+   cd ~/
+   git clone https://github.com/ps5-linux/ps5-linux-image
+   cd ps5-linux-image
+   chmod +x ./build_image.sh
+   sudo bash ./build_image.sh --distro ubuntu2604
+
+Готовый образ будет записан в:
+
+   output/ps5-ubuntu2604.img
+
+Запишите образ на USB:
+
+- Минимальный размер накопителя: 64 ГБ. Внешний SSD настоятельно рекомендуется.
+- Скачайте Balena Etcher (https://etcher.balena.io/), выберите файл .img,
+  выберите USB-накопитель и нажмите Flash.
+- Игнорируйте сообщение о форматировании.
+      )",
 
             "HELP_TEXT_GAMEPAD", "
             (

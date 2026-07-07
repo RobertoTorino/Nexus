@@ -166,10 +166,10 @@ class PatchServiceTool {
         isCn := (diag.DetectedRegion == "CN")
 
         g := Gui("+AlwaysOnTop -Caption +Border +Owner" . (IsSet(GuiBuilder) ? GuiBuilder.MainGui.Hwnd : ""), "Mode Selector")
-        g.BackColor := "202020"
+        g.BackColor := "101010"
         g.SetFont("s10 cWhite", "Segoe UI")
 
-        g.Add("Text", "x20 y15 w300 Bold Center", "LAUNCH MODE: " . patchData.Name)
+        g.Add("Text", "x20 y15 w300 Center", "LAUNCH MODE: " . patchData.Name)
 
         g.SetFont("s8 cGray")
         g.Add("Text", "x20 y+5 w300 Center", "Integrity: " . diag.Integrity)
@@ -184,18 +184,18 @@ class PatchServiceTool {
                 continue
 
             isCurrent := (diag.CurrentState == info.Label)
-            bgColor := isCurrent ? "Background006600" : "Background333333"
+            bgColor := isCurrent ? "Background006600" : "Background101010"
 
             g.SetFont("s10 Bold")
             btn := g.Add("Text", "x20 y" y " w300 h30 +0x200 Center +Border " bgColor, info.Label)
             btn.OnEvent("Click", this.MakeCallback(g, info.Suffix))
 
             g.SetFont("s8 cGray")
-            g.Add("Text", "x20 y+0 w300 h15 Center Background222222", info.Desc)
+            g.Add("Text", "x20 y+0 w300 h15 Center Background101010", info.Desc)
             y += 55
         }
 
-        g.SetFont("s10 cWhite")
+        g.SetFont("s10 cSilver")
         g.Add("Text", "x20 y" y + 10 " w300 h30 Center cGray", "Cancel").OnEvent("Click", (*) => g.Destroy())
 
         g.Show("w340")

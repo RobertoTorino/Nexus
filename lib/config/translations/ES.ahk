@@ -91,6 +91,10 @@ TM_Lang_ES() {
         "Hide Advanced", "Ocultar Avanzado",
         "Show Advanced Utilities", "Mostrar Utilidades",
         "Patch Game", "Parchear",
+      "BUILD PS5 LINUX IMAGE", "Crear imagen PS5 Linux",
+      "Open Balena Etcher", "Abrir Balena Etcher",
+      "Open Build Guide", "Abrir guía de compilación",
+      "Build PS5 Linux image subtitle", "Compila la imagen PS5 Linux en WSL y luego graba el .img con Balena Etcher.",
 
         ; --- NEW GALLERY KEYS ---
         "Previous", "Anterior", "Next", "Siguiente", "Slideshow", "Presentación", "Browse", "Explorar", "Delete", "Borrar",
@@ -123,6 +127,47 @@ TM_Lang_ES() {
 5. RUTEO LEGADO:
    - Voicemeeter sigue disponible para usuarios que necesiten ruteo manual por buses.
         )",
+
+      "HELP_TEXT_PS5_LINUX_IMAGE", "
+      (
+Para crear tu propia imagen en Windows, primero ejecuta esto en PowerShell como administrador para instalar WSL:
+
+   wsl --install
+
+Instala Ubuntu. Primero consulta las distros disponibles:
+
+   wsl --list --online
+
+Luego instala:
+
+   wsl --install Ubuntu-26.04
+
+Instala Docker:
+
+   sudo apt update
+   sudo apt install docker.io -y
+   sudo service docker start
+   sudo usermod -aG docker $USER
+
+Después clona y compila:
+
+   cd ~/
+   git clone https://github.com/ps5-linux/ps5-linux-image
+   cd ps5-linux-image
+   chmod +x ./build_image.sh
+   sudo bash ./build_image.sh --distro ubuntu2604
+
+La imagen final se guarda en:
+
+   output/ps5-ubuntu2604.img
+
+Graba la imagen en un USB:
+
+- Tamaño mínimo de unidad: 64 GB. Se recomienda SSD externo.
+- Descarga Balena Etcher (https://etcher.balena.io/), selecciona el archivo .img,
+  elige tu unidad USB y haz clic en Flash.
+- Ignora el mensaje de formateo.
+      )",
 
             "HELP_TEXT_GAMEPAD", "
             (

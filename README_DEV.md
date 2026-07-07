@@ -183,7 +183,12 @@ For use in this app, MSI Afterburner is used: [MSI Afterburner](https://www.msi.
 ---
 
 ## For Development only:
-#### Project tree
+#### Project tree 
+
+```
+tree /F | Out-File tree.txt -Encoding utf8
+```
+
 ```
 |   Nexus.ahk
 |   nexus.db

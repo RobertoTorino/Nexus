@@ -32,8 +32,8 @@ class PatchManagerGui {
         ; ---- Snap Gui ----
         WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
-        this.MainGui.BackColor := "2A2A2A"
-        this.MainGui.SetFont("s12 cWhite", "Segoe UI")
+        this.MainGui.BackColor := "101010"
+        this.MainGui.SetFont("s11 cSilver", "Segoe UI")
 
         ; Prevent Escape/Close from Destroying the window
         this.MainGui.OnEvent("Close", (*) => this.Hide())
@@ -43,15 +43,15 @@ class PatchManagerGui {
         guiH := 300
 
         ; Custom Title Bar
-        title := this.MainGui.Add("Text", "x0 y0 w" (guiW - 30) " h30 +0x200 Background2A2A2A", "  Nexus :: Patch Manager")
+        title := this.MainGui.Add("Text", "x0 y0 w" (guiW - 30) " h30 +0x200 Background101010", "  Nexus :: Patch Manager")
         title.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
 
         ; CLOSE BUTTON CALLS HIDE (Matches LoggerGui)
-        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕").OnEvent("Click", (*) => this.Hide())
+        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background101010 cRed", "✕").OnEvent("Click", (*) => this.Hide())
 
         ; --- HEADER ---
         this.MainGui.SetFont("s12 Bold")
-        this.MainGui.Add("Text", "x10 y30 w400 h30 Background2A2A2A", "Supported Patches")
+        this.MainGui.Add("Text", "x10 y30 w400 h30 Background101010", "Supported Patches")
         this.MainGui.SetFont("s12 Norm")
 
         ; --- HEADERS ROW ---
@@ -94,7 +94,7 @@ class PatchManagerGui {
         row := {}
 
         ; PATCH NAME
-        this.MainGui.Add("Text", "x10 y" y + 3 " w120 h20 +0x200 Background2A2A2A", patchData.Name)
+        this.MainGui.Add("Text", "x10 y" y + 3 " w120 h20 +0x200 Background101010", patchData.Name)
 
         ; DROPDOWN
         savedId := IniRead(ConfigManager.IniPath, "PATCH_MAPPINGS", patchKey, "")
@@ -107,8 +107,8 @@ class PatchManagerGui {
         }
 
         ; STATUS
-        row.Integrity := this.MainGui.Add("Text", "x+10 y" y + 3 " w190 h20 +0x200 cGray Background2A2A2A", "-")
-        row.Mode := this.MainGui.Add("Text", "x+10 y" y + 3 " w150 h20 +0x200 cGray Background2A2A2A", "-")
+        row.Integrity := this.MainGui.Add("Text", "x+10 y" y + 3 " w190 h20 +0x200 cGray Background101010", "-")
+        row.Mode := this.MainGui.Add("Text", "x+10 y" y + 3 " w150 h20 +0x200 cGray Background101010", "-")
 
         ; BUTTONS
         row.BtnApply := this.MainGui.Add("Button", "x+10 y" y - 1 " h26 Disabled", "Patch")
@@ -207,7 +207,7 @@ class PatchManagerGui {
 
     static AddHeader(x, y, w, text) {
         this.MainGui.SetFont("s12 cGray")
-        this.MainGui.Add("Text", "x" x " y" y " w" w " h20 Background2A2A2A", text)
+        this.MainGui.Add("Text", "x" x " y" y " w" w " h20 Background101010", text)
         this.MainGui.SetFont("s12 cWhite")
     }
 }
