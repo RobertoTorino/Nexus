@@ -14,6 +14,7 @@
 #Include ..\window\WindowManager.ahk
 #Include ..\emulator\tools\RomScanner.ahk
 #Include ..\emulator\EmulatorRegistry.ahk
+#Include ..\config\TeknoParrotManager.ahk
 
 class EmulatorConfigGui {
     static MainGui := ""
@@ -23,17 +24,16 @@ class EmulatorConfigGui {
             this.MainGui.Destroy()
         this.MainGui := Gui("-Caption +Border +ToolWindow +AlwaysOnTop", "Nexus :: Configure Emulators")
 
-        ; ---- Snap Gui ----
-        WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
+        this.MainGui.BackColor := "101010"
+        this.MainGui.SetFont("s12 cSilver", "Segoe UI")
 
-        this.MainGui.BackColor := "2A2A2A"
-        this.MainGui.SetFont("s12 cWhite", "Segoe UI")
+        iconSlotW := 35
+        guiW := 805 + iconSlotW
 
-        guiW := 805
-
-        title := this.MainGui.Add("Text", "x0 y0 w" (guiW - 30) " h30 +0x200 Background2A2A2A", "  Nexus :: Configure Emulators")
+        title := this.MainGui.Add("Text", "x0 y0 w" (guiW - 30) " h30 +0x200 Background101010", "  Nexus :: Configure Emulators")
         title.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
-        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕").OnEvent("Click", (*) => this.MainGui.Destroy())
+        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background101010 cRed", "✕").OnEvent("Click", (*) => this.MainGui.Destroy())
+        this.MainGui.Add("Text", "x0 y+2 w" guiW " h1 BackgroundC0C0C0")
 
         y := 45
         for index, emu in EmulatorRegistry.GetAll() {
@@ -41,15 +41,15 @@ class EmulatorConfigGui {
             currentPath := IniRead(ConfigManager.IniPath, emu.Section, emu.Key, "")
 
             this.MainGui.Add("Text", "x10 y" y " w125 h26 Right", emu.Name ":")
-            edt := this.MainGui.Add("Edit", "x+10 yp h26 w510 +0x200 ReadOnly Background2A2A2A", currentPath)
+            edt := this.MainGui.Add("Edit", "x+10 yp h26 w510 +0x200 ReadOnly Background101010 cSilver +Border", currentPath)
 
             this.BtnAddTheme(" 📂 ", this.OnBrowse.Bind(this, emu, edt), "x+5 yp +0x200 Background2B3B45")
             this.BtnAddTheme(" 🧽 ", this.OnClear.Bind(this, emu, edt), "x+5 yp Background5A4A1A")
             this.BtnAddTheme(" ▶️ ", this.OnRun.Bind(this, edt), "x+5 yp Background0C660C")
             this.BtnAddTheme(" ❌ ", this.OnKill.Bind(this, edt), "x+5 yp Background6E0000")
 
-            ; [NEW] Render Scan Button if supported
-            if (emu.HasOwnProp("RomExts")) {
+            ; Render Game Folder button if scanner/profile picker is supported
+            if (emu.HasOwnProp("RomExts") || emu.Name = "TEKNO") {
                 this.BtnAddTheme(" 💿 ", this.OnScan.Bind(this, emu), "x+5 yp Background4A2A5A")
             }
 
@@ -59,12 +59,17 @@ class EmulatorConfigGui {
     }
 
     static BtnAddTheme(label, callback, options) {
-        btn := this.MainGui.Add("Text", options " h26 +0x200 +Center +Border", label)
+        btn := this.MainGui.Add("Text", options " h26 +0x200 +Center +Border cSilver", label)
         btn.OnEvent("Click", callback)
         return btn
     }
 
     static OnScan(emu, *) {
+        if (emu.Name = "TEKNO") {
+            TeknoParrotManager.ShowPicker()
+            return
+        }
+
         if (!emu.HasOwnProp("RomExts"))
             return
 

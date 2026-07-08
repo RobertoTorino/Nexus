@@ -1,18 +1,15 @@
 /.idea/
+/.vscode/
+!.gitkeep
 
 /dist/
 /dist/*/
-
-/dist-lite/
-/dist-lite/*/
-
-!.gitkeep
-
 /*.log
 
-/captures
+# media
 /recordings
-/.vscode/
+/media/captures/
+/media/snapshots/
 
 # Local GPG signing identity
 .gpg-identity

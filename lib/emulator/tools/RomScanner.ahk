@@ -22,13 +22,13 @@ class RomScanner {
         currentDir := IniRead(ConfigManager.IniPath, iniSection, iniKey, "")
 
         if (currentDir != "" && DirExist(currentDir)) {
-            msg := "Current " . emulatorName . " Folder:`n" . currentDir . "`n`nScan this folder?"
+            msg := "Current " . emulatorName . " Game Folder:`n" . currentDir . "`n`nScan this folder?"
             if (DialogsGui.CustomMsgBox("Scan Setup", msg, 0, 4) == "No")
                 currentDir := ""
         }
 
         if (currentDir == "") {
-            currentDir := DialogsGui.SelectFolder("Select " . emulatorName . " ROMs Folder")
+            currentDir := DialogsGui.SelectFolder("Select " . emulatorName . " Game Folder")
             if (currentDir == "")
                 return
             IniWrite(currentDir, ConfigManager.IniPath, iniSection, iniKey)
@@ -61,8 +61,8 @@ class RomScanner {
 
             SplitPath(A_LoopFileFullPath, , &dir, , &nameNoExt)
 
-            ; 2a. SHADPS4: only accept eboot.bin; derive game name from parent folder
-            if (emulatorName = "SHADPS4") {
+            ; 2a. SHADPS4 / SHADPS4_GUI: only accept eboot.bin; derive game name from parent folder
+            if (emulatorName = "SHADPS4" || emulatorName = "SHADPS4_GUI") {
                 if (StrLower(A_LoopFileExt) != "bin" || StrLower(A_LoopFileName) != "eboot.bin") {
                     skippedCount++
                     continue
@@ -93,11 +93,64 @@ class RomScanner {
                 if ConfigManager.Games.Has(gameId)
                     gameId .= "_" . A_TickCount
 
+                launcherType := (emulatorName = "SHADPS4_GUI") ? "SHADPS4_GUI" : "SHADPS4"
+
                 newGame := Map()
                 newGame["Id"]              := gameId
                 newGame["SavedName"]       := prefix . cleanName
                 newGame["ApplicationPath"] := safePath
-                newGame["LauncherType"]    := "SHADPS4"
+                newGame["LauncherType"]    := launcherType
+                newGame["AddedDate"]       := FormatTime(, "yyyy-MM-dd HH:mm:ss")
+                newGame["GameApplication"] := "eboot.bin"
+
+                ConfigManager.RegisterGame(gameId, newGame, false)
+                addedCount++
+                continue
+            }
+
+            ; 2a2. VITA3K: expect ...\ux0\app\<TITLEID>\eboot.bin and use TITLEID as display name
+            if (emulatorName = "VITA3K") {
+                if (StrLower(A_LoopFileExt) != "bin" || StrLower(A_LoopFileName) != "eboot.bin") {
+                    skippedCount++
+                    continue
+                }
+
+                if !RegExMatch(A_LoopFileFullPath, "i)\\ux0\\app\\([^\\]+)\\eboot\.bin$", &m) {
+                    skippedCount++
+                    continue
+                }
+
+                titleId := Trim(m[1])
+                if (titleId = "") {
+                    skippedCount++
+                    continue
+                }
+
+                safePath := StrReplace(A_LoopFileFullPath, "\\", "/")
+
+                alreadyExists := false
+                for id, game in ConfigManager.Games {
+                    existingPath := (Type(game) == "Map") ? game["ApplicationPath"] : game.ApplicationPath
+                    if (existingPath == safePath) {
+                        alreadyExists := true
+                        break
+                    }
+                }
+                if (alreadyExists) {
+                    skippedCount++
+                    continue
+                }
+
+                safeName := Utilities.SanitizeName(titleId)
+                gameId   := "GAME_VITA3K_" . StrUpper(safeName)
+                if ConfigManager.Games.Has(gameId)
+                    gameId .= "_" . A_TickCount
+
+                newGame := Map()
+                newGame["Id"]              := gameId
+                newGame["SavedName"]       := prefix . titleId
+                newGame["ApplicationPath"] := safePath
+                newGame["LauncherType"]    := "VITA3K"
                 newGame["AddedDate"]       := FormatTime(, "yyyy-MM-dd HH:mm:ss")
                 newGame["GameApplication"] := "eboot.bin"
 

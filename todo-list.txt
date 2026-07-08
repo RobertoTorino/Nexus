@@ -19,6 +19,11 @@ In the EmulatorConfigGui.ahk class we have to add a game folder for the RPCS3 em
 
 Icon Manager: Remove too much space from the bottom.
 
+a new feature
+Clicking the icon in the UI should open the "\sce_sys\pic0.png" in a full screen borderless window.
+Pressing escape should close it again.
+If the pic is not available it should print a message "pic0.png missing or not available"
+
 
 Button to set the path to rpcs3.exe and save this setting to an .ini or .json file.
 Button to set the path to the custom config location and save this setting to an .ini or .json file.

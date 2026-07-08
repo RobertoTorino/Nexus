@@ -31,18 +31,19 @@ class EmulatorWizardGui {
         }
 
         this.MainGui := Gui("-Caption +Border +ToolWindow +AlwaysOnTop", "Nexus :: Emulator Wizard")
-        this.MainGui.BackColor := "1E1E1E"
-        this.MainGui.SetFont("s10 cWhite", "Segoe UI")
+        this.MainGui.BackColor := "101010"
+        this.MainGui.SetFont("s10 cSilver", "Segoe UI")
         this.MainGui.OnEvent("Close", (*) => this.Destroy())
 
         if IsSet(WindowManagerGui)
             WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
         w := 860
-        this.MainGui.Add("Text", "x0 y0 w" (w - 30) " h30 +0x200 Background2A2A2A", "  Nexus :: Emulator Wizard (MVP)")
+        this.MainGui.Add("Text", "x0 y0 w" (w - 30) " h30 +0x200 Background101010", "  Nexus :: Emulator Wizard")
             .OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
-        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕")
+        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background101010 cRed", "✕")
             .OnEvent("Click", (*) => this.Destroy())
+        this.MainGui.Add("Text", "x0 y+2 w" w " h1 BackgroundC0C0C0")
 
         this.MainGui.Add("Text", "x20 y45 cSilver", "Select Emulator")
 
@@ -50,33 +51,33 @@ class EmulatorWizardGui {
         for _, emu in EmulatorRegistry.GetAll()
             names.Push(emu.Name)
 
-        this.LstEmulators := this.MainGui.Add("ListBox", "x20 y+5 w220 h360 Choose1", names)
+        this.LstEmulators := this.MainGui.Add("ListBox", "x20 y+5 w220 h360 Choose1 Background101010 cSilver", names)
         this.LstEmulators.OnEvent("Change", (*) => this.OnSelect())
 
         this.MainGui.Add("Text", "x260 y45 cSilver", "Executable Path")
-        this.EdtPath := this.MainGui.Add("Edit", "x260 y+5 w560 h26 ReadOnly Background2A2A2A", "")
+        this.EdtPath := this.MainGui.Add("Edit", "x260 y+5 w560 h26 ReadOnly Background101010 cSilver +Border", "")
 
         this.MainGui.Add("Text", "x260 y+15 cSilver", "ROM Extensions (Registry)")
-        this.EdtExts := this.MainGui.Add("Edit", "x260 y+5 w560 h26 ReadOnly Background2A2A2A", "")
+        this.EdtExts := this.MainGui.Add("Edit", "x260 y+5 w560 h26 ReadOnly Background101010 cSilver +Border", "")
 
         this.MainGui.Add("Text", "x260 y+15 cSilver", "INI Mapping")
-        this.EdtIni := this.MainGui.Add("Edit", "x260 y+5 w560 h26 ReadOnly Background2A2A2A", "")
+        this.EdtIni := this.MainGui.Add("Edit", "x260 y+5 w560 h26 ReadOnly Background101010 cSilver +Border", "")
 
-        this.MainGui.Add("Text", "x260 y+15 w560 h38 cAAAAAA +Wrap Background1E1E1E",
+        this.MainGui.Add("Text", "x260 y+15 w560 h38 cSilver +Wrap Background101010",
             "Create or override emulator profiles and store custom settings from this wizard.")
 
-        this.BtnAddTheme(" Browse Path ", (*) => this.OnBrowse(), "x260 y+15 w130 h28 Background2B3B45")
+        this.BtnAddTheme(" Browse Path ", (*) => this.OnBrowse(), "x260 y+30 w130 h28 Background2B3B45")
         this.BtnAddTheme(" Save Path ", (*) => this.OnSave(), "x+10 yp w120 h28 Background0C660C")
         this.BtnAddTheme(" Add/Update Profile ", (*) => this.OnAddProfile(), "x+10 yp w160 h28 Background4A2A5A")
 
         this.MainGui.Add("Text", "x260 y+18 cSilver", "Emulator Settings Schema")
-        this.MainGui.Add("Text", "x260 y+2 w560 h20 cGray", "Values are saved to nexus.ini under each emulator settings section.")
+        this.MainGui.Add("Text", "x260 y+2 w560 h20 cSilver", "Values are saved to nexus.ini under each emulator settings section.")
 
         this.DynamicY := 248
         this.SettingRows := []
 
         this.BtnAddTheme(" Save Settings ", (*) => this.OnSaveSettings(), "x260 y460 w130 h28 Background0C660C")
-        this.BtnAddTheme(" Open Emulator Grid ", (*) => EmulatorConfigGui.Show(), "x+10 yp w180 h28 Background333333")
+        this.BtnAddTheme(" Open Emulator Grid ", (*) => EmulatorConfigGui.Show(), "x+10 yp w180 h28 Background101010")
         this.BtnAddTheme(" Close ", (*) => this.Destroy(), "x+10 yp w100 h28 Background6E0000")
 
         this.MainGui.Show("w" w " h510")
@@ -270,7 +271,7 @@ class EmulatorWizardGui {
             savedValue := IniRead(ConfigManager.IniPath, section, key, defaultValue)
 
             lblCtrl := this.MainGui.Add("Text", "x260 y" y " w190 h24 +0x200 cSilver", label ":")
-            edtCtrl := this.MainGui.Add("Edit", "x455 y" y " w365 h24 Background2A2A2A cWhite", savedValue)
+            edtCtrl := this.MainGui.Add("Edit", "x455 y" y " w365 h24 Background101010 cSilver +Border", savedValue)
 
             this.SettingRows.Push({ Key: key, Label: lblCtrl, Edit: edtCtrl })
             y += 30
@@ -278,7 +279,7 @@ class EmulatorWizardGui {
     }
 
     static BtnAddTheme(label, callback, options) {
-        btn := this.MainGui.Add("Text", options " +0x200 +Center +Border cWhite", label)
+        btn := this.MainGui.Add("Text", options " +0x200 +Center +Border cSilver", label)
         btn.OnEvent("Click", callback)
         return btn
     }

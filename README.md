@@ -72,11 +72,13 @@ _Note: some games launch differently they have their own dedicated screen manage
 ### Collecting statistics data
 Number of games, play time, total played time and top3 played data are collected to be able to show them in the main UI. Basic system info is collected. Personal data is never collected. Data is only stored locally within the users app environment.
 
-### Nexus Main Gui
-![NEXUS-main-ui.png](game-configs/artwork/NEXUS-main-ui.png)
+### Nexus Main UI - Icon mode
+![NEXUS-icon-mode](game-configs/artwork/NEXUS-icon-mode.png)
+### Nexus Main UI - Text mode (English)
+![NEXUS-text-mode](game-configs/artwork/NEXUS-text-mode.png)
 
 #### Basic Instructions:
-Place Nexus in a central location.
+Extract the .zip package in a central location and run the executable.
 
 ### Features
 * Language switcher on the bottom right. Most text is translated in Chinese, Japanese, Italian, Spanish, French and Russian.
@@ -107,12 +109,12 @@ Place Nexus in a central location.
 * Patch EBOOT.BIN and clone games.
 * Run Arcade games that need special versions of RPCS3.
 * Save game titles for quick re-run.
-* Create PS5 Linux image
+* Create PS5 Linux image instructions.
 
 ### Process:
 * Change CPU process priority.
 * RAM usage overview, system, app and game.
-* Optional GPU overclock with Afterburner (manual installation).
+* GPU overclock with Afterburner (Optional needs Afterburner).
 
 ### Media:
 * Take snapshots + burst snapshots (max. 99).
@@ -243,14 +245,15 @@ A big thanks to all developers for:
 * DUCKSTATION
 * FFMPEG
 * LOSSLESS CUT
-* PCSX2
 * MSI AFTERBURNER
+* PCSX2
 * PCSX2x6
 * PPSSPP
 * REDREAM
 * RPCS3
 * RPCS3 NAMCO 357/369
 * SHADPS4
+* SMPLAYER
 * SOUNDVOLUMEVIEW
 * SQLITE
 * TEKNOPARROT
@@ -258,6 +261,6 @@ A big thanks to all developers for:
 * VITA3K
 * VIVANONNO
 * YUZU
-* Zinc
+* ZINC
 
 * And everybody else who contributed to any of this.

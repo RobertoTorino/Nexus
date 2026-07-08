@@ -1,4 +1,4 @@
-# WindowManager
+# Nexus WindowManager
 
 ### The main buttons:
 

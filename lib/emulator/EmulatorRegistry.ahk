@@ -21,9 +21,9 @@ class EmulatorRegistry {
         { Name: "RPCS3_SHOOTER", Section: "RPCS3_SHOOTER_PATH", Key: "Rpcs3ShooterPath", RomExts: ["EBOOT.BIN"], Prefix: "[PS3]", SupportsIsoChoice: false, LauncherClass: "RPCS3", SettingsSection: "RPCS3_SHOOTER_SETTINGS" },
         { Name: "RPCS3_TCRS", Section: "RPCS3_TCRS_PATH", Key: "Rpcs3TcrsPath", RomExts: ["EBOOT.BIN"], Prefix: "[PS3]", SupportsIsoChoice: false, LauncherClass: "RPCS3", SettingsSection: "RPCS3_TCRS_SETTINGS" },
         { Name: "SHADPS4", Section: "SHADPS4_PATH", Key: "ShadPs4Path", RomExts: ["bin"], Prefix: "[PS4]", SupportsIsoChoice: false, LauncherClass: "SHADPS4", SettingsSection: "SHADPS4_SETTINGS" },
-        { Name: "SHADPS4_GUI", Section: "SHADPS4_GUI_PATH", Key: "ShadPs4GuiPath", Prefix: "[PS4]", SupportsIsoChoice: false, LauncherClass: "SHADPS4_GUI", SettingsSection: "SHADPS4_GUI_SETTINGS" },
+        { Name: "SHADPS4_GUI", Section: "SHADPS4_GUI_PATH", Key: "ShadPs4GuiPath", RomExts: ["bin"], Prefix: "[PS4]", SupportsIsoChoice: false, LauncherClass: "SHADPS4_GUI", SettingsSection: "SHADPS4_GUI_SETTINGS" },
         { Name: "TEKNO", Section: "TEKNO_PATH", Key: "TeknoPath", Prefix: "[ARCADE]", SupportsIsoChoice: false, LauncherClass: "TEKNO", SettingsSection: "TEKNO_SETTINGS" },
-        { Name: "VITA3K", Section: "VITA3K_PATH", Key: "Vita3kPath", Prefix: "[VITA]", SupportsIsoChoice: false, LauncherClass: "VITA3K", SettingsSection: "VITA3K_SETTINGS" },
+        { Name: "VITA3K", Section: "VITA3K_PATH", Key: "Vita3kPath", RomExts: ["bin"], Prefix: "[VITA]", SupportsIsoChoice: false, LauncherClass: "VITA3K", SettingsSection: "VITA3K_SETTINGS" },
         { Name: "VIVANONNO", Section: "VIVANONNO_PATH", Key: "VivaNonnoPath", RomExts: ["zip"], Prefix: "[RR]", SupportsIsoChoice: false, LauncherClass: "VIVANONNO", SettingsSection: "VIVANONNO_SETTINGS" },
         { Name: "YUZU", Section: "YUZU_PATH", Key: "YuzuPath", RomExts: ["nsp", "xci"], Prefix: "[SW]", SupportsIsoChoice: false, LauncherClass: "YUZU", SettingsSection: "YUZU_SETTINGS" }
     ]

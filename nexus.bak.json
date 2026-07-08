@@ -2803,6 +2803,14 @@
       "WinY":-1080
     },
     {
+      "AddedDate":"2026-07-08 17:35:19",
+      "ApplicationPath":"C:\\Users\\Admin\\Desktop\\Games\\shadPS4_games\\CUSA00038\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_CUSA00038",
+      "LauncherType":"SHADPS4_GUI",
+      "SavedName":"[PS4] CUSA00038"
+    },
+    {
       "AddedDate":"2026-03-09 21:57:24",
       "ApplicationPath":"E:\\SHADPS4_GAMES\\CUSA00512\\eboot.bin",
       "GameApplication":"eboot.bin",
@@ -2828,6 +2836,14 @@
       "PlayTimeReadable":"1.1m",
       "SavedName":"[PS4] CUSA01127",
       "TotalPlayTime":66
+    },
+    {
+      "AddedDate":"2026-07-08 17:35:19",
+      "ApplicationPath":"C:\\Users\\Admin\\Desktop\\Games\\shadPS4_games\\CUSA03865\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_CUSA03865",
+      "LauncherType":"SHADPS4_GUI",
+      "SavedName":"[PS4] CUSA03865"
     },
     {
       "AddedDate":"2026-03-09 21:57:24",
@@ -2868,6 +2884,14 @@
       "WinY":0
     },
     {
+      "AddedDate":"2026-07-08 17:35:19",
+      "ApplicationPath":"C:\\Users\\Admin\\Desktop\\Games\\shadPS4_games\\CUSA11624\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_CUSA11624_79005968",
+      "LauncherType":"SHADPS4_GUI",
+      "SavedName":"[PS4] CUSA11624"
+    },
+    {
       "AddedDate":"2026-03-09 21:57:24",
       "ApplicationPath":"E:\\SHADPS4_GAMES\\CUSA13643\\eboot.bin",
       "GameApplication":"eboot.bin",
@@ -2877,6 +2901,14 @@
       "PlayTimeReadable":"29s",
       "SavedName":"[PS4] CUSA13643",
       "TotalPlayTime":29
+    },
+    {
+      "AddedDate":"2026-07-08 17:35:19",
+      "ApplicationPath":"C:\\Users\\Admin\\Desktop\\Games\\shadPS4_games\\CUSA13795\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_SHADPS4_CUSA13795",
+      "LauncherType":"SHADPS4_GUI",
+      "SavedName":"[PS4] CUSA13795"
     },
     {
       "AddedDate":"2026-03-09 21:57:24",
@@ -3138,6 +3170,38 @@
       "SavedName":"Uncharted - Drake's Fortune [BCUS98103]",
       "SnapshotDir":"snapshots/GAME_UNCHARTED_-_DRAKE'S_FORTUNE_[BCUS98103]",
       "TotalPlayTime":0
+    },
+    {
+      "AddedDate":"2026-07-08 17:34:27",
+      "ApplicationPath":"C:\\Users\\Admin\\Desktop\\Games\\Vita3K\\ux0\\app\\PCSE00001\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_VITA3K_PCSE00001",
+      "LauncherType":"VITA3K",
+      "SavedName":"[VITA] PCSE00001"
+    },
+    {
+      "AddedDate":"2026-07-08 17:34:27",
+      "ApplicationPath":"C:\\Users\\Admin\\Desktop\\Games\\Vita3K\\ux0\\app\\PCSE00009\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_VITA3K_PCSE00009",
+      "LauncherType":"VITA3K",
+      "SavedName":"[VITA] PCSE00009"
+    },
+    {
+      "AddedDate":"2026-07-08 17:34:27",
+      "ApplicationPath":"C:\\Users\\Admin\\Desktop\\Games\\Vita3K\\ux0\\app\\PCSE00235\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_VITA3K_PCSE00235",
+      "LauncherType":"VITA3K",
+      "SavedName":"[VITA] PCSE00235"
+    },
+    {
+      "AddedDate":"2026-07-08 17:34:28",
+      "ApplicationPath":"C:\\Users\\Admin\\Desktop\\Games\\Vita3K\\ux0\\app\\PCSE00608\\eboot.bin",
+      "GameApplication":"eboot.bin",
+      "Id":"GAME_VITA3K_PCSE00608",
+      "LauncherType":"VITA3K",
+      "SavedName":"[VITA] PCSE00608"
     },
     {
       "ApplicationPath":"D:/RPCS3/games/Watch_Dogs [BLUS31176]/PS3_GAME/USRDIR/EBOOT.BIN",
