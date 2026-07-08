@@ -80,7 +80,7 @@ Place Nexus in a central location.
 
 ### Features
 * Language switcher on the bottom right. Most text is translated in Chinese, Japanese, Italian, Spanish, French and Russian.
-* Two modes, icon mode (default) and text mode. Double-click in the top status bar to switch between the modes.
+* Default UI mode is icon mode. Double-click in the top status bar to switch to text mode.
 * Voice commands, press F8 to start voice commands, you can say for instance 'start' and the current selected game will start. If you say 'exit' the game wil be closed. Voice commands are also translated.
 * Connect a DualShock 4 controller with DS4 Windows and you can take a snapshot with the Share button.
 * In the music player Right Click oin a track will show you some extra options.
@@ -144,7 +144,7 @@ If the helper is available (or auto-installed), Nexus can capture audio/video wi
 Voicemeeter remains available as a fallback profile when needed.
 Bundled helper asset: [audio_capture-windows-x64.exe](https://github.com/huxinhai/audio-capture/releases/download/v2.0.0/audio_capture-windows-x64.exe) (stored as `core/audio_capture.exe`).
 
-### Deprecated: Voicemeeter Banana Routing (Legacy)
+### Voicemeeter Banana Routing (Legacy)
 Voicemeeter makes it possible to reroute your audio streams so you can listen to the audio that is being recorded.
 In Voicemeeter Basic, FFmpeg must record a B-bus (B1/B2/B3), and audio only reaches that bus if you explicitly enable it on the Virtual Input strip.
 That's why I prefer Voicemeeter Banana.
@@ -258,3 +258,6 @@ A big thanks to all developers for:
 * VITA3K
 * VIVANONNO
 * YUZU
+* Zinc
+
+* And everybody else who contributed to any of this.

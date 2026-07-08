@@ -44,6 +44,7 @@ class EmulatorConfigGui {
             edt := this.MainGui.Add("Edit", "x+10 yp h26 w510 +0x200 ReadOnly Background2A2A2A", currentPath)
 
             this.BtnAddTheme(" 📂 ", this.OnBrowse.Bind(this, emu, edt), "x+5 yp +0x200 Background2B3B45")
+            this.BtnAddTheme(" 🧽 ", this.OnClear.Bind(this, emu, edt), "x+5 yp Background5A4A1A")
             this.BtnAddTheme(" ▶️ ", this.OnRun.Bind(this, edt), "x+5 yp Background0C660C")
             this.BtnAddTheme(" ❌ ", this.OnKill.Bind(this, edt), "x+5 yp Background6E0000")
 
@@ -76,6 +77,17 @@ class EmulatorConfigGui {
             editCtrl.Value := newPath
             IniWrite(newPath, ConfigManager.IniPath, emu.Section, emu.Key)
         }
+    }
+
+    static OnClear(emu, editCtrl, *) {
+        if (DialogsGui.CustomMsgBox("Clear Emulator Path",
+            "Clear stored path for " emu.Name "?", 0, 4) != "Yes") {
+            return
+        }
+
+        editCtrl.Value := ""
+        try IniDelete(ConfigManager.IniPath, emu.Section, emu.Key)
+        DialogsGui.CustomTrayTip("Cleared: " emu.Name, 1)
     }
 
     static OnRun(editCtrl, *) {

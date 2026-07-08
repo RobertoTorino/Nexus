@@ -75,17 +75,18 @@ class AudioManager {
 
         ; ---- BORDERLESS DARK WINDOW ----
         this.GuiObj := Gui("-Caption +Border +AlwaysOnTop +ToolWindow", "Nexus :: " this.T("Sound Manager"))
-        this.GuiObj.BackColor := "2A2A2A"
+        this.GuiObj.BackColor := "101010"
         this.GuiObj.SetFont("s9 cWhite", "Segoe UI")
 
         ; ---- CUSTOM TITLE BAR ----
-        this.GuiObj.Add("Text", "x0 y0 w340 h30 +0x200 Background2A2A2A", "   Nexus :: " this.T("Sound Manager"))
+        this.GuiObj.Add("Text", "x0 y0 w340 h30 +0x200 Background101010", "   Nexus :: " this.T("Sound Manager"))
             .OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.GuiObj.Hwnd)) ; Drag
 
         this.BtnAddTheme(" ? ", (*) => this.ShowHelp(), "x+0 yp w30 h30 -Border")
 
         this.GuiObj.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cRed", "✕")
             .OnEvent("Click", (*) => this.Destroy())
+        this.GuiObj.Add("Text", "x0 y+2 w400 h1 Background333333")
 
         ; --- LOAD DEVICES ---
         if (this.DeviceListCache.Length == 0)

@@ -91,7 +91,8 @@ TM_Lang_CN() {
         "Wipe Full List", "清空完整列表", ; <--- NEW
         "Hide Advanced", "隐藏高级",
         "Show Advanced Utilities", "显示高级工具",
-        "Patch Game", "应用补丁",
+      "Patch", "应用补丁",
+      "Wizard", "向导",
       "Build PS5 Linux Image", "构建 PS5 Linux 镜像",
       "Open Balena Etcher", "打开 Balena Etcher",
       "Open Build Guide", "打开构建指南",

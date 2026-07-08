@@ -18,6 +18,7 @@ class ConfigManager {
     static IniPath := this.RootDir . "\nexus.ini"
     static ActiveProcessName := ""
     static Games := Map()
+    static EmulatorProfiles := []
     static WasLoaded := false
     static CurrentGameId := ""
 
@@ -86,7 +87,7 @@ class ConfigManager {
 
             ; Create default JSON database on first run when missing
             if !FileExist(this.JsonPath) {
-                FileAppend('{"GAMES":[]}', this.JsonPath, "UTF-8")
+                FileAppend('{"GAMES":[],"EMULATOR_PROFILES":[]}', this.JsonPath, "UTF-8")
                 Logger.Info("ConfigMgr: Created default nexus.json", "ConfigManager")
             }
         } catch as err {
@@ -105,18 +106,22 @@ class ConfigManager {
             ; Load RAW data (Usually returns Maps)
             data := JSON.parse(rawText)
 
-            ; Extract the Array of games
+            ; Extract the arrays
             gameArray := []
+            profileArray := []
             if (Type(data) == "Map" && data.Has("GAMES")) {
                 gameArray := data["GAMES"]
+                profileArray := data.Has("EMULATOR_PROFILES") ? data["EMULATOR_PROFILES"] : []
             } else if (IsObject(data) && data.HasProp("GAMES")) {
                 gameArray := data.GAMES
+                profileArray := data.HasProp("EMULATOR_PROFILES") ? data.EMULATOR_PROFILES : []
             }
 
             if !IsObject(gameArray)
                 return false
 
             this.Games.Clear()
+            this.EmulatorProfiles := []
 
             ; Process each game entry
             for index, gameRaw in gameArray {
@@ -149,6 +154,11 @@ class ConfigManager {
 
                 ; STORE using ID as the Key
                 this.Games[gameId] := gameRaw
+            }
+
+            if IsObject(profileArray) {
+                for _, profile in profileArray
+                    this.EmulatorProfiles.Push(profile)
             }
 
             this.WasLoaded := (this.Games.Count > 0)
@@ -468,7 +478,11 @@ class ConfigManager {
             for id, gameObj in ConfigManager.Games {
                 gameArray.Push(gameObj)
             }
-            finalData := Map("GAMES", gameArray)
+            profileArray := []
+            for _, profileObj in this.EmulatorProfiles
+                profileArray.Push(profileObj)
+
+            finalData := Map("GAMES", gameArray, "EMULATOR_PROFILES", profileArray)
             jsonString := JSON.stringify(finalData, 4)
 
             if FileExist(this.JsonPath)
@@ -479,6 +493,40 @@ class ConfigManager {
             Logger.Error("ConfigMgr: File IO Error -> " . err.Message, "ConfigManager")
             return false
         }
+    }
+
+    ; EMULATOR PROFILE PERSISTENCE
+    static GetEmulatorProfiles() {
+        return this.EmulatorProfiles
+    }
+
+    static UpsertEmulatorProfile(profileObj, saveToDisk := true) {
+        if !IsObject(profileObj)
+            return false
+
+        name := this.ProfileGet(profileObj, "Name")
+        if (name = "")
+            return false
+
+        replaced := false
+        for index, existing in this.EmulatorProfiles {
+            if (StrUpper(this.ProfileGet(existing, "Name")) = StrUpper(name)) {
+                this.EmulatorProfiles[index] := profileObj
+                replaced := true
+                break
+            }
+        }
+
+        if !replaced
+            this.EmulatorProfiles.Push(profileObj)
+
+        return saveToDisk ? this.SaveGames() : true
+    }
+
+    static ProfileGet(profileObj, key, fallback := "") {
+        if (Type(profileObj) = "Map")
+            return profileObj.Has(key) ? profileObj[key] : fallback
+        return profileObj.HasOwnProp(key) ? profileObj.%key% : fallback
     }
 
     ; --- UI HELPER METHODS ---

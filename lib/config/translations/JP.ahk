@@ -91,7 +91,8 @@ TM_Lang_JP() {
         "Wipe Full List", "リスト完全消去", ; <--- NEW
         "Hide Advanced", "詳細を隠す",
         "Show Advanced Utilities", "詳細ツールを表示",
-        "Patch Game", "パッチ適用",
+      "Patch", "パッチ適用",
+      "Wizard", "ウィザード",
       "Build PS5 Linux Image", "PS5 Linux イメージ作成",
       "Open Balena Etcher", "Balena Etcher を開く",
       "Open Build Guide", "ビルドガイドを開く",

@@ -9,7 +9,7 @@
 ; ======================================================================
 
 ; --- DEPENDENCY IMPORTS ---
-; None
+#Include ..\emulator\EmulatorRegistry.ahk
 
 class PatchServiceTool {
     ; PATCH DATABASE
@@ -165,9 +165,14 @@ class PatchServiceTool {
         ; Use Detected Region from RunDiagnostics
         isCn := (diag.DetectedRegion == "CN")
 
+        launcherType := this.SafeGet(gameObj, "LauncherType")
+        theme := EmulatorRegistry.GetUiTheme(launcherType)
+        bgColor := this.NormalizeGuiColor(theme.BackColor, "101010")
+        fontColor := this.NormalizeFontColor(theme.FontColor, "White")
+
         g := Gui("+AlwaysOnTop -Caption +Border +Owner" . (IsSet(GuiBuilder) ? GuiBuilder.MainGui.Hwnd : ""), "Mode Selector")
-        g.BackColor := "101010"
-        g.SetFont("s10 cWhite", "Segoe UI")
+        g.BackColor := bgColor
+        g.SetFont("s10 c" . fontColor, "Segoe UI")
 
         g.Add("Text", "x20 y15 w300 Center", "LAUNCH MODE: " . patchData.Name)
 
@@ -184,14 +189,14 @@ class PatchServiceTool {
                 continue
 
             isCurrent := (diag.CurrentState == info.Label)
-            bgColor := isCurrent ? "Background006600" : "Background101010"
+            rowBg := isCurrent ? "Background006600" : "Background" . bgColor
 
             g.SetFont("s10 Bold")
-            btn := g.Add("Text", "x20 y" y " w300 h30 +0x200 Center +Border " bgColor, info.Label)
+            btn := g.Add("Text", "x20 y" y " w300 h30 +0x200 Center +Border " rowBg, info.Label)
             btn.OnEvent("Click", this.MakeCallback(g, info.Suffix))
 
             g.SetFont("s8 cGray")
-            g.Add("Text", "x20 y+0 w300 h15 Center Background101010", info.Desc)
+            g.Add("Text", "x20 y+0 w300 h15 Center Background" . bgColor, info.Desc)
             y += 55
         }
 
@@ -261,5 +266,27 @@ class PatchServiceTool {
             }
         }
         return "0x00000000"
+    }
+
+    static NormalizeGuiColor(rawValue, fallback := "101010") {
+        value := Trim(String(rawValue))
+        if (value = "")
+            value := fallback
+        if (SubStr(value, 1, 1) = "#")
+            value := SubStr(value, 2)
+        if (SubStr(value, 1, 1) = "c")
+            value := SubStr(value, 2)
+        return value
+    }
+
+    static NormalizeFontColor(rawValue, fallback := "White") {
+        value := Trim(String(rawValue))
+        if (value = "")
+            value := fallback
+        if (SubStr(value, 1, 1) = "#")
+            value := SubStr(value, 2)
+        if (SubStr(value, 1, 1) = "c")
+            value := SubStr(value, 2)
+        return value
     }
 }

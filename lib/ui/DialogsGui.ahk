@@ -19,32 +19,32 @@ class DialogsGui {
     static ShowTextViewer(title, text, width := 600, height := 400) {
         ; 1. Setup Window (Start Invisible)
         viewer := Gui("-Caption +Border +AlwaysOnTop +ToolWindow", title)
-        viewer.BackColor := "1A1A1A"
+        viewer.BackColor := "101010"
         WinSetTransparent(0, viewer.Hwnd)
 
         ; 2. Title Bar
-        viewer.SetFont("s10 cWhite Bold", "Segoe UI")
-        titleBar := viewer.Add("Text", "x0 y0 w" (width - 65) " h40 +0x200 Background202020", "  " . title)
+        viewer.SetFont("s10 cSilver Bold", "Segoe UI")
+        titleBar := viewer.Add("Text", "x0 y0 w" (width - 65) " h40 +0x200 Background101010", "  " . title)
         titleBar.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, viewer.Hwnd))
 
         ; 3. Copy Button
         viewer.SetFont("s11 Norm")
-        copyBtn := viewer.Add("Text", "x" (width - 65) " y0 w30 h40 +0x200 +Center Background202020 cSilver", "📋")
+        copyBtn := viewer.Add("Text", "x" (width - 65) " y0 w30 h40 +0x200 +Center Background101010 cSilver", "📋")
         copyBtn.SavedText := text
         copyBtn.OnEvent("Click", (ctrl, *) => (
             A_Clipboard := ctrl.SavedText,
-            this.CustomStatusPop("Copied!", "White"),
-            ctrl.Opt("cWhite"), SetTimer(() => ctrl.Opt("cSilver"), -150)
+            this.CustomStatusPop("Copied!", "Silver"),
+            ctrl.Opt("cSilver"), SetTimer(() => ctrl.Opt("cSilver"), -150)
         ))
 
         ; 4. Close Button
-        closeBtn := viewer.Add("Text", "x+0 y0 w35 h40 +0x200 +Center Background202020 cRed", "✕")
+        closeBtn := viewer.Add("Text", "x+0 y0 w35 h40 +0x200 +Center Background101010 cRed", "✕")
         closeBtn.OnEvent("Click", (*) => viewer.Destroy())
 
         ; 5. Content Area
         viewer.SetFont("s11 cSilver", "Segoe UI")
         ; We capture the control into 'editCtrl' so we can deselect text later
-        editCtrl := viewer.Add("Edit", "x15 y45 w" (width - 30) " h" (height - 60) " ReadOnly -VScroll -E0x200 Background1A1A1A -Border cWhite", text)
+        editCtrl := viewer.Add("Edit", "x15 y45 w" (width - 30) " h" (height - 60) " ReadOnly -VScroll -E0x200 Background101010 +Border cSilver", text)
 
         ; 6. Show Centered
         this._ShowCentered(viewer, width)
@@ -73,13 +73,13 @@ class DialogsGui {
     }
 
     ; --- NOTIFICATIONS ---
-    static CustomStatusPop(text, color := "White", duration := 2500) {
+    static CustomStatusPop(text, color := "Silver", duration := 2500) {
         try if (this.PopGui)
             this.PopGui.Destroy()
 
         this.PopGui := Gui("-Caption +AlwaysOnTop +ToolWindow +Border")
-        this.PopGui.BackColor := "1A1A1A"
-        this.PopGui.SetFont("s12 cWhite", "Segoe UI")
+        this.PopGui.BackColor := "101010"
+        this.PopGui.SetFont("s12 cSilver", "Segoe UI")
 
         this.PopGui.Add("Text", "x20 y8 Center", text)
         this.PopGui.Show("NoActivate AutoSize Center")
@@ -114,7 +114,7 @@ class DialogsGui {
         Result := "Cancel"
         guiW := 450
         myGui := this._CreateModernGui(title, guiW)
-        myGui.SetFont("s10 cWhite", "Segoe UI")
+        myGui.SetFont("s10 cSilver", "Segoe UI")
 
         myGui.Add("Text", "x20 y55 w" (guiW - 40) " Wrap BackgroundTrans", message)
 
@@ -150,11 +150,11 @@ class DialogsGui {
         Result := ""
         guiW := 450
         myGui := this._CreateModernGui(title, guiW)
-        myGui.SetFont("s10 cWhite", "Segoe UI")
+        myGui.SetFont("s10 cSilver", "Segoe UI")
         myGui.Add("Text", "x20 y55 w" (guiW - 40) " +Wrap BackgroundTrans", prompt)
 
-        myGui.SetFont("s11 cWhite")
-        edt := myGui.Add("Edit", "x20 y+15 w" (guiW - 40) " h30 Background333333 -E0x200 +Border cWhite", defaultText)
+        myGui.SetFont("s11 cSilver")
+        edt := myGui.Add("Edit", "x20 y+15 w" (guiW - 40) " h30 Background101010 -E0x200 +Border cSilver", defaultText)
 
         yPos := "y+25"
         this._AddFlatButton(myGui, "OK", "x110 " yPos " w100 h35", (*) => (Result := edt.Value, myGui.Destroy()))
@@ -171,7 +171,7 @@ class DialogsGui {
         Result := ""
         guiW := 350
         myGui := this._CreateModernGui(title, guiW)
-        myGui.SetFont("s10 cWhite", "Segoe UI")
+        myGui.SetFont("s10 cSilver", "Segoe UI")
         myGui.Add("Text", "x20 y55 w" (guiW - 40) " Center BackgroundTrans", prompt)
 
         yPos := "y+20"
@@ -180,8 +180,8 @@ class DialogsGui {
             yPos := "y+10"
         }
 
-        myGui.SetFont("s9 cGray Underline")
-        lnk := myGui.Add("Text", "x35 y+15 w" (guiW - 70) " h20 Center BackgroundTrans cGray", "Cancel")
+        myGui.SetFont("s9 cSilver Underline")
+        lnk := myGui.Add("Text", "x35 y+15 w" (guiW - 70) " h20 Center BackgroundTrans cSilver", "Cancel")
         lnk.OnEvent("Click", (*) => (Result := "", myGui.Destroy()))
 
         myGui.Add("Text", "x0 y+15 w1 h1", "")
@@ -216,20 +216,20 @@ class DialogsGui {
     static _CreateModernGui(title, w) {
         ownerOpt := (IsSet(GuiBuilder) && GuiBuilder.MainGui) ? " +Owner" . GuiBuilder.MainGui.Hwnd : ""
         myGui := Gui("-Caption +ToolWindow +AlwaysOnTop +Border" . ownerOpt, title)
-        myGui.BackColor := "202020"
-        myGui.SetFont("s11 cWhite Bold", "Segoe UI")
-        myGui.Add("Text", "x0 y0 w" w " h40 Background202020")
+        myGui.BackColor := "101010"
+        myGui.SetFont("s11 cSilver Bold", "Segoe UI")
+        myGui.Add("Text", "x0 y0 w" w " h40 Background101010")
         hdr := myGui.Add("Text", "x15 y0 w" (w - 50) " h40 +0x200 BackgroundTrans", title)
         hdr.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, myGui.Hwnd))
         btnClose := myGui.Add("Text", "x" (w - 40) " y0 w40 h40 +0x200 Center BackgroundTrans cRed", "✕")
         btnClose.OnEvent("Click", (*) => myGui.Destroy())
-        myGui.Add("Text", "x0 y40 w" w " h1 Background444444")
+        myGui.Add("Text", "x0 y40 w" w " h1 BackgroundC0C0C0")
         return myGui
     }
 
     static _AddFlatButton(guiObj, text, options, callback) {
-        guiObj.SetFont("s10 Norm cWhite", "Segoe UI")
-        btn := guiObj.Add("Text", options " +0x200 Center Background333333 +Border", text)
+        guiObj.SetFont("s10 Norm cSilver", "Segoe UI")
+        btn := guiObj.Add("Text", options " +0x200 Center Background101010 +Border cSilver", text)
         btn.OnEvent("Click", callback)
         return btn
     }

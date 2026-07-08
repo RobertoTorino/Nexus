@@ -204,10 +204,10 @@ class GuiBuilder {
         this.AddNavBtn(this.Label("🕹️", "Profiles"), (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10 Background101010 " btnW)
         this.AddNavBtn(this.Label("🧹", "Delete Game"), (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background101010 " btnW)
         this.AddNavBtn(this.Label("⚙️", "Emulators"), (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10 Background101010 " btnW)
-        this.AddNavBtn(this.Label("🪄", "Emu Wizard"), (btn, *) => (this.FlashButton(btn), EmulatorWizardGui.Show()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("🪄", "Wizard"), (btn, *) => (this.FlashButton(btn), EmulatorWizardGui.Show()), "x+10 Background101010 " btnW)
 
         ; KISS: Just a standard button. No disabling. No font tricks.
-        this.AddNavBtn(this.Label("🩹", "Patch Game"), (btn, *) => (this.FlashButton(btn), this.OnPatchGame()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("🩹", "Patch"), (btn, *) => (this.FlashButton(btn), this.OnPatchGame()), "x+10 Background101010 " btnW)
         this.AddNavBtn(this.Label("🗑️", "Clear Path"), (btn, *) => (this.FlashButton(btn), this.OnClearPath()), "x+10 Background101010 " btnW)
         this.AddNavBtn(this.Label("🔧", "Restore Path"), (btn, *) => (this.FlashButton(btn), this.OnRefreshPath()), "x+10 Background101010 " btnW)
 

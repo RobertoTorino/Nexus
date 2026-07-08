@@ -91,52 +91,64 @@ class GameRegistrarManager {
     }
 
     static HandleEboot(config) {
-        ; --- VITA3K DETECTION ---
-        if (config["Path"] ~= "i)(app|ux0|mai)") {
-            Logger.Info("Vita3K structure detected.", "GameRegistrarManager")
-            return this.ConfigureByRegistry(config, "VITA3K")
+        pathAction := EmulatorRegistry.GetEbootPathAction(config["Path"])
+        if IsObject(pathAction) {
+            Logger.Info("EBOOT path rule matched registry action.", "GameRegistrarManager")
+            return this.ApplyEbootAction(config, pathAction)
         }
 
-        ; --- PS3 vs PS4 DETECTION ---
-        Logger.Info("EBOOT detected, requesting platform choice.", "GameRegistrarManager")
-        platform := DialogsGui.AskForChoice("Select Platform", "Which console is this game for?",
-            ["PS3  (RPCS3)", "PS4  (shadPS4)"])
-
-        if (platform == "") {
-            Logger.Warn("Platform selection cancelled.", "GameRegistrarManager")
+        Logger.Info("EBOOT detected, requesting platform through registry flow.", "GameRegistrarManager")
+        choiceAction := this.PromptForEbootAction("PLATFORM")
+        if !IsObject(choiceAction) {
+            Logger.Warn("EBOOT flow cancelled.", "GameRegistrarManager")
             return false
         }
 
-        ; --- PS4 / SHADPS4 ---
-        if (InStr(platform, "PS4")) {
-            Logger.Info("PS4 selected. Routing to shadPS4.", "GameRegistrarManager")
-            return this.ConfigureByRegistry(config, "SHADPS4")
+        return this.ApplyEbootAction(config, choiceAction)
+    }
+
+    static PromptForEbootAction(promptId) {
+        promptData := EmulatorRegistry.GetEbootPrompt(promptId)
+        if !IsObject(promptData)
+            return ""
+
+        options := []
+        for _, opt in promptData.Options
+            options.Push(opt.Label)
+
+        choice := DialogsGui.AskForChoice(promptData.Title, promptData.Prompt, options)
+        if (choice = "")
+            return ""
+
+        for _, opt in promptData.Options {
+            if (opt.Label != choice)
+                continue
+
+            if (opt.HasOwnProp("NextPrompt"))
+                return this.PromptForEbootAction(opt.NextPrompt)
+
+            return opt.HasOwnProp("Action") ? opt.Action : ""
         }
+        return ""
+    }
 
-        ; --- PS3 / RPCS3 ---
-        Logger.Info("PS3 selected. Requesting RPCS3 Build choice.", "GameRegistrarManager")
-        choice := DialogsGui.AskForChoice("Select RPCS3 Build", "Which specialized build is this for?",
-            ["Standard RPCS3", "Fighter Build", "Shooter Build", "TCRS Build"])
-
-        if (choice == "") {
-            Logger.Warn("RPCS3 selection cancelled.", "GameRegistrarManager")
+    static ApplyEbootAction(config, action) {
+        if !IsObject(action)
             return false
+
+        if (action.HasOwnProp("Flags") && IsObject(action.Flags)) {
+            for key, value in action.Flags
+                config[key] := value
         }
 
-        switch choice {
-            case "Standard RPCS3":
-                return this.ConfigureByRegistry(config, "RPCS3")
-            case "Fighter Build":
-                config["PatchGroup"] := "T6BR"
-                config["IsPatchable"] := true
-                return this.ConfigureEmulator(config, "FIGHTER", "RPCS3_FIGHTER_PATH", "Rpcs3FighterPath")
-            case "Shooter Build":
-                config["IsPatchable"] := true
-                return this.ConfigureEmulator(config, "SHOOTER", "RPCS3_SHOOTER_PATH", "Rpcs3ShooterPath")
-            case "TCRS Build":
-                return this.ConfigureEmulator(config, "TCRS", "RPCS3_TCRS_PATH", "Rpcs3TcrsPath")
-        }
-        return false
+        launcher := action.HasOwnProp("Launcher") ? action.Launcher : ""
+        if (launcher = "")
+            return false
+
+        if (action.HasOwnProp("IniSection") && action.HasOwnProp("IniKey"))
+            return this.ConfigureEmulator(config, launcher, action.IniSection, action.IniKey)
+
+        return this.ConfigureByRegistry(config, launcher)
     }
 
     static HandleIso(config) {
