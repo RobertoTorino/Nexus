@@ -27,7 +27,7 @@ class IconManagerGui {
 
     ; flat-button helper — Text control that mimics a button
     static BtnAddTheme(guiObj, label, callback, options) {
-        btn := guiObj.Add("Text", options " +0x200 Center +Border Background333333", label)
+        btn := guiObj.Add("Text", options " +0x200 Center +Border Background101010 cSilver", label)
         btn.OnEvent("Click", callback)
         return btn
     }
@@ -40,7 +40,7 @@ class IconManagerGui {
         }
 
         this.MainGui := Gui("-Caption +Border +ToolWindow +AlwaysOnTop", "Nexus :: Icon Manager")
-        this.MainGui.BackColor := "2A2A2A"
+        this.MainGui.BackColor := "101010"
         this.MainGui.OnEvent("Close", (*) => this.Close())
         this.MainGui.OnEvent("Escape", (*) => this.Close())
 
@@ -49,36 +49,37 @@ class IconManagerGui {
 
         ; Title Bar (s11)
         this.MainGui.SetFont("s11 cSilver", "Segoe UI")
-        title := this.MainGui.Add("Text", "x0 y0 w" (guiW - 30) " h30 +0x200 Background333333", "   Nexus :: Icon Manager")
+        title := this.MainGui.Add("Text", "x0 y0 w" (guiW - 30) " h30 +0x200 Background101010", "   Nexus :: Icon Manager")
         title.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
-        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background333333 cRed", "✕").OnEvent("Click", (*) => this.Close())
+        this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background101010 cRed", "✕").OnEvent("Click", (*) => this.Close())
+        this.MainGui.Add("Text", "x0 y+2 w" guiW " h1 BackgroundC0C0C0")
 
         this.MainGui.SetFont("s11 cSilver", "Segoe UI")
 
         ; Game path
-        this.LblPath := this.MainGui.Add("Text", "x10 h25 y+10 w785 Center +0x200 Background333333 Border", "  -")
+        this.LblPath := this.MainGui.Add("Text", "x10 h25 y+10 w785 Center +0x200 Background101010 cSilver Border", "  -")
         ; Icon path
-        this.LblIconStatus := this.MainGui.Add("Text", "x10 h25 y+5 w785 Center +0x200 Background333333 Border", "  -")
+        this.LblIconStatus := this.MainGui.Add("Text", "x10 h25 y+5 w785 Center +0x200 Background101010 cSilver Border", "  -")
         ; Sound path
-        this.LblSoundStatus := this.MainGui.Add("Text", "x10 h25 y+5 w785 Center +0x200 Background333333 Border", "  -")
+        this.LblSoundStatus := this.MainGui.Add("Text", "x10 h25 y+5 w785 Center +0x200 Background101010 cSilver Border", "  -")
 
         ; s12 for all remaining controls
         this.MainGui.SetFont("s12 cSilver", "Segoe UI")
 
         ; --- LEFT COLUMN ---
-        this.MainGui.Add("Text", "x10 h30 y+10 +0x200 Background333333 Center", "  Search:  ")
+        this.MainGui.Add("Text", "x10 h30 y+10 +0x200 Background101010 cSilver Center", "  Search:  ")
 
         ; Search box
-        this.SearchBox := this.MainGui.Add("Edit", "x+5 yp w227 Background333333")
+        this.SearchBox := this.MainGui.Add("Edit", "x+5 yp w227 Background101010 cSilver +Border")
         this.SearchBox.OnEvent("Change", (*) => this.FilterList())
 
         ; Game list
-        this.GameList := this.MainGui.Add("ListBox", "x10 y+15 w300 h330 Background333333", [])
+        this.GameList := this.MainGui.Add("ListBox", "x10 y+15 w300 h330 Background101010 cSilver", [])
         this.GameList.OnEvent("Change", (*) => this.OnGameSelect())
 
         ; Bottom buttons
-        this.BtnAdd := this.BtnAddTheme(this.MainGui, "  + Add New  ", (*) => this.ShowAddGameDialog(), "x10 y+15 h26 Center Background333333")
-        this.BtnRemove := this.BtnAddTheme(this.MainGui, "  ✕ Remove Selected  ", (*) => this.RemoveSelectedGame(), "x+10 h26 Center Background333333")
+        this.BtnAdd := this.BtnAddTheme(this.MainGui, "  + Add New  ", (*) => this.ShowAddGameDialog(), "x10 y+15 h26 Center Background101010")
+        this.BtnRemove := this.BtnAddTheme(this.MainGui, "  ✕ Remove Selected  ", (*) => this.RemoveSelectedGame(), "x+10 h26 Center Background101010")
 
         ; --- RIGHT COLUMN ---
         xCol2 := 320
@@ -89,7 +90,7 @@ class IconManagerGui {
 
         this.MainGui.SetFont("s10 cSilver", "Segoe UI")
         ; Preview — aspect-correct ICON0 (320 × 176 native)
-        this.PicPreview := this.MainGui.Add("Picture", "x" xCol2 " y135 w" rW " h" picH " Background333333", "")
+        this.PicPreview := this.MainGui.Add("Picture", "x" xCol2 " y135 w" rW " h" picH " Background101010", "")
         this.PicPreview.OnEvent("Click", (*) => this.ShowPic1Window())
 
         ; Text line
@@ -107,10 +108,10 @@ class IconManagerGui {
         ; Action Buttons (single row)
         ;btnW    := 113
         actionY := soundY + 36
-        this.BtnCopyIcon   := this.BtnAddTheme(this.MainGui, "  Save Icon  ",   (*) => this.CopyAsset("ICON0"), "x" xCol2 " y" actionY " h26 Background333333" )
-        this.BtnCopyPic    := this.BtnAddTheme(this.MainGui, "  Save Pic  ",    (*) => this.CopyAsset("PIC1"),  "x+6 yp h26 Background333333" )
-        this.BtnCopyWav    := this.BtnAddTheme(this.MainGui, "  Save Audio  ",  (*) => this.CopyAsset("WAV"),   "x+6 yp h26 Background333333" )
-        this.BtnOpenFolder := this.BtnAddTheme(this.MainGui, "  Open Folder  ", (*) => this.OpenMediaFolder(), "x+6 yp h26 Background333333"  )
+        this.BtnCopyIcon   := this.BtnAddTheme(this.MainGui, "  Save Icon  ",   (*) => this.CopyAsset("ICON0"), "x" xCol2 " y" actionY " h26 Background101010" )
+        this.BtnCopyPic    := this.BtnAddTheme(this.MainGui, "  Save Pic  ",    (*) => this.CopyAsset("PIC1"),  "x+6 yp h26 Background101010" )
+        this.BtnCopyWav    := this.BtnAddTheme(this.MainGui, "  Save Audio  ",  (*) => this.CopyAsset("WAV"),   "x+6 yp h26 Background101010" )
+        this.BtnOpenFolder := this.BtnAddTheme(this.MainGui, "  Open Folder  ", (*) => this.OpenMediaFolder(), "x+6 yp h26 Background101010"  )
 
         guiH := actionY + 100
         this.PopulateGameList()
@@ -209,26 +210,27 @@ class IconManagerGui {
     ; 3. BROWSE & ADD
     static ShowAddGameDialog() {
         dlg := Gui("+Owner" this.MainGui.Hwnd " -Caption +Border +AlwaysOnTop +ToolWindow", "Add Game")
-        dlg.BackColor := "2A2A2A"
+        dlg.BackColor := "101010"
         dlg.SetFont("s12 cSilver", "Segoe UI")
         dW := 640
 
-        titleBar := dlg.Add("Text", "x0 y0 w" (dW - 30) " h28 +0x200 Background333333", "   Nexus :: Add PS3 / PS4 Game")
+        titleBar := dlg.Add("Text", "x0 y0 w" (dW - 30) " h28 +0x200 Background101010", "   Nexus :: Add PS3 / PS4 Game")
         titleBar.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, dlg.Hwnd))
-        dlg.Add("Text", "x+0 yp w30 h28 +0x200 Center Background333333 cRed", "✕").OnEvent("Click", (*) => dlg.Destroy())
+        dlg.Add("Text", "x+0 yp w30 h28 +0x200 Center Background101010 cRed", "✕").OnEvent("Click", (*) => dlg.Destroy())
+        dlg.Add("Text", "x0 y+2 w" dW " h1 BackgroundC0C0C0")
 
         dlg.Add("Text", "x10 y+10 w" (dW - 20), "Select the game root folder (e.g. 'BlazBlue Calamity Trigger')")
         dlg.Add("Text", "x10 y+3 w" (dW - 20), "PS3: GameName\PS3_GAME\USRDIR\EBOOT.BIN")
         dlg.Add("Text", "x10 y+3 w" (dW - 20), "PS4 (ShadPS4): GameName\sce_sys\icon0.png")
 
         ; Add game folder with explorer like window
-        editPath := dlg.Add("Edit", "x10 y+12 w" (dW - 60) " h30 Background333333")
+        editPath := dlg.Add("Edit", "x10 y+12 w" (dW - 60) " h30 Background101010 cSilver +Border")
 
         ; Select a game folder to add
-        btnBrw := dlg.Add("Text", "x+5 yp w28 h30 Border +0x200 Center Background333333", "…")
+        btnBrw := dlg.Add("Text", "x+5 yp w28 h30 Border +0x200 Center Background101010 cSilver", "…")
         btnBrw.OnEvent("Click", (*) => (p := DirSelect(, 3, "Select Game Root Folder"), p != "" ? editPath.Value := p : 0))
 
-        dlg.Add("Text", "x10 y+14 w" (dW - 20) " h1 Background333333")
+        dlg.Add("Text", "x10 y+14 w" (dW - 20) " h1 BackgroundC0C0C0")
         addFn := (ctrl, *) => (
             folder := Trim(editPath.Value),
             folder != "" && DirExist(folder)
@@ -237,11 +239,11 @@ class IconManagerGui {
         )
 
         ; Add game button
-        btnOk := dlg.Add("Button", "x10 y+5 h30 Default Center Background333333", "  Add Game  ")
+        btnOk := dlg.Add("Button", "x10 y+5 h30 Default Center", "  Add Game  ")
         btnOk.OnEvent("Click", addFn)
 
         ; Cancel button
-        dlg.Add("Button", "x+8 yp h30 Center Background333333", "  Cancel  ").OnEvent("Click", (*) => dlg.Destroy())
+        dlg.Add("Button", "x+8 yp h30 Center", "  Cancel  ").OnEvent("Click", (*) => dlg.Destroy())
         dlg.OnEvent("Escape", (*) => dlg.Destroy())
         dlg.Show("w" dW)
     }
@@ -498,13 +500,13 @@ class IconManagerGui {
         statH := 24
 
         this.PicGui := Gui("-Caption +Border +ToolWindow +AlwaysOnTop", "Nexus :: Background Viewer")
-        this.PicGui.BackColor := "1A1A1A"
+        this.PicGui.BackColor := "101010"
         this.PicGui.SetFont("s11 cSilver", "Segoe UI")
 
         ; Custom title bar
-        tbar := this.PicGui.Add("Text", "x0 y0 w" (picW - 30) " h" tbarH " +0x200 Background2A2A2A", "  Nexus :: Background Viewer")
+        tbar := this.PicGui.Add("Text", "x0 y0 w" (picW - 30) " h" tbarH " +0x200 Background101010", "  Nexus :: Background Viewer")
         tbar.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.PicGui.Hwnd))
-        this.PicGui.Add("Text", "x+0 yp w30 h" tbarH " +0x200 Center Background2A2A2A cRed", "✕")
+        this.PicGui.Add("Text", "x+0 yp w30 h" tbarH " +0x200 Center Background101010 cRed", "✕")
             .OnEvent("Click", (*) => (this.PicGui.Destroy(), this.PicGui := ""))
 
         ; Picture
@@ -512,7 +514,7 @@ class IconManagerGui {
             .OnEvent("Click", (*) => this.ToggleFullscreen())
 
         ; Status bar
-        this.PicGui.Add("Text", "x0 y" (tbarH + picH) " w" picW " h" statH " +0x200 Center Background2A2A2A",
+        this.PicGui.Add("Text", "x0 y" (tbarH + picH) " w" picW " h" statH " +0x200 Center Background101010 cSilver",
             "Click image for fullscreen  |  ESC = close  |  S = switch monitor")
 
         this.PicGui.OnEvent("Escape", (*) => (this.PicGui.Destroy(), this.PicGui := ""))

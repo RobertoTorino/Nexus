@@ -39,11 +39,13 @@ class EmulatorWizardGui {
             WindowManagerGui.RegisterForSnapping(this.MainGui.Hwnd)
 
         w := 860
+        this.MainGui.SetFont("s10 Bold cSilver", "Segoe UI")
         this.MainGui.Add("Text", "x0 y0 w" (w - 30) " h30 +0x200 Background101010", "  Nexus :: Emulator Wizard")
             .OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
         this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background101010 cRed", "✕")
             .OnEvent("Click", (*) => this.Destroy())
         this.MainGui.Add("Text", "x0 y+2 w" w " h1 BackgroundC0C0C0")
+        this.MainGui.SetFont("s10 cSilver", "Segoe UI")
 
         this.MainGui.Add("Text", "x20 y45 cSilver", "Select Emulator")
 
@@ -73,10 +75,10 @@ class EmulatorWizardGui {
         this.MainGui.Add("Text", "x260 y+18 cSilver", "Emulator Settings Schema")
         this.MainGui.Add("Text", "x260 y+2 w560 h20 cSilver", "Values are saved to nexus.ini under each emulator settings section.")
 
-        this.DynamicY := 248
+        this.DynamicY := 258
         this.SettingRows := []
 
-        this.BtnAddTheme(" Save Settings ", (*) => this.OnSaveSettings(), "x260 y460 w130 h28 Background0C660C")
+        this.BtnAddTheme(" Save Settings ", (*) => this.OnSaveSettings(), "x260 y420 w130 h28 Background0C660C")
         this.BtnAddTheme(" Open Emulator Grid ", (*) => EmulatorConfigGui.Show(), "x+10 yp w180 h28 Background101010")
         this.BtnAddTheme(" Close ", (*) => this.Destroy(), "x+10 yp w100 h28 Background6E0000")
 

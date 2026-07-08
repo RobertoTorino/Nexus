@@ -154,8 +154,8 @@ class TeknoParrotManager {
             this.PickerGui.Destroy()
 
         this.PickerGui := Gui("-Caption +Border +AlwaysOnTop +ToolWindow", "TeknoParrot Profile Explorer")
-        this.PickerGui.BackColor := "2A2A2A"
-        this.PickerGui.SetFont("s10 cWhite", "Segoe UI")
+        this.PickerGui.BackColor := "101010"
+        this.PickerGui.SetFont("s10 cSilver", "Segoe UI")
 
         ; ---- [FIX] Snap Logic ----
         this.InitSnapping()
@@ -163,7 +163,8 @@ class TeknoParrotManager {
         headerText := "   NEXUS :: TeknoParrot Profiles  (User: " this.UserCount " / System: " this.SystemCount ")"
 
         ; HEADER BAR (850w)
-        this.PickerGui.Add("Text", "x0 y0 w715 h30 +0x200 Background2A2A2A", headerText).OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.PickerGui.Hwnd))
+        this.PickerGui.Add("Text", "x0 y0 w715 h30 +0x200 Background101010", headerText).OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.PickerGui.Hwnd))
+        this.PickerGui.Add("Text", "x0 y+2 w805 h1 BackgroundC0C0C0")
 
         ; Header Icons [Add] [View] [Close]
         this.BtnAdd := this.AddNavBtn(" ➕ ", this.OnProfileSelected.Bind(this), "x+0 yp ") ; Starts Gray
@@ -171,7 +172,7 @@ class TeknoParrotManager {
         this.BtnClose := this.AddNavBtn(" ❌ ", (*) => this.PickerGui.Destroy(), "x+0 yp  cRed")
 
         ; ListView
-        this.ListView := this.PickerGui.Add("ListView", "x10 y+5 w600 h450 -Hdr Background202020 cWhite", ["Game Title", "XML File", "Type"])
+        this.ListView := this.PickerGui.Add("ListView", "x10 y+5 w600 h450 -Hdr Background101010 cSilver", ["Game Title", "XML File", "Type"])
         this.ListView.OnEvent("DoubleClick", this.OnProfileSelected.Bind(this))
         this.ListView.OnEvent("ItemSelect", this.OnSelectionChanged.Bind(this))
 
@@ -253,7 +254,7 @@ static OnWindowMove(wParam, lParam, msg, hwnd) {
     }
 
     static AddNavBtn(label, callback, options) {
-        btn := this.PickerGui.Add("Text", options " w30 h30 +0x200 +Center", label)
+        btn := this.PickerGui.Add("Text", options " w30 h30 +0x200 +Center +Border Background101010 cSilver", label)
         btn.OnEvent("Click", callback)
         return btn
     }
@@ -261,7 +262,7 @@ static OnWindowMove(wParam, lParam, msg, hwnd) {
     static OnSelectionChanged(*) {
         row := this.ListView.GetNext(0, "F")
         if (row == 0) {
-            this.BtnAdd.Opt("Background333333")
+            this.BtnAdd.Opt("Background101010")
             this.IconCtrl.Value := ""
             return
         }
@@ -273,7 +274,7 @@ static OnWindowMove(wParam, lParam, msg, hwnd) {
         if (type == "User") {
             this.BtnAdd.Opt("Background006600") ; Green for Go
         } else {
-            this.BtnAdd.Opt("Background333333") ; Gray for No-Go
+            this.BtnAdd.Opt("Background101010") ; Neutral for No-Go
         }
 
         selectedData := ""

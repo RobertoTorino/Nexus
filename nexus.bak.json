@@ -3175,9 +3175,17 @@
       "AddedDate":"2026-07-08 17:34:27",
       "ApplicationPath":"C:\\Users\\Admin\\Desktop\\Games\\Vita3K\\ux0\\app\\PCSE00001\\eboot.bin",
       "GameApplication":"eboot.bin",
+      "HasWindowProfile":1,
       "Id":"GAME_VITA3K_PCSE00001",
+      "LastPlayed":"2026-07-08 21:09:41",
       "LauncherType":"VITA3K",
-      "SavedName":"[VITA] PCSE00001"
+      "PlayTimeReadable":"15.2m",
+      "SavedName":"[VITA] PCSE00001",
+      "TotalPlayTime":913,
+      "WinH":918,
+      "WinW":1618,
+      "WinX":151,
+      "WinY":81
     },
     {
       "AddedDate":"2026-07-08 17:34:27",

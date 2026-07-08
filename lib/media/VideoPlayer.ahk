@@ -51,8 +51,8 @@ class VideoPlayer {
 
         ; --- GUI SETUP ---
         this.MainGui := Gui("-Caption +Border +AlwaysOnTop +ToolWindow", "Nexus :: Video Manager")
-        this.MainGui.BackColor := "2A2A2A"
-        this.MainGui.SetFont("s10 cWhite", "Segoe UI")
+        this.MainGui.BackColor := "101010"
+        this.MainGui.SetFont("s10 cSilver", "Segoe UI")
 
         this.MainGui.OnEvent("Close", (*) => this.Close())
         this.MainGui.OnEvent("Size", (guiObj, minMax, w, h) => this.OnResize(minMax, w, h))
@@ -64,27 +64,28 @@ class VideoPlayer {
         HotIf()
 
         ; --- CUSTOM TITLE BAR ---
-        this.TitleText := this.MainGui.Add("Text", "x0 y0 w" (guiW - 120) " h30 +0x200 Background2A2A2A", "  Nexus :: Video Manager")
+        this.TitleText := this.MainGui.Add("Text", "x0 y0 w" (guiW - 120) " h30 +0x200 Background101010", "  Nexus :: Video Manager")
         this.TitleText.OnEvent("Click", (*) => PostMessage(0xA1, 2, 0, this.MainGui.Hwnd))
+        this.MainGui.Add("Text", "x0 y+2 w" guiW " h1 BackgroundC0C0C0")
 
         this.MainGui.SetFont("s10 Norm")
-        this.BtnMin := this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cWhite", "_")
+        this.BtnMin := this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background101010 cSilver", "_")
         this.BtnMin.OnEvent("Click", (*) => this.MainGui.Minimize())
 
-        this.BtnMax := this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cWhite", "□")
+        this.BtnMax := this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background101010 cSilver", "□")
         this.BtnMax.OnEvent("Click", (*) => this.ToggleMaximize())
 
-        this.BtnFull := this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cWhite", "⛶")
+        this.BtnFull := this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background101010 cSilver", "⛶")
         this.BtnFull.OnEvent("Click", (*) => this.ToggleFullScreen())
 
-        this.BtnClose := this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background2A2A2A cWhite", "✕")
+        this.BtnClose := this.MainGui.Add("Text", "x+0 yp w30 h30 +0x200 +Center Background101010 cRed", "✕")
         this.BtnClose.OnEvent("Click", (*) => this.Close())
-        this.MainGui.SetFont("s10 cWhite")
+        this.MainGui.SetFont("s10 cSilver")
 
         ; ---- LISTVIEW (Dark Mode) ----
         ; Changed h400 to h(guiH - 80)
         ; This fills the window but leaves room (80px) for the buttons at the bottom.
-        this.ListCtrl := this.MainGui.Add("ListView", "x-2 y30 w" (guiW + 4) " h" (guiH - 80) " AltSubmit -Grid Background2A2A2A cWhite", ["Filename", "Duration", "Size", "Date Created", "FullPath"])
+        this.ListCtrl := this.MainGui.Add("ListView", "x-2 y30 w" (guiW + 4) " h" (guiH - 80) " AltSubmit -Grid Background101010 cSilver", ["Filename", "Duration", "Size", "Date Created", "FullPath"])
         this.ListCtrl.ModifyCol(1, 300) ; Name
         this.ListCtrl.ModifyCol(2, 80)  ; Duration
         this.ListCtrl.ModifyCol(3, 80)  ; Size
@@ -123,7 +124,7 @@ class VideoPlayer {
     }
 
     static BtnAddTheme(label, callback, options) {
-        btn := this.MainGui.Add("Text", options " h26 +0x200 +Center +Border", label)
+        btn := this.MainGui.Add("Text", options " h26 +0x200 +Center +Border Background101010 cSilver", label)
         btn.OnEvent("Click", callback)
         return btn
     }
