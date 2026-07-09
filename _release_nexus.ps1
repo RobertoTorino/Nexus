@@ -4,6 +4,36 @@ param(
 
 Write-Host "=== Nexus Release Script ==="
 
+function Get-GitHubToken {
+    foreach ($name in @("GITHUB_TOKEN", "GH_TOKEN")) {
+        $value = [Environment]::GetEnvironmentVariable($name)
+        if (-not [string]::IsNullOrWhiteSpace($value)) {
+            return $value.Trim()
+        }
+    }
+
+    try {
+        $ghToken = (gh auth token 2>$null).Trim()
+        if (-not [string]::IsNullOrWhiteSpace($ghToken)) {
+            return $ghToken
+        }
+    } catch {
+        # Ignore when gh is not installed or not authenticated.
+    }
+
+    return ""
+}
+
+function Get-GitHubApiHeaders([string]$Token) {
+    $headers = @{ Accept = "application/vnd.github+json"; "User-Agent" = "Nexus Release Script" }
+    if (-not [string]::IsNullOrWhiteSpace($Token)) {
+        $headers["Authorization"] = "Bearer $Token"
+    }
+    return $headers
+}
+
+$token = Get-GitHubToken
+
 # --- Get current branch ---
 $currentBranch = git rev-parse --abbrev-ref HEAD
 Write-Host ":: Current branch: $currentBranch"
@@ -115,48 +145,58 @@ Write-Host ":: Release complete: $newTag"
 
 # --- Remove old releases ---
 $repo       = "RobertoTorino/Nexus"
-$token      = $env:GITHUB_TOKEN
 $keepLatest = 2
 
-$releases = Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/releases" `
-                              -Headers @{ Authorization = "token $token" } |
-        Sort-Object { $_.created_at } -Descending
-$oldReleases = $releases | Select-Object -Skip $keepLatest
+if (-not [string]::IsNullOrWhiteSpace($token)) {
+    $headers = Get-GitHubApiHeaders $token
 
-foreach ($rel in $oldReleases) {
-    Write-Host ":: Deleting release: $($rel.name) / tag: $($rel.tag_name)"
-    Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/releases/$($rel.id)" -Method Delete -Headers @{ Authorization = "token $token" }
-    if (git ls-remote --tags origin $rel.tag_name) { git push origin :refs/tags/$($rel.tag_name) }
-    git tag -d $($rel.tag_name)
+    try {
+        $releases = Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/releases" -Headers $headers |
+            Sort-Object { $_.created_at } -Descending
+        $oldReleases = $releases | Select-Object -Skip $keepLatest
+
+        foreach ($rel in $oldReleases) {
+            Write-Host ":: Deleting release: $($rel.name) / tag: $($rel.tag_name)"
+            Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/releases/$($rel.id)" -Method Delete -Headers $headers
+            if (git ls-remote --tags origin $rel.tag_name) { git push origin :refs/tags/$($rel.tag_name) }
+            git tag -d $($rel.tag_name)
+        }
+
+        # --- Remove old tags, keep latest 2 per type ---
+        if ($currentBranch -eq "main") { $allTags = git tag --list "v*" --sort=-creatordate }
+        else { $allTags = git tag --list "test-v*" --sort=-creatordate }
+
+        $tagsToDelete = $allTags | Select-Object -Skip 2
+        foreach ($tag in $tagsToDelete) {
+            if (git ls-remote --tags origin $tag) { git push origin :refs/tags/$tag }
+            git tag -d $tag
+            Write-Host ":: Deleted old tag: $tag"
+        }
+
+        # --- Workflow cleanup ---
+        $repoOwner = "RobertoTorino"; $repoName="Nexus"; $keepRuns=2; $workflowId="release.yml"
+        $response = Invoke-RestMethod -Uri "https://api.github.com/repos/$repoOwner/$repoName/actions/workflows/$workflowId/runs?per_page=100" -Headers $headers
+        $allRuns = $response.workflow_runs | Sort-Object { $_.created_at } -Descending
+        $oldRuns = $allRuns | Select-Object -Skip $keepRuns
+
+        foreach ($run in $oldRuns) {
+            Write-Host ":: Deleting workflow run $($run.id) (status: $($run.status), conclusion: $($run.conclusion))"
+            try {
+                Invoke-RestMethod -Uri "https://api.github.com/repos/$repoOwner/$repoName/actions/runs/$($run.id)" -Method Delete -Headers $headers
+                Write-Host ":: Deleted workflow run $($run.id)"
+            } catch {
+                Write-Warning ":: Failed to delete run $($run.id): $_"
+            }
+        }
+
+        Write-Host ":: Old workflows, releases and tags cleaned up, keeping the latest $keepLatest release(s)."
+    } catch {
+        Write-Warning ":: GitHub API cleanup skipped: $($_.Exception.Message)"
+    }
+} else {
+    Write-Warning ":: No GitHub token found. Skipping release/workflow cleanup and status checks. Set GITHUB_TOKEN, GH_TOKEN, or authenticate with gh."
 }
 
-# --- Remove old tags, keep latest 2 per type ---
-if ($currentBranch -eq "main") { $allTags = git tag --list "v*" --sort=-creatordate }
-else { $allTags = git tag --list "test-v*" --sort=-creatordate }
-
-$tagsToDelete = $allTags | Select-Object -Skip 2
-foreach ($tag in $tagsToDelete) {
-    if (git ls-remote --tags origin $tag) { git push origin :refs/tags/$tag }
-    git tag -d $tag
-    Write-Host ":: Deleted old tag: $tag"
-}
-
-# --- Workflow cleanup ---
-$repoOwner = "RobertoTorino"; $repoName="Nexus"; $keepRuns=2; $workflowId="release.yml"
-$headers = @{ "Accept"="application/vnd.github+json"; "Authorization"="Bearer $token" }
-
-$response = Invoke-RestMethod -Uri "https://api.github.com/repos/$repoOwner/$repoName/actions/workflows/$workflowId/runs?per_page=100" -Headers $headers
-$allRuns = $response.workflow_runs | Sort-Object { $_.created_at } -Descending
-$oldRuns = $allRuns | Select-Object -Skip $keepRuns
-
-foreach ($run in $oldRuns) {
-    Write-Host ":: Deleting workflow run $($run.id) (status: $($run.status), conclusion: $($run.conclusion))"
-    try { Invoke-RestMethod -Uri "https://api.github.com/repos/$repoOwner/$repoName/actions/runs/$($run.id)" -Method Delete -Headers $headers
-    Write-Host ":: Deleted workflow run $($run.id)" }
-    catch { Write-Warning ":: Failed to delete run $($run.id): $_" }
-}
-
-Write-Host ":: Old workflows, releases and tags cleaned up, keeping the latest $keepLatest release(s)."
 Write-Host ":: Release finished for tag: $newTag"
 
 # CHECK GITHUB WORKFLOW STATUS + SHOW RELEASE
@@ -167,10 +207,12 @@ if ($currentBranch -ne "main" -and $currentBranch -like "feature/*") {
 
     Write-Host ":: Now checking workflow status and release info... "
     $branch = $currentBranch
-    $headers = @{
-        "Accept" = "application/vnd.github+json"
-        "Authorization" = "Bearer $env:GITHUB_TOKEN"
+    if ([string]::IsNullOrWhiteSpace($token)) {
+        Write-Warning ":: Skipping workflow status check because no GitHub token was found."
+        return
     }
+
+    $headers = Get-GitHubApiHeaders $token
 
     Write-Host "`n:: Checking latest GitHub Actions workflow run..."
 
