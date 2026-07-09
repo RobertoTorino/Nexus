@@ -206,7 +206,7 @@ if ($currentBranch -ne "main" -and $currentBranch -like "feature/*") {
 {
 
     Write-Host ":: Now checking workflow status and release info... "
-    $branch = $currentBranch
+    $tagCommitSha = (git rev-list -n 1 $newTag).Trim()
     if ([string]::IsNullOrWhiteSpace($token)) {
         Write-Warning ":: Skipping workflow status check because no GitHub token was found."
         return
@@ -224,15 +224,18 @@ if ($currentBranch -ne "main" -and $currentBranch -like "feature/*") {
     do
     {
         $workflowFile = "release.yml"
-        $response = Invoke-RestMethod -Uri "https://api.github.com/repos/$repoOwner/$repoName/actions/workflows/$workflowFile/runs?branch=$branch&per_page=1" -Headers $headers
+        $response = Invoke-RestMethod -Uri "https://api.github.com/repos/$repoOwner/$repoName/actions/workflows/$workflowFile/runs?event=push&per_page=20" -Headers $headers
+        $matchingRuns = @($response.workflow_runs | Where-Object { $_.head_sha -eq $tagCommitSha })
 
-        if (-not $response.workflow_runs -or $response.workflow_runs.Count -eq 0)
+        if (-not $matchingRuns -or $matchingRuns.Count -eq 0)
         {
-            Write-Warning ":: No workflow runs found for $workflowFile on branch $branch"
-            return
+            Write-Host ":: No workflow run found yet for tag $newTag (commit $tagCommitSha). Waiting..."
+            Start-Sleep -Seconds 15
+            $attempt++
+            continue
         }
 
-        $latestRun = $response.workflow_runs[0]
+        $latestRun = $matchingRuns | Sort-Object { $_.created_at } -Descending | Select-Object -First 1
 
         Write-Host (":: Current status: {0} (conclusion: {1})" -f $latestRun.status, $latestRun.conclusion)
 
