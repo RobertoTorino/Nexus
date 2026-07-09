@@ -16,13 +16,13 @@
 * **Patch**: If patchable, the PatchService handles this.
 
 ### In Windows: Preferred Settings:
-* Set display settings for both monitors at 100%.
-* Set resolution for both monitors to 1920x1080.
-* Set the refresh rate on both monitors to 60Hz.        
+* Set display settings for both monitors at `100%`.
+* Set resolution for both monitors to `1920x1080`.
+* Set the refresh rate on both monitors to `60Hz`.        
   **Audio mic settings Windows:**
-* Press Windows + R and enter:  mmsys.cpl
-* Right click: Speakers/properties.
-* Go to **Levels** tab and change the second row **Microphone** **level** to **100**.
+* Press `Windows + R` and enter: `mmsys.cpl`
+* Right click: `Speakers/properties`.
+* Go to **`Levels`** tab and change the second row **`Microphone`** **`level`** to **`100`**.
 
 ### Voice Commands Hotkeys
 If you start the app a mic icon will appear in your system tray, that indicates voice commands can be used.

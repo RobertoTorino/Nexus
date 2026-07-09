@@ -35,9 +35,10 @@
 
 #HotIf (WindowManager.ActiveGamePid > 0)
 
+; Escape button
 $Escape:: WindowManager.CloseActiveGame()
 
-; [UPDATED] Uses the new "Nuclear Option" to kill all related processes
+; Escape + 1: Nuclear Option to kill all related processes
 Escape & 1:: WindowManager.KillActiveGame()
 
 #HotIf
