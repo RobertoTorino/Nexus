@@ -118,14 +118,14 @@ $repo       = "RobertoTorino/Nexus"
 $token      = $env:GITHUB_TOKEN
 $keepLatest = 2
 
-$releases = Invoke-RestMethod -Uri "https://api.github.com/_repositories/$repo/releases" `
+$releases = Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/releases" `
                               -Headers @{ Authorization = "token $token" } |
         Sort-Object { $_.created_at } -Descending
 $oldReleases = $releases | Select-Object -Skip $keepLatest
 
 foreach ($rel in $oldReleases) {
     Write-Host ":: Deleting release: $($rel.name) / tag: $($rel.tag_name)"
-    Invoke-RestMethod -Uri "https://api.github.com/_repositories/$repo/releases/$($rel.id)" -Method Delete -Headers @{ Authorization = "token $token" }
+    Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/releases/$($rel.id)" -Method Delete -Headers @{ Authorization = "token $token" }
     if (git ls-remote --tags origin $rel.tag_name) { git push origin :refs/tags/$($rel.tag_name) }
     git tag -d $($rel.tag_name)
 }
@@ -145,13 +145,13 @@ foreach ($tag in $tagsToDelete) {
 $repoOwner = "RobertoTorino"; $repoName="Nexus"; $keepRuns=2; $workflowId="release.yml"
 $headers = @{ "Accept"="application/vnd.github+json"; "Authorization"="Bearer $token" }
 
-$response = Invoke-RestMethod -Uri "https://api.github.com/_repositories/$repoOwner/$repoName/actions/workflows/$workflowId/runs?per_page=100" -Headers $headers
+$response = Invoke-RestMethod -Uri "https://api.github.com/repos/$repoOwner/$repoName/actions/workflows/$workflowId/runs?per_page=100" -Headers $headers
 $allRuns = $response.workflow_runs | Sort-Object { $_.created_at } -Descending
 $oldRuns = $allRuns | Select-Object -Skip $keepRuns
 
 foreach ($run in $oldRuns) {
     Write-Host ":: Deleting workflow run $($run.id) (status: $($run.status), conclusion: $($run.conclusion))"
-    try { Invoke-RestMethod -Uri "https://api.github.com/_repositories/$repoOwner/$repoName/actions/runs/$($run.id)" -Method Delete -Headers $headers
+    try { Invoke-RestMethod -Uri "https://api.github.com/repos/$repoOwner/$repoName/actions/runs/$($run.id)" -Method Delete -Headers $headers
     Write-Host ":: Deleted workflow run $($run.id)" }
     catch { Write-Warning ":: Failed to delete run $($run.id): $_" }
 }
@@ -182,7 +182,7 @@ if ($currentBranch -ne "main" -and $currentBranch -like "feature/*") {
     do
     {
         $workflowFile = "release.yml"
-        $response = Invoke-RestMethod -Uri "https://api.github.com/_repositories/$repoOwner/$repoName/actions/workflows/$workflowFile/runs?branch=$branch&per_page=1" -Headers $headers
+        $response = Invoke-RestMethod -Uri "https://api.github.com/repos/$repoOwner/$repoName/actions/workflows/$workflowFile/runs?branch=$branch&per_page=1" -Headers $headers
 
         if (-not $response.workflow_runs -or $response.workflow_runs.Count -eq 0)
         {
@@ -224,7 +224,7 @@ if ($currentBranch -ne "main" -and $currentBranch -like "feature/*") {
     # === Find latest release and show link ---
     try
     {
-        $releaseResponse = Invoke-RestMethod -Uri "https://api.github.com/_repositories/$repoOwner/$repoName/releases/latest" -Headers $headers
+        $releaseResponse = Invoke-RestMethod -Uri "https://api.github.com/repos/$repoOwner/$repoName/releases/latest" -Headers $headers
     }
     catch
     {
