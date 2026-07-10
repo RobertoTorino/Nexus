@@ -202,7 +202,7 @@ class GuiBuilder {
 
         this.AddNavBtn(this.Label("➕", "Set Launch Path"), (btn, *) => (this.FlashButton(btn), this.OnAddGame()), "x5 y40 c05FBE4 Background101010 " btnW)
         this.AddNavBtn(this.Label("🕹️", "Profiles"), (btn, *) => (this.FlashButton(btn), TeknoParrotManager.ShowPicker()), "x+10 Background101010 " btnW)
-        this.AddNavBtn(this.Label("🧹", "Delete Game"), (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("🧽", "Delete Game"), (btn, *) => (this.FlashButton(btn), this.OnDeleteGame()), "x+10 Background101010 " btnW)
         this.AddNavBtn(this.Label("⚙️", "Emulators"), (btn, *) => (this.FlashButton(btn), EmulatorConfigGui.Show()), "x+10 Background101010 " btnW)
         this.AddNavBtn(this.Label("🪄", "Wizard"), (btn, *) => (this.FlashButton(btn), EmulatorWizardGui.Show()), "x+10 Background101010 " btnW)
 
@@ -220,7 +220,7 @@ class GuiBuilder {
         this.AddNavBtn(this.Label("🌄", "Gallery"), (btn, *) => (this.FlashButton(btn), this.OnOpenGallery()), "x+10 Background101010 " btnW)
         this.AddNavBtn(this.Label("📦", "Database"), (btn, *) => (this.FlashButton(btn), GameDatabaseTool.Show()), "x+10 Background101010 " btnW)
         this.AddNavBtn(this.Label("📝", "Notes"), (btn, *) => (this.FlashButton(btn), this.OnNotes()), "x+10 Background101010 " btnW)
-        this.AddNavBtn(this.Label("📁", "Browser"), (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10 Background101010 " btnW)
+        this.AddNavBtn(this.Label("📂", "Browser"), (btn, *) => (this.FlashButton(btn), this.OnFileBrowser()), "x+10 Background101010 " btnW)
 
         ; --- ROW 2 ---
         this.MainGui.SetFont("s14", "Segoe UI")

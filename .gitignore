@@ -13,3 +13,6 @@
 
 # Local GPG signing identity
 .gpg-identity
+
+/nexus.bak.ini
+/nexus.bak.json
