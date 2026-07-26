@@ -2608,6 +2608,23 @@
       "TotalPlayTime":257
     },
     {
+      "ApplicationPath":"C:\\Users\\Admin\\Desktop\\Games\\TP\\TeknoParrotUi.exe",
+      "ExeName":"TekkenGame-Win64-Shipping.exe",
+      "GameApplication":"TeknoParrotUi.exe",
+      "HasWindowProfile":1,
+      "Id":"GAME_TP_Tekken7_xml",
+      "LastPlayed":"2026-07-26 12:17:13",
+      "LauncherType":"TEKNO",
+      "PlayTimeReadable":"8.0m",
+      "ProfileFile":"Tekken7.xml",
+      "SavedName":"TP_TEKKEN_7_12_2015",
+      "TotalPlayTime":479,
+      "WinH":1119,
+      "WinW":1936,
+      "WinX":-8,
+      "WinY":-19
+    },
+    {
       "ApplicationPath":"D:/RPCS3/games/Uncharted - Drake's Fortune [BCUS98103]/PS3_GAME/USRDIR/EBOOT.BIN",
       "CaptureDir":"captures/GAME_UNCHARTED_-_DRAKE'S_FORTUNE_[BCUS98103]",
       "EbootIsoPath":"D:/RPCS3/games/Uncharted - Drake's Fortune [BCUS98103]/PS3_GAME/USRDIR/EBOOT.BIN",
